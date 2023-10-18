@@ -1,0 +1,28 @@
+site_name: My Site
+site_description: A blog about Azure, DevOps and other stuff
+site_author: Rafael Fernández
+site_url: https://rfernandezdo.github.io
+
+theme: 
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.expand
+    - navigation.sections
+    - toc.integrate
+    - toc.nested
+    - toc.smoothscroll
+    - footer
+
+plugins:  
+  - search  
+  - blog  
+  - tags:
+      tags_file: tags.md    
+  - rss:
+      match_path: blog/posts/.* 
+      date_from_meta:
+        as_creation: date
+      categories:
+        - categories
+        - tags
