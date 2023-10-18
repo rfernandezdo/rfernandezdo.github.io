@@ -1,5 +1,7 @@
 ---
 date: 2023-10-18
+authors:
+  - rfernandezdo
 categories:
   - mkdocs
 tags:  
@@ -31,12 +33,12 @@ Some knowledge:
 
 Create a new repository on GitHub named `username.github.io`, where `username` is your username (or organization name) on GitHub. If the first part of the repository doesn’t exactly match your username, it won’t work, so make sure to get it right.
 
-1. Enable GitHub Pages on your repository
+2. Enable GitHub Pages on your repository
 
 Go into the repository settings and, if you are not using GitHub Pages already, enable GitHub Pages on the `gh-pages` branch.
 
 
-1. Clone the repository
+3. Clone the repository
 
 Go to the folder where you want to store your project, and clone the new repository:
 
@@ -45,7 +47,7 @@ git clone ssh://github.com/username/username.github.io
 cd username.github.io
 ```
 
-1. Create requirements.txt in root folder and install mkdocs, mkdocs-material and plugins
+4. Create requirements.txt in root folder and install mkdocs, mkdocs-material and plugins
 
 ```bash
 mkdocs==1.5.3
@@ -53,7 +55,7 @@ mkdocs-material==9.4.6
 mkdocs-rss-plugin==1.8.0
 ```	
 
-1. Create a Python Virtual Environment and install requirements.txt
+5. Create a Python Virtual Environment and install requirements.txt
   
   ```bash
   python3 -m venv mysite
@@ -61,14 +63,14 @@ mkdocs-rss-plugin==1.8.0
   pip install -r requirements.txt
   ```
 
-1. Initialize your site
+6. Initialize your site
 
 ```bash
 mkdocs new .
 ```
 
 
-1. Add configuration to mkdocs.yml in root folder
+7. Add configuration to mkdocs.yml in root folder
 
 For this post I am going to add the following configuration:
 
@@ -107,11 +109,12 @@ plugins:
         - tags
 ```
 
-2. publish your site
+8. publish your site
 
 ```bash
 mkdocs gh-deploy
 ```
+
 
 
 
