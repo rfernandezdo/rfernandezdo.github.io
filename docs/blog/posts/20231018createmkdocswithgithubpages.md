@@ -47,7 +47,7 @@ git clone ssh://github.com/username/username.github.io
 cd username.github.io
 ```
 
-### Create requirements.txt in root folder and install mkdocs, mkdocs-material and plugins
+### Create requirements.txt in root folder for mkdocs, mkdocs-material and plugins
 
 ```bash
 mkdocs==1.5.3
@@ -57,11 +57,11 @@ mkdocs-rss-plugin==1.8.0
 
 ### Create a Python Virtual Environment and install requirements.txt
   
-  ```bash
-  python3 -m venv mysite
-  source mysite/bin/activate
-  pip install -r requirements.txt
-  ```
+```bash
+python3 -m venv mysite
+source mysite/bin/activate
+pip install -r requirements.txt
+```
 
 ### Initialize your site
 
