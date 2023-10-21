@@ -5,6 +5,9 @@ site_url: https://rfernandezdo.github.io
 
 theme: 
   name: material
+  palette:
+    primary: blue
+    accent: white
   features:
     - navigation.tabs
     - navigation.expand
@@ -13,9 +16,26 @@ theme:
     - toc.nested
     - toc.smoothscroll
     - footer
+    - content.code.copy
+    - content.code.select
+    - content.code.annotate
+    - content.tooltips
+extra:
+  social:
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/rafaelfernandezd/
+      name: LinkedIn
+    - icon: fontawesome/brands/github
+      link: https://github.com/rfernandezdo
+      name: GitHub
+    - icon: fontawesome/solid/square-rss
+      link: https://rfernandezdo.github.io/feed_rss_created.xml
+      name: RSS feed
+copyright: Copyright &copy; 2023-now Rafael Fernández
 
-plugins:  
+plugins:
   - search  
+  - mermaid2
   - blog  
   - tags:
       tags_file: tags.md    
@@ -26,3 +46,53 @@ plugins:
       categories:
         - categories
         - tags
+  - minify:
+      minify_html: true
+      minify_js: true
+      minify_css: true
+      htmlmin_opts:
+          remove_comments: true
+      cache_safe: true
+  - glightbox:
+      zoomable: true
+      draggable: true
+      skip_classes:
+        - skip-lightbox
+    #- meta in insiders, review in next release
+  - social
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - md_in_html
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - footnotes
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
