@@ -120,6 +120,5 @@ markdown_extensions:
 nav:
   - Blog:
     - blog/index.md
-  - Blog/tags:  
     - blog/tags.md
   - About: about.md
