@@ -1,4 +1,4 @@
-site_name: My Site
+site_name: Un Rinconcito donde contar lo que quiera
 site_description: A blog about Azure, DevOps and other stuff
 site_author: Rafael Fernández
 site_url: https://rfernandezdo.github.io
@@ -6,12 +6,25 @@ site_url: https://rfernandezdo.github.io
 theme: 
   name: material
   palette:
-    primary: blue
-    accent: white
+    - scheme: default
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: black
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
   features:
+    - navigation.instant
+    - navigation.instant.progress
     - navigation.tabs
     - navigation.expand
     - navigation.sections
+    - navigation.top
     - toc.integrate
     - toc.nested
     - toc.smoothscroll
@@ -36,9 +49,16 @@ copyright: Copyright &copy; 2023-now Rafael Fernández
 plugins:
   - search  
   - mermaid2
-  - blog  
+  - blog:
+      archive: true
+      archive_toc: true
+      archive_name: Archive
+      archive_description: All posts
+      archive_date_format: yyyy/MM
+      archive_url_date_format: yyyy/MM
+      archive_url_format: "{date}"
   - tags:
-      tags_file: tags.md    
+      tags_file: blog/tags.md
   - rss:
       match_path: blog/posts/.* 
       date_from_meta:
@@ -96,3 +116,10 @@ markdown_extensions:
       pygments_lang_class: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
+
+nav:
+  - Blog:
+    - blog/index.md
+  - Blog/tags:  
+    - blog/tags.md
+  - About: about.md
