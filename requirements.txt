@@ -1,5 +1,7 @@
-mkdocs==1.5.3
-mkdocs-material==9.4.6
-mkdocs-rss-plugin==1.8.0
+mkdocs>=1.5.3
+mkdocs-material>=9.4.6
+mkdocs-rss-plugin>=1.8.0
 mkdocs-glightbox
 mkdocs-minify-plugin
+mkdocs-mermaid2-plugin
+mkdocs-static-i18n

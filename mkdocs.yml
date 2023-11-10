@@ -19,8 +19,8 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
   features:
-    - navigation.instant
-    - navigation.instant.progress
+    #- navigation.instant
+    #- navigation.instant.progress
     - navigation.tabs
     - navigation.expand
     - navigation.sections
@@ -53,7 +53,6 @@ plugins:
       archive: true
       archive_toc: true
       archive_name: Archive
-      archive_description: All posts
       archive_date_format: yyyy/MM
       archive_url_date_format: yyyy/MM
       archive_url_format: "{date}"
@@ -122,3 +121,4 @@ nav:
     - blog/index.md
     - blog/tags.md
   - About: index.md
+  - Contributions: contributions.md
