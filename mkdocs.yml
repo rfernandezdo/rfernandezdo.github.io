@@ -19,8 +19,8 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
   features:
-    #- navigation.instant
-    #- navigation.instant.progress
+    - navigation.instant
+    - navigation.instant.progress
     - navigation.tabs
     - navigation.expand
     - navigation.sections
@@ -44,7 +44,19 @@ extra:
     - icon: fontawesome/solid/square-rss
       link: https://rfernandezdo.github.io/feed_rss_created.xml
       name: RSS feed
+  alternate:
+      # Original Language
+    - name: English
+      lang: en
+      link: https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&_x_tr_tl=es&_x_tr_hl=es&_x_tr_pto=wapp # Google Translate link
+      # Extra languages
+    - name: Spanish
+      lang: es # Language code
+      link: https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en&_x_tr_pto=wapp # Google Translate link
+      # _x_tr_sl = source language
+      # _x_tr_tl = translation language
 copyright: Copyright &copy; 2023-now Rafael Fernández
+
 
 plugins:
   - search  
