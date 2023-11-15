@@ -29,8 +29,12 @@ Generally, I try to contribute to the community in the following ways:
 
 
 - [Global Azure Zaragoza 2022](https://cloudriders.es/global-azure-2022-zaragoza-continua-en-la-manana-del-sabado)
-    - Enterprise Scale Zone – Empieza bien 
-    - Enterprise Scale Zone – CAF Landing zones for Terraform
+    - [Enterprise Scale Zone – Empieza bien](https://youtu.be/9BgMrhw5fo4)
+    - [Enterprise Scale Zone – CAF Landing zones for Terraform](https://youtu.be/23YVGSLQPeg)
+
+- [Microsoft Azure Documentation](https://github.com/MicrosoftDocs/azure-docs)
+    - [Example added for Azure IP reserves in subnet](https://github.com/MicrosoftDocs/azure-docs/pull/91978)
 
 
-
+- [Azure-Samples](https://github.com/Azure-Samples)
+    - [Update example KeyVault-Rotation-StorageAccountKey-PowerShell](https://github.com/Azure-Samples/keyvault-rotation-storageaccountkey-powershell/pull/1)
