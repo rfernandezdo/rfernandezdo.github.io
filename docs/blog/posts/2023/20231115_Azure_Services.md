@@ -1,5 +1,4 @@
 ---
-draft: true
 date: 2023-11-15
 authors:
   - rfernandezdo
