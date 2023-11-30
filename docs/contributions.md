@@ -11,6 +11,10 @@ Generally, I try to contribute to the community in the following ways:
 
 ## 2023
 
+- [Microsoft Azure Documentation](https://github.com/MicrosoftDocs/)
+    - [Added comparative table to Containers](https://github.com/MicrosoftDocs/azure-docs/pull/117600)
+    - [Add mind maps to WAF pillars](https://github.com/MicrosoftDocs/well-architected/pull/135)
+
 - [mingrammer](https://github.com/mingrammer/)
     - [Update azure icons to v12 mingrammer](https://github.com/mingrammer/diagrams/pull/865)
 
