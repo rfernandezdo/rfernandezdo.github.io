@@ -6,3 +6,8 @@ mkdocs-minify-plugin
 mkdocs-mermaid2-plugin
 mkdocs-static-i18n
 mkdocs-material[imaging]
+mkdocs-table-reader-plugin
+mkdocs-redirects
+openpyxl
+pillow
+mkdocs-google-translate
