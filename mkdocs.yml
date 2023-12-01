@@ -22,9 +22,11 @@ theme:
     - navigation.instant
     - navigation.instant.progress
     - navigation.tabs
+    - navigation.tabs.sticky
     - navigation.expand
     - navigation.sections
     - navigation.top
+    - navigation.tracking
     - toc.integrate
     - toc.nested
     - toc.smoothscroll
@@ -61,6 +63,7 @@ copyright: Copyright &copy; 2023-now Rafael Fernández
 plugins:
   - search  
   - mermaid2
+  - table-reader
   - blog:
       archive: true
       archive_toc: true
@@ -91,6 +94,8 @@ plugins:
         - skip-lightbox
     #- meta in insiders, review in next release
   - social
+hooks:
+    - scripts/splitMCSB.py
 markdown_extensions:
   - admonition
   - pymdownx.details
@@ -134,3 +139,23 @@ nav:
     - blog/tags.md
   - About: index.md
   - Contributions: contributions.md
+  - Azure:
+    - Security:
+      - MCSB:
+          - Azure/Security/MCSB/Readme.md
+          - Azure/Security/MCSB/Asset Management.md
+          - Azure/Security/MCSB/Backup and Recovery.md
+          - Azure/Security/MCSB/Data Protection.md
+          - Azure/Security/MCSB/DevOps Security.md
+          - Azure/Security/MCSB/Endpoint Security.md
+          - Azure/Security/MCSB/Governance and Strategy.md
+          - Azure/Security/MCSB/Identity Management.md
+          - Azure/Security/MCSB/Incident Response.md
+          - Azure/Security/MCSB/Logging and Threat Detection.md
+          - Azure/Security/MCSB/Network Security.md
+          - Azure/Security/MCSB/Posture and Vulnerability Mgmt.md
+          - Azure/Security/MCSB/Privileged Access.md
+
+extra_javascript:
+  - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
+  - javascripts/tablesort.js
