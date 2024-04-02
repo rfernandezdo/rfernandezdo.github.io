@@ -11,3 +11,4 @@ mkdocs-redirects
 openpyxl
 pillow
 mkdocs-google-translate
+pymdown-extensions
