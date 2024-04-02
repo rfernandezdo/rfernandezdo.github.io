@@ -12,7 +12,7 @@ tags:
 
 # Usando EPAC para Desplegar Azure Policy
 
-Azure Policy es una herramienta poderosa que nos permite gestionar y prevenir problemas de configuración en nuestros recursos de Azure. En este post, vamos a explorar cómo podemos usar EPAC para desplegar Azure Policy.
+Azure Policy es una herramienta que nos permite gestionar y prevenir problemas de configuración en nuestros recursos de Azure. En este post, vamos a explorar cómo podemos usar EPAC para desplegar Azure Policy.
 
 ## ¿Qué es EPAC?
 
