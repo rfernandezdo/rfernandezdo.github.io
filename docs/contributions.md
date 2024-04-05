@@ -8,6 +8,9 @@ Generally, I try to contribute to the community in the following ways:
 - Post in my blog
 - Some contributions to github projects azure related(see below)
 
+## 2024
+
+- Organizer of Azure Global Seville 2024[https://globalazure.net/communities/2024/AzureSevilla]
 
 ## 2023
 
