@@ -3,6 +3,8 @@ date: 2023-11-30
 authors:
   - rfernandezdo
 categories:
+  - Azure Services
+tags:
   - Azure Container Apps
   
 ---

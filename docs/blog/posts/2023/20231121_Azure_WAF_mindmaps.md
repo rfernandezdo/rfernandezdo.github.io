@@ -3,7 +3,7 @@ date: 2023-11-21
 authors:
   - rfernandezdo
 categories:
-  - Azure Services
+  - Azure Frameworks
 tags:  
   - Azure Well-Architected Framework
 ---
