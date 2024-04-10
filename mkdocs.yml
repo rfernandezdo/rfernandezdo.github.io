@@ -68,8 +68,8 @@ plugins:
       archive: true
       archive_toc: true
       archive_name: Archive
-      archive_date_format: yyyy/MM
-      archive_url_date_format: yyyy/MM
+      archive_date_format: yyyy
+      archive_url_date_format: yyyy
       archive_url_format: "{date}"
   - tags:
       tags_file: blog/tags.md

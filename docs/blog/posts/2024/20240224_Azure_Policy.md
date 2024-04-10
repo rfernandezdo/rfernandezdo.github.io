@@ -53,10 +53,7 @@ graph TD;
     B1[Policy 1] -->|Belongs to| C[Initiative 1]
     B2[Policy 2] -->|Belongs to| C[Initiative 1]
     B3[Policy 3] -->|Belongs to| D[Initiative 2]
-    C[Initiative 1] -->|Contains| D1[Policy 4]
-    C[Initiative 1] -->|Contains| D2[Policy 5]
-    D[Initiative 2] -->|Contains| E1[Policy 6]
-    D[Initiative 2] -->|Contains| E2[Policy 7]
+
 
     classDef azurePolicy fill:#f9f,stroke:#333,stroke-width:2px;
     classDef policy fill:#fc9,stroke:#333,stroke-width:2px;
@@ -74,6 +71,38 @@ Initiatives allow you to:
 - Streamline governance by organizing policies logically.
 
 By using initiatives, you can efficiently manage and enforce compliance with regulatory standards (e.g., CIS benchmarks, PCI DSS) or organizational best practices.
+
+
+## Assignments
+
+**Assignments** in Azure Policy are the mechanism to apply policies or initiatives to specific scopes within Azure. You can assign policies to subscriptions, resource groups, or even individual resources. Assignments help in enforcing governance and compliance standards across your Azure environment.
+
+```mermaid
+graph TD;
+    A[Azure Policy] -->|Contains| B1[Policy 1]
+    A[Azure Policy] -->|Contains| B2[Policy 2]
+    A[Azure Policy] -->|Contains| B3[Policy 3]
+    A[Azure Policy] -->|Contains| B4[Policy 4]
+    B1[Policy 1] -->|Belongs to| C[Initiative 1]
+    B2[Policy 2] -->|Belongs to| C[Initiative 1]
+    B3[Policy 3] -->|Belongs to| D[Initiative 2]
+    C[Initiative 1] -->|Assigned to| E[Subscription 1]
+    D[Initiative 2] -->|Assigned to| F[Resource Group 1]
+    B4[Policy 4] -->|Assigned to| G[Management Group 1]
+
+    classDef azurePolicy fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef policy fill:#fc9,stroke:#333,stroke-width:2px;
+    classDef initiative fill:#9cf,stroke:#333,stroke-width:2px;
+    classDef assignment fill:#9f9,stroke:#333,stroke-width:2px;
+
+    class A,B1,B2,B3,B4 azurePolicy;
+    class C,D initiative;
+    class E,F,G assignment;
+    class D1,D2,E1,E2 policy;
+
+```
+
+
 
 ## Conclusion
 
