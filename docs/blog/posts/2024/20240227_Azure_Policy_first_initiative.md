@@ -15,7 +15,7 @@ Azure Policy is a service in Azure that you use to create, assign and manage pol
 In this post, we'll walk through the steps of creating your first initiative in Azure.
 
 !!! Info
-    You need to have a good understanding of Azure Policy before creating an initiative. If you're new to Azure Policy, check out our post on [Azure Policy] and [Azure Policy first policy]
+    You need to have a good understanding of Azure Policy before creating an initiative. If you're new to Azure Policy, check out our post on [Azure Policy] and [Writing Your First Policy in Azure with Portal].
 
 [Azure Policy]: 20240224_Azure_Policy.md
 [Writing Your First Policy in Azure with Portal]: 20240226_Azure_Policy_first_policy.md

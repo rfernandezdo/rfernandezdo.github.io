@@ -10,6 +10,18 @@ tags:
 ---
 # Manage Azure Policy GitHub Action
 
+It's recommended to review:
+
+- [Azure Policy]
+- [Writing Your First Policy in Azure with Portal]
+- [Writing Your First Initiative in Azure with Portal]
+
+
+
+[Azure Policy]: 20240224_Azure_Policy.md
+[Writing Your First Policy in Azure with Portal]: 20240226_Azure_Policy_first_policy.md
+[Writing Your First Initiative in Azure with Portal]: 20240227_Azure_Policy_first_initiative.md
+
 ## Overview
 
 The **Manage Azure Policy** GitHub Action empowers you to enforce organizational standards and assess compliance at scale using Azure policies. With this action, you can seamlessly integrate policy management into your CI/CD pipelines, ensuring that your Azure resources adhere to the desired policies.
@@ -120,7 +132,7 @@ You need to create a folder structure like this:
 !!! info
     - The `id` value specifies where you are going to define the policy.
 
-```json title=policy.json
+```json title="policy.json"
 {
     "id": "/providers/Microsoft.Management/managementGroups/00000000-0000-0000-0000-000000000000/providers/Microsoft.Authorization/policyDefinitions/requite-tag-and-its-value",
     "type": "Microsoft.Authorization/policyDefinitions",
@@ -173,7 +185,7 @@ You need to create a folder structure like this:
     - name and id are related.
     - The `policyDefinitionId` value should match the `id` value in the `policy.json` file.
 
-```json title=assign.testRG_testazurepolicy.json
+```json title="assign.testRG_testazurepolicy.json"
 {
     "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-testazurepolicy/providers/Microsoft.Authorization/policyAssignments/599a2c3a1a3b1f8b8e547b3e",
     "type": "Microsoft.Authorization/policyAssignments",
@@ -182,8 +194,11 @@ You need to create a folder structure like this:
         "description": "This policy audits the presence of a specific tag and its value.",
         "displayName": "Require a tag and its value",
         "parameters": {
-            "effect": {
-              "value": "Deny"
+            "tagName": {
+              "value": "environment"
+            },
+            "tagValue": {
+              "value": "production"
             }
           },
           "nonComplianceMessages": [
@@ -211,7 +226,7 @@ You need to create a folder structure like this:
     - The `parameters` object defines the parameters that can be passed to the policies within the initiative.
     - The `policyDefinitionId` value should match the `id` value in the `policy.json` file of the policy.
 
-```json title=policyset.json
+```json title="policyset.json"
 {
     "id": "/providers/Microsoft.Management/managementGroups/00000000-0000-0000-0000-000000000000/providers/Microsoft.Authorization/policySetDefinitions/initiative1",
     "type": "Microsoft.Authorization/policySetDefinitions",
@@ -247,6 +262,9 @@ You need to create a folder structure like this:
                     },
                     "tagValue": {
                         "value": "[parameters('tagValue')]"
+                    },
+                    "effect": {
+                        "value": "Deny"
                     }
                 }
             }
@@ -256,7 +274,7 @@ You need to create a folder structure like this:
 ```
 #### assign.testRG_testazurepolicyset.json
 
-```json title=assign.testRG_testazurepolicyset.json
+```json title="assign.testRG_testazurepolicyset.json"
 {
     "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-testazurepolicy/providers/Microsoft.Authorization/policyAssignments/ada0f4a34b09cf6ad704cc62",
     "type": "Microsoft.Authorization/policyAssignments",
@@ -265,8 +283,11 @@ You need to create a folder structure like this:
         "description": "This initiative audits the presence of a specific tag and its value.",
         "displayName": "Require a tag and its value",
         "parameters": {
-            "effect": {
-              "value": "Deny"
+            "tagName": {
+              "value": "environment"
+            },
+            "tagValue": {
+              "value": "production"
             }
           },
           "nonComplianceMessages": [
