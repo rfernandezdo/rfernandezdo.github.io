@@ -47,7 +47,7 @@ The process includes optional approval gates after each deployment step. These a
 
 !!! Warning
 
-  EPAC is a true desired state deployment technology. It takes possession of all Policy Resources at the deploymentRootScope and its children. It will delete any Policy resources not defined in the EPAC repo.
+    EPAC is a true desired state deployment technology. It takes possession of all Policy Resources at the deploymentRootScope and its children. It will delete any Policy resources not defined in the EPAC repo.
 
 ## Conclusion
 
