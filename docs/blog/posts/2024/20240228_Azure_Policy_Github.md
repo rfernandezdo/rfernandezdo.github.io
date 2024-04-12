@@ -8,9 +8,9 @@ categories:
 tags:
   - Azure Policy      
 ---
-## Manage Azure Policy GitHub Action
+# Manage Azure Policy GitHub Action
 
-### Overview
+## Overview
 
 The **Manage Azure Policy** GitHub Action empowers you to enforce organizational standards and assess compliance at scale using Azure policies. With this action, you can seamlessly integrate policy management into your CI/CD pipelines, ensuring that your Azure resources adhere to the desired policies.
 
@@ -18,7 +18,7 @@ The **Manage Azure Policy** GitHub Action empowers you to enforce organizational
     This project does not have received any updates since some time, but it is still a simple option to develop your Azure Policies.
     As everything cannot be good to say that this deployment method has a major drawback, deletions must be done by hand :S
 
-### Key Features
+## Key Features
 
 1. **Customizable Workflows**: GitHub workflows are highly customizable. You have complete control over the sequence in which Azure policies are rolled out. This flexibility enables you to follow safe deployment practices and catch regressions or bugs well before policies are applied to critical resources.
 
@@ -47,7 +47,7 @@ The **Manage Azure Policy** GitHub Action empowers you to enforce organizational
 4. **Inputs for the Action**:
     - **Paths**: Specify the mandatory path(s) to the directory containing your Azure policy files.
 
-### Sample Workflow
+## Sample Workflow
 
 Here's an example of how you can apply policies at the Management Group scope using the **Manage Azure Policy** action:
 
@@ -89,7 +89,7 @@ jobs:
 Remember to replace the placeholder values (such as `secrets.AZURE_CREDENTIALS`) with your actual configuration.
 
 
-### Example of use for Policy
+## Example of use for Policy
 
 In this example we define all our policies and initiatives at root management group level and assign to resource group, and we have a policy that requires a specific tag and its value.
 
@@ -109,13 +109,13 @@ You need to create a folder structure like this:
 
 
 
-#### policies
+### policies
 
 !!! info
     - The `policy.json` file contains the policy definition, and the `assign.<name>.json` file specifies how the policy is applied.  
  
 
-##### policy.json
+#### policy.json
 
 !!! info
     - The `id` value specifies where you are going to define the policy.
@@ -164,7 +164,7 @@ You need to create a folder structure like this:
     }
 ```
 
-##### assign.testRG_testazurepolicy.json
+#### assign.testRG_testazurepolicy.json
 
 !!! info
     - Change the `id` and `scope` values in the `assign.<name>.json` file to match your Azure subscription and resource group.
@@ -198,12 +198,12 @@ You need to create a folder structure like this:
 }
 ```
 
-#### initiatives
+### initiatives
 
 !!! info
     - The `policyset.json` file contains the policy definition, and the `assign.<name>.json` file specifies how the initiative is applied.
 
-##### policyset.json
+#### policyset.json
 
 !!! info 
     - The `id` value specifies where you are going to define the initiative.
@@ -254,7 +254,7 @@ You need to create a folder structure like this:
     }
 }
 ```
-##### assign.testRG_testazurepolicyset.json
+#### assign.testRG_testazurepolicyset.json
 
 ```json title=assign.testRG_testazurepolicyset.json
 {
@@ -281,7 +281,7 @@ You need to create a folder structure like this:
 }
 ```
 
-### Conclusion
+## Conclusion
 
 By incorporating the **Manage Azure Policy** action into your GitHub workflows, you can seamlessly enforce policies, maintain compliance, and ensure the robustness of your Azure resources, although it has its drawbacks, it is one more step compared to a portal. Later we will see the deployment with a more robust tool: EPAC
 
