@@ -98,12 +98,12 @@ jobs:
           assign.*_testRG_*.json
 ```
 
-Remember to replace the placeholder values (such as `secrets.AZURE_CREDENTIALS`) with your actual configuration.
+Remember to replace the placeholder values (such as `secrets.AZURE_CREDENTIALS`) with your actual configuration, you can follow this instructions to create a service principal and get the credentials: [Create a service principal and get the credentials](https://github.com/Azure/manage-azure-policy?tab=readme-ov-file#configure-credentials-for-azure-login-action)
 
 
 ## Example of use for Policy
 
-In this example we define all our policies and initiatives at root management group level and assign to resource group, and we have a policy that requires a specific tag and its value.
+In this example we define all our policies and initiatives at management group level and assign to resource group, and we have a policy that requires a specific tag and its value.
 
 You need to create a folder structure like this:
 
@@ -160,7 +160,7 @@ You need to create a folder structure like this:
                     "description": "Value of the tag, such as 'production'"
                 }
             }
-        },
+        }
         },
         "policyRule": {
             "if": {
