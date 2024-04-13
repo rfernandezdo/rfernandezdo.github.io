@@ -24,7 +24,7 @@ Generally, I try to contribute to the community in the following ways:
 - [Cloud Adoption Framework for Azure - Terraform module](https://github.com/aztfmod/terraform-azurerm-caf)
     - [First version of the module to support azurerm_linux_function_app](https://github.com/aztfmod/terraform-azurerm-caf/pull/1838)
     - [Feature/add ddos protection plan id var non global to ddos](https://github.com/aztfmod/terraform-azurerm-caf/pull/1831)
-    
+- [Microsoft Cloud Adoption Framework for Azure, run aznamingtool in podman](https://github.com/microsoft/CloudAdoptionFramework/pull/148)
 
 
 ## 2022
@@ -45,3 +45,5 @@ Generally, I try to contribute to the community in the following ways:
 
 - [Azure-Samples](https://github.com/Azure-Samples)
     - [Update example KeyVault-Rotation-StorageAccountKey-PowerShell](https://github.com/Azure-Samples/keyvault-rotation-storageaccountkey-powershell/pull/1)
+
+- [Azure Naming Calculator](https://github.com/rfernandezdo/azure-naming-calculator/) for early stage of the Cloud Adoption Framework for Azure
