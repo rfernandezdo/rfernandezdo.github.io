@@ -12,18 +12,18 @@ tags:
 
 # Enterprise Azure Policy as Code (EPAC)
 
-Enterprise Azure Policy as Code (EPAC) is a powerful tool that allows organizations to manage Azure Policies as code in a git repository². It's designed for medium and large organizations with a larger number of Policies, Policy Sets, and Assignments, and/or complex deployment scenarios¹.
+Enterprise Azure Policy as Code (EPAC) is a powerful tool that allows organizations to manage Azure Policies as code in a git repository. It's designed for medium and large organizations with a larger number of Policies, Policy Sets, and Assignments, and/or complex deployment scenarios.
 
 ## Key Features of EPAC
 
-- **Single and multi-tenant policy deployment**: EPAC supports both single and multi-tenant policy deployments, making it versatile for different organizational structures¹.
-- **Easy CI/CD Integration**: EPAC can be easily integrated with any CI/CD tool, which makes it a great fit for DevOps environments¹.
-- **Operational scripts**: EPAC includes operational scripts to simplify operational tasks¹.
-- **Integration with Azure Landing Zones**: EPAC provides a mature integration with Azure Landing Zones. Utilizing Azure Landing Zones together with EPAC is highly recommended¹.
+- **Single and multi-tenant policy deployment**: EPAC supports both single and multi-tenant policy deployments, making it versatile for different organizational structures.
+- **Easy CI/CD Integration**: EPAC can be easily integrated with any CI/CD tool, which makes it a great fit for DevOps environments.
+- **Operational scripts**: EPAC includes operational scripts to simplify operational tasks.
+- **Integration with Azure Landing Zones**: EPAC provides a mature integration with Azure Landing Zones. Utilizing Azure Landing Zones together with EPAC is highly recommended.
 
 ## Who Should Use EPAC?
 
-EPAC is designed for medium and large organizations with a larger number of Policies, Policy Sets, and Assignments, and/or complex deployment scenarios¹. However, smaller organizations implementing fully-automated DevOps deployments of every Azure resource (known as Infrastructure as Code) can also benefit from EPAC¹.
+EPAC is designed for medium and large organizations with a larger number of Policies, Policy Sets, and Assignments, and/or complex deployment scenarios. However, smaller organizations implementing fully-automated DevOps deployments of every Azure resource (known as Infrastructure as Code) can also benefit from EPAC.
 
 ## How Does EPAC Work?
 
