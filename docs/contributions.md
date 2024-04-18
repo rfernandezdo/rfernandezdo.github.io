@@ -10,7 +10,7 @@ Generally, I try to contribute to the community in the following ways:
 
 ## 2024
 
-- Organizer of [Azure Global Seville 2024](https://globalazure.net/communities/2024/AzureSevilla)
+- Organizer of [Azure Global Seville 2024](https://globalazure.net/communities/2024/AzureSevilla) and collaborator in Global Azure Spain 2024, Zaragoza.
 
 ## 2023
 
