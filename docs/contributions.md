@@ -14,6 +14,8 @@ Generally, I try to contribute to the community in the following ways:
 
 ## 2023
 
+
+- Creator of [Azure Certified World Community](https://www.linkedin.com/groups/9230216/), a community by and for Azure Certified Experts.
 - [Microsoft Azure Documentation](https://github.com/MicrosoftDocs/)
     - [Added comparative table to Containers](https://github.com/MicrosoftDocs/azure-docs/pull/117600)
     - [Add mind maps to WAF pillars](https://github.com/MicrosoftDocs/well-architected/pull/135)
