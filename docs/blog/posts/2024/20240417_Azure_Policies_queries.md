@@ -1,12 +1,12 @@
 ---
 draft: false
-date: 2024-04-17    
+date: 2024-04-17
 authors:
   - rfernandezdo
 categories:
     - Azure Services
 tags:
-    - Azure ARC
+    - Azure Policy
 ---
 
 # Azure Policy useful queries

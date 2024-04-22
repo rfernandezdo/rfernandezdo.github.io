@@ -37,7 +37,7 @@ This is the common structure for the Management Groups in the Enterprise Scale L
         B --> C[Decommissioned]
         B --> D[Landing Zones]
         B --> E[Platform]
-        D --> F[Sandboxex]
+        D --> F[Sandboxes]
         D --> G[Corp]
         D --> H[Online]
         E --> I[Connectivity]
