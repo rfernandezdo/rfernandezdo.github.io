@@ -269,7 +269,12 @@ jobs:
 ```	
 
 
-## CI/CD with Github Flow  
+## CI/CD with Github Flow 
+
+We will use the Github Flow to manage the CI/CD process. We will create a Github Actions to deploy the policies to the Azure environment(s) defined in the global-settings.jsonc file.
+
+![](image-3.png)
+
 
 We can open a second terminal and execute the following command to create the Github Actions in one upper level folder of our repository. This command will create the Github Actions in the `.github\workflows` folder of the repository. :
 
@@ -287,6 +292,7 @@ Now, we need to create some environments with secrets in the repository to use i
 | TENANT-PLAN | Build deployment plan for `tenant` | ci-cd-root-policy-reader |
 | TENANT-DEPLOY-POLICY | Deploy Policy resources for `tenant` | ci-cd-root-policy-contributor |
 | TENANT-DEPLOY-ROLES | Deploy Roles for `tenant` | ci-cd-root-user-assignments |
+| TENANT-REMEDIATE-POLICY | Remediate Policy resources for `tenant` | ci-cd-root-policy-contributor |
 
 You need  to [Configure a federated identity credential on an app](https://learn.microsoft.com/en-us/entra/workload-id/workload-identity-federation-create-trust?pivots=identity-wif-apps-methods-azp#configure-a-federated-identity-credential-on-an-app) too.
 
