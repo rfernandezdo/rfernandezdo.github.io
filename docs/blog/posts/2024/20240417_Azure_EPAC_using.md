@@ -37,7 +37,7 @@ This is the common structure for the Management Groups in the Enterprise Scale L
         B --> C[Decommissioned]
         B --> D[Landing Zones]
         B --> E[Platform]
-        D --> F[Sandboxes]
+        B --> F[Sandboxes]
         D --> G[Corp]
         D --> H[Online]
         E --> I[Connectivity]
@@ -53,7 +53,7 @@ For this use case, we will use the `Landing Zones` Management Group for duplicat
       B --> C[dev-decommissioned]
       B --> D[dev-landingzones]
       B --> E[dev-platform]
-      D --> F[dev-sandbox]
+      B --> F[dev-sandbox]
       D --> G[dev-corp]
       D --> H[dev-online]
       E --> I[dev-connectivity]
@@ -63,7 +63,7 @@ For this use case, we will use the `Landing Zones` Management Group for duplicat
       L --> M[prod-decommissioned]
       L --> N[prod-landingzones]
       L --> O[prod-platform]
-      N --> P[prod-sandbox]
+      L --> P[prod-sandbox]
       N --> Q[prod-corp]
       N --> R[prod-online]
       O --> S[prod-connectivity]
@@ -269,7 +269,7 @@ jobs:
 ```	
 
 
-## CI/CD with Github Flow 
+## CI/CD with Github Flow
 
 We will use the Github Flow to manage the CI/CD process. We will create a Github Actions to deploy the policies to the Azure environment(s) defined in the global-settings.jsonc file.
 
