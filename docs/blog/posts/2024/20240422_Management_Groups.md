@@ -69,7 +69,7 @@ This is the common structure for the Management Groups in the Enterprise Scale L
         B --> C[Decommissioned]
         B --> D[Landing Zones]
         B --> E[Platform]
-        D --> F[Sandboxex]
+        B --> F[Sandboxes]
         D --> G[Corp]
         D --> H[Online]
         E --> I[Connectivity]
@@ -80,8 +80,8 @@ This is the common structure for the Management Groups in the Enterprise Scale L
 1. **Root Management Group**
     - Intermediary-Management-Group
         - Decommissioned: This could be where resources that are being phased out or decommissioned are managed.
+        - Sandboxes: This could be an area where developers can test and experiment without affecting production systems.
         - Landing Zones
-            - Sandboxes: This could be an area where developers can test and experiment without affecting production systems.
             - Corp: This could represent corporate resources or applications.
             - Online: This could represent online or customer-facing applications.
         - Platform
@@ -170,7 +170,7 @@ graph TD
         B --> C[Decommissioned]
         B --> D[Landing Zones]
         B --> E[Platform]
-        D --> F[Sandboxes]
+        B --> F[Sandboxes]
         D --> G[Corp]
         D --> H[Online]
         E --> I[Connectivity]
