@@ -89,7 +89,7 @@ This is the common structure for the Management Groups in the Enterprise Scale L
             - Identity: This could manage resources related to identity and access management.
             - Management: This could manage resources related to overall platform management.
 
-This structure allows for clear segmentation of resources based on their purpose and lifecycle. For example, decommissioned resources are separated from active ones, and resources within the 'Platform' are further categorized based on their function (Connectivity, Identity, Management). The 'Landing Zones' group appears to separate resources based on their use case or environment (Sandbox, Corp, Online).
+This structure allows for clear segmentation of resources based on their purpose and lifecycle. For example, decommissioned resources are separated from active ones, like Sandbox, and resources within the 'Platform' are further categorized based on their function (Connectivity, Identity, Management). The 'Landing Zones' group appears to separate resources based on their use case or environment (Corp, Online).
 
 The exact interpretation would depend on the specific context and conventions of your organization.
 
@@ -138,19 +138,7 @@ graph TD
 
 **Why it's bad:** Although this structure is simple, it lacks the ability to group related subscriptions together under a common management group. This makes it harder to apply consistent policies across related subscriptions.
 
-### Example 4: Overlapping Hierarchies
-
-```mermaid
-graph TD
-    A[Root Management Group] --> B[Group 1]
-    A --> C[Group 2]
-    B --> D[Group 3]
-    C --> D
-```
-
-**Why it's bad:** In this example, `Group 3` is a subgroup of both `Group 1` and `Group 2`. This can create confusion and potential conflicts with policy assignments. It's better to have a clear, non-overlapping hierarchy where each group is a subgroup of only one higher-level group.
-
-### Example 5: Environment-Based Hierarchy
+### Example 4: Environment-Based Hierarchy
 
 ```mermaid
 

@@ -8,28 +8,37 @@ categories:
 tags:
   - Azure Virtual Network Manager
 ---
-# Azure Network Manager: Una guía técnica detallada
+# Azure Vitual Network Manager
 
-## Introducción
-Azure Network Manager es un servicio de Microsoft Azure que proporciona una gestión centralizada y un control de políticas de red a través de múltiples suscripciones y regiones de Azure. E
+Azure Virtual Network Manager es un servicio central de gestión de redes en Azure. Proporciona un solo panel para administrar y gobernar tus Redes Virtuales de Azure (VNet) a nivel global.
 
-## Descripción del Servicio
-Azure Network Manager permite a los administradores de red gestionar y supervisar de manera eficiente las redes virtuales de Azure en todas las suscripciones y regiones. Las características clave incluyen:
+## Características Clave de Azure Virtual Network Manager
 
-- La agrupación de redes virtuales.
-- La configuración de políticas de red.
-- La supervisión de la conformidad de las políticas.
+1. **Gestión Centralizada de Redes:** Azure Virtual Network Manager te permite administrar todas tus VNets desde una única ubicación, independientemente de su presencia en diferentes suscripciones o regiones.
 
-## Arquitectura y Componentes
-Azure Network Manager se compone de varios componentes clave:
-- **Grupos de Red**: Permiten agrupar redes virtuales por departamento, proyecto, etc.
-- **Políticas de Red**: Permiten definir y aplicar políticas de red a los grupos de red.
-- **Estado de Conformidad**: Proporciona una visión de la conformidad de las políticas de red.
+2. **Aplicación de Políticas:** Puedes aplicar políticas a gran escala en múltiples VNets. Esto ayuda a garantizar el cumplimiento de los requisitos de red de tu organización.
 
-Estos componentes interactúan entre sí para proporcionar una gestión de red eficiente y coherente en Azure.
+3. **Emparejamiento de Redes:** Azure Virtual Network Manager simplifica el proceso de emparejamiento de VNets automatizando la configuración y el proceso de instalación.
 
-## Demostración de Implementación y Configuración
-Azure Network Manager se puede implementar y configurar a través del portal de Azure, las plantillas ARM o la CLI de Azure. Los ajustes de configuración incluyen la definición de grupos de red, la creación de políticas de red y la asignación de políticas a grupos de red.
+4. **Configuración de Conectividad:** Puedes configurar fácilmente la conectividad entre las VNets y las redes locales.
+
+## Cómo Usar Azure Virtual Network Manager
+
+Para usar Azure Virtual Network Manager, necesitas seguir estos pasos:
+
+```sh
+# Paso 1: Crear un Administrador de Red
+az network vnet-manager create --name myVnetManager --location westus --subscriptionId 00000000-0000-0000-0000-000000000000 --state "Started"
+
+# Paso 2: Agregar una Red Virtual al Administrador de Red
+az network vnet-manager vnet add --vnet-manager myVnetManager --name myVnet --subscriptionId 00000000-0000-0000-0000-000000000000 --resource-group myResourceGroup
+
+# Paso 3: Ver los detalles de la Red Virtual
+az network vnet-manager vnet show --vnet-manager myVnetManager --name myVnet --subscriptionId 00000000-0000-0000-0000-000000000000
+```
+
+Estos comandos te ayudarán a comenzar con Azure Virtual Network Manager. Para obtener instrucciones más detalladas, puedes visitar la [documentación oficial](https://learn.microsoft.com/en-us/azure/virtual-network-manager/overview).
+
 
 ## Escalabilidad y Rendimiento
 Azure Network Manager es altamente escalable y puede gestionar miles de redes virtuales a través de múltiples suscripciones y regiones. En términos de rendimiento, no introduce latencia adicional ya que opera en el plano de control.
@@ -48,4 +57,4 @@ Es recomendable definir políticas de red seguras y supervisar continuamente la 
 
 ## Conclusión
 
-Azure Network Manager es una herramienta poderosa para la gestión centralizada de redes en Azure. Proporciona una gran cantidad de características para ayudar a los administradores de red a gestionar y supervisar sus redes virtuales de manera eficiente. Te animamos a explorar más sobre Azure Network Manager y a hacer preguntas si tienes alguna.
+En conclusión, Azure Virtual Network Manager es una herramienta poderosa para administrar y gobernar tus VNets en Azure. Ya sea que tengas unas pocas VNets o cientos, este servicio puede simplificar tus tareas de gestión de redes y ayudar a garantizar el cumplimiento de las políticas de red de tu organización.
