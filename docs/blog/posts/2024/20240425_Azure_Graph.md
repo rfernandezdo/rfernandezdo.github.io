@@ -1,13 +1,12 @@
 ---
 draft: true
-date: 2024-04-24
+date: 2024-04-25
 authors:
   - rfernandezdo
 categories:
     - Azure Services
 tags:
     - Azure Resource Graph
-    - 
 ---
 # Azure Resource Graph
 

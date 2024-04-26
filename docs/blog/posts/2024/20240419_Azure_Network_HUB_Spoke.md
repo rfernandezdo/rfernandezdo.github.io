@@ -7,7 +7,7 @@ categories:
     - Azure Services
 tags:
     - Azure Network
-    - Hub and Spoke    
+    - Hub and Spoke
 ---
 # Azure Network, Hub-and-Spoke Topology
 
