@@ -10,7 +10,9 @@ Generally, I try to contribute to the community in the following ways:
 
 ## 2024
 
-- Organizer of [Azure Global Seville 2024](https://globalazure.net/communities/2024/AzureSevilla) and collaborator in Global Azure Spain 2024, Zaragoza.
+- [Azure/Enterprise-azure-policy-as-code](https://github.com/Azure/enterprise-azure-policy-as-code)
+    - [Update ci-cd-github-actions.md ](https://github.com/Azure/enterprise-azure-policy-as-code/pull/563/files)
+- Organizer of **[Azure Global Seville 2024](https://globalazure.net/communities/2024/AzureSevilla)** and collaborator in Global Azure Spain 2024, Zaragoza.
 
 ## 2023
 

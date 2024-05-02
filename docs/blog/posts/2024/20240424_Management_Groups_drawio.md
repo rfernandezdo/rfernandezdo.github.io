@@ -46,7 +46,7 @@ The file has the following columns:
     - id: reference to the id in the first sheet
     - displayName: reference to the displayName in the first sheet
     - itemType: reference to the itemType in the first sheet
-    - Parent: Use the following formula to get the parent of the current item:
+    - ParentId: Use the following formula to get the parent of the current item:
         ```excel
         =IF(ISERROR(FIND(","; Export_Portal!D2)); Export_Portal!D2; TRIM(RIGHT(SUBSTITUTE(Export_Portal!D2; ","; REPT(" "; LEN(Export_Portal!D2))); LEN(Export_Portal!D2))))
         ```
