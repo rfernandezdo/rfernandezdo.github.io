@@ -7,6 +7,8 @@ categories:
     - DevOps
 tags:
     - IaC
+    - Terraform
+    - OpenTofu
 ---
 
 # Starting my IaC project with terraform
