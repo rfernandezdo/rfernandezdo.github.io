@@ -1,6 +1,6 @@
 ---
 draft: false
-date: 2024-05-02
+date: 2024-05-03
 authors:
   - rfernandezdo
 categories:
@@ -45,9 +45,36 @@ In this example, the `vm` variable defines a nested structure with three attribu
 
 ## Optional Attributes
 
-Terraform allows you to define optional attributes in your configuration by setting the attribute's type to `any` and using the `default` argument to specify a default value. Optional attributes are useful when you want to provide a default value for an attribute but allow users to override it if needed.
+If you have an attribute that is optional, you can define it as an optional attribute in your configuration. Optional attributes are useful when you want to provide a default value for an attribute but allow users to override it if needed.
+
+If optional doesn't works,  Terraform allows you to define your variables as `any` type, but it's not recommended because it can lead to errors and make your configuration less maintainable. It's better to define your variables with the correct type and use optional attributes when needed, but some cases it's necessary to use `any` and `null` values, you can minimize the risk of errors by providing a good description of the variable and its expected values.
 
 For example, you might define an optional attribute for the `security_group` in the `network` structure:
+
+```hcl
+variable "vm" {
+  description = <<DESCRIPTION
+  Virtual machine configuration.
+  The following attributes are required:
+  - size: The size of the virtual machine.
+  - image: The image for the virtual machine.
+  - network: The network configuration for the virtual machine.
+  The network configuration should have the following attributes:
+  - subnet: The subnet for the virtual machine.
+  - security_group: The security group for the virtual machine.
+  DESCRIPTION
+  type = any
+  default = null
+}
+
+resource "azurerm_virtual_machine" "example" {
+  name     = "example-vm"
+  size     = var.vm.size
+  image    = var.vm.image
+  subnet   = var.vm.network.subnet
+  security_group = var.vm.network.security_group
+}
+```
 
 ```hcl
 
@@ -57,7 +84,7 @@ variable "vm" {
     image    = string
     network  = object({
       subnet = string
-      security_group = string
+      security_group = optional(string)
     })
   })
 }
