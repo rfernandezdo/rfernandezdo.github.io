@@ -48,14 +48,12 @@ This is a security risk because it exposes your Snowflake account to potential a
 
 The architecture of using Azure Private Link with Snowflake is as follows:
 
-```mermaid	
-
-graph TD
+```mermaid
+    graph TD
     A[Virtual Network] -->|Private Endpoint| B[Snowflake]
     B -->|Private Link Service| C[Private Link Resource]
     C -->|Private Connection| D[Virtual Network]
-    D -->|Subnet| E[Private Endpoint]
-    Azure Private DNS
+    D -->|Subnet| E[Private Endpoint]    
 ```
 
 ### Architecture Components
