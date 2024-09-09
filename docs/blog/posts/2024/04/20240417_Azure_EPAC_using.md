@@ -219,7 +219,7 @@ global-settings.jsonc is the file where you define the Azure environment(s) that
 
 ## Extracting existing Policy Resources
 
-```
+```PowerShell
 Export-AzPolicyResources
 ```
 
@@ -273,7 +273,7 @@ jobs:
 
 We will use the Github Flow to manage the CI/CD process. We will create a Github Actions to deploy the policies to the Azure environment(s) defined in the global-settings.jsonc file.
 
-![](image-3.png)
+![Github Flow](image.png)
 
 
 We can open a second terminal and execute the following command to create the Github Actions in one upper level folder of our repository. This command will create the Github Actions in the `.github\workflows` folder of the repository. :

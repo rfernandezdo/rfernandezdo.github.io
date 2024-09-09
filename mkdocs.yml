@@ -61,8 +61,13 @@ copyright: Copyright &copy; 2023-now Rafael Fernández
 
 
 plugins:
-  - search  
-  - mermaid2
+  - search
+  - markmap:
+      base_path: docs
+      encoding: utf-8
+      file_extension: .mm.md
+  - mermaid2:
+      version: 11.2.0
   - table-reader
   - blog:
       archive: true
@@ -81,7 +86,7 @@ plugins:
         - categories
         - tags
   - minify:
-      minify_html: true
+      minify_html: false
       minify_js: true
       minify_css: true
       htmlmin_opts:
@@ -94,8 +99,8 @@ plugins:
         - skip-lightbox
     #- meta in insiders, review in next release
   - social
-hooks:
-    - scripts/splitMCSB.py
+#hooks:
+#    - scripts/splitMCSB.py
 markdown_extensions:
   - admonition
   - pymdownx.details
@@ -103,7 +108,7 @@ markdown_extensions:
       custom_fences:
         - name: mermaid
           class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
+          format: !!python/name:mermaid2.fence_mermaid_custom
   - md_in_html
   - attr_list
   - pymdownx.emoji:

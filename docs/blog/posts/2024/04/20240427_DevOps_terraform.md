@@ -15,7 +15,7 @@ tags:
 
 This is not my first IaC project but I want to share with you some key considerations that I have in mind to start a personal IaC project with Terraform based on post [What you need to think about when starting an IaC project ?]
 
-[What you need to think about when starting an IaC project ?]:(20240526_DevOps.md)
+[What you need to think about when starting an IaC project ?]:20240426_DevOps.md
 
 
 ## 1. **Define Your Goals**

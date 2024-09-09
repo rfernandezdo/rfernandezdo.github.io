@@ -12,3 +12,4 @@ openpyxl
 pillow
 mkdocs-google-translate
 pymdown-extensions
+mkdocs-markmap
