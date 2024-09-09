@@ -51,6 +51,10 @@ To use markmap, you need to add the following code block to your markdown file:
 
 And this will generate the following mindmap:
 
+![alt text](20240909_DevOps_markmap.png)
+
+That is for the future, because in my mkdocs not work as expected:
+
 ```markmap
 # Root
 
@@ -67,17 +71,21 @@ And this will generate the following mindmap:
 
 ## Visual Studio Code Extension
 
-!!! info There is also a Visual Studio Code extension that allows you to create mindmaps from markdown files. You can install it from the Visual Studio Code marketplace.
+There is also a Visual Studio Code extension that allows you to create mindmaps from markdown files. You can install it from the Visual Studio Code marketplace.
+
+```text
     Name: Markdown Preview Markmap Support
     Id: phoihos.markdown-markmap
     Description: Visualize Markdown as Mindmap (A.K.A Markmap) to VS Code's built-in markdown preview
     Version: 1.4.6
     Publisher: phoihos
     VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=phoihos.markdown-markmap
+```
+[VS Marketplace Link](https://marketplace.visualstudio.com/items?itemName=phoihos.markdown-markmap)
 
 ## Conclusion
 
-I don't like too much this plugin because it not work as expected in mkdocs blog but it's a good tool for documentation.
+I don't like too much this plugin because it not work as expected in my mkdocs but it's a good tool for documentation.
 
 ## References
 
