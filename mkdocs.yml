@@ -90,7 +90,7 @@ plugins:
       minify_js: true
       minify_css: true
       htmlmin_opts:
-          remove_comments: true
+          remove_comments: false
       cache_safe: true
   - glightbox:
       zoomable: true
@@ -99,8 +99,8 @@ plugins:
         - skip-lightbox
     #- meta in insiders, review in next release
   - social
-#hooks:
-#    - scripts/splitMCSB.py
+hooks:
+    - scripts/splitMCSB.py
 markdown_extensions:
   - admonition
   - pymdownx.details
