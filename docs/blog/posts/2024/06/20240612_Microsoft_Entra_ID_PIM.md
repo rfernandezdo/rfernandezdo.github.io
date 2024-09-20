@@ -175,6 +175,34 @@ In the "Settings" tab, you can set the Assigment type: Eligible or I need to do 
 !!! info
     App registrations are supported in PIM for Groups but only in active assignments. I think that this is very useful for IaC for example because you can assign a role to a service principal and you can activate the role when you need it.
 
+Example of a sequence diagram of the activation process for a group:
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant PIM
+    participant Approver
+    participant MFA
+    participant Group
+
+    User->>PIM: Logs in
+    User->>PIM: Navigates to PIM and selects "My roles"
+    User->>PIM: Selects eligible group
+    User->>PIM: Requests activation
+    PIM->>MFA: Requests multi-factor authentication
+    MFA-->>User: MFA request
+    User->>MFA: Provides MFA credentials
+    MFA-->>PIM: MFA confirmation
+    PIM->>User: Requests justification
+    User->>PIM: Provides justification
+    PIM->>Approver: Sends approval request
+    Approver-->>PIM: Approval
+    PIM-->>User: Activation confirmation
+    PIM->>Group: Activates temporary membership
+    Group-->>PIM: Activation confirmation
+    PIM-->>User: Access granted
+```
+
 
 ### Azure roles
 

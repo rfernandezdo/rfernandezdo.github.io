@@ -46,8 +46,8 @@ For that reason, we can define the followin phases:
         - **All Compliant Network locations**: This option allows you to apply the policy to all compliant network locations.
         - **Selected network or location**: This option allows you to apply the policy to selected network locations: Countries(GPS),Countries(IP) and IP ranges.
     - **Conditions**: Control access based in signals from conditions.
-        - **User risk**: Control access based on the user risk level calculated by Microsoft Entra Identity Protection. User risk represents the probability that a given identity or account is compromised
-        - **Sign-in risk**: Control access based on the sign-in risk level calculated by Microsoft Entra Identity Protection. Sign-in risk represents the probability that a given authentication request wasn't made by the identity owner.
+        - **User risk**: Control access based on the user risk level calculated by Microsoft Entra Identity Protection. User risk represents the probability that a given identity or account is compromised, for example: Published credentials in Dark Web.
+        - **Sign-in risk**: Control access based on the sign-in risk level calculated by Microsoft Entra Identity Protection. Sign-in risk represents the probability that a given authentication request wasn't made by the identity owner. For example, sign-in from a new location or new device.
         - **Insider risk**: Control access for users who are assigned specific risk levels from Adaptive Protection, a Microsoft Purview Insider Risk Management feature. Insider risk represents the probability that a given user is engaged in risky data-related activities.
         - **Device Platform**: Include and Exclude. Control access based on the platform of the device used to sign in.
         - **Client apps**: Include and Exclude. Control access based on the client apps used to sign in.
