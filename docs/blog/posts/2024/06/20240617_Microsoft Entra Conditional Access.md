@@ -99,10 +99,30 @@ Mindmaps of the Conditional Access policies flow:
 ## Phase 1: Collect session details
 ### Assignments
 #### users
+##### Include
+###### None
+###### All users
+###### Select users and groups
+##### Exclude
+###### Guest or external users
+###### Directory roles
+###### Users and groups
 #### Target resources
 ##### Cloud apps
+###### Include
+ - None
+ - All cloud apps
+ - Select apps
+###### Exclude
+  - Edit Filter
+  - Select excluded cloud apps
 ##### User actions
+  - Register security information
+  - Register or join devices
 ##### Global Secure Access
+  - Microsoft 365 traffic
+  - Internet traffic
+  - Private traffic
 ##### Authentication context
 ##### Network
 ###### Any network or location
@@ -148,10 +168,30 @@ mindmap
       (Phase 1: Collect session details)
         (Assignments)        
           [users]
+            {{Include}}
+              None
+              All users
+              Select users and groups
+            {{Exclude}}
+              Guest or external users
+              Directory roles
+              Users and groups
           [Target resources]
             {{Cloud apps}}
+              Include
+                None
+                All cloud apps
+                Select apps
+              Exclude
+                Edit Filter
+                Select excluded cloud apps
             {{User actions}}
+              Register security information
+              Register or join devices
             {{Global Secure Access}}
+              Microsoft 365 traffic
+              Internet traffic
+              Private traffic
             {{Authentication context}}
             {{Network}}
               Any network or location

@@ -21,7 +21,7 @@ To enable cross-tenant replication on Azure Blob Storage, you need the following
 - Two storage accounts in the same region.
 - A service principal in each tenant with the necessary permissions to access the storage accounts.
 
-## Configure Cross-Tenant Replication 
+## Configure Cross-Tenant Replication if you are the owner of the source and destination storage accounts
 
 ### Enable Cross-Tenant Replication
 
@@ -247,3 +247,37 @@ You can use the Azure CLI to check the replication destination status. Here's an
 ```bash
 az storage account or-policy show --account-name <storage-account-name> --resource-group <resource-group> --policy-id <policy-id>
 ```
+
+## If you are not the owner of the source or destination storage accounts
+
+If you are not the owner of the source or destination storage accounts, you need to use json files to create the replication policy. Here's an example of how you can create a replication policy using json files:
+
+```json
+{
+  "rules": [
+    {
+      "ruleId": "rule1",
+      "sourceContainer": "source-container",
+      "destinationContainer": "destination-container",
+      "minCreationTime": "2021-09-01T00:00:00Z",
+      "prefixMatch": "a"
+    }
+  ]
+}
+```
+
+You can save this json file as `replication-policy.json` and use the following command to create the replication policy:
+
+```bash
+az storage account or-policy create --account-name <destination-storage-account> --resource-group <resource-group> --source-account <source-storage-account> --destination-account <destination-storage-account> --policy "@replication-policy.json"
+```
+
+This command creates an object replication policy that replicates objects from `source-container` in the source storage account to `destination-container` in the destination storage account. It only replicates objects that were created after September 1, 2021 and have names that start with 'a'.
+
+## Conclusion
+
+In this article, you learned how to enable cross-tenant replication on Azure Blob Storage. You learned how to configure cross-tenant replication if you are the owner of the source and destination storage accounts, and if you are not the owner of the source or destination storage accounts. You also learned how to monitor the replication status and check if cross-tenant replication is enabled in storage accounts. I hope this article helps you understand how to enable cross-tenant replication on Azure Blob Storage.
+
+## References
+
+- [Object replication for block blobs](https://learn.microsoft.com/en-us/azure/storage/blobs/object-replication-overview)
