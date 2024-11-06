@@ -8,12 +8,16 @@ Generally, I try to contribute to the community in the following ways:
 - Post in my blog
 - Some contributions to github projects azure related(see below)
 
+## 2025
+
 ## 2024
 
+- [Cloud Adoption Framework for Azure - Terraform module](https://github.com/aztfmod/terraform-azurerm-caf)
 - [Update considerations for Microsoft Entra Domain Services](https://github.com/MicrosoftDocs/entra-docs/pull/1146/)
 - [Azure/Enterprise-azure-policy-as-code](https://github.com/Azure/enterprise-azure-policy-as-code)
     - [Update ci-cd-github-actions.md ](https://github.com/Azure/enterprise-azure-policy-as-code/pull/563/)
 - Organizer of **[Azure Global Seville 2024](https://globalazure.net/communities/2024/AzureSevilla)** and collaborator in Global Azure Spain 2024, Zaragoza.
+- Speaker in **[Azure Global Seville 2024](https://globalazure.net/communities/2024/AzureSevilla)**.
 
 ## 2023
 
