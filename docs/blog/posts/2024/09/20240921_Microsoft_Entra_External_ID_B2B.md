@@ -11,7 +11,7 @@ tags:
     - B2B Direct Connect
     - B2B Collaboration
 ---
-# Differences between **B2B Direct Connect** and **B2B Collaboration** in English
+# Differences between **B2B Direct Connect** and **B2B Collaboration** in Microsoft Entra
 
 Microsoft Entra offers two ways to collaborate with external users: **B2B Direct Connect** and **B2B Collaboration**. Both features allow organizations to share resources with external users while maintaining control over access and security. However, they differ in functionality, access, and integration. Here is a comparison between **B2B Direct Connect** and **B2B Collaboration**:
 
