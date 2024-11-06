@@ -18,6 +18,7 @@ Generally, I try to contribute to the community in the following ways:
     - [Update ci-cd-github-actions.md ](https://github.com/Azure/enterprise-azure-policy-as-code/pull/563/)
 - Organizer of **[Azure Global Seville 2024](https://globalazure.net/communities/2024/AzureSevilla)** and collaborator in Global Azure Spain 2024, Zaragoza.
 - Speaker in **[Azure Global Seville 2024](https://globalazure.net/communities/2024/AzureSevilla)**.
+- [Update firewall-faq.yml to add support force tunneling in Azure Firewall Basic](https://github.com/MicrosoftDocs/azure-docs/pull/118931)
 
 ## 2023
 
