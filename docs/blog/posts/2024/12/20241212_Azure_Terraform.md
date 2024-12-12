@@ -12,7 +12,8 @@ tags:
 
 Script para ejecutar Terraform con archivos de variables:
 
- ```bash
+```bash
+
     function terraform_with_var_files() {
     local dir="$1"
     local action="$2"
