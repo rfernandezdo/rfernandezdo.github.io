@@ -16,8 +16,10 @@ In this post, we will see how to sign Git commits in Visual Studio Code.
 
 - Visual Studio Code
 - Git
-- GPG
-- GPG agent
+- gpg
+- gpg-agent
+- gpgconf
+- pinentry-gtk-2
 - Windows Subsystem for Linux (WSL) with Ubuntu 20.04
 
 ## Steps
@@ -27,7 +29,7 @@ In this post, we will see how to sign Git commits in Visual Studio Code.
 First, you need to install GPG ans agents. You can do this by running the following command:
 
 ```bash
-sudo apt-get install gpg gpg-agent gpgconf
+sudo apt install gpg gpg-agent gpgconf pinentry-gtk2 -y
 ```
 
 ### 2. Generate a GPG key
@@ -65,8 +67,8 @@ Replace `YOUR_KEY_ID` with the key ID you copied in the previous step.
 To configure Git to sign commits by default, run the following command:
 
 ```bash
-
 git config --global commit.gpgsign true
+git config --global gpg.program (which gpg)
 ```
 
 ### 6. EXport the GPG key 
@@ -81,9 +83,10 @@ Replace `YOUR_KEY_ID` with the key ID you copied in the previous step.
 
 ### 7. Import to github
 
-Go to your [github account](https://github.com/settings/keys) and add the exported GPG key in GPG keys section.
+Go to your [github account](https://github.com/settings/keys) and add the exported GPG key in GPG keys section, create a new GPG key and paste the exported key.
 
 ### Configure Visual Studio Code to use GPG
+
 #### 1. Configure gpg-agent
 
 To configure gpg-agent, run the following command:
@@ -127,47 +130,11 @@ To configure Visual Studio Code to use GPG, open the settings by pressing `Ctrl 
 
 Make a commit in Visual Studio Code, and you will see a prompt asking you introduce your GPG passphrase. Enter your passphrase, and the commit will be signed.
 
-
-
-That's it! Now you know how to sign Git commits in Visual Studio Code.
-
-
-
-
-
-
-
-
-
-
-
-
-To configure Visual Studio Code to use GPG, open the settings by pressing `Ctrl + ,` and search for `git.signingKey`. Set the value to your GPG key ID.
-
-### 7. Sign a commit
-
-To sign a commit, run the following command:
-
-```bash
-
-git commit -S -m "Your commit message"
-```
-
-### 8. Verify the signature
-
-To verify the signature of a commit, run the following command:
-
-```bash
-
-git verify-commit HEAD
-```
-
 That's it! Now you know how to sign Git commits in Visual Studio Code.
 
 ## Conclusion
 
 In this post, we saw how to sign Git commits in Visual Studio Code. This is useful if you want to verify the authenticity of your commits. I hope you found this post helpful. If you have any questions or comments, please let me know. Thank you for reading!
-```
 
 
 
