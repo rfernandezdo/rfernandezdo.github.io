@@ -15,40 +15,47 @@ Script para ejecutar Terraform con archivos de variables:
 ```bash	title="terraform_with_var_files.sh"
 
 function terraform_with_var_files() {
-local dir="$1"
-local action="$2"
-local auto="$3"
+  local dir="$1"
+  local action="$2"
+  local auto="$3"
 
-if [[ ! -d "$dir" ]]; then
+  if [[ ! -d "$dir" ]]; then
     echo "El directorio especificado no existe."
     return 1
-fi
+  fi
 
-if [[ "$action" != "plan" && "$action" != "apply" && "$action" != "destroy" ]]; then
+  if [[ "$action" != "plan" && "$action" != "apply" && "$action" != "destroy" ]]; then
     echo "Acción no válida. Usa 'plan', 'apply' o 'destroy'."
     return 1
-fi
+  fi
 
-local var_files=()
-for file in "$dir"/*.tfvars; do
+  local var_files=()
+  for file in "$dir"/*.tfvars; do
     if [[ -f "$file" ]]; then
-    var_files+=("--var-file $file")
+      var_files+=("--var-file $file")
     fi
-done
+  done
 
-if [[ ${#var_files[@]} -eq 0 ]]; then
+  if [[ ${#var_files[@]} -eq 0 ]]; then
     echo "No se encontraron archivos .tfvars en el directorio especificado."
     return 1
-fi
+  fi
 
-local command="terraform $action ${var_files[@]}"
-    
-if [[ "$auto" == "auto" && ( "$action" == "apply" || "$action" == "destroy" ) ]]; then
+  echo "Validando la configuración de Terraform..."
+  (cd "$dir" && terraform validate)
+  if [[ $? -ne 0 ]]; then
+    echo "La validación de Terraform falló."
+    return 1
+  fi
+
+  local command="terraform $action ${var_files[@]}"
+
+  if [[ "$auto" == "auto" && ( "$action" == "apply" || "$action" == "destroy" ) ]]; then
     command="$command -auto-approve"
-fi
+  fi
 
-echo "Ejecutando: $command"
-eval "$command"
+  echo "Ejecutando: $command"
+  eval "$command"
 }
 
 # Uso de la función
