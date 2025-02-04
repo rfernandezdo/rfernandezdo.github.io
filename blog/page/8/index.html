@@ -241,6 +241,13 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/02/">
+<span class="md-ellipsis">
+    2025/02
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../../2025/01/">
 <span class="md-ellipsis">
     2025/01
@@ -681,6 +688,97 @@
 <header class="md-typeset">
 <h1 id="blog">Blog</h1>
 </header>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341"/>
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2023-11-03 00:00:00">November 3, 2023</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/devops/">DevOps</a>, 
+              <a class="md-meta__link" href="../../category/english/">English</a></li>
+<li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="trunk"><a class="toclink" href="../../2023/11/03/trunk/">Trunk</a></h2>
+<h3 id="what-is-trunk"><a class="toclink" href="../../2023/11/03/trunk/#what-is-trunk">What is Trunk ?</a></h3>
+<p>Trunk is a tool that runs a suite of security and best practice checks against your code. It is designed to be used in CI/CD pipelines, but can also be used as a standalone tool.</p>
+<p>Support for the following languages is currently available:</p>
+<h3 id="installing-trunk"><a class="toclink" href="../../2023/11/03/trunk/#installing-trunk">Installing Trunk</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio"><input id="__tabbed_3_2" name="__tabbed_3" type="radio"><div class="tabbed-labels"><label for="__tabbed_3_1">Trunk cli</label><label for="__tabbed_3_2">Trunk VSCode extension</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a href="#__codelineno-10-1" id="__codelineno-10-1" name="__codelineno-10-1"></a>curl<span class="w"> </span>https://get.trunk.io<span class="w"> </span>-fsSL<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a href="#__codelineno-11-1" id="__codelineno-11-1" name="__codelineno-11-1"></a>code<span class="w"> </span>--install-extension<span class="w"> </span>Trunk.io<span class="w">  </span>
+</span></code></pre></div>
+</div>
+</div>
+</input></input></div>
+<h3 id="trunk-checks"><a class="toclink" href="../../2023/11/03/trunk/#trunk-checks">Trunk checks</a></h3>
+<h4 id="trunk-checks-cli"><a class="toclink" href="../../2023/11/03/trunk/#trunk-checks-cli">Trunk checks cli</a></h4>
+<p>Trunk detects checks to enable in function of the files in the current directory, but you can also enable and disable checks manually.</p>
+<ul>
+<li>trunck check list: list all available checks</li>
+<li>trunck check enable checkname: enable a check</li>
+<li>trunck check disable checkname: disable a check</li>
+<li>trunck check: run all enabled checks</li>
+</ul>
+<p>For example, to enable the Terraform check:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a href="#__codelineno-12-1" id="__codelineno-12-1" name="__codelineno-12-1"></a>trunk<span class="w"> </span>check<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>terraform<span class="w"> </span>
+</span><span id="__span-12-2"><a href="#__codelineno-12-2" id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="m">1</span><span class="w"> </span>linter<span class="w"> </span>was<span class="w"> </span>enabled:
+</span><span id="__span-12-3"><a href="#__codelineno-12-3" id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="w">  </span>terraform<span class="w"> </span><span class="m">1</span>.1.0
+</span></code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>You can also enable checks by modifing .trunk.yml file in your repository. See the <a href="https://docs.trunk.io/actions/configuration">configuration page</a>  for more information.</p>
+</div>
+<p>Examples: </p>
+<div class="language-console highlight"><span class="filename">trunk commnad line check example</span><pre><span></span><code><span id="__span-13-1"><a href="#__codelineno-13-1" id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="go">trunk check   </span>
+</span><span id="__span-13-2"><a href="#__codelineno-13-2" id="__codelineno-13-2" name="__codelineno-13-2"></a>
+</span><span id="__span-13-3"><a href="#__codelineno-13-3" id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="go">Checking 68% [====================================================================================================================================================================&gt;                                                                              ]  38/56  9.4s </span>
+</span><span id="__span-13-4"><a href="#__codelineno-13-4" id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="go"> ↳ checkov                                                                                                                                                                                                                                                                      </span>
+</span><span id="__span-13-5"><a href="#__codelineno-13-5" id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="go">   ↳ modules/webapps/linux_function_app/private_endpoint.tf [lint] ⠧                                                                                                                                                                                                            </span>
+</span><span id="__span-13-6"><a href="#__codelineno-13-6" id="__codelineno-13-6" name="__codelineno-13-6"></a><span class="go">   ↳ modules/webapps/linux_function_app/variables.tf [lint] ⠧                                                                                                                                                                                                                   </span>
+</span><span id="__span-13-7"><a href="#__codelineno-13-7" id="__codelineno-13-7" name="__codelineno-13-7"></a><span class="go"> ↳ terrascan                                                                                                                                                                                                                                                                    </span>
+</span><span id="__span-13-8"><a href="#__codelineno-13-8" id="__codelineno-13-8" name="__codelineno-13-8"></a><span class="go">   ↳ modules/webapps/linux_function_app/locals.tf [lint] ⠧                                                                                                                                                                                                                      </span>
+</span><span id="__span-13-9"><a href="#__codelineno-13-9" id="__codelineno-13-9" name="__codelineno-13-9"></a><span class="go">   ↳ modules/webapps/linux_function_app/main.tf [lint] ⠧                                                                              </span>
+</span></code></pre></div>
+<h4 id="trunk-checks-vscode"><a class="toclink" href="../../2023/11/03/trunk/#trunk-checks-vscode">Trunk checks vscode</a></h4>
+<p>In the case of the VSCode extension, you can review your checks in your IDE:</p>
+<p><img alt="Trunk checks vscode" src="../../2023/assets/2023-11-03-17-00-28.png"/></p>
+<p>And you can disable checks from quick fix menu:</p>
+<p><img alt="Quick Fix" src="../../2023/assets/2023-11-03-17-04-36.png"/></p>
+<h3 id="trunk-updates"><a class="toclink" href="../../2023/11/03/trunk/#trunk-updates">Trunk updates</a></h3>
+<h4 id="trunk-updates-cli"><a class="toclink" href="../../2023/11/03/trunk/#trunk-updates-cli">Trunk updates cli</a></h4>
+<p>Trunk is updated regularly with new checks and improvements. You can update Trunk by running the following command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a href="#__codelineno-14-1" id="__codelineno-14-1" name="__codelineno-14-1"></a>trunk<span class="w"> </span>update
+</span></code></pre></div>
+<h4 id="trunk-updates-vscode"><a class="toclink" href="../../2023/11/03/trunk/#trunk-updates-vscode">Trunk updates vscode</a></h4>
+<p>In the case of the VSCode extension, it will be updated automatically:</p>
+<p><img alt="Trunk updates" src="../../2023/assets/2023-10-18-23-52-48.png"/></p>
+<h3 id="references"><a class="toclink" href="../../2023/11/03/trunk/#references">References</a></h3>
+<ul>
+<li><a href="https://docs.trunk.io/cli">Trunk</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=Trunk.io">Trunk VSCode extension</a></li>
+</ul>
+</div>
+</article>
 <article class="md-post md-post--excerpt">
 <header class="md-post__header">
 <nav class="md-post__authors md-typeset">

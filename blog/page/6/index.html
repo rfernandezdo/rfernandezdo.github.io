@@ -241,6 +241,13 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/02/">
+<span class="md-ellipsis">
+    2025/02
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../../2025/01/">
 <span class="md-ellipsis">
     2025/01
@@ -681,6 +688,146 @@
 <header class="md-typeset">
 <h1 id="blog">Blog</h1>
 </header>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341"/>
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-04-07 00:00:00">April 7, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/azure-services/">Azure Services</a></li>
+<li class="md-meta__item">
+            
+              4 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="how-to-use-azue-arc-enabled-servers-with-managed-identity-to-access-to-azure-storage-account"><a class="toclink" href="../../2024/04/07/how-to-use-azue-arc-enabled-servers-with-managed-identity-to-access-to-azure-storage-account/">How to use Azue ARC-enabled servers with managed identity to access to Azure Storage Account</a></h2>
+<p>In this demo we will show how to use Azure ARC-enabled servers with managed identity to access to Azure Storage Account.</p>
+<h3 id="prerequisites"><a class="toclink" href="../../2024/04/07/how-to-use-azue-arc-enabled-servers-with-managed-identity-to-access-to-azure-storage-account/#prerequisites">Prerequisites</a></h3>
+<ul>
+<li>An Azure subscription. If you don't have an Azure subscription, create a <a href="https://azure.microsoft.com/en-us/free/">free account</a> before you begin.</li>
+</ul>
+<h3 id="required-permissions"><a class="toclink" href="../../2024/04/07/how-to-use-azue-arc-enabled-servers-with-managed-identity-to-access-to-azure-storage-account/#required-permissions">Required permissions</a></h3>
+<p>You'll need the following Azure built-in roles for different aspects of managing connected machines:</p>
+<ul>
+<li>To onboard machines, you must have the <a href="https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#azure-connected-machine-onboarding">Azure Connected Machine Onboarding</a> or <a href="https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#contributor">Contributor</a> role for the resource group where you're managing the servers.</li>
+<li>To read, modify, and delete a machine, you must have the <a href="https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#azure-connected-machine-resource-administrator">Azure Connected Machine Resource Administrator</a> role for the resource group.</li>
+<li>To select a resource group from the drop-down list when using the <strong>Generate script</strong> method, you'll also need the <a href="https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#reader">Reader</a> role for that resource group (or another role that includes <strong>Reader</strong> access).</li>
+</ul>
+<h3 id="register-azure-resource-providers"><a class="toclink" href="../../2024/04/07/how-to-use-azue-arc-enabled-servers-with-managed-identity-to-access-to-azure-storage-account/#register-azure-resource-providers">Register Azure resource providers</a></h3>
+<p>To use Azure Arc-enabled servers with managed identity, you need to register the following resource providers:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a>az<span class="w"> </span>account<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--subscription<span class="w"> </span><span class="s2">"{Your Subscription Name}"</span>
+</span><span id="__span-0-2"><a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a>az<span class="w"> </span>provider<span class="w"> </span>register<span class="w"> </span>--namespace<span class="w"> </span><span class="s1">'Microsoft.HybridCompute'</span>
+</span><span id="__span-0-3"><a href="#__codelineno-0-3" id="__codelineno-0-3" name="__codelineno-0-3"></a>az<span class="w"> </span>provider<span class="w"> </span>register<span class="w"> </span>--namespace<span class="w"> </span><span class="s1">'Microsoft.GuestConfiguration'</span>
+</span><span id="__span-0-4"><a href="#__codelineno-0-4" id="__codelineno-0-4" name="__codelineno-0-4"></a>az<span class="w"> </span>provider<span class="w"> </span>register<span class="w"> </span>--namespace<span class="w"> </span><span class="s1">'Microsoft.HybridConnectivity'</span>
+</span><span id="__span-0-5"><a href="#__codelineno-0-5" id="__codelineno-0-5" name="__codelineno-0-5"></a>az<span class="w"> </span>provider<span class="w"> </span>register<span class="w"> </span>--namespace<span class="w"> </span><span class="s1">'Microsoft.AzureArcData'</span>
+</span></code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Microsoft.AzureArcData (if you plan to Arc-enable SQL Servers)
+Microsoft.Compute (for Azure Update Manager and automatic extension upgrades)</p>
+</div>
+<h3 id="networking-requirements"><a class="toclink" href="../../2024/04/07/how-to-use-azue-arc-enabled-servers-with-managed-identity-to-access-to-azure-storage-account/#networking-requirements">Networking requirements</a></h3>
+<p>The Azure Connected Machine agent for Linux and Windows communicates outbound securely to Azure Arc over TCP port 443. In this demo, we have use <a href="https://learn.microsoft.com/en-us/azure/azure-arc/servers/private-link-security#network-configuration">Azure Private Link</a>. </p>
+<h3 id="azure-arc-enabled-enabled-server"><a class="toclink" href="../../2024/04/07/how-to-use-azue-arc-enabled-servers-with-managed-identity-to-access-to-azure-storage-account/#azure-arc-enabled-enabled-server">Azure ARC-enabled enabled server</a></h3>
+<p>We use  <a href="https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_servers/day2/arc_privatelink">Use Azure Private Link to securely connect networks to Azure Arc-enabled servers</a> to achieve this.</p>
+<p>Some tips:</p>
+<ul>
+<li>
+<p>If you have any issue registerin de VM: generate a script to register a machine with Azure Arc following that instructions <a href="https://learn.microsoft.com/en-us/azure/azure-arc/servers/learn/quick-enable-hybrid-vm#generate-installation-script">here</a></p>
+</li>
+<li>
+<p>If you have an error that says "Path C:\ProgramData\AzureConnectedMachineAgent\Log\himds.log is busy. Retrying..." you can use the following command to resolve it if you know that you are doing:</p>
+</li>
+</ul>
+<p><div class="language-powershell highlight"><pre><span></span><code><span id="__span-1-1"><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a> <span class="p">(</span><span class="nb">get-wmiobject</span> <span class="n">-class</span> <span class="n">win32_product</span> <span class="p">|</span> <span class="nb">where </span><span class="p">{</span><span class="nv">$_</span><span class="p">.</span><span class="n">name</span> <span class="o">-like</span> <span class="s2">"Azure *"</span><span class="p">}).</span><span class="n">uninstall</span><span class="p">()</span> 
+</span></code></pre></div>
+- Review /etc/hosts file and add the following entries:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-2-1"><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="nv">$Env:PEname</span> <span class="p">=</span> <span class="s2">"myprivatelink"</span>
+</span><span id="__span-2-2"><a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="nv">$Env:resourceGroup</span> <span class="p">=</span> <span class="s2">"myResourceGroup"</span>
+</span><span id="__span-2-3"><a href="#__codelineno-2-3" id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="nv">$file</span> <span class="p">=</span> <span class="s2">"C:\Windows\System32\drivers\etc\hosts"</span>
+</span><span id="__span-2-4"><a href="#__codelineno-2-4" id="__codelineno-2-4" name="__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a href="#__codelineno-2-5" id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="nv">$gisfqdn</span> <span class="p">=</span> <span class="p">(</span><span class="n">az</span> <span class="n">network</span> <span class="n">private-endpoint</span> <span class="n">dns-zone-group</span> <span class="n">list</span> <span class="p">-</span><span class="n">-endpoint-name</span> <span class="nv">$Env:PEname</span> <span class="p">-</span><span class="n">-resource-group</span> <span class="nv">$Env:resourceGroup</span> <span class="n">-o</span> <span class="n">json</span> <span class="p">-</span><span class="n">-query</span> <span class="s1">'[0].privateDnsZoneConfigs[0].recordSets[0].fqdn'</span> <span class="n">-o</span> <span class="n">json</span><span class="p">).</span><span class="n">replace</span><span class="p">(</span><span class="s1">'.privatelink'</span><span class="p">,</span><span class="s1">''</span><span class="p">).</span><span class="n">replace</span><span class="p">(</span><span class="s2">"</span><span class="se">`"</span><span class="s2">"</span><span class="p">,</span><span class="s2">""</span><span class="p">)</span>
+</span><span id="__span-2-6"><a href="#__codelineno-2-6" id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="nv">$gisIP</span> <span class="p">=</span> <span class="p">(</span><span class="n">az</span> <span class="n">network</span> <span class="n">private-endpoint</span> <span class="n">dns-zone-group</span> <span class="n">list</span> <span class="p">-</span><span class="n">-endpoint-name</span> <span class="nv">$Env:PEname</span> <span class="p">-</span><span class="n">-resource-group</span> <span class="nv">$Env:resourceGroup</span> <span class="n">-o</span> <span class="n">json</span> <span class="p">-</span><span class="n">-query</span> <span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">privateDnsZoneConfigs</span><span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">recordSets</span><span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">ipAddresses</span><span class="p">[</span><span class="n">0</span><span class="p">]</span> <span class="n">-o</span> <span class="n">json</span><span class="p">).</span><span class="n">replace</span><span class="p">(</span><span class="s2">"</span><span class="se">`"</span><span class="s2">"</span><span class="p">,</span><span class="s2">""</span><span class="p">)</span>
+</span><span id="__span-2-7"><a href="#__codelineno-2-7" id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="nv">$hisfqdn</span> <span class="p">=</span> <span class="p">(</span><span class="n">az</span> <span class="n">network</span> <span class="n">private-endpoint</span> <span class="n">dns-zone-group</span> <span class="n">list</span> <span class="p">-</span><span class="n">-endpoint-name</span> <span class="nv">$Env:PEname</span> <span class="p">-</span><span class="n">-resource-group</span> <span class="nv">$Env:resourceGroup</span> <span class="n">-o</span> <span class="n">json</span> <span class="p">-</span><span class="n">-query</span> <span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">privateDnsZoneConfigs</span><span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">recordSets</span><span class="p">[</span><span class="n">1</span><span class="p">].</span><span class="n">fqdn</span> <span class="n">-o</span> <span class="n">json</span><span class="p">).</span><span class="n">replace</span><span class="p">(</span><span class="s1">'.privatelink'</span><span class="p">,</span><span class="s1">''</span><span class="p">).</span><span class="n">replace</span><span class="p">(</span><span class="s2">"</span><span class="se">`"</span><span class="s2">"</span><span class="p">,</span><span class="s2">""</span><span class="p">)</span>
+</span><span id="__span-2-8"><a href="#__codelineno-2-8" id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="nv">$hisIP</span> <span class="p">=</span> <span class="p">(</span><span class="n">az</span> <span class="n">network</span> <span class="n">private-endpoint</span> <span class="n">dns-zone-group</span> <span class="n">list</span> <span class="p">-</span><span class="n">-endpoint-name</span> <span class="nv">$Env:PEname</span> <span class="p">-</span><span class="n">-resource-group</span> <span class="nv">$Env:resourceGroup</span> <span class="n">-o</span> <span class="n">json</span> <span class="p">-</span><span class="n">-query</span> <span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">privateDnsZoneConfigs</span><span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">recordSets</span><span class="p">[</span><span class="n">1</span><span class="p">].</span><span class="n">ipAddresses</span><span class="p">[</span><span class="n">0</span><span class="p">]</span> <span class="n">-o</span> <span class="n">json</span><span class="p">).</span><span class="n">replace</span><span class="p">(</span><span class="s1">'.privatelink'</span><span class="p">,</span><span class="s1">''</span><span class="p">).</span><span class="n">replace</span><span class="p">(</span><span class="s2">"</span><span class="se">`"</span><span class="s2">"</span><span class="p">,</span><span class="s2">""</span><span class="p">)</span>
+</span><span id="__span-2-9"><a href="#__codelineno-2-9" id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="nv">$agentfqdn</span> <span class="p">=</span> <span class="p">(</span><span class="n">az</span> <span class="n">network</span> <span class="n">private-endpoint</span> <span class="n">dns-zone-group</span> <span class="n">list</span> <span class="p">-</span><span class="n">-endpoint-name</span> <span class="nv">$Env:PEname</span> <span class="p">-</span><span class="n">-resource-group</span> <span class="nv">$Env:resourceGroup</span> <span class="n">-o</span> <span class="n">json</span> <span class="p">-</span><span class="n">-query</span> <span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">privateDnsZoneConfigs</span><span class="p">[</span><span class="n">1</span><span class="p">].</span><span class="n">recordSets</span><span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">fqdn</span> <span class="n">-o</span> <span class="n">json</span><span class="p">).</span><span class="n">replace</span><span class="p">(</span><span class="s1">'.privatelink'</span><span class="p">,</span><span class="s1">''</span><span class="p">).</span><span class="n">replace</span><span class="p">(</span><span class="s2">"</span><span class="se">`"</span><span class="s2">"</span><span class="p">,</span><span class="s2">""</span><span class="p">)</span>
+</span><span id="__span-2-10"><a href="#__codelineno-2-10" id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="nv">$agentIp</span> <span class="p">=</span> <span class="p">(</span><span class="n">az</span> <span class="n">network</span> <span class="n">private-endpoint</span> <span class="n">dns-zone-group</span> <span class="n">list</span> <span class="p">-</span><span class="n">-endpoint-name</span> <span class="nv">$Env:PEname</span> <span class="p">-</span><span class="n">-resource-group</span> <span class="nv">$Env:resourceGroup</span> <span class="n">-o</span> <span class="n">json</span> <span class="p">-</span><span class="n">-query</span> <span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">privateDnsZoneConfigs</span><span class="p">[</span><span class="n">1</span><span class="p">].</span><span class="n">recordSets</span><span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">ipAddresses</span><span class="p">[</span><span class="n">0</span><span class="p">]</span> <span class="n">-o</span> <span class="n">json</span><span class="p">).</span><span class="n">replace</span><span class="p">(</span><span class="s1">'.privatelink'</span><span class="p">,</span><span class="s1">''</span><span class="p">).</span><span class="n">replace</span><span class="p">(</span><span class="s2">"</span><span class="se">`"</span><span class="s2">"</span><span class="p">,</span><span class="s2">""</span><span class="p">)</span>
+</span><span id="__span-2-11"><a href="#__codelineno-2-11" id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="nv">$gasfqdn</span> <span class="p">=</span> <span class="p">(</span><span class="n">az</span> <span class="n">network</span> <span class="n">private-endpoint</span> <span class="n">dns-zone-group</span> <span class="n">list</span> <span class="p">-</span><span class="n">-endpoint-name</span> <span class="nv">$Env:PEname</span> <span class="p">-</span><span class="n">-resource-group</span> <span class="nv">$Env:resourceGroup</span> <span class="n">-o</span> <span class="n">json</span> <span class="p">-</span><span class="n">-query</span> <span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">privateDnsZoneConfigs</span><span class="p">[</span><span class="n">1</span><span class="p">].</span><span class="n">recordSets</span><span class="p">[</span><span class="n">1</span><span class="p">].</span><span class="n">fqdn</span> <span class="n">-o</span> <span class="n">json</span><span class="p">).</span><span class="n">replace</span><span class="p">(</span><span class="s1">'.privatelink'</span><span class="p">,</span><span class="s1">''</span><span class="p">).</span><span class="n">replace</span><span class="p">(</span><span class="s2">"</span><span class="se">`"</span><span class="s2">"</span><span class="p">,</span><span class="s2">""</span><span class="p">)</span>
+</span><span id="__span-2-12"><a href="#__codelineno-2-12" id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="nv">$gasIp</span> <span class="p">=</span> <span class="p">(</span><span class="n">az</span> <span class="n">network</span> <span class="n">private-endpoint</span> <span class="n">dns-zone-group</span> <span class="n">list</span> <span class="p">-</span><span class="n">-endpoint-name</span> <span class="nv">$Env:PEname</span> <span class="p">-</span><span class="n">-resource-group</span> <span class="nv">$Env:resourceGroup</span> <span class="n">-o</span> <span class="n">json</span> <span class="p">-</span><span class="n">-query</span> <span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">privateDnsZoneConfigs</span><span class="p">[</span><span class="n">1</span><span class="p">].</span><span class="n">recordSets</span><span class="p">[</span><span class="n">1</span><span class="p">].</span><span class="n">ipAddresses</span><span class="p">[</span><span class="n">0</span><span class="p">]</span> <span class="n">-o</span> <span class="n">json</span><span class="p">).</span><span class="n">replace</span><span class="p">(</span><span class="s1">'.privatelink'</span><span class="p">,</span><span class="s1">''</span><span class="p">).</span><span class="n">replace</span><span class="p">(</span><span class="s2">"</span><span class="se">`"</span><span class="s2">"</span><span class="p">,</span><span class="s2">""</span><span class="p">)</span>
+</span><span id="__span-2-13"><a href="#__codelineno-2-13" id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="nv">$dpfqdn</span> <span class="p">=</span> <span class="p">(</span><span class="n">az</span> <span class="n">network</span> <span class="n">private-endpoint</span> <span class="n">dns-zone-group</span> <span class="n">list</span> <span class="p">-</span><span class="n">-endpoint-name</span> <span class="nv">$Env:PEname</span> <span class="p">-</span><span class="n">-resource-group</span> <span class="nv">$Env:resourceGroup</span> <span class="n">-o</span> <span class="n">json</span> <span class="p">-</span><span class="n">-query</span> <span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">privateDnsZoneConfigs</span><span class="p">[</span><span class="n">2</span><span class="p">].</span><span class="n">recordSets</span><span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">fqdn</span> <span class="n">-o</span> <span class="n">json</span><span class="p">).</span><span class="n">replace</span><span class="p">(</span><span class="s1">'.privatelink'</span><span class="p">,</span><span class="s1">''</span><span class="p">).</span><span class="n">replace</span><span class="p">(</span><span class="s2">"</span><span class="se">`"</span><span class="s2">"</span><span class="p">,</span><span class="s2">""</span><span class="p">)</span>
+</span><span id="__span-2-14"><a href="#__codelineno-2-14" id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="nv">$dpIp</span> <span class="p">=</span> <span class="p">(</span><span class="n">az</span> <span class="n">network</span> <span class="n">private-endpoint</span> <span class="n">dns-zone-group</span> <span class="n">list</span> <span class="p">-</span><span class="n">-endpoint-name</span> <span class="nv">$Env:PEname</span> <span class="p">-</span><span class="n">-resource-group</span> <span class="nv">$Env:resourceGroup</span> <span class="n">-o</span> <span class="n">json</span> <span class="p">-</span><span class="n">-query</span> <span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">privateDnsZoneConfigs</span><span class="p">[</span><span class="n">2</span><span class="p">].</span><span class="n">recordSets</span><span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">ipAddresses</span><span class="p">[</span><span class="n">0</span><span class="p">]</span> <span class="n">-o</span> <span class="n">json</span><span class="p">).</span><span class="n">replace</span><span class="p">(</span><span class="s1">'.privatelink'</span><span class="p">,</span><span class="s1">''</span><span class="p">).</span><span class="n">replace</span><span class="p">(</span><span class="s2">"</span><span class="se">`"</span><span class="s2">"</span><span class="p">,</span><span class="s2">""</span><span class="p">)</span>
+</span><span id="__span-2-15"><a href="#__codelineno-2-15" id="__codelineno-2-15" name="__codelineno-2-15"></a>
+</span><span id="__span-2-16"><a href="#__codelineno-2-16" id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="nv">$hostfile</span> <span class="p">+=</span> <span class="s2">"$gisIP $gisfqdn"</span>
+</span><span id="__span-2-17"><a href="#__codelineno-2-17" id="__codelineno-2-17" name="__codelineno-2-17"></a><span class="nv">$hostfile</span> <span class="p">+=</span> <span class="s2">"$hisIP $hisfqdn"</span>
+</span><span id="__span-2-18"><a href="#__codelineno-2-18" id="__codelineno-2-18" name="__codelineno-2-18"></a><span class="nv">$hostfile</span> <span class="p">+=</span> <span class="s2">"$agentIP $agentfqdn"</span>
+</span><span id="__span-2-19"><a href="#__codelineno-2-19" id="__codelineno-2-19" name="__codelineno-2-19"></a><span class="nv">$hostfile</span> <span class="p">+=</span> <span class="s2">"$gasIP $gasfqdn"</span>
+</span><span id="__span-2-20"><a href="#__codelineno-2-20" id="__codelineno-2-20" name="__codelineno-2-20"></a><span class="nv">$hostfile</span> <span class="p">+=</span> <span class="s2">"$dpIP $dpfqdn"</span>
+</span></code></pre></div>
+<h3 id="storage-account-configuration"><a class="toclink" href="../../2024/04/07/how-to-use-azue-arc-enabled-servers-with-managed-identity-to-access-to-azure-storage-account/#storage-account-configuration">Storage Account configuration</a></h3>
+<h4 id="create-a-storage-account-with-static-website-enabled"><a class="toclink" href="../../2024/04/07/how-to-use-azue-arc-enabled-servers-with-managed-identity-to-access-to-azure-storage-account/#create-a-storage-account-with-static-website-enabled">Create a Storage Account with static website enabled</a></h4>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-3-1"><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="nv">$resourceGroup</span> <span class="p">=</span> <span class="s2">"myResourceGroup"</span>
+</span><span id="__span-3-2"><a href="#__codelineno-3-2" id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="nv">$location</span> <span class="p">=</span> <span class="s2">"eastus"</span>
+</span><span id="__span-3-3"><a href="#__codelineno-3-3" id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="nv">$storageAccount</span> <span class="p">=</span> <span class="s2">"mystorageaccount"</span>
+</span><span id="__span-3-4"><a href="#__codelineno-3-4" id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="nv">$indexDocument</span> <span class="p">=</span> <span class="s2">"index.html"</span>
+</span><span id="__span-3-5"><a href="#__codelineno-3-5" id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="n">az</span> <span class="nb">group </span><span class="n">create</span> <span class="p">-</span><span class="n">-name</span> <span class="nv">$resourceGroup</span> <span class="p">-</span><span class="n">-location</span> <span class="nv">$location</span>
+</span><span id="__span-3-6"><a href="#__codelineno-3-6" id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="n">az</span> <span class="n">storage</span> <span class="n">account</span> <span class="n">create</span> <span class="p">-</span><span class="n">-name</span> <span class="nv">$storageAccount</span> <span class="p">-</span><span class="n">-resource-group</span> <span class="nv">$resourceGroup</span> <span class="p">-</span><span class="n">-location</span> <span class="nv">$location</span> <span class="p">-</span><span class="n">-sku</span> <span class="n">Standard_LRS</span>
+</span><span id="__span-3-7"><a href="#__codelineno-3-7" id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="n">az</span> <span class="n">storage</span> <span class="n">blob</span> <span class="n">service-properties</span> <span class="n">update</span> <span class="p">-</span><span class="n">-account-name</span> <span class="nv">$storageAccount</span> <span class="p">-</span><span class="n">-static-website</span> <span class="p">-</span><span class="n">-index-document</span> <span class="nv">$indexDocument</span>
+</span></code></pre></div>
+<h4 id="add-private-endpoints-to-the-storage-accoun-for-blob-and-static-website"><a class="toclink" href="../../2024/04/07/how-to-use-azue-arc-enabled-servers-with-managed-identity-to-access-to-azure-storage-account/#add-private-endpoints-to-the-storage-accoun-for-blob-and-static-website">Add private endpoints to the storage accoun for blob and static website</a></h4>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-4-1"><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="nv">$resourceGroup</span> <span class="p">=</span> <span class="s2">"myResourceGroup"</span>
+</span><span id="__span-4-2"><a href="#__codelineno-4-2" id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="nv">$storageAccount</span> <span class="p">=</span> <span class="s2">"mystorageaccount"</span>
+</span><span id="__span-4-3"><a href="#__codelineno-4-3" id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="nv">$privateEndpointName</span> <span class="p">=</span> <span class="s2">"myprivatelink"</span>
+</span><span id="__span-4-4"><a href="#__codelineno-4-4" id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="nv">$location</span> <span class="p">=</span> <span class="s2">"eastus"</span>
+</span><span id="__span-4-5"><a href="#__codelineno-4-5" id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="nv">$vnetName</span> <span class="p">=</span> <span class="s2">"myVnet"</span>
+</span><span id="__span-4-6"><a href="#__codelineno-4-6" id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="nv">$subnetName</span> <span class="p">=</span> <span class="s2">"mySubnet"</span>
+</span><span id="__span-4-7"><a href="#__codelineno-4-7" id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="nv">$subscriptionId</span> <span class="p">=</span> <span class="s2">"{subscription-id}"</span>
+</span><span id="__span-4-8"><a href="#__codelineno-4-8" id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="n">az</span> <span class="n">network</span> <span class="n">private-endpoint</span> <span class="n">create</span> <span class="p">-</span><span class="n">-name</span> <span class="nv">$privateEndpointName</span> <span class="p">-</span><span class="n">-resource-group</span> <span class="nv">$resourceGroup</span> <span class="p">-</span><span class="n">-vnet-name</span> <span class="nv">$vnetName</span> <span class="p">-</span><span class="n">-subnet</span> <span class="nv">$subnetName</span> <span class="p">-</span><span class="n">-private-connection-resource-id</span> <span class="s2">"/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Storage/storageAccounts/$storageAccount"</span> <span class="p">-</span><span class="n">-group-id</span> <span class="n">blob</span> <span class="p">-</span><span class="n">-connection-name</span> <span class="nv">$privateEndpointName</span> <span class="p">-</span><span class="n">-location</span> <span class="nv">$location</span>
+</span><span id="__span-4-9"><a href="#__codelineno-4-9" id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="n">az</span> <span class="n">network</span> <span class="n">private-endpoint</span> <span class="n">create</span> <span class="p">-</span><span class="n">-name</span> <span class="nv">$privateEndpointName</span> <span class="p">-</span><span class="n">-resource-group</span> <span class="nv">$resourceGroup</span> <span class="p">-</span><span class="n">-vnet-name</span> <span class="nv">$vnetName</span> <span class="p">-</span><span class="n">-subnet</span> <span class="nv">$subnetName</span> <span class="p">-</span><span class="n">-private-connection-resource-id</span> <span class="s2">"/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Storage/storageAccounts/$storageAccount"</span> <span class="p">-</span><span class="n">-group-id</span> <span class="n">web</span> <span class="p">-</span><span class="n">-connection-name</span> <span class="nv">$privateEndpointName</span> <span class="p">-</span><span class="n">-location</span> <span class="nv">$location</span>
+</span></code></pre></div>
+<h4 id="disable-public-access-to-the-storage-account-except-for-your-ip"><a class="toclink" href="../../2024/04/07/how-to-use-azue-arc-enabled-servers-with-managed-identity-to-access-to-azure-storage-account/#disable-public-access-to-the-storage-account-except-for-your-ip">Disable public access to the storage account except for your ip</a></h4>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-5-1"><a href="#__codelineno-5-1" id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="nv">$resourceGroup</span> <span class="p">=</span> <span class="s2">"myResourceGroup"</span>
+</span><span id="__span-5-2"><a href="#__codelineno-5-2" id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="nv">$storageAccount</span> <span class="p">=</span> <span class="s2">"mystorageaccount"</span>
+</span><span id="__span-5-3"><a href="#__codelineno-5-3" id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="nv">$ipAddress</span> <span class="p">=</span> <span class="s2">"myIpAddress"</span>
+</span><span id="__span-5-4"><a href="#__codelineno-5-4" id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="n">az</span> <span class="n">storage</span> <span class="n">account</span> <span class="n">update</span> <span class="p">-</span><span class="n">-name</span> <span class="nv">$storageAccount</span> <span class="p">-</span><span class="n">-resource-group</span> <span class="nv">$resourceGroup</span> <span class="p">-</span><span class="n">-bypass</span> <span class="s2">"AzureServices,Logging,Metrics"</span> <span class="p">-</span><span class="n">-default-action</span> <span class="n">Deny</span>
+</span><span id="__span-5-5"><a href="#__codelineno-5-5" id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="n">az</span> <span class="n">storage</span> <span class="n">account</span> <span class="n">network-rule</span> <span class="n">add</span> <span class="p">-</span><span class="n">-account-name</span> <span class="nv">$storageAccount</span> <span class="p">-</span><span class="n">-resource-group</span> <span class="nv">$resourceGroup</span> <span class="p">-</span><span class="n">-ip-address</span> <span class="nv">$ipAddress</span>
+</span></code></pre></div>
+<h4 id="assign-the-storage-blob-data-contributor-role-to-the-managed-identity-of-the-azure-arc-enabled-server"><a class="toclink" href="../../2024/04/07/how-to-use-azue-arc-enabled-servers-with-managed-identity-to-access-to-azure-storage-account/#assign-the-storage-blob-data-contributor-role-to-the-managed-identity-of-the-azure-arc-enabled-server">Assign the Storage Blob Data Contributor role to the managed identity of the Azure ARC-enabled server</a></h4>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-6-1"><a href="#__codelineno-6-1" id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="nv">$resourceGroup</span> <span class="p">=</span> <span class="s2">"myResourceGroup"</span>
+</span><span id="__span-6-2"><a href="#__codelineno-6-2" id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="nv">$storageAccount</span> <span class="p">=</span> <span class="s2">"mystorageaccount"</span>
+</span><span id="__span-6-3"><a href="#__codelineno-6-3" id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="nv">$serverName</span> <span class="p">=</span> <span class="s2">"myserver"</span>
+</span><span id="__span-6-4"><a href="#__codelineno-6-4" id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="nv">$managedIdentity</span> <span class="p">=</span> <span class="n">az</span> <span class="n">resource</span> <span class="n">show</span> <span class="p">-</span><span class="n">-resource-group</span> <span class="nv">$resourceGroup</span> <span class="p">-</span><span class="n">-name</span> <span class="nv">$serverName</span> <span class="p">-</span><span class="n">-resource-type</span> <span class="s2">"Microsoft.HybridCompute/machines"</span> <span class="p">-</span><span class="n">-query</span> <span class="s2">"identity.principalId"</span> <span class="p">-</span><span class="n">-output</span> <span class="n">tsv</span>
+</span><span id="__span-6-5"><a href="#__codelineno-6-5" id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="n">az</span> <span class="n">role</span> <span class="n">assignment</span> <span class="n">create</span> <span class="p">-</span><span class="n">-role</span> <span class="s2">"Storage Blob Data Contributor"</span> <span class="p">-</span><span class="n">-assignee-object-id</span> <span class="nv">$managedIdentity</span> <span class="p">-</span><span class="n">-scope</span> <span class="s2">"/subscriptions/{subscription-id}/resourceGroups/$resourceGroup/providers/Microsoft.Storage/storageAccounts/$storageAccount"</span>
+</span></code></pre></div>
+<h3 id="download-azcopy-install-it-and-copy-something-to-web-in-the-storage-account"><a class="toclink" href="../../2024/04/07/how-to-use-azue-arc-enabled-servers-with-managed-identity-to-access-to-azure-storage-account/#download-azcopy-install-it-and-copy-something-to-web-in-the-storage-account">Download azcopy,  install it and copy something to $web in the storage account</a></h3>
+<h4 id="download-azcopy-in-the-vm"><a class="toclink" href="../../2024/04/07/how-to-use-azue-arc-enabled-servers-with-managed-identity-to-access-to-azure-storage-account/#download-azcopy-in-the-vm">Download azcopy in the vm</a></h4>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-7-1"><a href="#__codelineno-7-1" id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="nb">Invoke-WebRequest</span> <span class="n">-Uri</span> <span class="s2">"https://aka.ms/downloadazcopy-v10-windows"</span> <span class="n">-OutFile</span> <span class="n">AzCopy</span><span class="p">.</span><span class="n">zip</span>
+</span><span id="__span-7-2"><a href="#__codelineno-7-2" id="__codelineno-7-2" name="__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a href="#__codelineno-7-3" id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="nb">Expand-Archive</span> <span class="n">AzCopy</span><span class="p">.</span><span class="n">zip</span> <span class="n">-DestinationPath</span> <span class="nv">$env:ProgramFiles</span>
+</span><span id="__span-7-4"><a href="#__codelineno-7-4" id="__codelineno-7-4" name="__codelineno-7-4"></a>
+</span><span id="__span-7-5"><a href="#__codelineno-7-5" id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="nv">$env:Path</span> <span class="p">+=</span> <span class="s2">";$env:ProgramFiles\azcopy"</span>
+</span></code></pre></div>
+<h4 id="copy-something-to-web-in-the-storage-account"><a class="toclink" href="../../2024/04/07/how-to-use-azue-arc-enabled-servers-with-managed-identity-to-access-to-azure-storage-account/#copy-something-to-web-in-the-storage-account">Copy something to $web in the storage account</a></h4>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-8-1"><a href="#__codelineno-8-1" id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="nv">$storageAccount</span> <span class="p">=</span> <span class="s2">"mystorageaccount"</span>
+</span><span id="__span-8-2"><a href="#__codelineno-8-2" id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="nv">$source</span> <span class="p">=</span> <span class="s2">"C:\Users\Public\Documents\myFile.txt"</span>
+</span><span id="__span-8-3"><a href="#__codelineno-8-3" id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="nv">$destination</span> <span class="p">=</span> <span class="s2">"https://$storageAccount.blob.core.windows.net/\$web/myFile.txt"</span>
+</span><span id="__span-8-4"><a href="#__codelineno-8-4" id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="n">azcopy</span> <span class="n">login</span> <span class="p">-</span><span class="n">-identity</span>
+</span><span id="__span-8-5"><a href="#__codelineno-8-5" id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="n">azcopy</span> <span class="nb">copy </span><span class="nv">$source</span> <span class="nv">$destination</span>
+</span></code></pre></div>
+<p>Now you can check the file in the static website of the storage account.</p>
+</div>
+</article>
 <article class="md-post md-post--excerpt">
 <header class="md-post__header">
 <nav class="md-post__authors md-typeset">
@@ -1879,113 +2026,6 @@ initiative.
 </ul>
 <h3 id="conclusion"><a class="toclink" href="../../2024/02/25/writing-your-first-initiative-with-portal/#conclusion">Conclusion</a></h3>
 <p>Creating an initiative in Azure Policy is a powerful way to group policies together and enforce them across your Azure environment. By defining initiatives, you can streamline governance, simplify compliance management, and ensure consistent application of policies to your resources. Start creating initiatives today to enhance the security, compliance, and operational efficiency of your Azure environment.</p>
-</div>
-</article>
-<article class="md-post md-post--excerpt">
-<header class="md-post__header">
-<nav class="md-post__authors md-typeset">
-<span class="md-author">
-<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341"/>
-</span>
-</nav>
-<div class="md-post__meta md-meta">
-<ul class="md-meta__list">
-<li class="md-meta__item">
-<time datetime="2024-02-24 00:00:00">February 24, 2024</time></li>
-<li class="md-meta__item">
-            in
-            
-              <a class="md-meta__link" href="../../category/azure-services/">Azure Services</a></li>
-<li class="md-meta__item">
-            
-              4 min read
-            
-          </li>
-</ul>
-</div>
-</header>
-<div class="md-post__content md-typeset">
-<h2 id="azure-policy"><a class="toclink" href="../../2024/02/24/azure-policy/">Azure Policy</a></h2>
-<p>Azure Policy serves as a powerful tool for implementing governance across your Azure environment. It helps ensure resource consistency, regulatory compliance, security, cost management, and efficient operations</p>
-<p>As organizations leverage the power of Azure for their cloud infrastructure, ensuring governance, compliance, and security becomes paramount. Azure Policy, along with policies and initiatives, provides a robust framework to enforce and assess compliance with organizational standards and regulatory requirements. Let's delve into these concepts to understand how they work together.</p>
-<h3 id="azure-policy-overview"><a class="toclink" href="../../2024/02/24/azure-policy/#azure-policy-overview">Azure Policy Overview</a></h3>
-<p><strong>Azure Policy</strong> is a service in Azure that allows you to create, assign, and manage policies. These policies enforce different rules and effects over resources, so those resources stay compliant with corporate standards and service-level agreements.</p>
-<p>Azure Policy helps to address questions like:</p>
-<ul>
-<li>Are all virtual machines encrypted using Azure Disk Encryption?</li>
-<li>Are resources deployed only in certain Azure regions?</li>
-<li>Are specific tags applied to resources for tracking and organization?</li>
-</ul>
-<p>Policies in Azure Policy are defined using JSON-based policy definitions. These definitions can be simple or complex, depending on the requirements. Once a policy is created, it can be assigned to specific scopes within Azure, such as subscriptions, resource groups, or even individual resources.</p>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p>It's important to recognize that with the introduction of Azure Arc, you can extend your policy-based governance across different cloud providers and even to your local datacenters.</p>
-</div>
-<h3 id="policies"><a class="toclink" href="../../2024/02/24/azure-policy/#policies">Policies</a></h3>
-<p><strong>Policies</strong> in Azure Policy are rules that enforce different requirements and effects on resources. These policies can be related to security, compliance, or management. For instance, you can have a policy that ensures all publicly accessible storage accounts are secured with a firewall or a policy that enforces a specific naming convention for virtual machines.</p>
-<p>Key attributes of policies include:
-- <strong>Effect</strong>: Determines what happens when the condition in the policy is met (e.g., deny the action, audit the action, append a tag).
-- <strong>Condition</strong>: Defines when the policy is enforced based on properties of the resource being evaluated.
-- <strong>Action</strong>: Specifies what happens when a resource violates the policy (e.g., deny deployment, apply audit).</p>
-<p>Policies can be built-in (provided by Azure) or custom (defined by the organization). They play a vital role in maintaining compliance and security standards across Azure environments.</p>
-<h3 id="initiatives"><a class="toclink" href="../../2024/02/24/azure-policy/#initiatives">Initiatives</a></h3>
-<p><strong>Initiatives</strong> in Azure Policy are collections of policies that are grouped together as a single unit. This simplifies the process of assigning multiple policies to different scopes simultaneously. Initiatives help in enforcing complex requirements and compliance standards by grouping related policies together.</p>
-<pre class="mermaid"><code>graph TD;
-    A[Azure Policy] --&gt;|Contains| B1[Policy 1]
-    A[Azure Policy] --&gt;|Contains| B2[Policy 2]
-    A[Azure Policy] --&gt;|Contains| B3[Policy 3]
-    A[Azure Policy] --&gt;|Contains| B4[Policy 4]
-    B1[Policy 1] --&gt;|Belongs to| C[Initiative 1]
-    B2[Policy 2] --&gt;|Belongs to| C[Initiative 1]
-    B3[Policy 3] --&gt;|Belongs to| D[Initiative 2]
-
-
-    classDef azurePolicy fill:#f9f,stroke:#333,stroke-width:2px;
-    classDef policy fill:#fc9,stroke:#333,stroke-width:2px;
-    classDef initiative fill:#9cf,stroke:#333,stroke-width:2px;
-
-    class A,B1,B2,B3,B4 azurePolicy;
-    class C,D initiative;
-    class D1,D2,E1,E2 policy;
-</code></pre>
-<p>Initiatives allow you to:</p>
-<ul>
-<li>Apply multiple policies at once to a scope (like a subscription or management group).</li>
-<li>Monitor compliance against a set of defined standards or regulations.</li>
-<li>Streamline governance by organizing policies logically.</li>
-</ul>
-<p>By using initiatives, you can efficiently manage and enforce compliance with regulatory standards (e.g., CIS benchmarks, PCI DSS) or organizational best practices.</p>
-<h3 id="assignments"><a class="toclink" href="../../2024/02/24/azure-policy/#assignments">Assignments</a></h3>
-<p><strong>Assignments</strong> in Azure Policy are the mechanism to apply policies or initiatives to specific scopes within Azure. You can assign policies to subscriptions, resource groups, or even individual resources. Assignments help in enforcing governance and compliance standards across your Azure environment.</p>
-<pre class="mermaid"><code>graph TD;
-    A[Azure Policy] --&gt;|Contains| B1[Policy 1]
-    A[Azure Policy] --&gt;|Contains| B2[Policy 2]
-    A[Azure Policy] --&gt;|Contains| B3[Policy 3]
-    A[Azure Policy] --&gt;|Contains| B4[Policy 4]
-    B1[Policy 1] --&gt;|Belongs to| C[Initiative 1]
-    B2[Policy 2] --&gt;|Belongs to| C[Initiative 1]
-    B3[Policy 3] --&gt;|Belongs to| D[Initiative 2]
-    C[Initiative 1] --&gt;|Assigned to| E[Subscription 1]
-    D[Initiative 2] --&gt;|Assigned to| F[Resource Group 1]
-    B4[Policy 4] --&gt;|Assigned to| G[Management Group 1]
-
-    classDef azurePolicy fill:#f9f,stroke:#333,stroke-width:2px;
-    classDef policy fill:#fc9,stroke:#333,stroke-width:2px;
-    classDef initiative fill:#9cf,stroke:#333,stroke-width:2px;
-    classDef assignment fill:#9f9,stroke:#333,stroke-width:2px;
-
-    class A,B1,B2,B3,B4 azurePolicy;
-    class C,D initiative;
-    class E,F,G assignment;
-    class D1,D2,E1,E2 policy;
-
-</code></pre>
-<h3 id="conclusion"><a class="toclink" href="../../2024/02/24/azure-policy/#conclusion">Conclusion</a></h3>
-<p>In conclusion, Azure Policy, policies, and initiatives are fundamental components of Azure's governance framework. They enable organizations to define and enforce rules for Azure resources, ensuring adherence to compliance standards, security protocols, and operational guidelines. By leveraging these capabilities, Azure users can maintain control over their cloud environment while promoting consistency and security across deployments. If you're looking to enhance governance and compliance within Azure, exploring Azure Policy, policies, and initiatives is a crucial step forward.</p>
-<h3 id="references"><a class="toclink" href="../../2024/02/24/azure-policy/#references">References</a></h3>
-<ul>
-<li><a href="https://docs.microsoft.com/en-us/azure/governance/policy/overview">Azure Policy overview</a></li>
-</ul>
 </div>
 </article>
 <nav class="md-pagination">

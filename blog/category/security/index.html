@@ -241,6 +241,13 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/02/">
+<span class="md-ellipsis">
+    2025/02
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../../2025/01/">
 <span class="md-ellipsis">
     2025/01
@@ -851,8 +858,8 @@
 <h4 id="at-deployment-time"><a class="toclink" href="../../2024/06/13/restrict-managed-disks-from-being-imported-or-exported/#at-deployment-time">At deployment time</a></h4>
 <p>An example with azcli:</p>
 <h5 id="create-a-managed-disk-with-public-network-access-disabled"><a class="toclink" href="../../2024/06/13/restrict-managed-disks-from-being-imported-or-exported/#create-a-managed-disk-with-public-network-access-disabled">Create a managed disk with public network access disabled</a></h5>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a>## Create a managed disk with public network access disabled
-</span><span id="__span-2-2"><a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a>az disk create --resource-group myResourceGroup --name myDisk --size-gb 128 --location eastus --sku Standard_LRS --no-wait --public-network-access disabled 
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a>## Create a managed disk with public network access disabled
+</span><span id="__span-1-2"><a href="#__codelineno-1-2" id="__codelineno-1-2" name="__codelineno-1-2"></a>az disk create --resource-group myResourceGroup --name myDisk --size-gb 128 --location eastus --sku Standard_LRS --no-wait --public-network-access disabled 
 </span></code></pre></div>
 <h5 id="create-a-managed-disk-with-public-network-access-disabled-and-private-endpoint-enabled"><a class="toclink" href="../../2024/06/13/restrict-managed-disks-from-being-imported-or-exported/#create-a-managed-disk-with-public-network-access-disabled-and-private-endpoint-enabled">Create a managed disk with public network access disabled and private endpoint enabled</a></h5>
 <p>Follow <a href="https://learn.microsoft.com/en-us/azure/virtual-machines/linux/disks-export-import-private-links-cli#log-in-into-your-subscription-and-set-your-variables">Azure CLI - Restrict import/export access for managed disks with Private Links</a></p>

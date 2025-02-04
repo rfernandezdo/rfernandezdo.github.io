@@ -241,6 +241,13 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/02/">
+<span class="md-ellipsis">
+    2025/02
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../../2025/01/">
 <span class="md-ellipsis">
     2025/01
@@ -681,6 +688,113 @@
 <header class="md-typeset">
 <h1 id="blog">Blog</h1>
 </header>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341"/>
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-02-24 00:00:00">February 24, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/azure-services/">Azure Services</a></li>
+<li class="md-meta__item">
+            
+              4 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="azure-policy"><a class="toclink" href="../../2024/02/24/azure-policy/">Azure Policy</a></h2>
+<p>Azure Policy serves as a powerful tool for implementing governance across your Azure environment. It helps ensure resource consistency, regulatory compliance, security, cost management, and efficient operations</p>
+<p>As organizations leverage the power of Azure for their cloud infrastructure, ensuring governance, compliance, and security becomes paramount. Azure Policy, along with policies and initiatives, provides a robust framework to enforce and assess compliance with organizational standards and regulatory requirements. Let's delve into these concepts to understand how they work together.</p>
+<h3 id="azure-policy-overview"><a class="toclink" href="../../2024/02/24/azure-policy/#azure-policy-overview">Azure Policy Overview</a></h3>
+<p><strong>Azure Policy</strong> is a service in Azure that allows you to create, assign, and manage policies. These policies enforce different rules and effects over resources, so those resources stay compliant with corporate standards and service-level agreements.</p>
+<p>Azure Policy helps to address questions like:</p>
+<ul>
+<li>Are all virtual machines encrypted using Azure Disk Encryption?</li>
+<li>Are resources deployed only in certain Azure regions?</li>
+<li>Are specific tags applied to resources for tracking and organization?</li>
+</ul>
+<p>Policies in Azure Policy are defined using JSON-based policy definitions. These definitions can be simple or complex, depending on the requirements. Once a policy is created, it can be assigned to specific scopes within Azure, such as subscriptions, resource groups, or even individual resources.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>It's important to recognize that with the introduction of Azure Arc, you can extend your policy-based governance across different cloud providers and even to your local datacenters.</p>
+</div>
+<h3 id="policies"><a class="toclink" href="../../2024/02/24/azure-policy/#policies">Policies</a></h3>
+<p><strong>Policies</strong> in Azure Policy are rules that enforce different requirements and effects on resources. These policies can be related to security, compliance, or management. For instance, you can have a policy that ensures all publicly accessible storage accounts are secured with a firewall or a policy that enforces a specific naming convention for virtual machines.</p>
+<p>Key attributes of policies include:
+- <strong>Effect</strong>: Determines what happens when the condition in the policy is met (e.g., deny the action, audit the action, append a tag).
+- <strong>Condition</strong>: Defines when the policy is enforced based on properties of the resource being evaluated.
+- <strong>Action</strong>: Specifies what happens when a resource violates the policy (e.g., deny deployment, apply audit).</p>
+<p>Policies can be built-in (provided by Azure) or custom (defined by the organization). They play a vital role in maintaining compliance and security standards across Azure environments.</p>
+<h3 id="initiatives"><a class="toclink" href="../../2024/02/24/azure-policy/#initiatives">Initiatives</a></h3>
+<p><strong>Initiatives</strong> in Azure Policy are collections of policies that are grouped together as a single unit. This simplifies the process of assigning multiple policies to different scopes simultaneously. Initiatives help in enforcing complex requirements and compliance standards by grouping related policies together.</p>
+<pre class="mermaid"><code>graph TD;
+    A[Azure Policy] --&gt;|Contains| B1[Policy 1]
+    A[Azure Policy] --&gt;|Contains| B2[Policy 2]
+    A[Azure Policy] --&gt;|Contains| B3[Policy 3]
+    A[Azure Policy] --&gt;|Contains| B4[Policy 4]
+    B1[Policy 1] --&gt;|Belongs to| C[Initiative 1]
+    B2[Policy 2] --&gt;|Belongs to| C[Initiative 1]
+    B3[Policy 3] --&gt;|Belongs to| D[Initiative 2]
+
+
+    classDef azurePolicy fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef policy fill:#fc9,stroke:#333,stroke-width:2px;
+    classDef initiative fill:#9cf,stroke:#333,stroke-width:2px;
+
+    class A,B1,B2,B3,B4 azurePolicy;
+    class C,D initiative;
+    class D1,D2,E1,E2 policy;
+</code></pre>
+<p>Initiatives allow you to:</p>
+<ul>
+<li>Apply multiple policies at once to a scope (like a subscription or management group).</li>
+<li>Monitor compliance against a set of defined standards or regulations.</li>
+<li>Streamline governance by organizing policies logically.</li>
+</ul>
+<p>By using initiatives, you can efficiently manage and enforce compliance with regulatory standards (e.g., CIS benchmarks, PCI DSS) or organizational best practices.</p>
+<h3 id="assignments"><a class="toclink" href="../../2024/02/24/azure-policy/#assignments">Assignments</a></h3>
+<p><strong>Assignments</strong> in Azure Policy are the mechanism to apply policies or initiatives to specific scopes within Azure. You can assign policies to subscriptions, resource groups, or even individual resources. Assignments help in enforcing governance and compliance standards across your Azure environment.</p>
+<pre class="mermaid"><code>graph TD;
+    A[Azure Policy] --&gt;|Contains| B1[Policy 1]
+    A[Azure Policy] --&gt;|Contains| B2[Policy 2]
+    A[Azure Policy] --&gt;|Contains| B3[Policy 3]
+    A[Azure Policy] --&gt;|Contains| B4[Policy 4]
+    B1[Policy 1] --&gt;|Belongs to| C[Initiative 1]
+    B2[Policy 2] --&gt;|Belongs to| C[Initiative 1]
+    B3[Policy 3] --&gt;|Belongs to| D[Initiative 2]
+    C[Initiative 1] --&gt;|Assigned to| E[Subscription 1]
+    D[Initiative 2] --&gt;|Assigned to| F[Resource Group 1]
+    B4[Policy 4] --&gt;|Assigned to| G[Management Group 1]
+
+    classDef azurePolicy fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef policy fill:#fc9,stroke:#333,stroke-width:2px;
+    classDef initiative fill:#9cf,stroke:#333,stroke-width:2px;
+    classDef assignment fill:#9f9,stroke:#333,stroke-width:2px;
+
+    class A,B1,B2,B3,B4 azurePolicy;
+    class C,D initiative;
+    class E,F,G assignment;
+    class D1,D2,E1,E2 policy;
+
+</code></pre>
+<h3 id="conclusion"><a class="toclink" href="../../2024/02/24/azure-policy/#conclusion">Conclusion</a></h3>
+<p>In conclusion, Azure Policy, policies, and initiatives are fundamental components of Azure's governance framework. They enable organizations to define and enforce rules for Azure resources, ensuring adherence to compliance standards, security protocols, and operational guidelines. By leveraging these capabilities, Azure users can maintain control over their cloud environment while promoting consistency and security across deployments. If you're looking to enhance governance and compliance within Azure, exploring Azure Policy, policies, and initiatives is a crucial step forward.</p>
+<h3 id="references"><a class="toclink" href="../../2024/02/24/azure-policy/#references">References</a></h3>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/azure/governance/policy/overview">Azure Policy overview</a></li>
+</ul>
+</div>
+</article>
 <article class="md-post md-post--excerpt">
 <header class="md-post__header">
 <nav class="md-post__authors md-typeset">
@@ -1467,97 +1581,6 @@ C# 101 SERIES</a>.</p>
 <p>After that, I will follow the free course <a href="https://www.freecodecamp.org/learn/foundational-c-sharp-with-microsoft/">(New) Foundational C# with Microsoft</a>.</p>
 <p>And after that, I think that I will be ready to start with <a href="https://learn.microsoft.com/en-us/dotnet/standard/get-started?source=recommendations">Tutorials for getting started with .NET</a> and plan next steps.</p>
 <p>That's all folks!!</p>
-</div>
-</article>
-<article class="md-post md-post--excerpt">
-<header class="md-post__header">
-<nav class="md-post__authors md-typeset">
-<span class="md-author">
-<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341"/>
-</span>
-</nav>
-<div class="md-post__meta md-meta">
-<ul class="md-meta__list">
-<li class="md-meta__item">
-<time datetime="2023-11-03 00:00:00">November 3, 2023</time></li>
-<li class="md-meta__item">
-            in
-            
-              <a class="md-meta__link" href="../../category/devops/">DevOps</a>, 
-              <a class="md-meta__link" href="../../category/english/">English</a></li>
-<li class="md-meta__item">
-            
-              2 min read
-            
-          </li>
-</ul>
-</div>
-</header>
-<div class="md-post__content md-typeset">
-<h2 id="trunk"><a class="toclink" href="../../2023/11/03/trunk/">Trunk</a></h2>
-<h3 id="what-is-trunk"><a class="toclink" href="../../2023/11/03/trunk/#what-is-trunk">What is Trunk ?</a></h3>
-<p>Trunk is a tool that runs a suite of security and best practice checks against your code. It is designed to be used in CI/CD pipelines, but can also be used as a standalone tool.</p>
-<p>Support for the following languages is currently available:</p>
-<h3 id="installing-trunk"><a class="toclink" href="../../2023/11/03/trunk/#installing-trunk">Installing Trunk</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio"><input id="__tabbed_3_2" name="__tabbed_3" type="radio"><div class="tabbed-labels"><label for="__tabbed_3_1">Trunk cli</label><label for="__tabbed_3_2">Trunk VSCode extension</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a href="#__codelineno-10-1" id="__codelineno-10-1" name="__codelineno-10-1"></a>curl<span class="w"> </span>https://get.trunk.io<span class="w"> </span>-fsSL<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
-</span></code></pre></div>
-</div>
-<div class="tabbed-block">
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a href="#__codelineno-11-1" id="__codelineno-11-1" name="__codelineno-11-1"></a>code<span class="w"> </span>--install-extension<span class="w"> </span>Trunk.io<span class="w">  </span>
-</span></code></pre></div>
-</div>
-</div>
-</input></input></div>
-<h3 id="trunk-checks"><a class="toclink" href="../../2023/11/03/trunk/#trunk-checks">Trunk checks</a></h3>
-<h4 id="trunk-checks-cli"><a class="toclink" href="../../2023/11/03/trunk/#trunk-checks-cli">Trunk checks cli</a></h4>
-<p>Trunk detects checks to enable in function of the files in the current directory, but you can also enable and disable checks manually.</p>
-<ul>
-<li>trunck check list: list all available checks</li>
-<li>trunck check enable checkname: enable a check</li>
-<li>trunck check disable checkname: disable a check</li>
-<li>trunck check: run all enabled checks</li>
-</ul>
-<p>For example, to enable the Terraform check:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a href="#__codelineno-12-1" id="__codelineno-12-1" name="__codelineno-12-1"></a>trunk<span class="w"> </span>check<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>terraform<span class="w"> </span>
-</span><span id="__span-12-2"><a href="#__codelineno-12-2" id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="m">1</span><span class="w"> </span>linter<span class="w"> </span>was<span class="w"> </span>enabled:
-</span><span id="__span-12-3"><a href="#__codelineno-12-3" id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="w">  </span>terraform<span class="w"> </span><span class="m">1</span>.1.0
-</span></code></pre></div>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p>You can also enable checks by modifing .trunk.yml file in your repository. See the <a href="https://docs.trunk.io/actions/configuration">configuration page</a>  for more information.</p>
-</div>
-<p>Examples: </p>
-<div class="language-console highlight"><span class="filename">trunk commnad line check example</span><pre><span></span><code><span id="__span-13-1"><a href="#__codelineno-13-1" id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="go">trunk check   </span>
-</span><span id="__span-13-2"><a href="#__codelineno-13-2" id="__codelineno-13-2" name="__codelineno-13-2"></a>
-</span><span id="__span-13-3"><a href="#__codelineno-13-3" id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="go">Checking 68% [====================================================================================================================================================================&gt;                                                                              ]  38/56  9.4s </span>
-</span><span id="__span-13-4"><a href="#__codelineno-13-4" id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="go"> ↳ checkov                                                                                                                                                                                                                                                                      </span>
-</span><span id="__span-13-5"><a href="#__codelineno-13-5" id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="go">   ↳ modules/webapps/linux_function_app/private_endpoint.tf [lint] ⠧                                                                                                                                                                                                            </span>
-</span><span id="__span-13-6"><a href="#__codelineno-13-6" id="__codelineno-13-6" name="__codelineno-13-6"></a><span class="go">   ↳ modules/webapps/linux_function_app/variables.tf [lint] ⠧                                                                                                                                                                                                                   </span>
-</span><span id="__span-13-7"><a href="#__codelineno-13-7" id="__codelineno-13-7" name="__codelineno-13-7"></a><span class="go"> ↳ terrascan                                                                                                                                                                                                                                                                    </span>
-</span><span id="__span-13-8"><a href="#__codelineno-13-8" id="__codelineno-13-8" name="__codelineno-13-8"></a><span class="go">   ↳ modules/webapps/linux_function_app/locals.tf [lint] ⠧                                                                                                                                                                                                                      </span>
-</span><span id="__span-13-9"><a href="#__codelineno-13-9" id="__codelineno-13-9" name="__codelineno-13-9"></a><span class="go">   ↳ modules/webapps/linux_function_app/main.tf [lint] ⠧                                                                              </span>
-</span></code></pre></div>
-<h4 id="trunk-checks-vscode"><a class="toclink" href="../../2023/11/03/trunk/#trunk-checks-vscode">Trunk checks vscode</a></h4>
-<p>In the case of the VSCode extension, you can review your checks in your IDE:</p>
-<p><img alt="Trunk checks vscode" src="../../2023/assets/2023-11-03-17-00-28.png"/></p>
-<p>And you can disable checks from quick fix menu:</p>
-<p><img alt="Quick Fix" src="../../2023/assets/2023-11-03-17-04-36.png"/></p>
-<h3 id="trunk-updates"><a class="toclink" href="../../2023/11/03/trunk/#trunk-updates">Trunk updates</a></h3>
-<h4 id="trunk-updates-cli"><a class="toclink" href="../../2023/11/03/trunk/#trunk-updates-cli">Trunk updates cli</a></h4>
-<p>Trunk is updated regularly with new checks and improvements. You can update Trunk by running the following command:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a href="#__codelineno-14-1" id="__codelineno-14-1" name="__codelineno-14-1"></a>trunk<span class="w"> </span>update
-</span></code></pre></div>
-<h4 id="trunk-updates-vscode"><a class="toclink" href="../../2023/11/03/trunk/#trunk-updates-vscode">Trunk updates vscode</a></h4>
-<p>In the case of the VSCode extension, it will be updated automatically:</p>
-<p><img alt="Trunk updates" src="../../2023/assets/2023-10-18-23-52-48.png"/></p>
-<h3 id="references"><a class="toclink" href="../../2023/11/03/trunk/#references">References</a></h3>
-<ul>
-<li><a href="https://docs.trunk.io/cli">Trunk</a></li>
-<li><a href="https://marketplace.visualstudio.com/items?itemName=Trunk.io">Trunk VSCode extension</a></li>
-</ul>
 </div>
 </article>
 <nav class="md-pagination">

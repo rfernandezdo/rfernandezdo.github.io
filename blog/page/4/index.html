@@ -241,6 +241,13 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/02/">
+<span class="md-ellipsis">
+    2025/02
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../../2025/01/">
 <span class="md-ellipsis">
     2025/01
@@ -681,6 +688,134 @@
 <header class="md-typeset">
 <h1 id="blog">Blog</h1>
 </header>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341"/>
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-05-03 00:00:00">May 3, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/devops/">DevOps</a></li>
+<li class="md-meta__item">
+            
+              3 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="nested-structures-with-optional-attributes-and-dynamic-blocks"><a class="toclink" href="../../2024/05/03/nested-structures-with-optional-attributes-and-dynamic-blocks/">Nested Structures with Optional Attributes and Dynamic Blocks</a></h2>
+<p>In this post, I will explain how to define nested structures with optional attributes and it's use dynamic blocks in Terraform.</p>
+<h3 id="nested-structures"><a class="toclink" href="../../2024/05/03/nested-structures-with-optional-attributes-and-dynamic-blocks/#nested-structures">Nested Structures</a></h3>
+<p>Terraform allows you to define nested structures to represent complex data types in your configuration. Nested structures are useful when you need to group related attributes together or define a data structure that contains multiple fields.</p>
+<p>For example, you might define a nested structure to represent a virtual machine with multiple attributes, such as size, image, and network configuration:</p>
+<div class="language-hcl highlight"><pre><span></span><code><span id="__span-8-1"><a href="#__codelineno-8-1" id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="kr">variable</span><span class="w"> </span><span class="nv">"vm"</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-2"><a href="#__codelineno-8-2" id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="w">  </span><span class="na">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">object</span><span class="p">({</span>
+</span><span id="__span-8-3"><a href="#__codelineno-8-3" id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="w">    </span><span class="na">size</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-8-4"><a href="#__codelineno-8-4" id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="w">    </span><span class="na">image</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-8-5"><a href="#__codelineno-8-5" id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="w">    </span><span class="na">network</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="kt">object</span><span class="p">({</span>
+</span><span id="__span-8-6"><a href="#__codelineno-8-6" id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="w">      </span><span class="na">subnet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-8-7"><a href="#__codelineno-8-7" id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="w">      </span><span class="na">security_group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-8-8"><a href="#__codelineno-8-8" id="__codelineno-8-8" name="__codelineno-8-8"></a><span class="w">    </span><span class="p">})</span>
+</span><span id="__span-8-9"><a href="#__codelineno-8-9" id="__codelineno-8-9" name="__codelineno-8-9"></a><span class="w">  </span><span class="p">})</span>
+</span><span id="__span-8-10"><a href="#__codelineno-8-10" id="__codelineno-8-10" name="__codelineno-8-10"></a><span class="p">}</span>
+</span><span id="__span-8-11"><a href="#__codelineno-8-11" id="__codelineno-8-11" name="__codelineno-8-11"></a>
+</span><span id="__span-8-12"><a href="#__codelineno-8-12" id="__codelineno-8-12" name="__codelineno-8-12"></a><span class="kr">resource</span><span class="w"> </span><span class="nc">"azurerm_virtual_machine"</span><span class="w"> </span><span class="nv">"example"</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-13"><a href="#__codelineno-8-13" id="__codelineno-8-13" name="__codelineno-8-13"></a><span class="w">  </span><span class="na">name</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"example-vm"</span>
+</span><span id="__span-8-14"><a href="#__codelineno-8-14" id="__codelineno-8-14" name="__codelineno-8-14"></a><span class="w">  </span><span class="na">size</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.size</span>
+</span><span id="__span-8-15"><a href="#__codelineno-8-15" id="__codelineno-8-15" name="__codelineno-8-15"></a><span class="w">  </span><span class="na">image</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.image</span>
+</span><span id="__span-8-16"><a href="#__codelineno-8-16" id="__codelineno-8-16" name="__codelineno-8-16"></a><span class="w">  </span><span class="na">subnet</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.network.subnet</span>
+</span><span id="__span-8-17"><a href="#__codelineno-8-17" id="__codelineno-8-17" name="__codelineno-8-17"></a><span class="w">  </span><span class="na">security_group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.network.security_group</span>
+</span><span id="__span-8-18"><a href="#__codelineno-8-18" id="__codelineno-8-18" name="__codelineno-8-18"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>In this example, the <code>vm</code> variable defines a nested structure with three attributes: <code>size</code>, <code>image</code>, and <code>network</code>. The <code>network</code> attribute is itself a nested structure with two attributes: <code>subnet</code> and <code>security_group</code>.</p>
+<h3 id="optional-attributes"><a class="toclink" href="../../2024/05/03/nested-structures-with-optional-attributes-and-dynamic-blocks/#optional-attributes">Optional Attributes</a></h3>
+<p>If you have an attribute that is optional, you can define it as an optional attribute in your configuration. Optional attributes are useful when you want to provide a default value for an attribute but allow users to override it if needed.</p>
+<p>If optional doesn't works,  Terraform allows you to define your variables as <code>any</code> type, but it's not recommended because it can lead to errors and make your configuration less maintainable. It's better to define your variables with the correct type and use optional attributes when needed, but some cases it's necessary to use <code>any</code> and <code>null</code> values, you can minimize the risk of errors by providing a good description of the variable and its expected values.</p>
+<p>For example, you might define an optional attribute for the <code>security_group</code> in the <code>network</code> structure:</p>
+<div class="language-hcl highlight"><pre><span></span><code><span id="__span-9-1"><a href="#__codelineno-9-1" id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="kr">variable</span><span class="w"> </span><span class="nv">"vm"</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-2"><a href="#__codelineno-9-2" id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="w">  </span><span class="na">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="dl">DESCRIPTION</span>
+</span><span id="__span-9-3"><a href="#__codelineno-9-3" id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="sh">  Virtual machine configuration.</span>
+</span><span id="__span-9-4"><a href="#__codelineno-9-4" id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="sh">  The following attributes are required:</span>
+</span><span id="__span-9-5"><a href="#__codelineno-9-5" id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="sh">  - size: The size of the virtual machine.</span>
+</span><span id="__span-9-6"><a href="#__codelineno-9-6" id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="sh">  - image: The image for the virtual machine.</span>
+</span><span id="__span-9-7"><a href="#__codelineno-9-7" id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="sh">  - network: The network configuration for the virtual machine.</span>
+</span><span id="__span-9-8"><a href="#__codelineno-9-8" id="__codelineno-9-8" name="__codelineno-9-8"></a><span class="sh">  The network configuration should have the following attributes:</span>
+</span><span id="__span-9-9"><a href="#__codelineno-9-9" id="__codelineno-9-9" name="__codelineno-9-9"></a><span class="sh">  - subnet: The subnet for the virtual machine.</span>
+</span><span id="__span-9-10"><a href="#__codelineno-9-10" id="__codelineno-9-10" name="__codelineno-9-10"></a><span class="sh">  - security_group: The security group for the virtual machine.</span>
+</span><span id="__span-9-11"><a href="#__codelineno-9-11" id="__codelineno-9-11" name="__codelineno-9-11"></a><span class="dl">  DESCRIPTION</span>
+</span><span id="__span-9-12"><a href="#__codelineno-9-12" id="__codelineno-9-12" name="__codelineno-9-12"></a><span class="w">  </span><span class="na">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">any</span>
+</span><span id="__span-9-13"><a href="#__codelineno-9-13" id="__codelineno-9-13" name="__codelineno-9-13"></a><span class="w">  </span><span class="na">default</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">null</span>
+</span><span id="__span-9-14"><a href="#__codelineno-9-14" id="__codelineno-9-14" name="__codelineno-9-14"></a><span class="p">}</span>
+</span><span id="__span-9-15"><a href="#__codelineno-9-15" id="__codelineno-9-15" name="__codelineno-9-15"></a>
+</span><span id="__span-9-16"><a href="#__codelineno-9-16" id="__codelineno-9-16" name="__codelineno-9-16"></a><span class="kr">resource</span><span class="w"> </span><span class="nc">"azurerm_virtual_machine"</span><span class="w"> </span><span class="nv">"example"</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-17"><a href="#__codelineno-9-17" id="__codelineno-9-17" name="__codelineno-9-17"></a><span class="w">  </span><span class="na">name</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"example-vm"</span>
+</span><span id="__span-9-18"><a href="#__codelineno-9-18" id="__codelineno-9-18" name="__codelineno-9-18"></a><span class="w">  </span><span class="na">size</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.size</span>
+</span><span id="__span-9-19"><a href="#__codelineno-9-19" id="__codelineno-9-19" name="__codelineno-9-19"></a><span class="w">  </span><span class="na">image</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.image</span>
+</span><span id="__span-9-20"><a href="#__codelineno-9-20" id="__codelineno-9-20" name="__codelineno-9-20"></a><span class="w">  </span><span class="na">subnet</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.network.subnet</span>
+</span><span id="__span-9-21"><a href="#__codelineno-9-21" id="__codelineno-9-21" name="__codelineno-9-21"></a><span class="w">  </span><span class="na">security_group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.network.security_group</span>
+</span><span id="__span-9-22"><a href="#__codelineno-9-22" id="__codelineno-9-22" name="__codelineno-9-22"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-hcl highlight"><pre><span></span><code><span id="__span-10-1"><a href="#__codelineno-10-1" id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="kr">variable</span><span class="w"> </span><span class="nv">"vm"</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-2"><a href="#__codelineno-10-2" id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="w">  </span><span class="na">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">object</span><span class="p">({</span>
+</span><span id="__span-10-3"><a href="#__codelineno-10-3" id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="w">    </span><span class="na">size</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-10-4"><a href="#__codelineno-10-4" id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="w">    </span><span class="na">image</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-10-5"><a href="#__codelineno-10-5" id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="w">    </span><span class="na">network</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="kt">object</span><span class="p">({</span>
+</span><span id="__span-10-6"><a href="#__codelineno-10-6" id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="w">      </span><span class="na">subnet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-10-7"><a href="#__codelineno-10-7" id="__codelineno-10-7" name="__codelineno-10-7"></a><span class="w">      </span><span class="na">security_group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">optional</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span>
+</span><span id="__span-10-8"><a href="#__codelineno-10-8" id="__codelineno-10-8" name="__codelineno-10-8"></a><span class="w">    </span><span class="p">})</span>
+</span><span id="__span-10-9"><a href="#__codelineno-10-9" id="__codelineno-10-9" name="__codelineno-10-9"></a><span class="w">  </span><span class="p">})</span>
+</span><span id="__span-10-10"><a href="#__codelineno-10-10" id="__codelineno-10-10" name="__codelineno-10-10"></a><span class="p">}</span>
+</span><span id="__span-10-11"><a href="#__codelineno-10-11" id="__codelineno-10-11" name="__codelineno-10-11"></a>
+</span><span id="__span-10-12"><a href="#__codelineno-10-12" id="__codelineno-10-12" name="__codelineno-10-12"></a>
+</span><span id="__span-10-13"><a href="#__codelineno-10-13" id="__codelineno-10-13" name="__codelineno-10-13"></a><span class="kr">resource</span><span class="w"> </span><span class="nc">"azurerm_virtual_machine"</span><span class="w"> </span><span class="nv">"example"</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-14"><a href="#__codelineno-10-14" id="__codelineno-10-14" name="__codelineno-10-14"></a><span class="w">  </span><span class="na">name</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"example-vm"</span>
+</span><span id="__span-10-15"><a href="#__codelineno-10-15" id="__codelineno-10-15" name="__codelineno-10-15"></a><span class="w">  </span><span class="na">size</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.size</span>
+</span><span id="__span-10-16"><a href="#__codelineno-10-16" id="__codelineno-10-16" name="__codelineno-10-16"></a><span class="w">  </span><span class="na">image</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.image</span>
+</span><span id="__span-10-17"><a href="#__codelineno-10-17" id="__codelineno-10-17" name="__codelineno-10-17"></a><span class="w">  </span><span class="na">subnet</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.network.subnet</span>
+</span><span id="__span-10-18"><a href="#__codelineno-10-18" id="__codelineno-10-18" name="__codelineno-10-18"></a><span class="w">  </span><span class="na">security_group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.network.security_group</span>
+</span><span id="__span-10-19"><a href="#__codelineno-10-19" id="__codelineno-10-19" name="__codelineno-10-19"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>In this example, the <code>security_group</code> attribute in the <code>network</code> structure is defined as an optional attribute with a default value of <code>null</code>. This allows users to provide a custom security group if needed, or use the default value if no value is provided.</p>
+<h3 id="dynamic-blocks"><a class="toclink" href="../../2024/05/03/nested-structures-with-optional-attributes-and-dynamic-blocks/#dynamic-blocks">Dynamic Blocks</a></h3>
+<p>Terraform allows you to use dynamic blocks to define multiple instances of a block within a resource or module. Dynamic blocks are useful when you need to create multiple instances of a block based on a list or map of values.</p>
+<p>For example, you might use a dynamic block to define multiple network interfaces for a virtual machine:</p>
+<div class="language-hcl highlight"><pre><span></span><code><span id="__span-11-1"><a href="#__codelineno-11-1" id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="kr">variable</span><span class="w"> </span><span class="nv">"network_interfaces"</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-2"><a href="#__codelineno-11-2" id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="w">  </span><span class="na">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="kt">object</span><span class="p">({</span>
+</span><span id="__span-11-3"><a href="#__codelineno-11-3" id="__codelineno-11-3" name="__codelineno-11-3"></a><span class="w">    </span><span class="na">name</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-11-4"><a href="#__codelineno-11-4" id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="w">    </span><span class="na">subnet</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-11-5"><a href="#__codelineno-11-5" id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="w">    </span><span class="na">security_group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-11-6"><a href="#__codelineno-11-6" id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="w">  </span><span class="p">}))</span>
+</span><span id="__span-11-7"><a href="#__codelineno-11-7" id="__codelineno-11-7" name="__codelineno-11-7"></a><span class="p">}</span>
+</span><span id="__span-11-8"><a href="#__codelineno-11-8" id="__codelineno-11-8" name="__codelineno-11-8"></a>
+</span><span id="__span-11-9"><a href="#__codelineno-11-9" id="__codelineno-11-9" name="__codelineno-11-9"></a><span class="kr">resource</span><span class="w"> </span><span class="nc">"azurerm_virtual_machine"</span><span class="w"> </span><span class="nv">"example"</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-10"><a href="#__codelineno-11-10" id="__codelineno-11-10" name="__codelineno-11-10"></a><span class="w">  </span><span class="na">name</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"example-vm"</span>
+</span><span id="__span-11-11"><a href="#__codelineno-11-11" id="__codelineno-11-11" name="__codelineno-11-11"></a><span class="w">  </span><span class="na">size</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"Standard_DS1_v2"</span>
+</span><span id="__span-11-12"><a href="#__codelineno-11-12" id="__codelineno-11-12" name="__codelineno-11-12"></a><span class="w">  </span><span class="na">image</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">"UbuntuServer"</span>
+</span><span id="__span-11-13"><a href="#__codelineno-11-13" id="__codelineno-11-13" name="__codelineno-11-13"></a>
+</span><span id="__span-11-14"><a href="#__codelineno-11-14" id="__codelineno-11-14" name="__codelineno-11-14"></a><span class="w">  </span><span class="err">dynamic</span><span class="w"> </span><span class="s2">"network_interface"</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-15"><a href="#__codelineno-11-15" id="__codelineno-11-15" name="__codelineno-11-15"></a><span class="w">    </span><span class="na">for_each</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">var.network_interfaces</span>
+</span><span id="__span-11-16"><a href="#__codelineno-11-16" id="__codelineno-11-16" name="__codelineno-11-16"></a><span class="w">    </span><span class="nb">content</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-17"><a href="#__codelineno-11-17" id="__codelineno-11-17" name="__codelineno-11-17"></a><span class="w">      </span><span class="na">name</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="nv">network_interface.value.name</span>
+</span><span id="__span-11-18"><a href="#__codelineno-11-18" id="__codelineno-11-18" name="__codelineno-11-18"></a><span class="w">      </span><span class="na">subnet</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="nv">network_interface.value.subnet</span>
+</span><span id="__span-11-19"><a href="#__codelineno-11-19" id="__codelineno-11-19" name="__codelineno-11-19"></a><span class="w">      </span><span class="na">security_group</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nv">network_interface.value.security_group</span>
+</span><span id="__span-11-20"><a href="#__codelineno-11-20" id="__codelineno-11-20" name="__codelineno-11-20"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-11-21"><a href="#__codelineno-11-21" id="__codelineno-11-21" name="__codelineno-11-21"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-11-22"><a href="#__codelineno-11-22" id="__codelineno-11-22" name="__codelineno-11-22"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>In this example, the <code>network_interfaces</code> variable defines a list of objects representing network interfaces with three attributes: <code>name</code>, <code>subnet</code>, and <code>security_group</code>. The dynamic block iterates over the list of network interfaces and creates a network interface block for each object in the list.</p>
+<h3 id="conclusion"><a class="toclink" href="../../2024/05/03/nested-structures-with-optional-attributes-and-dynamic-blocks/#conclusion">Conclusion</a></h3>
+<p>In this post, I explained how to define nested structures with optional attributes and use dynamic blocks in Terraform. Nested structures are useful for representing complex data types, while optional attributes allow you to provide default values for attributes that can be overridden by users. Dynamic blocks are useful for creating multiple instances of a block based on a list or map of values. By combining these features, you can create flexible and reusable configurations in Terraform.</p>
+</div>
+</article>
 <article class="md-post md-post--excerpt">
 <header class="md-post__header">
 <nav class="md-post__authors md-typeset">
@@ -1669,63 +1804,6 @@ merge production
 <li><a href="https://drawio-app.com/blog/automatically-create-draw-io-diagrams-from-csv-files/">Automatically create draw.io diagrams from CSV files</a></li>
 <li><a href="https://drawio-app.com/blog/animation-and-automatic-layout-explore-complex-diagrams/">Animation and Automatic Layout: Explore Complex Diagrams</a></li>
 </ul>
-</div>
-</article>
-<article class="md-post md-post--excerpt">
-<header class="md-post__header">
-<nav class="md-post__authors md-typeset">
-<span class="md-author">
-<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341"/>
-</span>
-</nav>
-<div class="md-post__meta md-meta">
-<ul class="md-meta__list">
-<li class="md-meta__item">
-<time datetime="2024-04-23 00:00:00">April 23, 2024</time></li>
-<li class="md-meta__item">
-            in
-            
-              <a class="md-meta__link" href="../../category/azure-services/">Azure Services</a></li>
-<li class="md-meta__item">
-            
-              2 min read
-            
-          </li>
-</ul>
-</div>
-</header>
-<div class="md-post__content md-typeset">
-<h2 id="moving-management-groups-and-subscriptions"><a class="toclink" href="../../2024/04/23/moving-management-groups-and-subscriptions/">Moving Management Groups and Subscriptions</a></h2>
-<p>Managing your Azure resources efficiently often involves moving management groups and subscriptions. Here's a brief guide on how to do it:</p>
-<h3 id="moving-management-groups"><a class="toclink" href="../../2024/04/23/moving-management-groups-and-subscriptions/#moving-management-groups">Moving Management Groups</a></h3>
-<p>To move a management group, you need to have the necessary permissions. You must be an owner of the target parent management group and have <code>Management Group Contributor</code> role at the group you want to move.</p>
-<p>Here's the step-by-step process:</p>
-<ol>
-<li>Navigate to the <strong>Azure portal</strong>.</li>
-<li>Go to <strong>Management groups</strong>.</li>
-<li>Select the management group you want to move.</li>
-<li>Click <strong>Details</strong>.</li>
-<li>Under <strong>Parent group</strong>, click <strong>Change</strong>.</li>
-<li>Choose the new parent group from the list and click <strong>Save</strong>.</li>
-</ol>
-<p>Remember, moving a management group will also move all its child resources including other management groups and subscriptions.</p>
-<h3 id="moving-subscriptions"><a class="toclink" href="../../2024/04/23/moving-management-groups-and-subscriptions/#moving-subscriptions">Moving Subscriptions</a></h3>
-<p>You can move a subscription from one management group to another or within the same management group. To do this, you must have the <code>Owner</code> or <code>Contributor</code> role at the target management group and <code>Owner</code> role at the subscription level.</p>
-<p>Follow these steps:</p>
-<ol>
-<li>Go to the <strong>Azure portal</strong>.</li>
-<li>Navigate to <strong>Management groups</strong>.</li>
-<li>Select the management group where the subscription currently resides.</li>
-<li>Click on <strong>Subscriptions</strong>.</li>
-<li>Find the subscription you want to move and select <strong>..."</strong> (More options).</li>
-<li>Click <strong>Change parent</strong>.</li>
-<li>In the pop-up window, select the new parent management group and click <strong>Save</strong>.</li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Moving subscriptions could affect the resources if there are policies or permissions applied at the management group level. It's important to understand the implications before making the move. Also, keep in mind that you cannot move the Root management group or rename it.</p>
-</div>
-<p>In conclusion, moving management groups and subscriptions allows for better organization and management of your Azure resources. However, it should be done carefully considering the impact on resources and compliance with assigned policies.</p>
 </div>
 </article>
 <nav class="md-pagination">

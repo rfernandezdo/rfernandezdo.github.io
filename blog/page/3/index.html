@@ -241,6 +241,13 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/02/">
+<span class="md-ellipsis">
+    2025/02
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../../2025/01/">
 <span class="md-ellipsis">
     2025/01
@@ -691,6 +698,401 @@
 <div class="md-post__meta md-meta">
 <ul class="md-meta__list">
 <li class="md-meta__item">
+<time datetime="2024-06-16 00:00:00">June 16, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/azure-services/">Azure Services</a></li>
+<li class="md-meta__item">
+            
+              11 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="data-threat-modeling-in-azure-storage-accounts"><a class="toclink" href="../../2024/06/16/data-threat-modeling-in-azure-storage-accounts/">Data threat modeling in Azure storage accounts</a></h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>I apologize in advance if this is a crazy idea and there is some mistake!! I am just trying to learn and share knowledge.</p>
+</div>
+<p>Azure Storage Account is a service that provides scalable, secure, and reliable storage for data. It is used to store data such as blobs, files, tables, and queues. However, it is important to ensure that the data stored in Azure Storage Account is secure and protected from security threats. In this article, we will discuss how to perform data threat modeling in Azure storage accounts.</p>
+<h3 id="what-is-data-threat-modeling"><a class="toclink" href="../../2024/06/16/data-threat-modeling-in-azure-storage-accounts/#what-is-data-threat-modeling">What is data threat modeling?</a></h3>
+<p>Data threat modeling is a process of identifying and analyzing potential threats to data security. It helps organizations understand the risks to their data and develop strategies to mitigate those risks. Data threat modeling involves the following steps:</p>
+<ol>
+<li><strong>Identify assets</strong>: Identify the data assets stored in Azure storage accounts, such as blobs, files, tables, and queues.</li>
+<li><strong>Identify threats</strong>: Identify potential threats to the data assets, such as unauthorized access, data breaches, data leakage, malware, phishing attacks, insider threats, and data loss.</li>
+<li><strong>Assess risks</strong>: Assess the risks associated with each threat, such as the likelihood of the threat occurring and the impact of the threat on the data assets.</li>
+<li><strong>Develop mitigation strategies</strong>: Develop strategies to mitigate the risks, such as implementing security controls, access controls, encryption, monitoring, and auditing.</li>
+</ol>
+<p>By performing data threat modeling, organizations can identify and address security vulnerabilities in Azure storage accounts and protect their data from security threats.</p>
+<h3 id="identify-assets-in-azure-storage-accounts"><a class="toclink" href="../../2024/06/16/data-threat-modeling-in-azure-storage-accounts/#identify-assets-in-azure-storage-accounts">Identify assets in Azure storage accounts</a></h3>
+<p>Azure storage accounts can store various types of data assets, including:</p>
+<ul>
+<li><strong>Blobs</strong>: Binary large objects (blobs) are used to store unstructured data, such as images, videos, and documents.</li>
+<li><strong>Files</strong>: Files are used to store structured data, such as text files, configuration files, and log files.</li>
+<li><strong>Tables</strong>: Tables are used to store structured data in a tabular format, such as customer information, product information, and transaction data.</li>
+<li><strong>Queues</strong>: Queues are used to store messages for communication between applications, such as task messages, notification messages, and status messages.</li>
+<li><strong>Disks</strong>: Disks are used to store virtual machine disks, such as operating system disks and data disks.</li>
+</ul>
+<p>Identifying the data assets stored in Azure storage accounts is the first step in data threat modeling. It helps organizations understand the types of data stored in Azure storage accounts and the potential risks to those data assets.</p>
+<h3 id="identify-threats-to-data-in-azure-storage-accounts"><a class="toclink" href="../../2024/06/16/data-threat-modeling-in-azure-storage-accounts/#identify-threats-to-data-in-azure-storage-accounts">Identify threats to data in Azure storage accounts</a></h3>
+<p>There are several threats to data stored in Azure storage accounts, including:</p>
+<ul>
+<li><strong>Unauthorized access</strong>: Unauthorized users gaining access to Azure storage accounts and stealing data.</li>
+<li><strong>Data breaches</strong>: Data breaches can expose sensitive data stored in Azure storage accounts.</li>
+<li><strong>Data leakage</strong>: Data leakage can occur due to misconfigured access controls or insecure data transfer protocols.</li>
+<li><strong>Data loss</strong>: Data loss can occur due to accidental deletion, corruption, or hardware failure.</li>
+<li><strong>Ransomware</strong>: Ransomware can encrypt data stored in Azure storage accounts and demand a ransom for decryption.</li>
+<li><strong>DDoS attacks</strong>: DDoS attacks can disrupt access to data stored in Azure storage accounts.</li>
+<li><strong>Phishing attacks</strong>: Phishing attacks can trick users into providing their login credentials, which can be used to access and steal data.</li>
+<li><strong>Malware</strong>: Malware can be used to steal data from Azure storage accounts and transfer it to external servers.</li>
+<li><strong>Insider threats</strong>: Employees or contractors with access to sensitive data may intentionally or unintentionally exfiltrate data.</li>
+<li><strong>Data exfiltration</strong>: Unauthorized transfer of data from Azure storage accounts to external servers.</li>
+</ul>
+<p>For example, the flow of data exfiltration in Azure storage accounts can be summarized as follows:</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant User
+    participant Azure Storage Account
+    participant External Server
+
+    User-&gt;&gt;Azure Storage Account: Upload data
+    Azure Storage Account-&gt;&gt;External Server: Unauthorized transfer of data
+</code></pre>
+<p>In this flow, the user uploads data to the Azure Storage Account, and the data is then transferred to an external server without authorization. This unauthorized transfer of data is known as data exfiltration.</p>
+<h3 id="assess-risks-to-data-in-azure-storage-accounts"><a class="toclink" href="../../2024/06/16/data-threat-modeling-in-azure-storage-accounts/#assess-risks-to-data-in-azure-storage-accounts">Assess risks to data in Azure storage accounts</a></h3>
+<p>Assessing the risks associated with threats to data in Azure storage accounts is an important step in data threat modeling. Risks can be assessed based on the likelihood of the threat occurring and the impact of the threat on the data assets. Risks can be categorized as low, medium, or high based on the likelihood and impact of the threat.</p>
+<p>For example, the risk of unauthorized access to Azure storage accounts may be categorized as high if the likelihood of unauthorized access is high and the impact of unauthorized access on the data assets is high. Similarly, the risk of data leakage may be categorized as medium if the likelihood of data leakage is medium and the impact of data leakage on the data assets is medium.</p>
+<p>By assessing risks to data in Azure storage accounts, organizations can prioritize security measures and develop strategies to mitigate the risks.</p>
+<p>For example, the risk of data exfiltration in Azure storage accounts can be assessed as follows:</p>
+<pre class="mermaid"><code>pie
+    title Data Exfiltration Risk Assessment
+    "Unauthorized Access" : 30
+    "Data Breaches" : 20
+    "Data Leakage" : 15
+    "Malware" : 10
+    "Phishing Attacks" : 10
+    "Insider Threats" : 15
+</code></pre>
+<h3 id="develop-mitigation-strategies-for-data-in-azure-storage-accounts"><a class="toclink" href="../../2024/06/16/data-threat-modeling-in-azure-storage-accounts/#develop-mitigation-strategies-for-data-in-azure-storage-accounts">Develop mitigation strategies for data in Azure storage accounts</a></h3>
+<p>Developing mitigation strategies is an essential step in data threat modeling. Mitigation strategies help organizations protect their data assets from security threats and reduce the risks associated with those threats. Mitigation strategies could include the following:</p>
+<ol>
+<li><strong>Implement access controls</strong>: Implement access controls to restrict access to Azure storage accounts based on user roles and permissions.</li>
+<li><strong>Encrypt data</strong>: Encrypt data stored in Azure storage accounts to protect it from unauthorized access.</li>
+<li><strong>Monitor and audit access</strong>: Monitor and audit access to Azure storage accounts to detect unauthorized access and data exfiltration.</li>
+<li><strong>Implement security controls</strong>: Implement security controls, such as firewalls, network security groups, and intrusion detection systems, to protect data in Azure storage accounts.</li>
+<li><strong>Use secure transfer protocols</strong>: Use secure transfer protocols, such as HTTPS, to transfer data to and from Azure storage accounts.</li>
+<li><strong>Implement multi-factor authentication</strong>: Implement multi-factor authentication to protect user accounts from unauthorized access.</li>
+<li><strong>Train employees</strong>: Train employees on data security best practices to prevent data exfiltration and other security threats.</li>
+<li><strong>Backup data</strong>: Backup data stored in Azure storage accounts to prevent data loss due to accidental deletion or corruption.</li>
+<li><strong>Update software</strong>: Keep software and applications up to date to protect data stored in Azure storage accounts from security vulnerabilities.</li>
+<li><strong>Implement data loss prevention (DLP) policies</strong>: Implement DLP policies to prevent data leakage and unauthorized transfer of data from Azure storage accounts.</li>
+</ol>
+<p>As it is not an easy task, Microsoft provides us with tools for this, in the case of using a security framework we can always use the MCSB (Microsoft Cloud Security Baseline) which is a set of guidelines and best practices for securing Azure services, including Azure storage accounts. The MCSB provides recommendations for securing Azure storage accounts, such as enabling encryption, implementing access controls, monitoring access, and auditing activities:</p>
+<table>
+<thead>
+<tr>
+<th>Control Domain</th>
+<th>ASB Control ID</th>
+<th>ASB Control Title</th>
+<th>Responsibility</th>
+<th>Feature Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Asset Management</td>
+<td>AM-2</td>
+<td>Use only approved services</td>
+<td>Customer</td>
+<td>Azure Policy Support</td>
+</tr>
+<tr>
+<td>Backup and recovery</td>
+<td>BR-1</td>
+<td>Ensure regular automated backups</td>
+<td>Customer</td>
+<td>Azure Backup</td>
+</tr>
+<tr>
+<td>Backup and recovery</td>
+<td>BR-1</td>
+<td>Ensure regular automated backups</td>
+<td>Customer</td>
+<td>Service Native Backup Capability</td>
+</tr>
+<tr>
+<td>Data Protection</td>
+<td>DP-1</td>
+<td>Discover, classify, and label sensitive data</td>
+<td>Customer</td>
+<td>Sensitive Data Discovery and Classification</td>
+</tr>
+<tr>
+<td>Data Protection</td>
+<td>DP-2</td>
+<td>Monitor anomalies and threats targeting sensitive data</td>
+<td>Customer</td>
+<td>Data Leakage/Loss Prevention</td>
+</tr>
+<tr>
+<td>Data Protection</td>
+<td>DP-3</td>
+<td>Encrypt sensitive data in transit</td>
+<td>Microsoft</td>
+<td>Data in Transit Encryption</td>
+</tr>
+<tr>
+<td>Data Protection</td>
+<td>DP-4</td>
+<td>Enable data at rest encryption by default</td>
+<td>Microsoft</td>
+<td>Data at Rest Encryption Using Platform Keys</td>
+</tr>
+<tr>
+<td>Data Protection</td>
+<td>DP-5</td>
+<td>Use customer-managed key option in data at rest encryption when required</td>
+<td>Customer</td>
+<td>Data at Rest Encryption Using CMK</td>
+</tr>
+<tr>
+<td>Data Protection</td>
+<td>DP-6</td>
+<td>Use a secure key management process</td>
+<td>Customer</td>
+<td>Key Management in Azure Key Vault</td>
+</tr>
+<tr>
+<td>Identity Management</td>
+<td>IM-1</td>
+<td>Use centralized identity and authentication system</td>
+<td>Microsoft</td>
+<td>Azure AD Authentication Required for Data Plane Access</td>
+</tr>
+<tr>
+<td>Identity Management</td>
+<td>IM-1</td>
+<td>Use centralized identity and authentication system</td>
+<td>Customer</td>
+<td>Local Authentication Methods for Data Plane Access</td>
+</tr>
+<tr>
+<td>Identity Management</td>
+<td>IM-3</td>
+<td>Manage application identities securely and automatically</td>
+<td>Customer</td>
+<td>Managed Identities</td>
+</tr>
+<tr>
+<td>Identity Management</td>
+<td>IM-3</td>
+<td>Manage application identities securely and automatically</td>
+<td>Customer</td>
+<td>Service Principals</td>
+</tr>
+<tr>
+<td>Identity Management</td>
+<td>IM-7</td>
+<td>Restrict resource access based on conditions</td>
+<td>Customer</td>
+<td>Conditional Access for Data Plane</td>
+</tr>
+<tr>
+<td>Identity Management</td>
+<td>IM-8</td>
+<td>Restrict the exposure of credential and secrets</td>
+<td>Customer</td>
+<td>Service Credential and Secrets Support Integration and Storage in Azure Key Vault</td>
+</tr>
+<tr>
+<td>Logging and threat detection</td>
+<td>LT-1</td>
+<td>Enable threat detection capabilities</td>
+<td>Customer</td>
+<td>Microsoft Defender for Service / Product Offering</td>
+</tr>
+<tr>
+<td>Logging and threat detection</td>
+<td>LT-4</td>
+<td>Enable network logging for security investigation</td>
+<td>Customer</td>
+<td>Azure Resource Logs</td>
+</tr>
+<tr>
+<td>Network Security</td>
+<td>NS-2</td>
+<td>Secure cloud services with network controls</td>
+<td>Customer</td>
+<td>Disable Public Network Access</td>
+</tr>
+<tr>
+<td>Network Security</td>
+<td>NS-2</td>
+<td>Secure cloud services with network controls</td>
+<td>Customer</td>
+<td>Azure Private Link</td>
+</tr>
+<tr>
+<td>Privileged Access</td>
+<td>PA-7</td>
+<td>Follow just enough administration(least privilege) principle</td>
+<td>Customer</td>
+<td>Azure RBAC for Data Plane</td>
+</tr>
+<tr>
+<td>Privileged Access</td>
+<td>PA-8</td>
+<td>Choose approval process for third-party support</td>
+<td>Customer</td>
+<td>Customer Lockbox</td>
+</tr>
+</tbody>
+</table>
+<p>And part of MCSB can be complemented with Azure Well Architected Framework, which provides guidance on best practices for designing and implementing secure, scalable, and reliable cloud solutions. The Well Architected Framework includes security best practices for Azure storage accounts, such as implementing security controls, access controls, encryption, monitoring, and auditing:</p>
+<ol>
+<li><strong>Enable Azure Defender for all your storage accounts</strong>: Azure Defender for Storage provides advanced threat protection for Azure storage accounts. It helps detect and respond to security threats in real-time.</li>
+<li><strong>Turn on soft delete for blob data</strong>: Soft delete helps protect your blob data from accidental deletion. It allows you to recover deleted data within a specified retention period.</li>
+<li><strong>Use Microsoft Entitlement Management to authorize access to blob data</strong>: Microsoft Entitlement Management provides fine-grained access control for Azure storage accounts. It allows you to define and enforce access policies based on user roles and permissions.</li>
+<li><strong>Consider the principle of least privilege</strong>: When assigning permissions to a Microsoft Entitlement security principal through Azure RBAC, follow the principle of least privilege. Only grant the minimum permissions required to perform the necessary tasks.</li>
+<li><strong>Use managed identities to access blob and queue data</strong>: Managed identities provide a secure way to access Azure storage accounts without storing credentials in your code.</li>
+<li><strong>Use blob versioning or immutable blobs</strong>: Blob versioning and immutable blobs help protect your business-critical data from accidental deletion or modification.</li>
+<li><strong>Restrict default internet access for storage accounts</strong>: Limit default internet access to Azure storage accounts to prevent unauthorized access.</li>
+<li><strong>Enable firewall rules</strong>: Use firewall rules to restrict network access to Azure storage accounts. Only allow trusted IP addresses to access the storage account.</li>
+<li><strong>Limit network access to specific networks</strong>: Limit network access to specific networks or IP ranges to prevent unauthorized access.</li>
+<li><strong>Allow trusted Microsoft services to access the storage account</strong>: Allow only trusted Microsoft services to access the storage account to prevent unauthorized access.</li>
+<li><strong>Enable the Secure transfer required option</strong>: Enable the Secure transfer required option on all your storage accounts to enforce secure connections.</li>
+<li><strong>Limit shared access signature (SAS) tokens to HTTPS connections only</strong>: Limit shared access signature (SAS) tokens to HTTPS connections only to prevent unauthorized access.</li>
+<li><strong>Avoid using Shared Key authorization</strong>: Avoid using Shared Key authorization to access storage accounts. Use Azure AD or SAS tokens instead.</li>
+<li><strong>Regenerate your account keys periodically</strong>: Regenerate your account keys periodically to prevent unauthorized access.</li>
+<li><strong>Create a revocation plan for SAS tokens</strong>: Create a revocation plan and have it in place for any SAS tokens that you issue to clients. This will help you revoke access to the storage account if necessary.</li>
+<li><strong>Use near-term expiration times on SAS tokens</strong>: Use near-term expiration times on impromptu SAS, service SAS, or account SAS to limit the exposure of the token.</li>
+</ol>
+<h3 id="mixed-strategies-for-data-protection-in-azure-storage-accounts"><a class="toclink" href="../../2024/06/16/data-threat-modeling-in-azure-storage-accounts/#mixed-strategies-for-data-protection-in-azure-storage-accounts">Mixed strategies for data protection in Azure storage accounts</a></h3>
+<p>Diagram of the mixed strategies for data protection in Azure storage accounts:</p>
+<pre class="mermaid"><code>graph LR
+    A[Asset Management] --&gt;B(AM-2)
+    B --&gt; C[Use only approved services]
+    C --&gt; D[Azure Policy] 
+    E[Backup and recovery] --&gt;F(BR-1)
+    F --&gt; G[Ensure regular automated backups]
+    G --&gt; H[Azure Backup]
+    G --&gt; I[Service Native Backup Capability]
+    I --&gt; I1["Azure Storage Account Configuration"]
+    I1 --&gt; I11["Turn on soft delete for blob data"]
+    I1 --&gt; I12["Use blob versioning or immutable blobs"]
+</code></pre>
+<pre class="mermaid"><code>graph LR
+    J[Data Protection] --&gt;K(DP-1)
+    K --&gt; L[Discover, classify, and label sensitive data]    
+    L --&gt; M[Sensitive Data Discovery and Classification]
+    M --&gt; M1["Microsoft Pureview"]       
+    J --&gt; N(DP-2)
+    N --&gt; O[Monitor anomalies and threats targeting sensitive data]
+    O --&gt; P[Data Leakage/Loss Prevention]
+    P --&gt; P1["Microsoft Defender for Storage"]
+    J --&gt; Q(DP-3)
+    Q --&gt; R[Encrypt sensitive data in transit]
+    R --&gt; S[Data in Transit Encryption]
+    S --&gt; S1["Azure Storage Account Configuration"]
+    S1 --&gt; S2["Enforce minimum TLS version"]
+    J --&gt; T(DP-4)
+    T --&gt; U[Enable data at rest encryption by default]
+    U --&gt; V[Data at Rest Encryption Using Platform Keys]
+    V --&gt; WW["Azure Storage Account Configuration"]    
+    J --&gt; W(DP-5)
+    W --&gt; X[Use customer-managed key option in data at rest encryption when required]
+    X --&gt; Y[Data at Rest Encryption Using CMK]
+    Y --&gt; WW["Azure Storage Account Configuration"]    
+    J --&gt; Z(DP-6)
+    Z --&gt; AA[Use a secure key management process]
+    AA --&gt; AB[Key Management in Azure Key Vault]
+    AB --&gt; AC["DEPRECATED"]
+</code></pre>
+<pre class="mermaid"><code>graph LR  
+    AC[Identity Management] --&gt;AD(IM-1)
+    AD --&gt; AE[Use centralized identity and authentication system]
+    AE --&gt; AE1["Microsoft Entra ID"]
+    AE --&gt; AF[Microsoft Entra ID Authentication Required for Data Plane Access]
+    AF --&gt; AF1["Azure Storage Account Configuration"]
+    AF1 --&gt; AF2["Disable Allow Shared Key authorization"]
+    AD --&gt; AG[Local Authentication Methods for Data Plane Access]
+    AG --&gt; AG1["Azure Storage Account Configuration"]
+    AG1 --&gt; AG2["Don't use SFTP if you don't need it"]
+    AC --&gt; AH(IM-3)
+    AH --&gt; AI[Manage application identities securely and automatically]
+    AI --&gt; AJ[Managed Identities]
+    AI --&gt; AK[Service Principals]
+    AK --&gt; AK1["Rotate or regenerate service principal credentials"]
+    AC --&gt; AL(IM-7)
+    AL --&gt; AM[Restrict resource access based on conditions]
+    AM --&gt; AN[Microsoft Entra Conditional Access for Data Plane]
+    AC --&gt; AO(IM-8)
+    AO --&gt; AP[Restrict the exposure of credential and secrets]    
+    AP --&gt; AQ[Service Credential and Secrets Support Integration and Storage in Azure Key Vault]    
+    AQ --&gt; AK1
+    click AK1 "https://github.com/Azure-Samples/KeyVault-Rotation-StorageAccountKey-PowerShell" "Open this in a new tab" _blank
+</code></pre>
+<p><pre class="mermaid"><code>graph LR
+AR[Logging and threat detection] --&gt;AS(LT-1)
+    AS --&gt; AT[Enable threat detection capabilities]
+    AT --&gt; AU[Microsoft Defender for Service / Product Offering]
+    AU --&gt; AU1["Microsoft Defender for Storage"]
+    AR --&gt; AV(LT-4)
+    AV --&gt; AW[Enable network logging for security investigation]
+    AW --&gt; AX[Azure Resource Logs]
+    AX --&gt; AX1["Azure Monitor"]
+    AX --&gt; AX2["Azure Activity Log"]
+    click AU1 "https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-storage-introduction" "Open this in a new tab" _blank
+</code></pre>
+<pre class="mermaid"><code>graph LR
+    AY[Network Security] --&gt;AZ(NS-2)
+    AZ --&gt; BA[Secure cloud services with network controls]
+    BA --&gt; BB["Azure Storage Account Configuration"]
+    BB --&gt; BB1[Disable Public Network Access]
+    BB --&gt; BB2[Allow trusted Microsoft services to access the storage account]
+    BA --&gt; BC[Azure Private Link]
+    BC --&gt; BC1["Azure Private Endpoint"]
+    BA --&gt; BD[Azure Network]
+    BD --&gt; BD1["Azure Service Endpoint"]
+    BA --&gt; BE["Network Security Perimeter"]
+</code></pre></p>
+<pre class="mermaid"><code>graph LR
+    BD[Privileged Access] --&gt;BE(PA-7)
+    BE --&gt; BF["Follow just enough administration(least privilege) principle"]
+    BF --&gt; BG[Azure RBAC for Data Plane]
+    BG --&gt; BG1["Azure RBAC"]
+    BG1 --&gt; BG2["Azure RBAC Roles"]
+    BD --&gt; BH(PA-8)
+    BH --&gt; BI[Choose approval process for third-party support]
+    BI --&gt; BJ[Customer Lockbox]
+click BG2 "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles/storage" "Open this in a new tab" _blank
+</code></pre>
+<h3 id="example-of-mixed-strategies-for-data-protection-in-azure-storage-accounts"><a class="toclink" href="../../2024/06/16/data-threat-modeling-in-azure-storage-accounts/#example-of-mixed-strategies-for-data-protection-in-azure-storage-accounts">Example of mixed strategies for data protection in Azure storage accounts</a></h3>
+<p>The following example illustrates how to implement mixed strategies for data protection in Azure storage accounts:</p>
+<h3 id="conclusion"><a class="toclink" href="../../2024/06/16/data-threat-modeling-in-azure-storage-accounts/#conclusion">Conclusion</a></h3>
+<p>In conclusion, data threat modeling is an important process for identifying and addressing security vulnerabilities in Azure storage accounts. By identifying assets, threats, risks, and developing mitigation strategies, organizations can protect their data from security threats and ensure the security and integrity of their data assets. By following best practices and implementing security measures, organizations can prevent and detect data threats in Azure storage accounts and protect their data from security threats.</p>
+<h3 id="references"><a class="toclink" href="../../2024/06/16/data-threat-modeling-in-azure-storage-accounts/#references">References</a></h3>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-account-overview">Azure Storage Account Documentation</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/well-architected/service-guides/storage-accounts/security">Azure security baseline for Storage</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/well-architected/service-guides/storage-accounts/security">Well Architected Framework - Storage Accounts and security</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/defender-for-storage/overview">Microsoft Defender for Storage</a></li>
+<li><a href="https://center-for-threat-informed-defense.github.io/mappings-explorer/external/azure/">Azure MAPPINGS</a></li>
+</ul>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341"/>
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
 <time datetime="2024-06-15 00:00:00">June 15, 2024</time></li>
 <li class="md-meta__item">
             in
@@ -801,8 +1203,8 @@
 <h4 id="at-deployment-time"><a class="toclink" href="../../2024/06/13/restrict-managed-disks-from-being-imported-or-exported/#at-deployment-time">At deployment time</a></h4>
 <p>An example with azcli:</p>
 <h5 id="create-a-managed-disk-with-public-network-access-disabled"><a class="toclink" href="../../2024/06/13/restrict-managed-disks-from-being-imported-or-exported/#create-a-managed-disk-with-public-network-access-disabled">Create a managed disk with public network access disabled</a></h5>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a>## Create a managed disk with public network access disabled
-</span><span id="__span-3-2"><a href="#__codelineno-3-2" id="__codelineno-3-2" name="__codelineno-3-2"></a>az disk create --resource-group myResourceGroup --name myDisk --size-gb 128 --location eastus --sku Standard_LRS --no-wait --public-network-access disabled 
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a>## Create a managed disk with public network access disabled
+</span><span id="__span-2-2"><a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a>az disk create --resource-group myResourceGroup --name myDisk --size-gb 128 --location eastus --sku Standard_LRS --no-wait --public-network-access disabled 
 </span></code></pre></div>
 <h5 id="create-a-managed-disk-with-public-network-access-disabled-and-private-endpoint-enabled"><a class="toclink" href="../../2024/06/13/restrict-managed-disks-from-being-imported-or-exported/#create-a-managed-disk-with-public-network-access-disabled-and-private-endpoint-enabled">Create a managed disk with public network access disabled and private endpoint enabled</a></h5>
 <p>Follow <a href="https://learn.microsoft.com/en-us/azure/virtual-machines/linux/disks-export-import-private-links-cli#log-in-into-your-subscription-and-set-your-variables">Azure CLI - Restrict import/export access for managed disks with Private Links</a></p>
@@ -1757,134 +2159,6 @@ MFA adds an extra layer of security by requiring users to provide at least two f
 <li><a href="https://docs.snowflake.com/en/user-guide/network-policies">Snowflake Network Policies</a></li>
 <li><a href="https://docs.snowflake.com/en/user-guide/private-internal-stages-azure">Azure Private Endpoints for Internal Stages</a></li>
 </ul>
-</div>
-</article>
-<article class="md-post md-post--excerpt">
-<header class="md-post__header">
-<nav class="md-post__authors md-typeset">
-<span class="md-author">
-<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341"/>
-</span>
-</nav>
-<div class="md-post__meta md-meta">
-<ul class="md-meta__list">
-<li class="md-meta__item">
-<time datetime="2024-05-03 00:00:00">May 3, 2024</time></li>
-<li class="md-meta__item">
-            in
-            
-              <a class="md-meta__link" href="../../category/devops/">DevOps</a></li>
-<li class="md-meta__item">
-            
-              3 min read
-            
-          </li>
-</ul>
-</div>
-</header>
-<div class="md-post__content md-typeset">
-<h2 id="nested-structures-with-optional-attributes-and-dynamic-blocks"><a class="toclink" href="../../2024/05/03/nested-structures-with-optional-attributes-and-dynamic-blocks/">Nested Structures with Optional Attributes and Dynamic Blocks</a></h2>
-<p>In this post, I will explain how to define nested structures with optional attributes and it's use dynamic blocks in Terraform.</p>
-<h3 id="nested-structures"><a class="toclink" href="../../2024/05/03/nested-structures-with-optional-attributes-and-dynamic-blocks/#nested-structures">Nested Structures</a></h3>
-<p>Terraform allows you to define nested structures to represent complex data types in your configuration. Nested structures are useful when you need to group related attributes together or define a data structure that contains multiple fields.</p>
-<p>For example, you might define a nested structure to represent a virtual machine with multiple attributes, such as size, image, and network configuration:</p>
-<div class="language-hcl highlight"><pre><span></span><code><span id="__span-8-1"><a href="#__codelineno-8-1" id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="kr">variable</span><span class="w"> </span><span class="nv">"vm"</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-8-2"><a href="#__codelineno-8-2" id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="w">  </span><span class="na">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">object</span><span class="p">({</span>
-</span><span id="__span-8-3"><a href="#__codelineno-8-3" id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="w">    </span><span class="na">size</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
-</span><span id="__span-8-4"><a href="#__codelineno-8-4" id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="w">    </span><span class="na">image</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
-</span><span id="__span-8-5"><a href="#__codelineno-8-5" id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="w">    </span><span class="na">network</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="kt">object</span><span class="p">({</span>
-</span><span id="__span-8-6"><a href="#__codelineno-8-6" id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="w">      </span><span class="na">subnet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
-</span><span id="__span-8-7"><a href="#__codelineno-8-7" id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="w">      </span><span class="na">security_group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
-</span><span id="__span-8-8"><a href="#__codelineno-8-8" id="__codelineno-8-8" name="__codelineno-8-8"></a><span class="w">    </span><span class="p">})</span>
-</span><span id="__span-8-9"><a href="#__codelineno-8-9" id="__codelineno-8-9" name="__codelineno-8-9"></a><span class="w">  </span><span class="p">})</span>
-</span><span id="__span-8-10"><a href="#__codelineno-8-10" id="__codelineno-8-10" name="__codelineno-8-10"></a><span class="p">}</span>
-</span><span id="__span-8-11"><a href="#__codelineno-8-11" id="__codelineno-8-11" name="__codelineno-8-11"></a>
-</span><span id="__span-8-12"><a href="#__codelineno-8-12" id="__codelineno-8-12" name="__codelineno-8-12"></a><span class="kr">resource</span><span class="w"> </span><span class="nc">"azurerm_virtual_machine"</span><span class="w"> </span><span class="nv">"example"</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-8-13"><a href="#__codelineno-8-13" id="__codelineno-8-13" name="__codelineno-8-13"></a><span class="w">  </span><span class="na">name</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"example-vm"</span>
-</span><span id="__span-8-14"><a href="#__codelineno-8-14" id="__codelineno-8-14" name="__codelineno-8-14"></a><span class="w">  </span><span class="na">size</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.size</span>
-</span><span id="__span-8-15"><a href="#__codelineno-8-15" id="__codelineno-8-15" name="__codelineno-8-15"></a><span class="w">  </span><span class="na">image</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.image</span>
-</span><span id="__span-8-16"><a href="#__codelineno-8-16" id="__codelineno-8-16" name="__codelineno-8-16"></a><span class="w">  </span><span class="na">subnet</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.network.subnet</span>
-</span><span id="__span-8-17"><a href="#__codelineno-8-17" id="__codelineno-8-17" name="__codelineno-8-17"></a><span class="w">  </span><span class="na">security_group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.network.security_group</span>
-</span><span id="__span-8-18"><a href="#__codelineno-8-18" id="__codelineno-8-18" name="__codelineno-8-18"></a><span class="p">}</span>
-</span></code></pre></div>
-<p>In this example, the <code>vm</code> variable defines a nested structure with three attributes: <code>size</code>, <code>image</code>, and <code>network</code>. The <code>network</code> attribute is itself a nested structure with two attributes: <code>subnet</code> and <code>security_group</code>.</p>
-<h3 id="optional-attributes"><a class="toclink" href="../../2024/05/03/nested-structures-with-optional-attributes-and-dynamic-blocks/#optional-attributes">Optional Attributes</a></h3>
-<p>If you have an attribute that is optional, you can define it as an optional attribute in your configuration. Optional attributes are useful when you want to provide a default value for an attribute but allow users to override it if needed.</p>
-<p>If optional doesn't works,  Terraform allows you to define your variables as <code>any</code> type, but it's not recommended because it can lead to errors and make your configuration less maintainable. It's better to define your variables with the correct type and use optional attributes when needed, but some cases it's necessary to use <code>any</code> and <code>null</code> values, you can minimize the risk of errors by providing a good description of the variable and its expected values.</p>
-<p>For example, you might define an optional attribute for the <code>security_group</code> in the <code>network</code> structure:</p>
-<div class="language-hcl highlight"><pre><span></span><code><span id="__span-9-1"><a href="#__codelineno-9-1" id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="kr">variable</span><span class="w"> </span><span class="nv">"vm"</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-9-2"><a href="#__codelineno-9-2" id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="w">  </span><span class="na">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="dl">DESCRIPTION</span>
-</span><span id="__span-9-3"><a href="#__codelineno-9-3" id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="sh">  Virtual machine configuration.</span>
-</span><span id="__span-9-4"><a href="#__codelineno-9-4" id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="sh">  The following attributes are required:</span>
-</span><span id="__span-9-5"><a href="#__codelineno-9-5" id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="sh">  - size: The size of the virtual machine.</span>
-</span><span id="__span-9-6"><a href="#__codelineno-9-6" id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="sh">  - image: The image for the virtual machine.</span>
-</span><span id="__span-9-7"><a href="#__codelineno-9-7" id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="sh">  - network: The network configuration for the virtual machine.</span>
-</span><span id="__span-9-8"><a href="#__codelineno-9-8" id="__codelineno-9-8" name="__codelineno-9-8"></a><span class="sh">  The network configuration should have the following attributes:</span>
-</span><span id="__span-9-9"><a href="#__codelineno-9-9" id="__codelineno-9-9" name="__codelineno-9-9"></a><span class="sh">  - subnet: The subnet for the virtual machine.</span>
-</span><span id="__span-9-10"><a href="#__codelineno-9-10" id="__codelineno-9-10" name="__codelineno-9-10"></a><span class="sh">  - security_group: The security group for the virtual machine.</span>
-</span><span id="__span-9-11"><a href="#__codelineno-9-11" id="__codelineno-9-11" name="__codelineno-9-11"></a><span class="dl">  DESCRIPTION</span>
-</span><span id="__span-9-12"><a href="#__codelineno-9-12" id="__codelineno-9-12" name="__codelineno-9-12"></a><span class="w">  </span><span class="na">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">any</span>
-</span><span id="__span-9-13"><a href="#__codelineno-9-13" id="__codelineno-9-13" name="__codelineno-9-13"></a><span class="w">  </span><span class="na">default</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">null</span>
-</span><span id="__span-9-14"><a href="#__codelineno-9-14" id="__codelineno-9-14" name="__codelineno-9-14"></a><span class="p">}</span>
-</span><span id="__span-9-15"><a href="#__codelineno-9-15" id="__codelineno-9-15" name="__codelineno-9-15"></a>
-</span><span id="__span-9-16"><a href="#__codelineno-9-16" id="__codelineno-9-16" name="__codelineno-9-16"></a><span class="kr">resource</span><span class="w"> </span><span class="nc">"azurerm_virtual_machine"</span><span class="w"> </span><span class="nv">"example"</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-9-17"><a href="#__codelineno-9-17" id="__codelineno-9-17" name="__codelineno-9-17"></a><span class="w">  </span><span class="na">name</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"example-vm"</span>
-</span><span id="__span-9-18"><a href="#__codelineno-9-18" id="__codelineno-9-18" name="__codelineno-9-18"></a><span class="w">  </span><span class="na">size</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.size</span>
-</span><span id="__span-9-19"><a href="#__codelineno-9-19" id="__codelineno-9-19" name="__codelineno-9-19"></a><span class="w">  </span><span class="na">image</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.image</span>
-</span><span id="__span-9-20"><a href="#__codelineno-9-20" id="__codelineno-9-20" name="__codelineno-9-20"></a><span class="w">  </span><span class="na">subnet</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.network.subnet</span>
-</span><span id="__span-9-21"><a href="#__codelineno-9-21" id="__codelineno-9-21" name="__codelineno-9-21"></a><span class="w">  </span><span class="na">security_group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.network.security_group</span>
-</span><span id="__span-9-22"><a href="#__codelineno-9-22" id="__codelineno-9-22" name="__codelineno-9-22"></a><span class="p">}</span>
-</span></code></pre></div>
-<div class="language-hcl highlight"><pre><span></span><code><span id="__span-10-1"><a href="#__codelineno-10-1" id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="kr">variable</span><span class="w"> </span><span class="nv">"vm"</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-10-2"><a href="#__codelineno-10-2" id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="w">  </span><span class="na">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">object</span><span class="p">({</span>
-</span><span id="__span-10-3"><a href="#__codelineno-10-3" id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="w">    </span><span class="na">size</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
-</span><span id="__span-10-4"><a href="#__codelineno-10-4" id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="w">    </span><span class="na">image</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
-</span><span id="__span-10-5"><a href="#__codelineno-10-5" id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="w">    </span><span class="na">network</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="kt">object</span><span class="p">({</span>
-</span><span id="__span-10-6"><a href="#__codelineno-10-6" id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="w">      </span><span class="na">subnet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
-</span><span id="__span-10-7"><a href="#__codelineno-10-7" id="__codelineno-10-7" name="__codelineno-10-7"></a><span class="w">      </span><span class="na">security_group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">optional</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span>
-</span><span id="__span-10-8"><a href="#__codelineno-10-8" id="__codelineno-10-8" name="__codelineno-10-8"></a><span class="w">    </span><span class="p">})</span>
-</span><span id="__span-10-9"><a href="#__codelineno-10-9" id="__codelineno-10-9" name="__codelineno-10-9"></a><span class="w">  </span><span class="p">})</span>
-</span><span id="__span-10-10"><a href="#__codelineno-10-10" id="__codelineno-10-10" name="__codelineno-10-10"></a><span class="p">}</span>
-</span><span id="__span-10-11"><a href="#__codelineno-10-11" id="__codelineno-10-11" name="__codelineno-10-11"></a>
-</span><span id="__span-10-12"><a href="#__codelineno-10-12" id="__codelineno-10-12" name="__codelineno-10-12"></a>
-</span><span id="__span-10-13"><a href="#__codelineno-10-13" id="__codelineno-10-13" name="__codelineno-10-13"></a><span class="kr">resource</span><span class="w"> </span><span class="nc">"azurerm_virtual_machine"</span><span class="w"> </span><span class="nv">"example"</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-10-14"><a href="#__codelineno-10-14" id="__codelineno-10-14" name="__codelineno-10-14"></a><span class="w">  </span><span class="na">name</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"example-vm"</span>
-</span><span id="__span-10-15"><a href="#__codelineno-10-15" id="__codelineno-10-15" name="__codelineno-10-15"></a><span class="w">  </span><span class="na">size</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.size</span>
-</span><span id="__span-10-16"><a href="#__codelineno-10-16" id="__codelineno-10-16" name="__codelineno-10-16"></a><span class="w">  </span><span class="na">image</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.image</span>
-</span><span id="__span-10-17"><a href="#__codelineno-10-17" id="__codelineno-10-17" name="__codelineno-10-17"></a><span class="w">  </span><span class="na">subnet</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.network.subnet</span>
-</span><span id="__span-10-18"><a href="#__codelineno-10-18" id="__codelineno-10-18" name="__codelineno-10-18"></a><span class="w">  </span><span class="na">security_group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.network.security_group</span>
-</span><span id="__span-10-19"><a href="#__codelineno-10-19" id="__codelineno-10-19" name="__codelineno-10-19"></a><span class="p">}</span>
-</span></code></pre></div>
-<p>In this example, the <code>security_group</code> attribute in the <code>network</code> structure is defined as an optional attribute with a default value of <code>null</code>. This allows users to provide a custom security group if needed, or use the default value if no value is provided.</p>
-<h3 id="dynamic-blocks"><a class="toclink" href="../../2024/05/03/nested-structures-with-optional-attributes-and-dynamic-blocks/#dynamic-blocks">Dynamic Blocks</a></h3>
-<p>Terraform allows you to use dynamic blocks to define multiple instances of a block within a resource or module. Dynamic blocks are useful when you need to create multiple instances of a block based on a list or map of values.</p>
-<p>For example, you might use a dynamic block to define multiple network interfaces for a virtual machine:</p>
-<div class="language-hcl highlight"><pre><span></span><code><span id="__span-11-1"><a href="#__codelineno-11-1" id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="kr">variable</span><span class="w"> </span><span class="nv">"network_interfaces"</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-11-2"><a href="#__codelineno-11-2" id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="w">  </span><span class="na">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="kt">object</span><span class="p">({</span>
-</span><span id="__span-11-3"><a href="#__codelineno-11-3" id="__codelineno-11-3" name="__codelineno-11-3"></a><span class="w">    </span><span class="na">name</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
-</span><span id="__span-11-4"><a href="#__codelineno-11-4" id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="w">    </span><span class="na">subnet</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
-</span><span id="__span-11-5"><a href="#__codelineno-11-5" id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="w">    </span><span class="na">security_group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
-</span><span id="__span-11-6"><a href="#__codelineno-11-6" id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="w">  </span><span class="p">}))</span>
-</span><span id="__span-11-7"><a href="#__codelineno-11-7" id="__codelineno-11-7" name="__codelineno-11-7"></a><span class="p">}</span>
-</span><span id="__span-11-8"><a href="#__codelineno-11-8" id="__codelineno-11-8" name="__codelineno-11-8"></a>
-</span><span id="__span-11-9"><a href="#__codelineno-11-9" id="__codelineno-11-9" name="__codelineno-11-9"></a><span class="kr">resource</span><span class="w"> </span><span class="nc">"azurerm_virtual_machine"</span><span class="w"> </span><span class="nv">"example"</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-11-10"><a href="#__codelineno-11-10" id="__codelineno-11-10" name="__codelineno-11-10"></a><span class="w">  </span><span class="na">name</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"example-vm"</span>
-</span><span id="__span-11-11"><a href="#__codelineno-11-11" id="__codelineno-11-11" name="__codelineno-11-11"></a><span class="w">  </span><span class="na">size</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"Standard_DS1_v2"</span>
-</span><span id="__span-11-12"><a href="#__codelineno-11-12" id="__codelineno-11-12" name="__codelineno-11-12"></a><span class="w">  </span><span class="na">image</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">"UbuntuServer"</span>
-</span><span id="__span-11-13"><a href="#__codelineno-11-13" id="__codelineno-11-13" name="__codelineno-11-13"></a>
-</span><span id="__span-11-14"><a href="#__codelineno-11-14" id="__codelineno-11-14" name="__codelineno-11-14"></a><span class="w">  </span><span class="err">dynamic</span><span class="w"> </span><span class="s2">"network_interface"</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-11-15"><a href="#__codelineno-11-15" id="__codelineno-11-15" name="__codelineno-11-15"></a><span class="w">    </span><span class="na">for_each</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">var.network_interfaces</span>
-</span><span id="__span-11-16"><a href="#__codelineno-11-16" id="__codelineno-11-16" name="__codelineno-11-16"></a><span class="w">    </span><span class="nb">content</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-11-17"><a href="#__codelineno-11-17" id="__codelineno-11-17" name="__codelineno-11-17"></a><span class="w">      </span><span class="na">name</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="nv">network_interface.value.name</span>
-</span><span id="__span-11-18"><a href="#__codelineno-11-18" id="__codelineno-11-18" name="__codelineno-11-18"></a><span class="w">      </span><span class="na">subnet</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="nv">network_interface.value.subnet</span>
-</span><span id="__span-11-19"><a href="#__codelineno-11-19" id="__codelineno-11-19" name="__codelineno-11-19"></a><span class="w">      </span><span class="na">security_group</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nv">network_interface.value.security_group</span>
-</span><span id="__span-11-20"><a href="#__codelineno-11-20" id="__codelineno-11-20" name="__codelineno-11-20"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-11-21"><a href="#__codelineno-11-21" id="__codelineno-11-21" name="__codelineno-11-21"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-11-22"><a href="#__codelineno-11-22" id="__codelineno-11-22" name="__codelineno-11-22"></a><span class="p">}</span>
-</span></code></pre></div>
-<p>In this example, the <code>network_interfaces</code> variable defines a list of objects representing network interfaces with three attributes: <code>name</code>, <code>subnet</code>, and <code>security_group</code>. The dynamic block iterates over the list of network interfaces and creates a network interface block for each object in the list.</p>
-<h3 id="conclusion"><a class="toclink" href="../../2024/05/03/nested-structures-with-optional-attributes-and-dynamic-blocks/#conclusion">Conclusion</a></h3>
-<p>In this post, I explained how to define nested structures with optional attributes and use dynamic blocks in Terraform. Nested structures are useful for representing complex data types, while optional attributes allow you to provide default values for attributes that can be overridden by users. Dynamic blocks are useful for creating multiple instances of a block based on a list or map of values. By combining these features, you can create flexible and reusable configurations in Terraform.</p>
 </div>
 </article>
 <nav class="md-pagination">

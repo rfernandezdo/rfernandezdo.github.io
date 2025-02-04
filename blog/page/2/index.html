@@ -241,6 +241,13 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/02/">
+<span class="md-ellipsis">
+    2025/02
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../../2025/01/">
 <span class="md-ellipsis">
     2025/01
@@ -681,6 +688,165 @@
 <header class="md-typeset">
 <h1 id="blog">Blog</h1>
 </header>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341"/>
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-10-04 00:00:00">October 4, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/azure-services/">Azure Services</a></li>
+<li class="md-meta__item">
+            
+              3 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="how-to-check-if-a-role-permission-is-good-or-bad-in-azure-rbac"><a class="toclink" href="../../2024/10/04/how-to-check-if-a-role-permission-is-good-or-bad-in-azure-rbac/">How to check if a role permission is good or bad in Azure RBAC</a></h2>
+<p>Do you need to check if a role permission is good or bad or just don't know what actions a provider has in Azure RBAC?</p>
+<p>Get-AzProviderOperation * is your friend and you can always export everything to csv:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-4-1"><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="nb">Get-AzProviderOperation</span> <span class="p">|</span> <span class="nb">select </span><span class="n">Operation</span> <span class="p">,</span> <span class="n">OperationName</span> <span class="p">,</span> <span class="n">ProviderNamespace</span> <span class="p">,</span> <span class="n">ResourceName</span> <span class="p">,</span> <span class="n">Description</span> <span class="p">,</span> <span class="n">IsDataAction</span> <span class="p">|</span> <span class="nb">Export-csv</span> <span class="n">AzProviderOperation</span><span class="p">.</span><span class="n">csv</span>
+</span></code></pre></div>
+<p>This command will give you a list of all the operations that you can perform on Azure resources, including the operation name, provider namespace, resource name, description, and whether it is a data action or not. You can use this information to check if a role permission is good or bad, or to find out what actions a provider has in Azure RBAC.</p>
+<h3 id="script-to-check-if-a-role-permission-is-good-or-bad-on-tf-files"><a class="toclink" href="../../2024/10/04/how-to-check-if-a-role-permission-is-good-or-bad-in-azure-rbac/#script-to-check-if-a-role-permission-is-good-or-bad-on-tf-files">Script to check if a role permission is good or bad on tf files</a></h3>
+<p>You can use the following script to check if a role permission is good or bad on tf files:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-5-1"><a href="#__codelineno-5-1" id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="cm">&lt;#</span>
+</span><span id="__span-5-2"><a href="#__codelineno-5-2" id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="sd">.SYNOPSIS</span>
+</span><span id="__span-5-3"><a href="#__codelineno-5-3" id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="cm">Script to check if a role permission is good or bad in Azure RBAC using Terraform files.</span>
+</span><span id="__span-5-4"><a href="#__codelineno-5-4" id="__codelineno-5-4" name="__codelineno-5-4"></a>
+</span><span id="__span-5-5"><a href="#__codelineno-5-5" id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="sd">.DESCRIPTION</span>
+</span><span id="__span-5-6"><a href="#__codelineno-5-6" id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="cm">This script downloads Azure provider operations to a CSV file, reads the CSV file, extracts text from Terraform (.tf and .tfvars) files, and compares the extracted text with the CSV data to find mismatches.</span>
+</span><span id="__span-5-7"><a href="#__codelineno-5-7" id="__codelineno-5-7" name="__codelineno-5-7"></a>
+</span><span id="__span-5-8"><a href="#__codelineno-5-8" id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="sd">.PARAMETER</span><span class="cm"> csvFilePath</span>
+</span><span id="__span-5-9"><a href="#__codelineno-5-9" id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="cm">The path to the CSV file where Azure provider operations will be downloaded.</span>
+</span><span id="__span-5-10"><a href="#__codelineno-5-10" id="__codelineno-5-10" name="__codelineno-5-10"></a>
+</span><span id="__span-5-11"><a href="#__codelineno-5-11" id="__codelineno-5-11" name="__codelineno-5-11"></a><span class="sd">.PARAMETER</span><span class="cm"> tfFolderPath</span>
+</span><span id="__span-5-12"><a href="#__codelineno-5-12" id="__codelineno-5-12" name="__codelineno-5-12"></a><span class="cm">The path to the folder containing Terraform (.tf and .tfvars) files.</span>
+</span><span id="__span-5-13"><a href="#__codelineno-5-13" id="__codelineno-5-13" name="__codelineno-5-13"></a>
+</span><span id="__span-5-14"><a href="#__codelineno-5-14" id="__codelineno-5-14" name="__codelineno-5-14"></a><span class="sd">.PARAMETER</span><span class="cm"> DebugMode</span>
+</span><span id="__span-5-15"><a href="#__codelineno-5-15" id="__codelineno-5-15" name="__codelineno-5-15"></a><span class="cm">Switch to enable debug mode for detailed output.</span>
+</span><span id="__span-5-16"><a href="#__codelineno-5-16" id="__codelineno-5-16" name="__codelineno-5-16"></a>
+</span><span id="__span-5-17"><a href="#__codelineno-5-17" id="__codelineno-5-17" name="__codelineno-5-17"></a><span class="sd">.EXAMPLE</span>
+</span><span id="__span-5-18"><a href="#__codelineno-5-18" id="__codelineno-5-18" name="__codelineno-5-18"></a><span class="cm">.\Check-RBAC.ps1 -csvFilePath ".\petete.csv" -tfFolderPath ".\"</span>
+</span><span id="__span-5-19"><a href="#__codelineno-5-19" id="__codelineno-5-19" name="__codelineno-5-19"></a>
+</span><span id="__span-5-20"><a href="#__codelineno-5-20" id="__codelineno-5-20" name="__codelineno-5-20"></a><span class="sd">.EXAMPLE</span>
+</span><span id="__span-5-21"><a href="#__codelineno-5-21" id="__codelineno-5-21" name="__codelineno-5-21"></a><span class="cm">.\Check-RBAC.ps1 -csvFilePath ".\petete.csv" -tfFolderPath ".\" -DebugMode</span>
+</span><span id="__span-5-22"><a href="#__codelineno-5-22" id="__codelineno-5-22" name="__codelineno-5-22"></a>
+</span><span id="__span-5-23"><a href="#__codelineno-5-23" id="__codelineno-5-23" name="__codelineno-5-23"></a><span class="sd">.NOTES</span>
+</span><span id="__span-5-24"><a href="#__codelineno-5-24" id="__codelineno-5-24" name="__codelineno-5-24"></a><span class="cm">For more information, refer to the following resources:</span>
+</span><span id="__span-5-25"><a href="#__codelineno-5-25" id="__codelineno-5-25" name="__codelineno-5-25"></a><span class="cm">- Azure RBAC Documentation: https://docs.microsoft.com/en-us/azure/role-based-access-control/</span>
+</span><span id="__span-5-26"><a href="#__codelineno-5-26" id="__codelineno-5-26" name="__codelineno-5-26"></a><span class="cm">- Get-AzProviderOperation Cmdlet: https://docs.microsoft.com/en-us/powershell/module/az.resources/get-azprovideroperation</span>
+</span><span id="__span-5-27"><a href="#__codelineno-5-27" id="__codelineno-5-27" name="__codelineno-5-27"></a><span class="cm">- Export-Csv Cmdlet: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/export-csv</span>
+</span><span id="__span-5-28"><a href="#__codelineno-5-28" id="__codelineno-5-28" name="__codelineno-5-28"></a><span class="cm">#&gt;</span>
+</span><span id="__span-5-29"><a href="#__codelineno-5-29" id="__codelineno-5-29" name="__codelineno-5-29"></a>
+</span><span id="__span-5-30"><a href="#__codelineno-5-30" id="__codelineno-5-30" name="__codelineno-5-30"></a><span class="k">param</span><span class="p">(</span>
+</span><span id="__span-5-31"><a href="#__codelineno-5-31" id="__codelineno-5-31" name="__codelineno-5-31"></a>    <span class="no">[string]</span><span class="nv">$csvFilePath</span> <span class="p">=</span> <span class="s2">".\petete.csv"</span><span class="p">,</span>
+</span><span id="__span-5-32"><a href="#__codelineno-5-32" id="__codelineno-5-32" name="__codelineno-5-32"></a>    <span class="no">[string]</span><span class="nv">$tfFolderPath</span> <span class="p">=</span> <span class="s2">".\"</span><span class="p">,</span>
+</span><span id="__span-5-33"><a href="#__codelineno-5-33" id="__codelineno-5-33" name="__codelineno-5-33"></a>    <span class="no">[switch]</span><span class="nv">$DebugMode</span>
+</span><span id="__span-5-34"><a href="#__codelineno-5-34" id="__codelineno-5-34" name="__codelineno-5-34"></a><span class="p">)</span>
+</span><span id="__span-5-35"><a href="#__codelineno-5-35" id="__codelineno-5-35" name="__codelineno-5-35"></a>
+</span><span id="__span-5-36"><a href="#__codelineno-5-36" id="__codelineno-5-36" name="__codelineno-5-36"></a><span class="c"># Download petete.csv using Get-AzProviderOperation</span>
+</span><span id="__span-5-37"><a href="#__codelineno-5-37" id="__codelineno-5-37" name="__codelineno-5-37"></a><span class="k">function</span> <span class="n">Download-CSV</span> <span class="p">{</span>
+</span><span id="__span-5-38"><a href="#__codelineno-5-38" id="__codelineno-5-38" name="__codelineno-5-38"></a>    <span class="k">param</span><span class="p">(</span>
+</span><span id="__span-5-39"><a href="#__codelineno-5-39" id="__codelineno-5-39" name="__codelineno-5-39"></a>        <span class="no">[string]</span><span class="nv">$filename</span><span class="p">,</span>
+</span><span id="__span-5-40"><a href="#__codelineno-5-40" id="__codelineno-5-40" name="__codelineno-5-40"></a>        <span class="no">[switch]</span><span class="nv">$DebugMode</span>
+</span><span id="__span-5-41"><a href="#__codelineno-5-41" id="__codelineno-5-41" name="__codelineno-5-41"></a>    <span class="p">)</span>
+</span><span id="__span-5-42"><a href="#__codelineno-5-42" id="__codelineno-5-42" name="__codelineno-5-42"></a>    <span class="k">if</span> <span class="p">(</span><span class="nv">$DebugMode</span><span class="p">)</span> <span class="p">{</span> <span class="nb">Write-Host</span> <span class="s2">"Downloading petete.csv using Get-AzProviderOperation"</span> <span class="p">}</span>
+</span><span id="__span-5-43"><a href="#__codelineno-5-43" id="__codelineno-5-43" name="__codelineno-5-43"></a>    <span class="nb">Get-AzProviderOperation</span> <span class="p">|</span> <span class="nb">select </span><span class="n">Operation</span><span class="p">,</span> <span class="n">OperationName</span><span class="p">,</span> <span class="n">ProviderNamespace</span><span class="p">,</span> <span class="n">ResourceName</span><span class="p">,</span> <span class="n">Description</span><span class="p">,</span> <span class="n">IsDataAction</span> <span class="p">|</span> <span class="nb">Export-Csv</span> <span class="n">-Path</span> <span class="nv">$filename</span> <span class="n">-NoTypeInformation</span>
+</span><span id="__span-5-44"><a href="#__codelineno-5-44" id="__codelineno-5-44" name="__codelineno-5-44"></a>    <span class="k">if</span> <span class="p">(</span><span class="nv">$DebugMode</span><span class="p">)</span> <span class="p">{</span> <span class="nb">Write-Host</span> <span class="s2">"CSV file downloaded: $filename"</span> <span class="p">}</span>
+</span><span id="__span-5-45"><a href="#__codelineno-5-45" id="__codelineno-5-45" name="__codelineno-5-45"></a><span class="p">}</span>
+</span><span id="__span-5-46"><a href="#__codelineno-5-46" id="__codelineno-5-46" name="__codelineno-5-46"></a>
+</span><span id="__span-5-47"><a href="#__codelineno-5-47" id="__codelineno-5-47" name="__codelineno-5-47"></a><span class="c"># Function to read the CSV file</span>
+</span><span id="__span-5-48"><a href="#__codelineno-5-48" id="__codelineno-5-48" name="__codelineno-5-48"></a><span class="k">function</span> <span class="nb">Read-CSV</span> <span class="p">{</span>
+</span><span id="__span-5-49"><a href="#__codelineno-5-49" id="__codelineno-5-49" name="__codelineno-5-49"></a>    <span class="k">param</span><span class="p">(</span>
+</span><span id="__span-5-50"><a href="#__codelineno-5-50" id="__codelineno-5-50" name="__codelineno-5-50"></a>        <span class="no">[string]</span><span class="nv">$filename</span><span class="p">,</span>
+</span><span id="__span-5-51"><a href="#__codelineno-5-51" id="__codelineno-5-51" name="__codelineno-5-51"></a>        <span class="no">[switch]</span><span class="nv">$DebugMode</span>
+</span><span id="__span-5-52"><a href="#__codelineno-5-52" id="__codelineno-5-52" name="__codelineno-5-52"></a>    <span class="p">)</span>
+</span><span id="__span-5-53"><a href="#__codelineno-5-53" id="__codelineno-5-53" name="__codelineno-5-53"></a>    <span class="k">if</span> <span class="p">(</span><span class="nv">$DebugMode</span><span class="p">)</span> <span class="p">{</span> <span class="nb">Write-Host</span> <span class="s2">"Reading CSV file: $filename"</span> <span class="p">}</span>
+</span><span id="__span-5-54"><a href="#__codelineno-5-54" id="__codelineno-5-54" name="__codelineno-5-54"></a>    <span class="nv">$csv</span> <span class="p">=</span> <span class="nb">Import-Csv</span> <span class="n">-Path</span> <span class="nv">$filename</span>
+</span><span id="__span-5-55"><a href="#__codelineno-5-55" id="__codelineno-5-55" name="__codelineno-5-55"></a>    <span class="nv">$csvData</span> <span class="p">=</span> <span class="nv">$csv</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span>
+</span><span id="__span-5-56"><a href="#__codelineno-5-56" id="__codelineno-5-56" name="__codelineno-5-56"></a>        <span class="no">[PSCustomObject]</span><span class="p">@{</span>
+</span><span id="__span-5-57"><a href="#__codelineno-5-57" id="__codelineno-5-57" name="__codelineno-5-57"></a>            <span class="n">Provider</span> <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Operation</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="s1">'/'</span><span class="p">)[</span><span class="n">0</span><span class="p">].</span><span class="n">Trim</span><span class="p">()</span>
+</span><span id="__span-5-58"><a href="#__codelineno-5-58" id="__codelineno-5-58" name="__codelineno-5-58"></a>            <span class="n">Operation</span> <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Operation</span>
+</span><span id="__span-5-59"><a href="#__codelineno-5-59" id="__codelineno-5-59" name="__codelineno-5-59"></a>            <span class="n">OperationName</span> <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="n">OperationName</span>
+</span><span id="__span-5-60"><a href="#__codelineno-5-60" id="__codelineno-5-60" name="__codelineno-5-60"></a>            <span class="n">ProviderNamespace</span> <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="n">ProviderNamespace</span>
+</span><span id="__span-5-61"><a href="#__codelineno-5-61" id="__codelineno-5-61" name="__codelineno-5-61"></a>            <span class="n">ResourceName</span> <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="n">ResourceName</span>
+</span><span id="__span-5-62"><a href="#__codelineno-5-62" id="__codelineno-5-62" name="__codelineno-5-62"></a>            <span class="n">Description</span> <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Description</span>
+</span><span id="__span-5-63"><a href="#__codelineno-5-63" id="__codelineno-5-63" name="__codelineno-5-63"></a>            <span class="n">IsDataAction</span> <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="n">IsDataAction</span>
+</span><span id="__span-5-64"><a href="#__codelineno-5-64" id="__codelineno-5-64" name="__codelineno-5-64"></a>        <span class="p">}</span>
+</span><span id="__span-5-65"><a href="#__codelineno-5-65" id="__codelineno-5-65" name="__codelineno-5-65"></a>    <span class="p">}</span>
+</span><span id="__span-5-66"><a href="#__codelineno-5-66" id="__codelineno-5-66" name="__codelineno-5-66"></a>    <span class="k">if</span> <span class="p">(</span><span class="nv">$DebugMode</span><span class="p">)</span> <span class="p">{</span> <span class="nb">Write-Host</span> <span class="s2">"Data read from CSV:"</span><span class="p">;</span> <span class="nv">$csvData</span> <span class="p">|</span> <span class="nb">Format-Table</span> <span class="n">-AutoSize</span> <span class="p">}</span>
+</span><span id="__span-5-67"><a href="#__codelineno-5-67" id="__codelineno-5-67" name="__codelineno-5-67"></a>    <span class="k">return</span> <span class="nv">$csvData</span>
+</span><span id="__span-5-68"><a href="#__codelineno-5-68" id="__codelineno-5-68" name="__codelineno-5-68"></a><span class="p">}</span>
+</span><span id="__span-5-69"><a href="#__codelineno-5-69" id="__codelineno-5-69" name="__codelineno-5-69"></a>
+</span><span id="__span-5-70"><a href="#__codelineno-5-70" id="__codelineno-5-70" name="__codelineno-5-70"></a><span class="c"># Function to extract text from the Terraform files</span>
+</span><span id="__span-5-71"><a href="#__codelineno-5-71" id="__codelineno-5-71" name="__codelineno-5-71"></a><span class="k">function</span> <span class="n">Extract-Text-From-TF</span> <span class="p">{</span>
+</span><span id="__span-5-72"><a href="#__codelineno-5-72" id="__codelineno-5-72" name="__codelineno-5-72"></a>    <span class="k">param</span><span class="p">(</span>
+</span><span id="__span-5-73"><a href="#__codelineno-5-73" id="__codelineno-5-73" name="__codelineno-5-73"></a>        <span class="no">[string]</span><span class="nv">$folderPath</span><span class="p">,</span>
+</span><span id="__span-5-74"><a href="#__codelineno-5-74" id="__codelineno-5-74" name="__codelineno-5-74"></a>        <span class="no">[switch]</span><span class="nv">$DebugMode</span>
+</span><span id="__span-5-75"><a href="#__codelineno-5-75" id="__codelineno-5-75" name="__codelineno-5-75"></a>    <span class="p">)</span>
+</span><span id="__span-5-76"><a href="#__codelineno-5-76" id="__codelineno-5-76" name="__codelineno-5-76"></a>    <span class="k">if</span> <span class="p">(</span><span class="nv">$DebugMode</span><span class="p">)</span> <span class="p">{</span> <span class="nb">Write-Host</span> <span class="s2">"Reading TF and TFVARS files in folder: $folderPath"</span> <span class="p">}</span>
+</span><span id="__span-5-77"><a href="#__codelineno-5-77" id="__codelineno-5-77" name="__codelineno-5-77"></a>    <span class="nv">$tfTexts</span> <span class="p">=</span> <span class="p">@()</span>
+</span><span id="__span-5-78"><a href="#__codelineno-5-78" id="__codelineno-5-78" name="__codelineno-5-78"></a>    <span class="nv">$files</span> <span class="p">=</span> <span class="nb">Get-ChildItem</span> <span class="n">-Path</span> <span class="nv">$folderPath</span> <span class="n">-Filter</span> <span class="p">*.</span><span class="n">tf</span><span class="p">,*.</span><span class="n">tfvars</span>
+</span><span id="__span-5-79"><a href="#__codelineno-5-79" id="__codelineno-5-79" name="__codelineno-5-79"></a>    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$file</span> <span class="k">in</span> <span class="nv">$files</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-5-80"><a href="#__codelineno-5-80" id="__codelineno-5-80" name="__codelineno-5-80"></a>        <span class="nv">$content</span> <span class="p">=</span> <span class="nb">Get-Content</span> <span class="n">-Path</span> <span class="nv">$file</span><span class="p">.</span><span class="n">FullName</span>
+</span><span id="__span-5-81"><a href="#__codelineno-5-81" id="__codelineno-5-81" name="__codelineno-5-81"></a>        <span class="nv">$tfTexts</span> <span class="p">+=</span> <span class="nv">$content</span> <span class="p">|</span> <span class="nb">Select-String</span> <span class="n">-Pattern</span> <span class="s1">'"Microsoft\.[^"]*"'</span> <span class="n">-AllMatches</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Matches</span><span class="p">.</span><span class="n">Value</span><span class="p">.</span><span class="n">Trim</span><span class="p">(</span><span class="s1">'"'</span><span class="p">).</span><span class="n">Trim</span><span class="p">()</span> <span class="p">}</span>
+</span><span id="__span-5-82"><a href="#__codelineno-5-82" id="__codelineno-5-82" name="__codelineno-5-82"></a>        <span class="nv">$tfTexts</span> <span class="p">+=</span> <span class="nv">$content</span> <span class="p">|</span> <span class="nb">Select-String</span> <span class="n">-Pattern</span> <span class="s1">'"\*"'</span> <span class="n">-AllMatches</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Matches</span><span class="p">.</span><span class="n">Value</span><span class="p">.</span><span class="n">Trim</span><span class="p">(</span><span class="s1">'"'</span><span class="p">).</span><span class="n">Trim</span><span class="p">()</span> <span class="p">}</span>
+</span><span id="__span-5-83"><a href="#__codelineno-5-83" id="__codelineno-5-83" name="__codelineno-5-83"></a>        <span class="nv">$tfTexts</span> <span class="p">+=</span> <span class="nv">$content</span> <span class="p">|</span> <span class="nb">Select-String</span> <span class="n">-Pattern</span> <span class="s1">'^\s*\*/'</span> <span class="n">-AllMatches</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Matches</span><span class="p">.</span><span class="n">Value</span><span class="p">.</span><span class="n">Trim</span><span class="p">()</span> <span class="p">}</span>
+</span><span id="__span-5-84"><a href="#__codelineno-5-84" id="__codelineno-5-84" name="__codelineno-5-84"></a>    <span class="p">}</span>
+</span><span id="__span-5-85"><a href="#__codelineno-5-85" id="__codelineno-5-85" name="__codelineno-5-85"></a>    <span class="k">if</span> <span class="p">(</span><span class="nv">$DebugMode</span><span class="p">)</span> <span class="p">{</span> <span class="nb">Write-Host</span> <span class="s2">"Texts extracted from TF and TFVARS files:"</span><span class="p">;</span> <span class="nv">$tfTexts</span> <span class="p">|</span> <span class="nb">Format-Table</span> <span class="n">-AutoSize</span> <span class="p">}</span>
+</span><span id="__span-5-86"><a href="#__codelineno-5-86" id="__codelineno-5-86" name="__codelineno-5-86"></a>    <span class="k">return</span> <span class="nv">$tfTexts</span>
+</span><span id="__span-5-87"><a href="#__codelineno-5-87" id="__codelineno-5-87" name="__codelineno-5-87"></a><span class="p">}</span>
+</span><span id="__span-5-88"><a href="#__codelineno-5-88" id="__codelineno-5-88" name="__codelineno-5-88"></a>
+</span><span id="__span-5-89"><a href="#__codelineno-5-89" id="__codelineno-5-89" name="__codelineno-5-89"></a><span class="c"># Function to compare extracted text with CSV data</span>
+</span><span id="__span-5-90"><a href="#__codelineno-5-90" id="__codelineno-5-90" name="__codelineno-5-90"></a><span class="k">function</span> <span class="nb">Compare-Text</span><span class="n">-With-CSV</span> <span class="p">{</span>
+</span><span id="__span-5-91"><a href="#__codelineno-5-91" id="__codelineno-5-91" name="__codelineno-5-91"></a>    <span class="k">param</span><span class="p">(</span>
+</span><span id="__span-5-92"><a href="#__codelineno-5-92" id="__codelineno-5-92" name="__codelineno-5-92"></a>        <span class="no">[array]</span><span class="nv">$csvData</span><span class="p">,</span>
+</span><span id="__span-5-93"><a href="#__codelineno-5-93" id="__codelineno-5-93" name="__codelineno-5-93"></a>        <span class="no">[array]</span><span class="nv">$tfTexts</span><span class="p">,</span>
+</span><span id="__span-5-94"><a href="#__codelineno-5-94" id="__codelineno-5-94" name="__codelineno-5-94"></a>        <span class="no">[switch]</span><span class="nv">$DebugMode</span>
+</span><span id="__span-5-95"><a href="#__codelineno-5-95" id="__codelineno-5-95" name="__codelineno-5-95"></a>    <span class="p">)</span>
+</span><span id="__span-5-96"><a href="#__codelineno-5-96" id="__codelineno-5-96" name="__codelineno-5-96"></a>    <span class="nv">$mismatches</span> <span class="p">=</span> <span class="p">@()</span>
+</span><span id="__span-5-97"><a href="#__codelineno-5-97" id="__codelineno-5-97" name="__codelineno-5-97"></a>    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$tfText</span> <span class="k">in</span> <span class="nv">$tfTexts</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-5-98"><a href="#__codelineno-5-98" id="__codelineno-5-98" name="__codelineno-5-98"></a>        <span class="k">if</span> <span class="p">(</span><span class="nv">$tfText</span> <span class="o">-eq</span> <span class="s2">"*"</span> <span class="o">-or</span> <span class="nv">$tfText</span> <span class="o">-match</span> <span class="s1">'^\*/'</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-5-99"><a href="#__codelineno-5-99" id="__codelineno-5-99" name="__codelineno-5-99"></a>            <span class="k">continue</span>
+</span><span id="__span-5-100"><a href="#__codelineno-5-100" id="__codelineno-5-100" name="__codelineno-5-100"></a>        <span class="p">}</span>
+</span><span id="__span-5-101"><a href="#__codelineno-5-101" id="__codelineno-5-101" name="__codelineno-5-101"></a>        <span class="nv">$tfTextPattern</span> <span class="p">=</span> <span class="nv">$tfText</span> <span class="o">-replace</span> <span class="s1">'\*'</span><span class="p">,</span> <span class="s1">'.*'</span>
+</span><span id="__span-5-102"><a href="#__codelineno-5-102" id="__codelineno-5-102" name="__codelineno-5-102"></a>        <span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="p">(</span><span class="nv">$csvData</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Operation</span> <span class="o">-match</span> <span class="s2">"^$tfTextPattern$"</span> <span class="p">}))</span> <span class="p">{</span>
+</span><span id="__span-5-103"><a href="#__codelineno-5-103" id="__codelineno-5-103" name="__codelineno-5-103"></a>            <span class="nv">$mismatches</span> <span class="p">+=</span> <span class="nv">$tfText</span>
+</span><span id="__span-5-104"><a href="#__codelineno-5-104" id="__codelineno-5-104" name="__codelineno-5-104"></a>        <span class="p">}</span>
+</span><span id="__span-5-105"><a href="#__codelineno-5-105" id="__codelineno-5-105" name="__codelineno-5-105"></a>    <span class="p">}</span>
+</span><span id="__span-5-106"><a href="#__codelineno-5-106" id="__codelineno-5-106" name="__codelineno-5-106"></a>    <span class="k">if</span> <span class="p">(</span><span class="nv">$DebugMode</span><span class="p">)</span> <span class="p">{</span> <span class="nb">Write-Host</span> <span class="s2">"Mismatches found:"</span><span class="p">;</span> <span class="nv">$mismatches</span> <span class="p">|</span> <span class="nb">Format-Table</span> <span class="n">-AutoSize</span> <span class="p">}</span>
+</span><span id="__span-5-107"><a href="#__codelineno-5-107" id="__codelineno-5-107" name="__codelineno-5-107"></a>    <span class="k">return</span> <span class="nv">$mismatches</span>
+</span><span id="__span-5-108"><a href="#__codelineno-5-108" id="__codelineno-5-108" name="__codelineno-5-108"></a><span class="p">}</span>
+</span><span id="__span-5-109"><a href="#__codelineno-5-109" id="__codelineno-5-109" name="__codelineno-5-109"></a>
+</span><span id="__span-5-110"><a href="#__codelineno-5-110" id="__codelineno-5-110" name="__codelineno-5-110"></a><span class="c"># Main script execution</span>
+</span><span id="__span-5-111"><a href="#__codelineno-5-111" id="__codelineno-5-111" name="__codelineno-5-111"></a><span class="n">Download-CSV</span> <span class="n">-filename</span> <span class="nv">$csvFilePath</span> <span class="n">-DebugMode</span><span class="p">:</span><span class="nv">$DebugMode</span>
+</span><span id="__span-5-112"><a href="#__codelineno-5-112" id="__codelineno-5-112" name="__codelineno-5-112"></a><span class="nv">$csvData</span> <span class="p">=</span> <span class="nb">Read-CSV</span> <span class="n">-filename</span> <span class="nv">$csvFilePath</span> <span class="n">-DebugMode</span><span class="p">:</span><span class="nv">$DebugMode</span>
+</span><span id="__span-5-113"><a href="#__codelineno-5-113" id="__codelineno-5-113" name="__codelineno-5-113"></a><span class="nv">$tfTexts</span> <span class="p">=</span> <span class="n">Extract-Text-From-TF</span> <span class="n">-folderPath</span> <span class="nv">$tfFolderPath</span> <span class="n">-DebugMode</span><span class="p">:</span><span class="nv">$DebugMode</span>
+</span><span id="__span-5-114"><a href="#__codelineno-5-114" id="__codelineno-5-114" name="__codelineno-5-114"></a><span class="nv">$mismatches</span> <span class="p">=</span> <span class="nb">Compare-Text</span><span class="n">-With-CSV</span> <span class="n">-csvData</span> <span class="nv">$csvData</span> <span class="n">-tfTexts</span> <span class="nv">$tfTexts</span> <span class="n">-DebugMode</span><span class="p">:</span><span class="nv">$DebugMode</span>
+</span><span id="__span-5-115"><a href="#__codelineno-5-115" id="__codelineno-5-115" name="__codelineno-5-115"></a>
+</span><span id="__span-5-116"><a href="#__codelineno-5-116" id="__codelineno-5-116" name="__codelineno-5-116"></a><span class="k">if</span> <span class="p">(</span><span class="nv">$mismatches</span><span class="p">.</span><span class="n">Count</span> <span class="o">-eq</span> <span class="n">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-5-117"><a href="#__codelineno-5-117" id="__codelineno-5-117" name="__codelineno-5-117"></a>    <span class="nb">Write-Host</span> <span class="s2">"All extracted texts match the CSV data."</span>
+</span><span id="__span-5-118"><a href="#__codelineno-5-118" id="__codelineno-5-118" name="__codelineno-5-118"></a><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span id="__span-5-119"><a href="#__codelineno-5-119" id="__codelineno-5-119" name="__codelineno-5-119"></a>    <span class="nb">Write-Host</span> <span class="s2">"Mismatches found:"</span>
+</span><span id="__span-5-120"><a href="#__codelineno-5-120" id="__codelineno-5-120" name="__codelineno-5-120"></a>    <span class="nv">$mismatches</span> <span class="p">|</span> <span class="nb">Format-Table</span> <span class="n">-AutoSize</span>
+</span><span id="__span-5-121"><a href="#__codelineno-5-121" id="__codelineno-5-121" name="__codelineno-5-121"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>This script downloads Azure provider operations to a CSV file, reads the CSV file, extracts text from Terraform files, and compares the extracted text with the CSV data to find mismatches. You can use this script to check if a role permission is good or bad in Azure RBAC using Terraform files.</p>
+<p>I hope this post has given you a good introduction to how you can check if a role permission is good or bad in Azure RBAC and how you can use Terraform files to automate this process. </p>
+<p>Happy coding! 🚀</p>
+</div>
+</article>
 <article class="md-post md-post--excerpt">
 <header class="md-post__header">
 <nav class="md-post__authors md-typeset">
@@ -1464,401 +1630,6 @@
 <h3 id="resources"><a class="toclink" href="../../2024/06/17/microsoft-entra-conditional-access/#resources">Resources</a></h3>
 <ul>
 <li><a href="https://learn.microsoft.com/en-us/entra/identity/conditional-access/overview">Conditional Access documentation</a></li>
-</ul>
-</div>
-</article>
-<article class="md-post md-post--excerpt">
-<header class="md-post__header">
-<nav class="md-post__authors md-typeset">
-<span class="md-author">
-<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341"/>
-</span>
-</nav>
-<div class="md-post__meta md-meta">
-<ul class="md-meta__list">
-<li class="md-meta__item">
-<time datetime="2024-06-16 00:00:00">June 16, 2024</time></li>
-<li class="md-meta__item">
-            in
-            
-              <a class="md-meta__link" href="../../category/azure-services/">Azure Services</a></li>
-<li class="md-meta__item">
-            
-              11 min read
-            
-          </li>
-</ul>
-</div>
-</header>
-<div class="md-post__content md-typeset">
-<h2 id="data-threat-modeling-in-azure-storage-accounts"><a class="toclink" href="../../2024/06/16/data-threat-modeling-in-azure-storage-accounts/">Data threat modeling in Azure storage accounts</a></h2>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p>I apologize in advance if this is a crazy idea and there is some mistake!! I am just trying to learn and share knowledge.</p>
-</div>
-<p>Azure Storage Account is a service that provides scalable, secure, and reliable storage for data. It is used to store data such as blobs, files, tables, and queues. However, it is important to ensure that the data stored in Azure Storage Account is secure and protected from security threats. In this article, we will discuss how to perform data threat modeling in Azure storage accounts.</p>
-<h3 id="what-is-data-threat-modeling"><a class="toclink" href="../../2024/06/16/data-threat-modeling-in-azure-storage-accounts/#what-is-data-threat-modeling">What is data threat modeling?</a></h3>
-<p>Data threat modeling is a process of identifying and analyzing potential threats to data security. It helps organizations understand the risks to their data and develop strategies to mitigate those risks. Data threat modeling involves the following steps:</p>
-<ol>
-<li><strong>Identify assets</strong>: Identify the data assets stored in Azure storage accounts, such as blobs, files, tables, and queues.</li>
-<li><strong>Identify threats</strong>: Identify potential threats to the data assets, such as unauthorized access, data breaches, data leakage, malware, phishing attacks, insider threats, and data loss.</li>
-<li><strong>Assess risks</strong>: Assess the risks associated with each threat, such as the likelihood of the threat occurring and the impact of the threat on the data assets.</li>
-<li><strong>Develop mitigation strategies</strong>: Develop strategies to mitigate the risks, such as implementing security controls, access controls, encryption, monitoring, and auditing.</li>
-</ol>
-<p>By performing data threat modeling, organizations can identify and address security vulnerabilities in Azure storage accounts and protect their data from security threats.</p>
-<h3 id="identify-assets-in-azure-storage-accounts"><a class="toclink" href="../../2024/06/16/data-threat-modeling-in-azure-storage-accounts/#identify-assets-in-azure-storage-accounts">Identify assets in Azure storage accounts</a></h3>
-<p>Azure storage accounts can store various types of data assets, including:</p>
-<ul>
-<li><strong>Blobs</strong>: Binary large objects (blobs) are used to store unstructured data, such as images, videos, and documents.</li>
-<li><strong>Files</strong>: Files are used to store structured data, such as text files, configuration files, and log files.</li>
-<li><strong>Tables</strong>: Tables are used to store structured data in a tabular format, such as customer information, product information, and transaction data.</li>
-<li><strong>Queues</strong>: Queues are used to store messages for communication between applications, such as task messages, notification messages, and status messages.</li>
-<li><strong>Disks</strong>: Disks are used to store virtual machine disks, such as operating system disks and data disks.</li>
-</ul>
-<p>Identifying the data assets stored in Azure storage accounts is the first step in data threat modeling. It helps organizations understand the types of data stored in Azure storage accounts and the potential risks to those data assets.</p>
-<h3 id="identify-threats-to-data-in-azure-storage-accounts"><a class="toclink" href="../../2024/06/16/data-threat-modeling-in-azure-storage-accounts/#identify-threats-to-data-in-azure-storage-accounts">Identify threats to data in Azure storage accounts</a></h3>
-<p>There are several threats to data stored in Azure storage accounts, including:</p>
-<ul>
-<li><strong>Unauthorized access</strong>: Unauthorized users gaining access to Azure storage accounts and stealing data.</li>
-<li><strong>Data breaches</strong>: Data breaches can expose sensitive data stored in Azure storage accounts.</li>
-<li><strong>Data leakage</strong>: Data leakage can occur due to misconfigured access controls or insecure data transfer protocols.</li>
-<li><strong>Data loss</strong>: Data loss can occur due to accidental deletion, corruption, or hardware failure.</li>
-<li><strong>Ransomware</strong>: Ransomware can encrypt data stored in Azure storage accounts and demand a ransom for decryption.</li>
-<li><strong>DDoS attacks</strong>: DDoS attacks can disrupt access to data stored in Azure storage accounts.</li>
-<li><strong>Phishing attacks</strong>: Phishing attacks can trick users into providing their login credentials, which can be used to access and steal data.</li>
-<li><strong>Malware</strong>: Malware can be used to steal data from Azure storage accounts and transfer it to external servers.</li>
-<li><strong>Insider threats</strong>: Employees or contractors with access to sensitive data may intentionally or unintentionally exfiltrate data.</li>
-<li><strong>Data exfiltration</strong>: Unauthorized transfer of data from Azure storage accounts to external servers.</li>
-</ul>
-<p>For example, the flow of data exfiltration in Azure storage accounts can be summarized as follows:</p>
-<pre class="mermaid"><code>sequenceDiagram
-    participant User
-    participant Azure Storage Account
-    participant External Server
-
-    User-&gt;&gt;Azure Storage Account: Upload data
-    Azure Storage Account-&gt;&gt;External Server: Unauthorized transfer of data
-</code></pre>
-<p>In this flow, the user uploads data to the Azure Storage Account, and the data is then transferred to an external server without authorization. This unauthorized transfer of data is known as data exfiltration.</p>
-<h3 id="assess-risks-to-data-in-azure-storage-accounts"><a class="toclink" href="../../2024/06/16/data-threat-modeling-in-azure-storage-accounts/#assess-risks-to-data-in-azure-storage-accounts">Assess risks to data in Azure storage accounts</a></h3>
-<p>Assessing the risks associated with threats to data in Azure storage accounts is an important step in data threat modeling. Risks can be assessed based on the likelihood of the threat occurring and the impact of the threat on the data assets. Risks can be categorized as low, medium, or high based on the likelihood and impact of the threat.</p>
-<p>For example, the risk of unauthorized access to Azure storage accounts may be categorized as high if the likelihood of unauthorized access is high and the impact of unauthorized access on the data assets is high. Similarly, the risk of data leakage may be categorized as medium if the likelihood of data leakage is medium and the impact of data leakage on the data assets is medium.</p>
-<p>By assessing risks to data in Azure storage accounts, organizations can prioritize security measures and develop strategies to mitigate the risks.</p>
-<p>For example, the risk of data exfiltration in Azure storage accounts can be assessed as follows:</p>
-<pre class="mermaid"><code>pie
-    title Data Exfiltration Risk Assessment
-    "Unauthorized Access" : 30
-    "Data Breaches" : 20
-    "Data Leakage" : 15
-    "Malware" : 10
-    "Phishing Attacks" : 10
-    "Insider Threats" : 15
-</code></pre>
-<h3 id="develop-mitigation-strategies-for-data-in-azure-storage-accounts"><a class="toclink" href="../../2024/06/16/data-threat-modeling-in-azure-storage-accounts/#develop-mitigation-strategies-for-data-in-azure-storage-accounts">Develop mitigation strategies for data in Azure storage accounts</a></h3>
-<p>Developing mitigation strategies is an essential step in data threat modeling. Mitigation strategies help organizations protect their data assets from security threats and reduce the risks associated with those threats. Mitigation strategies could include the following:</p>
-<ol>
-<li><strong>Implement access controls</strong>: Implement access controls to restrict access to Azure storage accounts based on user roles and permissions.</li>
-<li><strong>Encrypt data</strong>: Encrypt data stored in Azure storage accounts to protect it from unauthorized access.</li>
-<li><strong>Monitor and audit access</strong>: Monitor and audit access to Azure storage accounts to detect unauthorized access and data exfiltration.</li>
-<li><strong>Implement security controls</strong>: Implement security controls, such as firewalls, network security groups, and intrusion detection systems, to protect data in Azure storage accounts.</li>
-<li><strong>Use secure transfer protocols</strong>: Use secure transfer protocols, such as HTTPS, to transfer data to and from Azure storage accounts.</li>
-<li><strong>Implement multi-factor authentication</strong>: Implement multi-factor authentication to protect user accounts from unauthorized access.</li>
-<li><strong>Train employees</strong>: Train employees on data security best practices to prevent data exfiltration and other security threats.</li>
-<li><strong>Backup data</strong>: Backup data stored in Azure storage accounts to prevent data loss due to accidental deletion or corruption.</li>
-<li><strong>Update software</strong>: Keep software and applications up to date to protect data stored in Azure storage accounts from security vulnerabilities.</li>
-<li><strong>Implement data loss prevention (DLP) policies</strong>: Implement DLP policies to prevent data leakage and unauthorized transfer of data from Azure storage accounts.</li>
-</ol>
-<p>As it is not an easy task, Microsoft provides us with tools for this, in the case of using a security framework we can always use the MCSB (Microsoft Cloud Security Baseline) which is a set of guidelines and best practices for securing Azure services, including Azure storage accounts. The MCSB provides recommendations for securing Azure storage accounts, such as enabling encryption, implementing access controls, monitoring access, and auditing activities:</p>
-<table>
-<thead>
-<tr>
-<th>Control Domain</th>
-<th>ASB Control ID</th>
-<th>ASB Control Title</th>
-<th>Responsibility</th>
-<th>Feature Name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Asset Management</td>
-<td>AM-2</td>
-<td>Use only approved services</td>
-<td>Customer</td>
-<td>Azure Policy Support</td>
-</tr>
-<tr>
-<td>Backup and recovery</td>
-<td>BR-1</td>
-<td>Ensure regular automated backups</td>
-<td>Customer</td>
-<td>Azure Backup</td>
-</tr>
-<tr>
-<td>Backup and recovery</td>
-<td>BR-1</td>
-<td>Ensure regular automated backups</td>
-<td>Customer</td>
-<td>Service Native Backup Capability</td>
-</tr>
-<tr>
-<td>Data Protection</td>
-<td>DP-1</td>
-<td>Discover, classify, and label sensitive data</td>
-<td>Customer</td>
-<td>Sensitive Data Discovery and Classification</td>
-</tr>
-<tr>
-<td>Data Protection</td>
-<td>DP-2</td>
-<td>Monitor anomalies and threats targeting sensitive data</td>
-<td>Customer</td>
-<td>Data Leakage/Loss Prevention</td>
-</tr>
-<tr>
-<td>Data Protection</td>
-<td>DP-3</td>
-<td>Encrypt sensitive data in transit</td>
-<td>Microsoft</td>
-<td>Data in Transit Encryption</td>
-</tr>
-<tr>
-<td>Data Protection</td>
-<td>DP-4</td>
-<td>Enable data at rest encryption by default</td>
-<td>Microsoft</td>
-<td>Data at Rest Encryption Using Platform Keys</td>
-</tr>
-<tr>
-<td>Data Protection</td>
-<td>DP-5</td>
-<td>Use customer-managed key option in data at rest encryption when required</td>
-<td>Customer</td>
-<td>Data at Rest Encryption Using CMK</td>
-</tr>
-<tr>
-<td>Data Protection</td>
-<td>DP-6</td>
-<td>Use a secure key management process</td>
-<td>Customer</td>
-<td>Key Management in Azure Key Vault</td>
-</tr>
-<tr>
-<td>Identity Management</td>
-<td>IM-1</td>
-<td>Use centralized identity and authentication system</td>
-<td>Microsoft</td>
-<td>Azure AD Authentication Required for Data Plane Access</td>
-</tr>
-<tr>
-<td>Identity Management</td>
-<td>IM-1</td>
-<td>Use centralized identity and authentication system</td>
-<td>Customer</td>
-<td>Local Authentication Methods for Data Plane Access</td>
-</tr>
-<tr>
-<td>Identity Management</td>
-<td>IM-3</td>
-<td>Manage application identities securely and automatically</td>
-<td>Customer</td>
-<td>Managed Identities</td>
-</tr>
-<tr>
-<td>Identity Management</td>
-<td>IM-3</td>
-<td>Manage application identities securely and automatically</td>
-<td>Customer</td>
-<td>Service Principals</td>
-</tr>
-<tr>
-<td>Identity Management</td>
-<td>IM-7</td>
-<td>Restrict resource access based on conditions</td>
-<td>Customer</td>
-<td>Conditional Access for Data Plane</td>
-</tr>
-<tr>
-<td>Identity Management</td>
-<td>IM-8</td>
-<td>Restrict the exposure of credential and secrets</td>
-<td>Customer</td>
-<td>Service Credential and Secrets Support Integration and Storage in Azure Key Vault</td>
-</tr>
-<tr>
-<td>Logging and threat detection</td>
-<td>LT-1</td>
-<td>Enable threat detection capabilities</td>
-<td>Customer</td>
-<td>Microsoft Defender for Service / Product Offering</td>
-</tr>
-<tr>
-<td>Logging and threat detection</td>
-<td>LT-4</td>
-<td>Enable network logging for security investigation</td>
-<td>Customer</td>
-<td>Azure Resource Logs</td>
-</tr>
-<tr>
-<td>Network Security</td>
-<td>NS-2</td>
-<td>Secure cloud services with network controls</td>
-<td>Customer</td>
-<td>Disable Public Network Access</td>
-</tr>
-<tr>
-<td>Network Security</td>
-<td>NS-2</td>
-<td>Secure cloud services with network controls</td>
-<td>Customer</td>
-<td>Azure Private Link</td>
-</tr>
-<tr>
-<td>Privileged Access</td>
-<td>PA-7</td>
-<td>Follow just enough administration(least privilege) principle</td>
-<td>Customer</td>
-<td>Azure RBAC for Data Plane</td>
-</tr>
-<tr>
-<td>Privileged Access</td>
-<td>PA-8</td>
-<td>Choose approval process for third-party support</td>
-<td>Customer</td>
-<td>Customer Lockbox</td>
-</tr>
-</tbody>
-</table>
-<p>And part of MCSB can be complemented with Azure Well Architected Framework, which provides guidance on best practices for designing and implementing secure, scalable, and reliable cloud solutions. The Well Architected Framework includes security best practices for Azure storage accounts, such as implementing security controls, access controls, encryption, monitoring, and auditing:</p>
-<ol>
-<li><strong>Enable Azure Defender for all your storage accounts</strong>: Azure Defender for Storage provides advanced threat protection for Azure storage accounts. It helps detect and respond to security threats in real-time.</li>
-<li><strong>Turn on soft delete for blob data</strong>: Soft delete helps protect your blob data from accidental deletion. It allows you to recover deleted data within a specified retention period.</li>
-<li><strong>Use Microsoft Entitlement Management to authorize access to blob data</strong>: Microsoft Entitlement Management provides fine-grained access control for Azure storage accounts. It allows you to define and enforce access policies based on user roles and permissions.</li>
-<li><strong>Consider the principle of least privilege</strong>: When assigning permissions to a Microsoft Entitlement security principal through Azure RBAC, follow the principle of least privilege. Only grant the minimum permissions required to perform the necessary tasks.</li>
-<li><strong>Use managed identities to access blob and queue data</strong>: Managed identities provide a secure way to access Azure storage accounts without storing credentials in your code.</li>
-<li><strong>Use blob versioning or immutable blobs</strong>: Blob versioning and immutable blobs help protect your business-critical data from accidental deletion or modification.</li>
-<li><strong>Restrict default internet access for storage accounts</strong>: Limit default internet access to Azure storage accounts to prevent unauthorized access.</li>
-<li><strong>Enable firewall rules</strong>: Use firewall rules to restrict network access to Azure storage accounts. Only allow trusted IP addresses to access the storage account.</li>
-<li><strong>Limit network access to specific networks</strong>: Limit network access to specific networks or IP ranges to prevent unauthorized access.</li>
-<li><strong>Allow trusted Microsoft services to access the storage account</strong>: Allow only trusted Microsoft services to access the storage account to prevent unauthorized access.</li>
-<li><strong>Enable the Secure transfer required option</strong>: Enable the Secure transfer required option on all your storage accounts to enforce secure connections.</li>
-<li><strong>Limit shared access signature (SAS) tokens to HTTPS connections only</strong>: Limit shared access signature (SAS) tokens to HTTPS connections only to prevent unauthorized access.</li>
-<li><strong>Avoid using Shared Key authorization</strong>: Avoid using Shared Key authorization to access storage accounts. Use Azure AD or SAS tokens instead.</li>
-<li><strong>Regenerate your account keys periodically</strong>: Regenerate your account keys periodically to prevent unauthorized access.</li>
-<li><strong>Create a revocation plan for SAS tokens</strong>: Create a revocation plan and have it in place for any SAS tokens that you issue to clients. This will help you revoke access to the storage account if necessary.</li>
-<li><strong>Use near-term expiration times on SAS tokens</strong>: Use near-term expiration times on impromptu SAS, service SAS, or account SAS to limit the exposure of the token.</li>
-</ol>
-<h3 id="mixed-strategies-for-data-protection-in-azure-storage-accounts"><a class="toclink" href="../../2024/06/16/data-threat-modeling-in-azure-storage-accounts/#mixed-strategies-for-data-protection-in-azure-storage-accounts">Mixed strategies for data protection in Azure storage accounts</a></h3>
-<p>Diagram of the mixed strategies for data protection in Azure storage accounts:</p>
-<pre class="mermaid"><code>graph LR
-    A[Asset Management] --&gt;B(AM-2)
-    B --&gt; C[Use only approved services]
-    C --&gt; D[Azure Policy] 
-    E[Backup and recovery] --&gt;F(BR-1)
-    F --&gt; G[Ensure regular automated backups]
-    G --&gt; H[Azure Backup]
-    G --&gt; I[Service Native Backup Capability]
-    I --&gt; I1["Azure Storage Account Configuration"]
-    I1 --&gt; I11["Turn on soft delete for blob data"]
-    I1 --&gt; I12["Use blob versioning or immutable blobs"]
-</code></pre>
-<pre class="mermaid"><code>graph LR
-    J[Data Protection] --&gt;K(DP-1)
-    K --&gt; L[Discover, classify, and label sensitive data]    
-    L --&gt; M[Sensitive Data Discovery and Classification]
-    M --&gt; M1["Microsoft Pureview"]       
-    J --&gt; N(DP-2)
-    N --&gt; O[Monitor anomalies and threats targeting sensitive data]
-    O --&gt; P[Data Leakage/Loss Prevention]
-    P --&gt; P1["Microsoft Defender for Storage"]
-    J --&gt; Q(DP-3)
-    Q --&gt; R[Encrypt sensitive data in transit]
-    R --&gt; S[Data in Transit Encryption]
-    S --&gt; S1["Azure Storage Account Configuration"]
-    S1 --&gt; S2["Enforce minimum TLS version"]
-    J --&gt; T(DP-4)
-    T --&gt; U[Enable data at rest encryption by default]
-    U --&gt; V[Data at Rest Encryption Using Platform Keys]
-    V --&gt; WW["Azure Storage Account Configuration"]    
-    J --&gt; W(DP-5)
-    W --&gt; X[Use customer-managed key option in data at rest encryption when required]
-    X --&gt; Y[Data at Rest Encryption Using CMK]
-    Y --&gt; WW["Azure Storage Account Configuration"]    
-    J --&gt; Z(DP-6)
-    Z --&gt; AA[Use a secure key management process]
-    AA --&gt; AB[Key Management in Azure Key Vault]
-    AB --&gt; AC["DEPRECATED"]
-</code></pre>
-<pre class="mermaid"><code>graph LR  
-    AC[Identity Management] --&gt;AD(IM-1)
-    AD --&gt; AE[Use centralized identity and authentication system]
-    AE --&gt; AE1["Microsoft Entra ID"]
-    AE --&gt; AF[Microsoft Entra ID Authentication Required for Data Plane Access]
-    AF --&gt; AF1["Azure Storage Account Configuration"]
-    AF1 --&gt; AF2["Disable Allow Shared Key authorization"]
-    AD --&gt; AG[Local Authentication Methods for Data Plane Access]
-    AG --&gt; AG1["Azure Storage Account Configuration"]
-    AG1 --&gt; AG2["Don't use SFTP if you don't need it"]
-    AC --&gt; AH(IM-3)
-    AH --&gt; AI[Manage application identities securely and automatically]
-    AI --&gt; AJ[Managed Identities]
-    AI --&gt; AK[Service Principals]
-    AK --&gt; AK1["Rotate or regenerate service principal credentials"]
-    AC --&gt; AL(IM-7)
-    AL --&gt; AM[Restrict resource access based on conditions]
-    AM --&gt; AN[Microsoft Entra Conditional Access for Data Plane]
-    AC --&gt; AO(IM-8)
-    AO --&gt; AP[Restrict the exposure of credential and secrets]    
-    AP --&gt; AQ[Service Credential and Secrets Support Integration and Storage in Azure Key Vault]    
-    AQ --&gt; AK1
-    click AK1 "https://github.com/Azure-Samples/KeyVault-Rotation-StorageAccountKey-PowerShell" "Open this in a new tab" _blank
-</code></pre>
-<p><pre class="mermaid"><code>graph LR
-AR[Logging and threat detection] --&gt;AS(LT-1)
-    AS --&gt; AT[Enable threat detection capabilities]
-    AT --&gt; AU[Microsoft Defender for Service / Product Offering]
-    AU --&gt; AU1["Microsoft Defender for Storage"]
-    AR --&gt; AV(LT-4)
-    AV --&gt; AW[Enable network logging for security investigation]
-    AW --&gt; AX[Azure Resource Logs]
-    AX --&gt; AX1["Azure Monitor"]
-    AX --&gt; AX2["Azure Activity Log"]
-    click AU1 "https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-storage-introduction" "Open this in a new tab" _blank
-</code></pre>
-<pre class="mermaid"><code>graph LR
-    AY[Network Security] --&gt;AZ(NS-2)
-    AZ --&gt; BA[Secure cloud services with network controls]
-    BA --&gt; BB["Azure Storage Account Configuration"]
-    BB --&gt; BB1[Disable Public Network Access]
-    BB --&gt; BB2[Allow trusted Microsoft services to access the storage account]
-    BA --&gt; BC[Azure Private Link]
-    BC --&gt; BC1["Azure Private Endpoint"]
-    BA --&gt; BD[Azure Network]
-    BD --&gt; BD1["Azure Service Endpoint"]
-    BA --&gt; BE["Network Security Perimeter"]
-</code></pre></p>
-<pre class="mermaid"><code>graph LR
-    BD[Privileged Access] --&gt;BE(PA-7)
-    BE --&gt; BF["Follow just enough administration(least privilege) principle"]
-    BF --&gt; BG[Azure RBAC for Data Plane]
-    BG --&gt; BG1["Azure RBAC"]
-    BG1 --&gt; BG2["Azure RBAC Roles"]
-    BD --&gt; BH(PA-8)
-    BH --&gt; BI[Choose approval process for third-party support]
-    BI --&gt; BJ[Customer Lockbox]
-click BG2 "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles/storage" "Open this in a new tab" _blank
-</code></pre>
-<h3 id="example-of-mixed-strategies-for-data-protection-in-azure-storage-accounts"><a class="toclink" href="../../2024/06/16/data-threat-modeling-in-azure-storage-accounts/#example-of-mixed-strategies-for-data-protection-in-azure-storage-accounts">Example of mixed strategies for data protection in Azure storage accounts</a></h3>
-<p>The following example illustrates how to implement mixed strategies for data protection in Azure storage accounts:</p>
-<h3 id="conclusion"><a class="toclink" href="../../2024/06/16/data-threat-modeling-in-azure-storage-accounts/#conclusion">Conclusion</a></h3>
-<p>In conclusion, data threat modeling is an important process for identifying and addressing security vulnerabilities in Azure storage accounts. By identifying assets, threats, risks, and developing mitigation strategies, organizations can protect their data from security threats and ensure the security and integrity of their data assets. By following best practices and implementing security measures, organizations can prevent and detect data threats in Azure storage accounts and protect their data from security threats.</p>
-<h3 id="references"><a class="toclink" href="../../2024/06/16/data-threat-modeling-in-azure-storage-accounts/#references">References</a></h3>
-<ul>
-<li><a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-account-overview">Azure Storage Account Documentation</a></li>
-<li><a href="https://learn.microsoft.com/en-us/azure/well-architected/service-guides/storage-accounts/security">Azure security baseline for Storage</a></li>
-<li><a href="https://learn.microsoft.com/en-us/azure/well-architected/service-guides/storage-accounts/security">Well Architected Framework - Storage Accounts and security</a></li>
-<li><a href="https://learn.microsoft.com/en-us/azure/defender-for-storage/overview">Microsoft Defender for Storage</a></li>
-<li><a href="https://center-for-threat-informed-defense.github.io/mappings-explorer/external/azure/">Azure MAPPINGS</a></li>
 </ul>
 </div>
 </article>
