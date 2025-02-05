@@ -12,7 +12,7 @@ tags:
 
 Now that we have our [development environment], we can start developing our first policy for Kubernetes with minikube and gatekeeper.
 
-[development environment]: 20241119_howto_develop_test_policies_minikube_01
+[development environment]: 20241119_howto_develop_test_policies_minikube_01.md
 
 First at all, we need some visual code editor to write our policy. I recommend using Visual Studio Code, but you can use any other editor. Exists a plugin for Visual Studio Code that helps you to write policies for gatekeeper. You can install it from the marketplace: [Open Policy Agent](https://marketplace.visualstudio.com/items?itemName=tsandall.opa).
 
