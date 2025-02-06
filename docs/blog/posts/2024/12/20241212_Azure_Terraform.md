@@ -218,7 +218,7 @@ A continuación, os muestro un ejemplo de cómo crear una función en Bash/pwsh 
             }
 
             Write-Output "Selecting the workspace: $Workspace"
-            terraform workspace select $Workspace -or terraform workspace new $Workspace
+            terraform workspace select -or-create $Workspace
             if ($LASTEXITCODE -ne 0) {
                 Write-Error "Workspace selection failed."
                 return
