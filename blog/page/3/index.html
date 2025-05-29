@@ -241,6 +241,13 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/05/">
+<span class="md-ellipsis">
+    2025/05
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../../2025/02/">
 <span class="md-ellipsis">
     2025/02
@@ -688,6 +695,266 @@
 <header class="md-typeset">
 <h1 id="blog">Blog</h1>
 </header>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341"/>
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-06-17 00:00:00">June 17, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/microsoft-entra/">Microsoft Entra</a></li>
+<li class="md-meta__item">
+            
+              6 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="microsoft-entra-conditional-access"><a class="toclink" href="../../2024/06/17/microsoft-entra-conditional-access/">Microsoft Entra Conditional Access</a></h2>
+<p>In this post, I will show you how to configure Conditional Access in Microsoft Entra.</p>
+<h3 id="what-is-conditional-access"><a class="toclink" href="../../2024/06/17/microsoft-entra-conditional-access/#what-is-conditional-access">What is Conditional Access?</a></h3>
+<p>Conditional Access is a feature of Microsoft Entra that allows you to control access to your organization's resources based on specific conditions. With Conditional Access, you can enforce policies that require users to meet certain criteria before they can access resources, such as multi-factor authentication, device compliance, or location-based restrictions.</p>
+<p>You have three main components in Conditional Access:</p>
+<ul>
+<li><strong>Signals</strong>: These are the conditions that trigger a policy. Signals can include user sign-in, device state, location, and more.</li>
+<li><strong>Decisions</strong>: These are the actions that are taken when a policy is triggered. Decisions can include requiring multi-factor authentication, blocking access, or granting access with conditions.</li>
+<li><strong>Enforcement</strong>: This is the mechanism that enforces the policy. Enforcement can be done at the application level, the network level, or the device level.</li>
+</ul>
+<p>Really, all the Conditional Access policies are based on the following flow:</p>
+<ol>
+<li><strong>Assignments</strong>: Define who and where the policy applies to.</li>
+<li><strong>Access Controls</strong>: Define what to do when the the who and where are met.</li>
+</ol>
+<p>For that reason, we can define the followin phases:</p>
+<ul>
+<li><strong>Phase 1</strong>: Collect session details</li>
+<li>
+<p><strong>Assignments</strong>: Define who and where the policy applies to.    </p>
+<ul>
+<li><strong>users</strong>: users and groups selected and excluded</li>
+<li><strong>Target resources</strong>: Control access base on Cloud apps, actions, and authentication context.</li>
+<li><strong>Cloud apps</strong>: Include and exclude. Many of the existing Microsoft cloud applications are included in the list of applications that can be targeted by Conditional Access policies:  Office 365, Windows Azure Service Management API, Microsoft Admin Portals and Others</li>
+<li><strong>User actions</strong>: Tasks that a user performs: Register security information and Register or join devices</li>
+<li><strong>Global Secure Access</strong>: Targeting members in your tenant with Global Secure Access (GSA) as a resource,enable administrators to define and control how traffic is routed through Microsoft Entra Internet Access and Microsoft Entra Private Access.</li>
+<li><strong>Authentication context</strong>: With this option you can define a authentication context for the policy, for example, you can define that the policy is applied only when the user is accessing to Higly Confidential information. You can create labels with ID c1 to c99 and tag your information with these labels. Not all apps support authentication contexts, you can check the <a href="https://learn.microsoft.com/en-us/purview/sensitivity-labels-teams-groups-sites#more-information-about-the-dependencies-for-the-authentication-context-option">official documentation</a> to see which apps support it.</li>
+<li><strong>Network</strong>: Include and Exclude. Control user access based on their network location or physical location.<ul>
+<li><strong>Any network or location</strong>: This option allows you to apply the policy to all network locations.</li>
+<li><strong>All trusted locations</strong>: This option allows you to apply the policy to all trusted locations.</li>
+<li><strong>All Compliant Network locations</strong>: This option allows you to apply the policy to all compliant network locations.</li>
+<li><strong>Selected network or location</strong>: This option allows you to apply the policy to selected network locations: Countries(GPS),Countries(IP) and IP ranges.</li>
+</ul>
+</li>
+<li><strong>Conditions</strong>: Control access based in signals from conditions.<ul>
+<li><strong>User risk</strong>: Control access based on the user risk level calculated by Microsoft Entra Identity Protection. User risk represents the probability that a given identity or account is compromised, for example: Published credentials in Dark Web.</li>
+<li><strong>Sign-in risk</strong>: Control access based on the sign-in risk level calculated by Microsoft Entra Identity Protection. Sign-in risk represents the probability that a given authentication request wasn't made by the identity owner. For example, sign-in from a new location or new device.</li>
+<li><strong>Insider risk</strong>: Control access for users who are assigned specific risk levels from Adaptive Protection, a Microsoft Purview Insider Risk Management feature. Insider risk represents the probability that a given user is engaged in risky data-related activities.</li>
+<li><strong>Device Platform</strong>: Include and Exclude. Control access based on the platform of the device used to sign in.</li>
+<li><strong>Client apps</strong>: Include and Exclude. Control access based on the client apps used to sign in.</li>
+<li><strong>Filters for devices</strong>: Include and Exclude. Control access based on configured filters to apply policy to specific devices</li>
+<li><strong>Authentication flows</strong>: Control access based on the authentication flow used to sign in: </li>
+<li>Device code flow: Device code flow is a method of authentication that allows users to sign in to a device using a code displayed on the device. This flow is used for devices that don't have a browser or can't use a browser to sign in.</li>
+<li>Authentication transfer: Authentication transfer is a new flow that offers a seamless way to transfer authenticated state from one device to another.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Phase 2</strong>: Enforcement</p>
+</li>
+<li><strong>Access controls</strong>: Define what to do when the the who and where are met.<ul>
+<li><strong>Grant</strong>: Control access enforcement to block or grant access.</li>
+<li><strong>Block</strong>: Block access to the resource.</li>
+<li><strong>Grant</strong>: Grant access to the resource. You can also define the following options:<ul>
+<li><strong>Require multi-factor authentication</strong>: Require users to perform multi-factor authentication.</li>
+<li><strong>Require authentication strength</strong>:  Require a combination of authentication methods to access the resource.</li>
+<li><strong>Require device to be marked as compliant</strong>: Require the device to be marked as compliant by Microsoft Entra Intune.</li>
+<li><strong>Require Hybrid Azure AD joined device</strong>: Require the device to be Hybrid Azure AD joined.</li>
+<li><strong>Require approved client app</strong>: Require the use of an approved client app.</li>
+<li><strong>Require app protection policy</strong>: Require that an Intune app protection policy is present on the client app before access is available to the selected applications</li>
+<li><strong>Require password change</strong>: Require the user to change their password.</li>
+</ul>
+</li>
+<li>For multiple controls, you can define the following options:<ul>
+<li><strong>Require all the selected controls</strong>: Require all the selected controls to be met.</li>
+<li><strong>Require one of the selected controls</strong>: Require one of the selected controls to be met.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Session</strong>: Control access based on session controls to enable limited experiences within specific cloud applications.<ul>
+<li><strong>Use app enforced restrictions</strong>: Enforce app restrictions to control access based on the app's own restrictions. When selected, the cloud app uses the device information to provide users with a limited or full experience. Limited when the device isn't managed or compliant and full when the device is managed and compliant.</li>
+<li><strong>Use Conditional Access App Control</strong>: Enforce real-time monitoring and control of user sessions. Conditional Access App Control enables user app access and sessions to be monitored and controlled in real time based on access and session policies. Access and session policies are used within the Defender for Cloud Apps portal to refine filters and set actions to take.</li>
+<li><strong>Sign-in frequency</strong>: Enforce sign-in frequency to control how often users are prompted to sign in. Sign-in frequency setting works with apps that implement OAUTH2 or OIDC protocols according to the standards.</li>
+<li><strong>Persistent browser session</strong>: Enforce persistent browser session to control users can remain signed in after closing and reopening their browser window.</li>
+<li><strong>Customize continuous access evaluation</strong>: Enable custom continuous access evaluation to revoke access tokens based on critical events and policy evaluation in real time.Continuous Access Evaluation (CAE) allows access tokens to be revoked based on critical events and policy evaluation in real time rather than relying on token expiration based on lifetime.</li>
+</ul>
+</li>
+</ul>
+<p>Example of Conditional Access policy configuration:</p>
+<ol>
+<li><strong>Block access to all users from all locations except for a specific group of users from a specific location</strong>:</li>
+<li><strong>Assignments</strong>:<ul>
+<li><strong>users</strong>: </li>
+<li>Include:All users</li>
+<li>Exclude: Group_of_excluded_users</li>
+<li><strong>Target resources</strong>:</li>
+<li><strong>Cloud apps</strong>: All cloud apps</li>
+<li><strong>Network</strong>: All trusted locations</li>
+</ul>
+</li>
+<li><strong>Access controls</strong>:<ul>
+<li><strong>Grant</strong>: Block</li>
+</ul>
+</li>
+</ol>
+<p>Mindmaps of the Conditional Access policies flow:</p>
+<pre class="language-markmap"><code># Conditional Access Policy
+## Phase 1: Collect session details
+### Assignments
+#### users
+##### Include
+###### None
+###### All users
+###### Select users and groups
+##### Exclude
+###### Guest or external users
+###### Directory roles
+###### Users and groups
+#### Target resources
+##### Cloud apps
+###### Include
+ - None
+ - All cloud apps
+ - Select apps
+###### Exclude
+  - Edit Filter
+  - Select excluded cloud apps
+##### User actions
+  - Register security information
+  - Register or join devices
+##### Global Secure Access
+  - Microsoft 365 traffic
+  - Internet traffic
+  - Private traffic
+##### Authentication context
+##### Network
+###### Any network or location
+###### All trusted locations
+###### All Compliant Network locations
+###### Selected network or location
+#### Conditions
+##### User risk
+##### Sign-in risk
+##### Insider risk
+##### Device Platform
+##### Client apps
+##### Filters for devices
+##### Authentication flows
+###### Device code flow
+###### Authentication transfer
+## Phase 2: Enforcement
+### Access controls
+#### Grant
+##### Block
+##### Grant
+###### Require multi-factor authentication
+###### Require authentication strength
+###### Require device to be marked as compliant
+###### Require Hybrid Azure AD joined device
+###### Require approved client app
+###### Require app protection policy
+###### Require password change
+##### For multiple controls
+###### Require all the selected controls
+###### Require one of the selected controls
+#### Session
+##### Use app enforced restrictions
+##### Use Conditional Access App Control
+##### Sign-in frequency
+##### Persistent browser session
+##### Customize continuous access evaluation</code></pre>
+<pre class="mermaid"><code>mindmap
+    root((Conditional Access Policy))
+      (Phase 1: Collect session details)
+        (Assignments)        
+          [users]
+            {{Include}}
+              None
+              All users
+              Select users and groups
+            {{Exclude}}
+              Guest or external users
+              Directory roles
+              Users and groups
+          [Target resources]
+            {{Cloud apps}}
+              Include
+                None
+                All cloud apps
+                Select apps
+              Exclude
+                Edit Filter
+                Select excluded cloud apps
+            {{User actions}}
+              Register security information
+              Register or join devices
+            {{Global Secure Access}}
+              Microsoft 365 traffic
+              Internet traffic
+              Private traffic
+            {{Authentication context}}
+            {{Network}}
+              Any network or location
+              All trusted locations
+              All Compliant Network locations
+              Selected network or location
+          [Conditions]
+            {{User risk}}
+            {{Sign-in risk}}
+            {{Insider risk}}
+            {{Device Platform}}
+            {{Client apps}}
+            {{Filters for devices}}
+            {{Authentication flows}}
+              Device code flow
+              Authentication transfer
+      (Phase 2: Enforcement)
+        (Access controls)
+          [Grant]
+            {{Block}}
+            {{Grant}}
+              Require multi-factor authentication
+              Require authentication strength
+              Require device to be marked as compliant
+              Require Hybrid Azure AD joined device
+              Require approved client app
+              Require app protection policy
+              Require password change
+            {{For multiple controls}}
+              Require all the selected controls
+              Require one of the selected controls
+          [Session]
+            {{Use app enforced restrictions}}
+            {{Use Conditional Access App Control}}
+            {{Sign-in frequency}}
+            {{Persistent browser session}}
+            {{Customize continuous access evaluation}}
+</code></pre>
+<h3 id="resources"><a class="toclink" href="../../2024/06/17/microsoft-entra-conditional-access/#resources">Resources</a></h3>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/entra/identity/conditional-access/overview">Conditional Access documentation</a></li>
+</ul>
+</div>
+</article>
 <article class="md-post md-post--excerpt">
 <header class="md-post__header">
 <nav class="md-post__authors md-typeset">
@@ -2000,165 +2267,6 @@ H --&gt; L{Tag Enforcement}
 </ul>
 <h3 id="conclusion"><a class="toclink" href="../../2024/05/06/configure-your-teams-meetings-options-to-improve-your-collaboration-experience/#conclusion">Conclusion</a></h3>
 <p>Configuring your Teams meetings options is a great way to improve your collaboration experience and make your meetings more productive. By configuring these settings, you can ensure that your meetings run smoothly and securely, allowing you to focus on the task at hand.</p>
-</div>
-</article>
-<article class="md-post md-post--excerpt">
-<header class="md-post__header">
-<nav class="md-post__authors md-typeset">
-<span class="md-author">
-<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341"/>
-</span>
-</nav>
-<div class="md-post__meta md-meta">
-<ul class="md-meta__list">
-<li class="md-meta__item">
-<time datetime="2024-05-04 00:00:00">May 4, 2024</time></li>
-<li class="md-meta__item">
-            in
-            
-              <a class="md-meta__link" href="../../category/azure-services/">Azure Services</a>, 
-              <a class="md-meta__link" href="../../category/snowflake/">Snowflake</a></li>
-<li class="md-meta__item">
-            
-              5 min read
-            
-          </li>
-</ul>
-</div>
-</header>
-<div class="md-post__content md-typeset">
-<h2 id="reduce-your-attack-surface-in-snowflake-when-using-from-azure"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/">Reduce your attack surface in Snowflake when using from Azure</a></h2>
-<p>When it comes to data security, reducing your attack surface is a crucial step. This post will guide you on how to minimize your attack surface when using Snowflake with Azure or Power BI.</p>
-<h3 id="what-is-snowflake"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#what-is-snowflake">What is Snowflake?</a></h3>
-<p>Snowflake is a cloud-based data warehousing platform that allows you to store and analyze large amounts of data. It is known for its scalability, performance, and ease of use. Snowflake is popular among organizations that need to process large volumes of data quickly and efficiently.</p>
-<h3 id="what-is-an-attack-surface"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#what-is-an-attack-surface">What is an Attack Surface?</a></h3>
-<p>An attack surface refers to the number of possible ways an attacker can get into a system and potentially extract data. The larger the attack surface, the more opportunities there are for attackers. Therefore, reducing the attack surface is a key aspect of securing your systems.</p>
-<p>How to Reduce Your Attack Surface in Snowflake:</p>
-<ol>
-<li>
-<p>Use Azure Private Link
-Azure Private Link provides private connectivity from a virtual network to Snowflake, isolating your traffic from the public internet. It significantly reduces the attack surface by ensuring that traffic between Azure and Snowflake doesn't traverse over the public internet.</p>
-</li>
-<li>
-<p>Implement Network Policies
-Snowflake allows you to define network policies that restrict access based on IP addresses. By limiting access to trusted IP ranges, you can reduce the potential points of entry for an attacker.</p>
-</li>
-<li>
-<p>Enable Multi-Factor Authentication (MFA)
-MFA adds an extra layer of security by requiring users to provide at least two forms of identification before accessing the Snowflake account. This makes it harder for attackers to gain unauthorized access, even if they have your password.</p>
-</li>
-</ol>
-<p>In this blog post, we will show you how to reduce your attack surface when using Snowflake from Azure or Power BI by using Azure Private Link</p>
-<h3 id="default-snowflake-architecture"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#default-snowflake-architecture">Default Snowflake architecture</a></h3>
-<p>By default, Snowflake is accessible from the public internet. This means that anyone with the right credentials can access your Snowflake account from anywhere in the world, you can limit access to specific IP addresses, but this still exposes your Snowflake account to potential attackers. </p>
-<p>This is a security risk because it exposes your Snowflake account to potential attackers.</p>
-<h3 id="using-azure-private-link-with-snowflake"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#using-azure-private-link-with-snowflake">Using Azure Private Link with Snowflake</a></h3>
-<h4 id="simple-architecture-diagram-of-azure-private-link-with-snowflake"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#simple-architecture-diagram-of-azure-private-link-with-snowflake">Simple Architecture Diagram of Azure Private Link with Snowflake</a></h4>
-<p>The architecture of using Azure Private Link with Snowflake is as follows:</p>
-<pre class="mermaid"><code>    graph TD
-    A[Virtual Network] --&gt;|Private Endpoint| B[Snowflake]
-    B --&gt;|Private Link Service| C[Private Link Resource]
-    C --&gt;|Private Connection| D[Virtual Network]
-    D --&gt;|Subnet| E[Private Endpoint]    
-</code></pre>
-<h4 id="architecture-components"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#architecture-components">Architecture Components</a></h4>
-<h4 id="requirements"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#requirements">Requirements</a></h4>
-<p>Before you can use Azure Private Link with Snowflake, you need to have the following requirements in place:</p>
-<ul>
-<li>A Snowflake account with ACCOUNTADMIN privileges</li>
-<li>Business Critical or higher Snowflake edition</li>
-<li>An Azure subscription with a Resource Group  and privileges to create:<ul>
-<li>Virtual Network</li>
-<li>Subnet</li>
-<li>Private Endpoint</li>
-</ul>
-</li>
-</ul>
-<h4 id="step-by-step-guide"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#step-by-step-guide">Step-by-Step Guide</a></h4>
-<div class="admonition info">
-<p class="admonition-title">Note</p>
-<p>Replace the placeholders with your actual values, that is a orientation guide.</p>
-</div>
-<h5 id="step-1-retrieve-dedailts-of-your-snowflake-account"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#step-1-retrieve-dedailts-of-your-snowflake-account">Step 1: Retrieve Dedailts of your Snowflake Account</a></h5>
-<div class="language-sql highlight"><pre><span></span><code><span id="__span-18-1"><a href="#__codelineno-18-1" id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="n">USE</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">ACCOUNTADMIN</span><span class="p">;</span>
-</span><span id="__span-18-2"><a href="#__codelineno-18-2" id="__codelineno-18-2" name="__codelineno-18-2"></a><span class="k">select</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="k">SYSTEM</span><span class="err">$</span><span class="n">GET_PRIVATELINK_CONFIG</span><span class="p">();</span>
-</span></code></pre></div>
-<h5 id="step-2-create-a-virtual-network"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#step-2-create-a-virtual-network">Step 2: Create a Virtual Network</a></h5>
-<p>A virtual network is a private network that allows you to securely connect your resources in Azure. To create a virtual network with azcli, follow these steps:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a href="#__codelineno-19-1" id="__codelineno-19-1" name="__codelineno-19-1"></a>az<span class="w"> </span>network<span class="w"> </span>vnet<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-19-2"><a href="#__codelineno-19-2" id="__codelineno-19-2" name="__codelineno-19-2"></a><span class="w">  </span>--name<span class="w"> </span>myVnet<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-19-3"><a href="#__codelineno-19-3" id="__codelineno-19-3" name="__codelineno-19-3"></a><span class="w">  </span>--resource-group<span class="w"> </span>myResourceGroup<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-19-4"><a href="#__codelineno-19-4" id="__codelineno-19-4" name="__codelineno-19-4"></a><span class="w">  </span>--address-prefix
-</span><span id="__span-19-5"><a href="#__codelineno-19-5" id="__codelineno-19-5" name="__codelineno-19-5"></a><span class="w">  </span>--subnet-name<span class="w"> </span>mySubnet<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-19-6"><a href="#__codelineno-19-6" id="__codelineno-19-6" name="__codelineno-19-6"></a><span class="w">  </span>--subnet-prefix
-</span><span id="__span-19-7"><a href="#__codelineno-19-7" id="__codelineno-19-7" name="__codelineno-19-7"></a><span class="w">  </span>--enable-private-endpoint-network-policies<span class="w"> </span><span class="nb">true</span>
-</span></code></pre></div>
-<h5 id="step-3-create-a-private-endpoint"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#step-3-create-a-private-endpoint">Step 3: Create a Private Endpoint</a></h5>
-<p>The first step is to create a private endpoint in Azure. A private endpoint is a network interface that connects your virtual network to the Snowflake service. This allows you to access Snowflake using a private IP address, rather than a public one.</p>
-<p>To create a private endpoint with azcli, follow these steps:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a href="#__codelineno-20-1" id="__codelineno-20-1" name="__codelineno-20-1"></a>az<span class="w"> </span>network<span class="w"> </span>private-endpoint<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-20-2"><a href="#__codelineno-20-2" id="__codelineno-20-2" name="__codelineno-20-2"></a><span class="w">  </span>--name<span class="w"> </span>mySnowflakeEndpoint<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-20-3"><a href="#__codelineno-20-3" id="__codelineno-20-3" name="__codelineno-20-3"></a><span class="w">  </span>--resource-group<span class="w"> </span>myResourceGroup<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-20-4"><a href="#__codelineno-20-4" id="__codelineno-20-4" name="__codelineno-20-4"></a><span class="w">  </span>--vnet-name<span class="w"> </span>myVnet<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-20-5"><a href="#__codelineno-20-5" id="__codelineno-20-5" name="__codelineno-20-5"></a><span class="w">  </span>--subnet<span class="w"> </span>mySubnet<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-20-6"><a href="#__codelineno-20-6" id="__codelineno-20-6" name="__codelineno-20-6"></a><span class="w">  </span>--private-connection-resource-id<span class="w"> </span>/subscriptions/&lt;subscription-id&gt;/resourceGroups/&lt;resource-group&gt;/providers/Microsoft.Network/privateLinkServices/&lt;Snowflake-service-name&gt;<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-20-7"><a href="#__codelineno-20-7" id="__codelineno-20-7" name="__codelineno-20-7"></a><span class="w">  </span>--connection-name<span class="w"> </span>mySnowflakeConnection
-</span></code></pre></div>
-<p>Check the status of the private endpoint:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a href="#__codelineno-21-1" id="__codelineno-21-1" name="__codelineno-21-1"></a>az<span class="w"> </span>network<span class="w"> </span>private-endpoint<span class="w"> </span>show<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-21-2"><a href="#__codelineno-21-2" id="__codelineno-21-2" name="__codelineno-21-2"></a><span class="w">  </span>--name<span class="w"> </span>mySnowflakeEndpoint<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-21-3"><a href="#__codelineno-21-3" id="__codelineno-21-3" name="__codelineno-21-3"></a><span class="w">  </span>--resource-group<span class="w"> </span>myResourceGroup
-</span></code></pre></div>
-<h5 id="step-4-authorize-the-private-endpoint"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#step-4-authorize-the-private-endpoint">Step 4: Authorize the Private Endpoint</a></h5>
-<p>The next step is to authorize the private endpoint to access the Snowflake service. </p>
-<p>Retrieve the Resource ID of the private endpoint:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a href="#__codelineno-22-1" id="__codelineno-22-1" name="__codelineno-22-1"></a>az<span class="w"> </span>network<span class="w"> </span>private-endpoint<span class="w"> </span>show<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-22-2"><a href="#__codelineno-22-2" id="__codelineno-22-2" name="__codelineno-22-2"></a><span class="w">  </span>--name<span class="w"> </span>mySnowflakeEndpoint<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-22-3"><a href="#__codelineno-22-3" id="__codelineno-22-3" name="__codelineno-22-3"></a><span class="w">  </span>--resource-group<span class="w"> </span>myResourceGroup
-</span></code></pre></div>
-<p>Create a temporary access token that Snowflake can use to authorize the private endpoint:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a href="#__codelineno-23-1" id="__codelineno-23-1" name="__codelineno-23-1"></a>az<span class="w"> </span>account<span class="w"> </span>get-access-token<span class="w"> </span>--subscription<span class="w"> </span>&lt;subscription-id&gt;
-</span></code></pre></div>
-<p>Authorize the private endpoint in Snowflake:</p>
-<div class="language-sql highlight"><pre><span></span><code><span id="__span-24-1"><a href="#__codelineno-24-1" id="__codelineno-24-1" name="__codelineno-24-1"></a><span class="n">USE</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">ACCOUNTADMIN</span><span class="p">;</span>
-</span><span id="__span-24-2"><a href="#__codelineno-24-2" id="__codelineno-24-2" name="__codelineno-24-2"></a><span class="k">select</span><span class="w"> </span><span class="k">SYSTEM</span><span class="err">$</span><span class="n">AUTHORIZE_PRIVATELINK</span><span class="p">(</span><span class="s1">'&lt;resource-id&gt;'</span><span class="p">,</span><span class="w"> </span><span class="s1">'&lt;access-token&gt;'</span><span class="p">);</span>
-</span></code></pre></div>
-<h4 id="step-5-block-public-access"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#step-5-block-public-access">Step 5: Block Public Access</a></h4>
-<p>To further reduce your attack surface, you can block public access to your Snowflake account. This ensures that all traffic to and from Snowflake goes through the private endpoint, reducing the risk of unauthorized access.</p>
-<p>To block public access to your Snowflake account, you need to use Network Policy, follow these steps:</p>
-<div class="language-sql highlight"><pre><span></span><code><span id="__span-25-1"><a href="#__codelineno-25-1" id="__codelineno-25-1" name="__codelineno-25-1"></a><span class="n">USE</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">ACCOUNTADMIN</span><span class="p">;</span>
-</span><span id="__span-25-2"><a href="#__codelineno-25-2" id="__codelineno-25-2" name="__codelineno-25-2"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">NETWORK</span><span class="w"> </span><span class="k">RULE</span><span class="w"> </span><span class="n">allow_access_rule</span>
-</span><span id="__span-25-3"><a href="#__codelineno-25-3" id="__codelineno-25-3" name="__codelineno-25-3"></a><span class="w">  </span><span class="k">MODE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">INGRESS</span>
-</span><span id="__span-25-4"><a href="#__codelineno-25-4" id="__codelineno-25-4" name="__codelineno-25-4"></a><span class="w">  </span><span class="k">TYPE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IPV4</span>
-</span><span id="__span-25-5"><a href="#__codelineno-25-5" id="__codelineno-25-5" name="__codelineno-25-5"></a><span class="w">  </span><span class="n">VALUE_LIST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="s1">'192.168.1.99/24'</span><span class="p">);</span>
-</span><span id="__span-25-6"><a href="#__codelineno-25-6" id="__codelineno-25-6" name="__codelineno-25-6"></a>
-</span><span id="__span-25-7"><a href="#__codelineno-25-7" id="__codelineno-25-7" name="__codelineno-25-7"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">NETWORK</span><span class="w"> </span><span class="k">RULE</span><span class="w"> </span><span class="n">block_access_rule</span>
-</span><span id="__span-25-8"><a href="#__codelineno-25-8" id="__codelineno-25-8" name="__codelineno-25-8"></a><span class="w">  </span><span class="k">MODE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">INGRESS</span>
-</span><span id="__span-25-9"><a href="#__codelineno-25-9" id="__codelineno-25-9" name="__codelineno-25-9"></a><span class="w">  </span><span class="k">TYPE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IPV4</span>
-</span><span id="__span-25-10"><a href="#__codelineno-25-10" id="__codelineno-25-10" name="__codelineno-25-10"></a><span class="w">  </span><span class="n">VALUE_LIST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="s1">'0.0.0.0/0'</span><span class="p">);</span>
-</span><span id="__span-25-11"><a href="#__codelineno-25-11" id="__codelineno-25-11" name="__codelineno-25-11"></a>
-</span><span id="__span-25-12"><a href="#__codelineno-25-12" id="__codelineno-25-12" name="__codelineno-25-12"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">NETWORK</span><span class="w"> </span><span class="n">POLICY</span><span class="w"> </span><span class="n">public_network_policy</span>
-</span><span id="__span-25-13"><a href="#__codelineno-25-13" id="__codelineno-25-13" name="__codelineno-25-13"></a><span class="w">  </span><span class="n">ALLOWED_NETWORK_RULE_LIST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="s1">'allow_access_rule'</span><span class="p">)</span>
-</span><span id="__span-25-14"><a href="#__codelineno-25-14" id="__codelineno-25-14" name="__codelineno-25-14"></a><span class="w">  </span><span class="n">BLOCKED_NETWORK_RULE_LIST</span><span class="o">=</span><span class="p">(</span><span class="s1">'block_access_rule'</span><span class="p">);</span>
-</span></code></pre></div>
-<p>It's highly recommended to follow the best practices for network policies in Snowflake. You can find more information here:  https://docs.snowflake.com/en/user-guide/network-policies#best-practices</p>
-<h4 id="step-6-test-the-connection"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#step-6-test-the-connection">Step 6: Test the Connection</a></h4>
-<p>To test the connection between your virtual network and Snowflake, you can use the SnowSQL client. </p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a href="#__codelineno-26-1" id="__codelineno-26-1" name="__codelineno-26-1"></a>snowsql<span class="w"> </span>-a<span class="w"> </span>&lt;account_name&gt;<span class="w"> </span>-u<span class="w"> </span>&lt;username&gt;<span class="w"> </span>-r<span class="w"> </span>&lt;role&gt;<span class="w"> </span>-w<span class="w"> </span>&lt;warehouse&gt;<span class="w"> </span>-d<span class="w"> </span>&lt;database&gt;<span class="w"> </span>-s<span class="w"> </span>&lt;schema&gt;
-</span></code></pre></div>
-<h3 id="internal-stages-with-azure-blob-private-endpoints"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#internal-stages-with-azure-blob-private-endpoints">Internal Stages with Azure Blob Private Endpoints</a></h3>
-<p>If you are using Azure Blob Storage as an internal stage in Snowflake, you can also use Azure Private Link to secure the connection between Snowflake and Azure Blob Storage.</p>
-<p>It's recommended to use Azure Blob Storage with Private Endpoints to ensure that your data is secure and that you are reducing your attack surface, you can check the following documentation for more information: <a href="https://docs.snowflake.com/en/user-guide/private-internal-stages-azure">Azure Private Endpoints for Internal Stages</a> to learn how to configure Azure Blob Storage with Private Endpoints in Snowflake.</p>
-<h3 id="conclusion"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#conclusion">Conclusion</a></h3>
-<p>Reducing your attack surface is a critical aspect of securing your systems. By using Azure Private Link with Snowflake, you can significantly reduce the risk of unauthorized access and data breaches. Follow the steps outlined in this blog post to set up Azure Private Link with Snowflake and start securing your data today.</p>
-<h3 id="references"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#references">References</a></h3>
-<ul>
-<li><a href="https://docs.microsoft.com/en-us/azure/private-link/">Azure Private Link documentation</a></li>
-<li><a href="https://docs.snowflake.com/en/user-guide/intro-editions">Snowflake Editions</a></li>
-<li><a href="https://docs.snowflake.com/en/sql-reference/functions/system_get_privatelink">$GET_PRIVATELINK_CONFIG();</a></li>
-<li><a href="https://docs.snowflake.com/en/user-guide/network-policies">Snowflake Network Policies</a></li>
-<li><a href="https://docs.snowflake.com/en/user-guide/private-internal-stages-azure">Azure Private Endpoints for Internal Stages</a></li>
-</ul>
 </div>
 </article>
 <nav class="md-pagination">

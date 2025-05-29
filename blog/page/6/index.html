@@ -241,6 +241,13 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/05/">
+<span class="md-ellipsis">
+    2025/05
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../../2025/02/">
 <span class="md-ellipsis">
     2025/02
@@ -688,6 +695,80 @@
 <header class="md-typeset">
 <h1 id="blog">Blog</h1>
 </header>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341"/>
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-04-17 00:00:00">April 17, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/azure-services/">Azure Services</a></li>
+<li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="azure-policy-useful-queries"><a class="toclink" href="../../2024/04/17/azure-policy-useful-queries/">Azure Policy useful queries</a></h2>
+<h3 id="policy-assignments-and-information-about-each-of-its-respective-definitions"><a class="toclink" href="../../2024/04/17/azure-policy-useful-queries/#policy-assignments-and-information-about-each-of-its-respective-definitions">Policy assignments and information about each of its respective definitions</a></h3>
+<div class="language-kusto highlight"><pre><span></span><code><span id="__span-0-1"><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c">// Policy assignments and information about each of its respective definitions</span>
+</span><span id="__span-0-2"><a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="c">// Gets policy assignments in your environment with the respective assignment name,definition associated, category of definition (if applicable), as well as whether the definition type is an initiative or a single policy.</span>
+</span><span id="__span-0-3"><a href="#__codelineno-0-3" id="__codelineno-0-3" name="__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a href="#__codelineno-0-4" id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="n">policyResources</span>
+</span><span id="__span-0-5"><a href="#__codelineno-0-5" id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="p">=~</span><span class="s">'Microsoft.Authorization/PolicyAssignments'</span>
+</span><span id="__span-0-6"><a href="#__codelineno-0-6" id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="p">|</span><span class="w"> </span><span class="k">project</span><span class="w"> </span><span class="n">policyAssignmentId</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">tolower</span><span class="p">(</span><span class="n">tostring</span><span class="p">(</span><span class="n">id</span><span class="p">)),</span><span class="w"> </span><span class="n">policyAssignmentDisplayName</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">tostring</span><span class="p">(</span><span class="n">properties</span><span class="err">.</span><span class="n">displayName</span><span class="p">),</span><span class="w"> </span><span class="n">policyAssignmentDefinitionId</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">tolower</span><span class="p">(</span><span class="n">properties</span><span class="err">.</span><span class="n">policyDefinitionId</span><span class="p">)</span>
+</span><span id="__span-0-7"><a href="#__codelineno-0-7" id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="p">|</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">kind</span><span class="p">=</span><span class="n">leftouter</span><span class="p">(</span>
+</span><span id="__span-0-8"><a href="#__codelineno-0-8" id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="w"> </span><span class="n">policyResources</span>
+</span><span id="__span-0-9"><a href="#__codelineno-0-9" id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="p">=~</span><span class="s">'Microsoft.Authorization/PolicySetDefinitions'</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="p">=~</span><span class="s">'Microsoft.Authorization/PolicyDefinitions'</span>
+</span><span id="__span-0-10"><a href="#__codelineno-0-10" id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="k">project</span><span class="w"> </span><span class="n">definitionId</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">tolower</span><span class="p">(</span><span class="n">id</span><span class="p">),</span><span class="w"> </span><span class="n">category</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">tostring</span><span class="p">(</span><span class="n">properties</span><span class="err">.</span><span class="n">metadata</span><span class="err">.</span><span class="n">category</span><span class="p">),</span><span class="w"> </span><span class="n">definitionType</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">iff</span><span class="p">(</span><span class="n">type</span><span class="w"> </span><span class="p">=~</span><span class="w"> </span><span class="s">'Microsoft.Authorization/PolicysetDefinitions'</span><span class="p">,</span><span class="w"> </span><span class="s">'initiative'</span><span class="p">,</span><span class="w"> </span><span class="s">'policy'</span><span class="p">)</span>
+</span><span id="__span-0-11"><a href="#__codelineno-0-11" id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="err">$</span><span class="n">left</span><span class="err">.</span><span class="n">policyAssignmentDefinitionId</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="err">$</span><span class="n">right</span><span class="err">.</span><span class="n">definitionId</span>
+</span></code></pre></div>
+<ul>
+<li><a href="https://https://gist.github.com/timothywarner/8e5b6dea296f506871223883eb33059e">Original Gist</a></li>
+</ul>
+<h3 id="list-subscriptionid-and-subscriptionname"><a class="toclink" href="../../2024/04/17/azure-policy-useful-queries/#list-subscriptionid-and-subscriptionname">List SubscriptionId and SubscriptionName</a></h3>
+<div class="language-kusto highlight"><pre><span></span><code><span id="__span-1-1"><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="n">ResourceContainers</span>
+</span><span id="__span-1-2"><a href="#__codelineno-1-2" id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="p">=~</span><span class="w"> </span><span class="s">'microsoft.resources/subscriptions'</span>
+</span><span id="__span-1-3"><a href="#__codelineno-1-3" id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="p">|</span><span class="w"> </span><span class="k">project</span><span class="w"> </span><span class="n">subscriptionId</span><span class="p">,</span><span class="w"> </span><span class="n">subscriptionName</span><span class="p">=</span><span class="n">name</span>
+</span></code></pre></div>
+<h3 id="list-managementgroupid-and-managementgroupname"><a class="toclink" href="../../2024/04/17/azure-policy-useful-queries/#list-managementgroupid-and-managementgroupname">List ManagementGroupId and ManagementGroupName</a></h3>
+<div class="language-kusto highlight"><pre><span></span><code><span id="__span-2-1"><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="n">ResourceContainers</span>
+</span><span id="__span-2-2"><a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="p">=~</span><span class="w"> </span><span class="s">'microsoft.management/managementgroups'</span>
+</span><span id="__span-2-3"><a href="#__codelineno-2-3" id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="p">|</span><span class="w"> </span><span class="k">project</span><span class="w"> </span><span class="n">mgname</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">displayName</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">properties</span><span class="err">.</span><span class="n">displayName</span>
+</span></code></pre></div>
+<h3 id="policy-assignments-and-information-about-each-of-its-respective-definitions-displaying-the-scope-of-the-assignment-the-subscription-display-name-the-management-group-id-the-resource-group-name-the-definition-type-the-assignment-name-the-category-of-the-definition-and-the-policy-assignment-id"><a class="toclink" href="../../2024/04/17/azure-policy-useful-queries/#policy-assignments-and-information-about-each-of-its-respective-definitions-displaying-the-scope-of-the-assignment-the-subscription-display-name-the-management-group-id-the-resource-group-name-the-definition-type-the-assignment-name-the-category-of-the-definition-and-the-policy-assignment-id">Policy assignments and information about each of its respective definitions displaying the scope of the assignment, the subscription display name, the management group id, the resource group name, the definition type, the assignment name, the category of the definition, and the policy assignment ID.</a></h3>
+<div class="language-kusto highlight"><pre><span></span><code><span id="__span-3-1"><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="n">policyResources</span>
+</span><span id="__span-3-2"><a href="#__codelineno-3-2" id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="p">=~</span><span class="s">'Microsoft.Authorization/PolicyAssignments'</span>
+</span><span id="__span-3-3"><a href="#__codelineno-3-3" id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="p">|</span><span class="w"> </span><span class="k">project</span><span class="w"> </span><span class="n">policyAssignmentId</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">tolower</span><span class="p">(</span><span class="n">tostring</span><span class="p">(</span><span class="n">id</span><span class="p">)),</span><span class="w"> </span><span class="n">policyAssignmentDisplayName</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">tostring</span><span class="p">(</span><span class="n">properties</span><span class="err">.</span><span class="n">displayName</span><span class="p">),</span><span class="w"> </span><span class="n">policyAssignmentDefinitionId</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">tolower</span><span class="p">(</span><span class="n">properties</span><span class="err">.</span><span class="n">policyDefinitionId</span><span class="p">),</span><span class="w"> </span><span class="n">subscriptionId</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">tostring</span><span class="p">(</span><span class="n">subscriptionId</span><span class="p">),</span><span class="n">resourceGroup</span><span class="p">=</span><span class="n">tostring</span><span class="p">(</span><span class="n">resourceGroup</span><span class="p">),</span><span class="w"> </span><span class="n">AssignmentDefinition</span><span class="p">=</span><span class="n">properties</span>
+</span><span id="__span-3-4"><a href="#__codelineno-3-4" id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="p">|</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">kind</span><span class="p">=</span><span class="n">leftouter</span><span class="p">(</span>
+</span><span id="__span-3-5"><a href="#__codelineno-3-5" id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="w">    </span><span class="n">policyResources</span>
+</span><span id="__span-3-6"><a href="#__codelineno-3-6" id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="w">    </span><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="p">=~</span><span class="s">'Microsoft.Authorization/PolicySetDefinitions'</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="p">=~</span><span class="s">'Microsoft.Authorization/PolicyDefinitions'</span>
+</span><span id="__span-3-7"><a href="#__codelineno-3-7" id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="w">    </span><span class="p">|</span><span class="w"> </span><span class="k">project</span><span class="w"> </span><span class="n">definitionId</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">tolower</span><span class="p">(</span><span class="n">id</span><span class="p">),</span><span class="w"> </span><span class="n">category</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">tostring</span><span class="p">(</span><span class="n">properties</span><span class="err">.</span><span class="n">metadata</span><span class="err">.</span><span class="n">category</span><span class="p">),</span><span class="w"> </span><span class="n">definitionType</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">iff</span><span class="p">(</span><span class="n">type</span><span class="w"> </span><span class="p">=~</span><span class="w"> </span><span class="s">'Microsoft.Authorization/PolicysetDefinitions'</span><span class="p">,</span><span class="w"> </span><span class="s">'initiative'</span><span class="p">,</span><span class="w"> </span><span class="s">'policy'</span><span class="p">),</span><span class="n">PolicyDefinition</span><span class="p">=</span><span class="n">properties</span>
+</span><span id="__span-3-8"><a href="#__codelineno-3-8" id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="err">$</span><span class="n">left</span><span class="err">.</span><span class="n">policyAssignmentDefinitionId</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="err">$</span><span class="n">right</span><span class="err">.</span><span class="n">definitionId</span>
+</span><span id="__span-3-9"><a href="#__codelineno-3-9" id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="p">|</span><span class="w"> </span><span class="k">extend</span><span class="w"> </span><span class="n">scope</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">iff</span><span class="p">(</span><span class="n">policyAssignmentId</span><span class="w"> </span><span class="k">contains</span><span class="w"> </span><span class="s">'/subscriptions/'</span><span class="p">,</span><span class="w"> </span><span class="s">'Subscription'</span><span class="p">,</span><span class="w"> </span><span class="n">iff</span><span class="p">(</span><span class="n">policyAssignmentId</span><span class="w"> </span><span class="k">contains</span><span class="w"> </span><span class="s">'/providers/microsoft.management/managementgroups'</span><span class="p">,</span><span class="w"> </span><span class="s">'Management Group'</span><span class="p">,</span><span class="w"> </span><span class="s">'Resource Group'</span><span class="p">))</span>
+</span><span id="__span-3-10"><a href="#__codelineno-3-10" id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="p">|</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">kind</span><span class="p">=</span><span class="n">leftouter</span><span class="w"> </span><span class="p">(</span><span class="n">ResourceContainers</span>
+</span><span id="__span-3-11"><a href="#__codelineno-3-11" id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="p">=~</span><span class="w"> </span><span class="s">'microsoft.resources/subscriptions'</span>
+</span><span id="__span-3-12"><a href="#__codelineno-3-12" id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="p">|</span><span class="w"> </span><span class="k">project</span><span class="w"> </span><span class="n">subscriptionId</span><span class="p">,</span><span class="w"> </span><span class="n">subscriptionName</span><span class="p">=</span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="err">$</span><span class="n">left</span><span class="err">.</span><span class="n">subscriptionId</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="err">$</span><span class="n">right</span><span class="err">.</span><span class="n">subscriptionId</span>
+</span><span id="__span-3-13"><a href="#__codelineno-3-13" id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="p">|</span><span class="w"> </span><span class="k">extend</span><span class="w"> </span><span class="n">SubscriptionDisplayName</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">iff</span><span class="p">(</span><span class="n">isnotempty</span><span class="p">(</span><span class="n">subscriptionId</span><span class="p">),</span><span class="w"> </span><span class="n">subscriptionName</span><span class="p">,</span><span class="w"> </span><span class="s">''</span><span class="p">)</span>
+</span><span id="__span-3-14"><a href="#__codelineno-3-14" id="__codelineno-3-14" name="__codelineno-3-14"></a><span class="p">|</span><span class="w"> </span><span class="k">extend</span><span class="w"> </span><span class="n">ManagementGroupName</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">iff</span><span class="p">(</span><span class="n">policyAssignmentId</span><span class="w"> </span><span class="k">contains</span><span class="w"> </span><span class="s">'/providers/microsoft.management/'</span><span class="p">,</span><span class="w"> </span><span class="n">split</span><span class="p">(</span><span class="n">policyAssignmentId</span><span class="p">,</span><span class="w"> </span><span class="s">'/'</span><span class="p">)[</span><span class="mi">4</span><span class="p">],</span><span class="s">''</span><span class="p">)</span>
+</span><span id="__span-3-15"><a href="#__codelineno-3-15" id="__codelineno-3-15" name="__codelineno-3-15"></a><span class="p">|</span><span class="w"> </span><span class="k">extend</span><span class="w"> </span><span class="n">resourceGroupDisplayName</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">iff</span><span class="p">(</span><span class="n">isnotempty</span><span class="p">(</span><span class="n">resourceGroup</span><span class="p">),</span><span class="w"> </span><span class="n">resourceGroup</span><span class="p">,</span><span class="w"> </span><span class="s">''</span><span class="p">)</span>
+</span><span id="__span-3-16"><a href="#__codelineno-3-16" id="__codelineno-3-16" name="__codelineno-3-16"></a><span class="p">|</span><span class="w"> </span><span class="k">project</span><span class="w"> </span><span class="n">ManagementGroupName</span><span class="p">,</span><span class="n">SubscriptionDisplayName</span><span class="p">,</span><span class="n">resourceGroupDisplayName</span><span class="p">,</span><span class="w"> </span><span class="n">scope</span><span class="p">,</span><span class="n">definitionType</span><span class="p">,</span><span class="n">policyAssignmentDisplayName</span><span class="p">,</span><span class="w"> </span><span class="n">category</span><span class="p">,</span><span class="n">policyAssignmentId</span><span class="p">,</span><span class="w"> </span><span class="n">AssignmentDefinition</span><span class="p">,</span><span class="w"> </span><span class="n">PolicyDefinition</span>
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"><span class="task-list-indicator"></span></input></label> Add Management Group Display Name</li>
+</ul>
+</div>
+</article>
 <article class="md-post md-post--excerpt">
 <header class="md-post__header">
 <nav class="md-post__authors md-typeset">
@@ -1928,104 +2009,6 @@ As everything cannot be good to say that this deployment method has a major draw
 <li><a href="https://schema.management.azure.com/schemas/2020-10-01/policyDefinition.json">Azure Policy definition schema</a></li>
 <li><a href="https://learn.microsoft.com/en-us/azure/governance/policy/overview">Azure Policy</a></li>
 </ul>
-</div>
-</article>
-<article class="md-post md-post--excerpt">
-<header class="md-post__header">
-<nav class="md-post__authors md-typeset">
-<span class="md-author">
-<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341"/>
-</span>
-</nav>
-<div class="md-post__meta md-meta">
-<ul class="md-meta__list">
-<li class="md-meta__item">
-<time datetime="2024-02-25 00:00:00">February 25, 2024</time></li>
-<li class="md-meta__item">
-            in
-            
-              <a class="md-meta__link" href="../../category/azure-services/">Azure Services</a></li>
-<li class="md-meta__item">
-            
-              3 min read
-            
-          </li>
-</ul>
-</div>
-</header>
-<div class="md-post__content md-typeset">
-<h2 id="writing-your-first-initiative-with-portal"><a class="toclink" href="../../2024/02/25/writing-your-first-initiative-with-portal/">Writing Your First Initiative with Portal</a></h2>
-<p>Azure Policy is a service in Azure that you use to create, assign and manage policies. These policies enforce different rules and effects over your resources, so those resources stay compliant with your corporate standards and service level agreements.</p>
-<p>In this post, we'll walk through the steps of creating your first initiative in Azure.</p>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p>You need to have a good understanding of Azure Policy before creating an initiative. If you're new to Azure Policy, check out our post on <a href="../../2024/02/24/azure-policy/">Azure Policy</a> and <a href="../../2024/02/26/writing-your-first-policy-in-azure-with-portal/">Writing Your First Policy in Azure with Portal</a>.</p>
-</div>
-<h3 id="prerequisites"><a class="toclink" href="../../2024/02/25/writing-your-first-initiative-with-portal/#prerequisites">Prerequisites</a></h3>
-<ol>
-<li>An active Azure subscription.</li>
-<li>Access to Azure portal.</li>
-<li>Azure Policy defined in your subscription, if you don't have one, you can follow the steps in <a href="../../2024/02/26/writing-your-first-policy-in-azure-with-portal/">Writing Your First Policy in Azure with Portal</a>.</li>
-</ol>
-<h3 id="step-1-open-azure-policy"><a class="toclink" href="../../2024/02/25/writing-your-first-initiative-with-portal/#step-1-open-azure-policy">Step 1: Open Azure Policy</a></h3>
-<ul>
-<li>Login to the <a href="https://portal.azure.com/">Azure Portal</a>.</li>
-<li>In the left-hand menu, click on <code>All services</code>.</li>
-<li>In the <code>All services</code> blade, search for <code>Policy</code>.</li>
-</ul>
-<h3 id="step-2-create-a-new-initiative-definition"><a class="toclink" href="../../2024/02/25/writing-your-first-initiative-with-portal/#step-2-create-a-new-initiative-definition">Step 2: Create a New Initiative Definition</a></h3>
-<ul>
-<li>Click on <code>Defitinions</code> under the <code>Authoring</code> section.</li>
-<li>Click on <code>+ Initiative definition</code>.</li>
-</ul>
-<h3 id="step-3-fill-out-the-initiative-definition"><a class="toclink" href="../../2024/02/25/writing-your-first-initiative-with-portal/#step-3-fill-out-the-initiative-definition">Step 3: Fill Out the Initiative Definition</a></h3>
-<p>You will need to fill out several fields:</p>
-<ul>
-<li><strong>Basics</strong>:</li>
-<li><strong>Initiative location</strong>: The location where the initiative is stored.</li>
-<li><strong>Name</strong>: This is a unique name for your initiative.</li>
-<li><strong>Description</strong>: A detailed description of what the initiative does.</li>
-<li><strong>Category</strong>: You can categorize your initiative for easier searching and filtering.</li>
-<li><strong>Policies</strong>:</li>
-<li><strong>Add policy definition(s)</strong>: Here you can add the policies that will be part of the initiative.</li>
-<li><strong>Initiative parameters</strong>:</li>
-<li><strong>Add parameter</strong>: Here you can add parameters that will be used in the initiative.
-  <img alt="Initiative parameters" src="../../2024/02/image.png"/></li>
-<li><strong>Policy parameters</strong>:</li>
-<li>
-<p><strong>Add policy parameter</strong>: Here you can add parameters that will be used in the policies that are part of the initiative. You can use the parameters defined in the initiative as value for different policies.
-  <img alt="Policy parameters" src="../../2024/02/image-1.png"/></p>
-</li>
-<li>
-<p>Click on <code>Review + create</code>: Review the assignment and click on <code>Create</code>.</p>
-</li>
-</ul>
-<h3 id="step-4-assign-the-initiative"><a class="toclink" href="../../2024/02/25/writing-your-first-initiative-with-portal/#step-4-assign-the-initiative">Step 4: Assign the Initiative</a></h3>
-<ul>
-<li>Go to <code>Policy</code> again.</li>
-<li>Go to <code>Assignments</code> under the <code>Authoring</code> section.</li>
-<li>Click on <code>+ Assign initiative</code>.</li>
-</ul>
-<p>You will need to fill out several fields:
-- <strong>Basics</strong>:
-  - <strong>Scope</strong>: Select the scope where you want to assign the initiative.
-  - <strong>Basics</strong>: 
-    - <strong>Initiative definition</strong>: Select the initiative you just created.
-    - <strong>Assignment name</strong>: A unique name for the assignment.
-    - <strong>Description</strong>: A detailed description of what the assignment does.
-    - <strong>Policy enforcement</strong>: Choose the enforcement mode for the assignment.
-- <strong>Parameters</strong>:
-  - <strong>Add parameter</strong>: Initialize parameters that will be used in the 
-initiative.
-- <strong>Remediation</strong>: 
-  - <strong>Auto-remediation</strong>: Enable or disable auto-remediation. That means that if a resource is not compliant, it will be remediated automatically. In other post it will be explained how to create a remediation task.
-- <strong>Non-compliance messages</strong>:
-  - <strong>Non-compliance message</strong>: Define a message that will be shown when a resource is not compliant.</p>
-<ul>
-<li>Click on <code>Review + create</code>: Review the assignment and click on <code>Create</code>.</li>
-</ul>
-<h3 id="conclusion"><a class="toclink" href="../../2024/02/25/writing-your-first-initiative-with-portal/#conclusion">Conclusion</a></h3>
-<p>Creating an initiative in Azure Policy is a powerful way to group policies together and enforce them across your Azure environment. By defining initiatives, you can streamline governance, simplify compliance management, and ensure consistent application of policies to your resources. Start creating initiatives today to enhance the security, compliance, and operational efficiency of your Azure environment.</p>
 </div>
 </article>
 <nav class="md-pagination">

@@ -241,6 +241,13 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/05/">
+<span class="md-ellipsis">
+    2025/05
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../../2025/02/">
 <span class="md-ellipsis">
     2025/02
@@ -688,6 +695,186 @@
 <header class="md-typeset">
 <h1 id="blog">Blog</h1>
 </header>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341"/>
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-04-24 00:00:00">April 24, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/azure-services/">Azure Services</a></li>
+<li class="md-meta__item">
+            
+              4 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="how-to-create-a-management-group-diagram-with-drawio"><a class="toclink" href="../../2024/04/24/how-to-create-a-management-group-diagram-with-drawio/">How to create a Management Group diagram with draw.io</a></h2>
+<p>I nedd to create a diagram of the Management Groups in Azure, and I remembered a project that did something similar but with PowerShell: https://github.com/PowerShellToday/new-mgmgroupdiagram.</p>
+<h3 id="export-your-management-group-structure-from-azure-portal-or-ask-for-it"><a class="toclink" href="../../2024/04/24/how-to-create-a-management-group-diagram-with-drawio/#export-your-management-group-structure-from-azure-portal-or-ask-for-it">Export your Management Group structure from Azure Portal or ask for it</a></h3>
+<p>If you can access the Azure Portal, you can export the Management Group structure to a CSV file. To do this, follow these steps:</p>
+<ol>
+<li>Go to the <strong>Azure portal</strong>.</li>
+<li>Navigate to <strong>Management groups</strong>.</li>
+<li>Click on <strong>Export</strong>.</li>
+<li>Save the CSV file to your local machine.</li>
+</ol>
+<p>If you don't have access to the Azure Portal, you can ask your Azure administrator to export the Management Group structure for you.</p>
+<p>The file has the following columns:</p>
+<ul>
+<li>id: The unique identifier of the Management Group or subscription.</li>
+<li>displayName: The name of the Management Group or subscription.</li>
+<li>itemType: The type of the item (Management Group or subscription).</li>
+<li>path: The path to the management or subscription group, its parent.</li>
+<li>accessLevel: Your access level.</li>
+<li>childSubscriptionCount: The number of child subscriptions at this level.</li>
+<li>totalSubscriptionCount: The total number of subscriptions.</li>
+</ul>
+<h3 id="create-a-csv-to-be-imported-into-drawio"><a class="toclink" href="../../2024/04/24/how-to-create-a-management-group-diagram-with-drawio/#create-a-csv-to-be-imported-into-drawio">Create a CSV to be imported into draw.io</a></h3>
+<ol>
+<li>Import the CSV file to excel, rename the sheet to "Export_Portal"</li>
+<li>Create a second sheet with the following columns:<ul>
+<li>id: reference to the id in the first sheet</li>
+<li>displayName: reference to the displayName in the first sheet</li>
+<li>itemType: reference to the itemType in the first sheet</li>
+<li>ParentId: Use the following formula to get the parent of the current item:
+    <div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a>=IF(ISERROR(FIND(","; Export_Portal!D2)); Export_Portal!D2; TRIM(RIGHT(SUBSTITUTE(Export_Portal!D2; ","; REPT(" "; LEN(Export_Portal!D2))); LEN(Export_Portal!D2))))
+</span></code></pre></div></li>
+</ul>
+</li>
+<li>Export the second sheet to a CSV file.</li>
+</ol>
+<h3 id="import-the-csv-file-into-drawio"><a class="toclink" href="../../2024/04/24/how-to-create-a-management-group-diagram-with-drawio/#import-the-csv-file-into-drawio">Import the CSV file into draw.io</a></h3>
+<ol>
+<li>Go to <a href="https://app.diagrams.net/">draw.io</a> and create a new diagram.</li>
+<li>Click on Arrange &gt; Insert &gt; Advanced &gt; CSV.</li>
+<li>
+<p>Insert the header for the columns: id, displayName, itemType, Parent:</p>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a href="#__codelineno-5-1" id="__codelineno-5-1" name="__codelineno-5-1"></a>    #label: %displayName%
+</span><span id="__span-5-2"><a href="#__codelineno-5-2" id="__codelineno-5-2" name="__codelineno-5-2"></a>    #stylename: itemType
+</span><span id="__span-5-3"><a href="#__codelineno-5-3" id="__codelineno-5-3" name="__codelineno-5-3"></a>    #styles: {"Management Group": "label;image=img/lib/azure2/general/Management_Groups.svg;whiteSpace=wrap;html=1;rounded=1; fillColor=%fill%;strokeColor=#6c8ebf;fillColor=#dae8fc;points=[[0.5,0,0,0,0],[0.5,1,0,0,0]];",\
+</span><span id="__span-5-4"><a href="#__codelineno-5-4" id="__codelineno-5-4" name="__codelineno-5-4"></a>    #"Subscription": "label;image=img/lib/azure2/general/Subscriptions.svg;whiteSpace=wrap;html=1;rounded=1; fillColor=%fill%;strokeColor=#d6b656;fillColor=#fff2cc;points=[[0.5,0,0,0,0],[0.5,1,0,0,0]];imageWidth=26;"}
+</span><span id="__span-5-5"><a href="#__codelineno-5-5" id="__codelineno-5-5" name="__codelineno-5-5"></a>    #
+</span><span id="__span-5-6"><a href="#__codelineno-5-6" id="__codelineno-5-6" name="__codelineno-5-6"></a>    #
+</span><span id="__span-5-7"><a href="#__codelineno-5-7" id="__codelineno-5-7" name="__codelineno-5-7"></a>    #namespace: csvimport-
+</span><span id="__span-5-8"><a href="#__codelineno-5-8" id="__codelineno-5-8" name="__codelineno-5-8"></a>    #
+</span><span id="__span-5-9"><a href="#__codelineno-5-9" id="__codelineno-5-9" name="__codelineno-5-9"></a>    #connect: {"from": "ParentId", "to": "displayName", "invert": true, "style": "curved=1;endArrow=blockThin;endFill=1;fontSize=11;edgeStyle=orthogonalEdgeStyle;"}
+</span><span id="__span-5-10"><a href="#__codelineno-5-10" id="__codelineno-5-10" name="__codelineno-5-10"></a>    #
+</span><span id="__span-5-11"><a href="#__codelineno-5-11" id="__codelineno-5-11" name="__codelineno-5-11"></a>    ## Node width and height, and padding for autosize
+</span><span id="__span-5-12"><a href="#__codelineno-5-12" id="__codelineno-5-12" name="__codelineno-5-12"></a>    #width: auto
+</span><span id="__span-5-13"><a href="#__codelineno-5-13" id="__codelineno-5-13" name="__codelineno-5-13"></a>    #height: auto
+</span><span id="__span-5-14"><a href="#__codelineno-5-14" id="__codelineno-5-14" name="__codelineno-5-14"></a>    #padding: -12
+</span><span id="__span-5-15"><a href="#__codelineno-5-15" id="__codelineno-5-15" name="__codelineno-5-15"></a>    #
+</span><span id="__span-5-16"><a href="#__codelineno-5-16" id="__codelineno-5-16" name="__codelineno-5-16"></a>    ## ignore: id,image,fill,stroke,refs,manager
+</span><span id="__span-5-17"><a href="#__codelineno-5-17" id="__codelineno-5-17" name="__codelineno-5-17"></a>    #
+</span><span id="__span-5-18"><a href="#__codelineno-5-18" id="__codelineno-5-18" name="__codelineno-5-18"></a>    ## Column to be renamed to link attribute (used as link).
+</span><span id="__span-5-19"><a href="#__codelineno-5-19" id="__codelineno-5-19" name="__codelineno-5-19"></a>    ## link: url
+</span><span id="__span-5-20"><a href="#__codelineno-5-20" id="__codelineno-5-20" name="__codelineno-5-20"></a>    #
+</span><span id="__span-5-21"><a href="#__codelineno-5-21" id="__codelineno-5-21" name="__codelineno-5-21"></a>    ## Spacing between nodes, heirarchical levels and parallel connections.
+</span><span id="__span-5-22"><a href="#__codelineno-5-22" id="__codelineno-5-22" name="__codelineno-5-22"></a>    #nodespacing: 40
+</span><span id="__span-5-23"><a href="#__codelineno-5-23" id="__codelineno-5-23" name="__codelineno-5-23"></a>    #levelspacing: 100
+</span><span id="__span-5-24"><a href="#__codelineno-5-24" id="__codelineno-5-24" name="__codelineno-5-24"></a>    #edgespacing: 40
+</span><span id="__span-5-25"><a href="#__codelineno-5-25" id="__codelineno-5-25" name="__codelineno-5-25"></a>    #
+</span><span id="__span-5-26"><a href="#__codelineno-5-26" id="__codelineno-5-26" name="__codelineno-5-26"></a>    ## layout: auto
+</span><span id="__span-5-27"><a href="#__codelineno-5-27" id="__codelineno-5-27" name="__codelineno-5-27"></a>    #layout: verticaltree
+</span><span id="__span-5-28"><a href="#__codelineno-5-28" id="__codelineno-5-28" name="__codelineno-5-28"></a>    #
+</span><span id="__span-5-29"><a href="#__codelineno-5-29" id="__codelineno-5-29" name="__codelineno-5-29"></a>    ## ---- CSV below this line. First line are column names. ----
+</span></code></pre></div>
+4. Paste the content of the CSV file and click on Import.</p>
+</li>
+</ol>
+<p>You should see a diagram with the Management Groups and Subscriptions.</p>
+<p>For example:</p>
+<p>This is the common structure for the Management Groups in the Enterprise Scale Landing Zone, now Accelerator Landing Zone: </p>
+<pre class="mermaid"><code>    graph TD
+        A[Root Management Group] --&gt; B[Intermediary-Management-Group]
+        B --&gt; C[Decommissioned]
+        B --&gt; D[Landing Zones]
+        B --&gt; E[Platform]
+        B --&gt; F[Sandboxes]
+        D --&gt; G[Corp]
+        D --&gt; H[Online]
+        E --&gt; I[Connectivity]
+        E --&gt; J[Identity]
+        E --&gt; K[Management]        
+</code></pre>
+<p>And this is the CSV file to import into draw.io:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a href="#__codelineno-6-1" id="__codelineno-6-1" name="__codelineno-6-1"></a>#label: %displayName%
+</span><span id="__span-6-2"><a href="#__codelineno-6-2" id="__codelineno-6-2" name="__codelineno-6-2"></a>#stylename: itemType
+</span><span id="__span-6-3"><a href="#__codelineno-6-3" id="__codelineno-6-3" name="__codelineno-6-3"></a>#styles: {"Management Group": "label;image=img/lib/azure2/general/Management_Groups.svg;whiteSpace=wrap;html=1;rounded=1; fillColor=%fill%;strokeColor=#6c8ebf;fillColor=#dae8fc;points=[[0.5,0,0,0,0],[0.5,1,0,0,0]];",\
+</span><span id="__span-6-4"><a href="#__codelineno-6-4" id="__codelineno-6-4" name="__codelineno-6-4"></a>#"Subscription": "label;image=img/lib/azure2/general/Subscriptions.svg;whiteSpace=wrap;html=1;rounded=1; fillColor=%fill%;strokeColor=#d6b656;fillColor=#fff2cc;points=[[0.5,0,0,0,0],[0.5,1,0,0,0]];imageWidth=26;"}
+</span><span id="__span-6-5"><a href="#__codelineno-6-5" id="__codelineno-6-5" name="__codelineno-6-5"></a>#
+</span><span id="__span-6-6"><a href="#__codelineno-6-6" id="__codelineno-6-6" name="__codelineno-6-6"></a>#
+</span><span id="__span-6-7"><a href="#__codelineno-6-7" id="__codelineno-6-7" name="__codelineno-6-7"></a>#namespace: csvimport-
+</span><span id="__span-6-8"><a href="#__codelineno-6-8" id="__codelineno-6-8" name="__codelineno-6-8"></a>#
+</span><span id="__span-6-9"><a href="#__codelineno-6-9" id="__codelineno-6-9" name="__codelineno-6-9"></a>#connect: {"from": "ParentId", "to": "displayName", "invert": true, "style": "curved=1;endArrow=blockThin;endFill=1;fontSize=11;edgeStyle=orthogonalEdgeStyle;"}
+</span><span id="__span-6-10"><a href="#__codelineno-6-10" id="__codelineno-6-10" name="__codelineno-6-10"></a>#
+</span><span id="__span-6-11"><a href="#__codelineno-6-11" id="__codelineno-6-11" name="__codelineno-6-11"></a>## Node width and height, and padding for autosize
+</span><span id="__span-6-12"><a href="#__codelineno-6-12" id="__codelineno-6-12" name="__codelineno-6-12"></a>#width: auto
+</span><span id="__span-6-13"><a href="#__codelineno-6-13" id="__codelineno-6-13" name="__codelineno-6-13"></a>#height: auto
+</span><span id="__span-6-14"><a href="#__codelineno-6-14" id="__codelineno-6-14" name="__codelineno-6-14"></a>#padding: -12
+</span><span id="__span-6-15"><a href="#__codelineno-6-15" id="__codelineno-6-15" name="__codelineno-6-15"></a>#
+</span><span id="__span-6-16"><a href="#__codelineno-6-16" id="__codelineno-6-16" name="__codelineno-6-16"></a>## ignore: id,image,fill,stroke,refs,manager
+</span><span id="__span-6-17"><a href="#__codelineno-6-17" id="__codelineno-6-17" name="__codelineno-6-17"></a>#
+</span><span id="__span-6-18"><a href="#__codelineno-6-18" id="__codelineno-6-18" name="__codelineno-6-18"></a>## Column to be renamed to link attribute (used as link).
+</span><span id="__span-6-19"><a href="#__codelineno-6-19" id="__codelineno-6-19" name="__codelineno-6-19"></a>## link: url
+</span><span id="__span-6-20"><a href="#__codelineno-6-20" id="__codelineno-6-20" name="__codelineno-6-20"></a>#
+</span><span id="__span-6-21"><a href="#__codelineno-6-21" id="__codelineno-6-21" name="__codelineno-6-21"></a>## Spacing between nodes, heirarchical levels and parallel connections.
+</span><span id="__span-6-22"><a href="#__codelineno-6-22" id="__codelineno-6-22" name="__codelineno-6-22"></a>#nodespacing: 40
+</span><span id="__span-6-23"><a href="#__codelineno-6-23" id="__codelineno-6-23" name="__codelineno-6-23"></a>#levelspacing: 100
+</span><span id="__span-6-24"><a href="#__codelineno-6-24" id="__codelineno-6-24" name="__codelineno-6-24"></a>#edgespacing: 40
+</span><span id="__span-6-25"><a href="#__codelineno-6-25" id="__codelineno-6-25" name="__codelineno-6-25"></a>#
+</span><span id="__span-6-26"><a href="#__codelineno-6-26" id="__codelineno-6-26" name="__codelineno-6-26"></a>## layout: auto
+</span><span id="__span-6-27"><a href="#__codelineno-6-27" id="__codelineno-6-27" name="__codelineno-6-27"></a>#layout: verticaltree
+</span><span id="__span-6-28"><a href="#__codelineno-6-28" id="__codelineno-6-28" name="__codelineno-6-28"></a>#
+</span><span id="__span-6-29"><a href="#__codelineno-6-29" id="__codelineno-6-29" name="__codelineno-6-29"></a>## ---- CSV below this line. First line are column names. ----
+</span><span id="__span-6-30"><a href="#__codelineno-6-30" id="__codelineno-6-30" name="__codelineno-6-30"></a>id,displayName,itemType,ParentId
+</span><span id="__span-6-31"><a href="#__codelineno-6-31" id="__codelineno-6-31" name="__codelineno-6-31"></a>1,Tenant Root Group,Management Group,
+</span><span id="__span-6-32"><a href="#__codelineno-6-32" id="__codelineno-6-32" name="__codelineno-6-32"></a>2,Intermediary Management Group,Management Group,Tenant Root Group
+</span><span id="__span-6-33"><a href="#__codelineno-6-33" id="__codelineno-6-33" name="__codelineno-6-33"></a>3,Decommissioned,Management Group,Intermediary Management Group
+</span><span id="__span-6-34"><a href="#__codelineno-6-34" id="__codelineno-6-34" name="__codelineno-6-34"></a>4,Landing Zones,Management Group,Intermediary Management Group
+</span><span id="__span-6-35"><a href="#__codelineno-6-35" id="__codelineno-6-35" name="__codelineno-6-35"></a>5,Platform,Management Group,Intermediary Management Group
+</span><span id="__span-6-36"><a href="#__codelineno-6-36" id="__codelineno-6-36" name="__codelineno-6-36"></a>6,Sandboxes,Management Group,Landing Zones
+</span><span id="__span-6-37"><a href="#__codelineno-6-37" id="__codelineno-6-37" name="__codelineno-6-37"></a>7,Corp,Management Group,Landing Zones
+</span><span id="__span-6-38"><a href="#__codelineno-6-38" id="__codelineno-6-38" name="__codelineno-6-38"></a>8,Online,Management Group,Landing Zones
+</span><span id="__span-6-39"><a href="#__codelineno-6-39" id="__codelineno-6-39" name="__codelineno-6-39"></a>9,Connectivity,Management Group,Platform
+</span><span id="__span-6-40"><a href="#__codelineno-6-40" id="__codelineno-6-40" name="__codelineno-6-40"></a>10,Identity,Management Group,Platform
+</span><span id="__span-6-41"><a href="#__codelineno-6-41" id="__codelineno-6-41" name="__codelineno-6-41"></a>11,Management,Management Group,Platform
+</span><span id="__span-6-42"><a href="#__codelineno-6-42" id="__codelineno-6-42" name="__codelineno-6-42"></a>12,subcr-1,Subscription,Decommissioned
+</span><span id="__span-6-43"><a href="#__codelineno-6-43" id="__codelineno-6-43" name="__codelineno-6-43"></a>13,subcr-2,Subscription,Sandboxes
+</span><span id="__span-6-44"><a href="#__codelineno-6-44" id="__codelineno-6-44" name="__codelineno-6-44"></a>14,subcr-3,Subscription,Corp
+</span><span id="__span-6-45"><a href="#__codelineno-6-45" id="__codelineno-6-45" name="__codelineno-6-45"></a>15,subcr-4,Subscription,Online
+</span><span id="__span-6-46"><a href="#__codelineno-6-46" id="__codelineno-6-46" name="__codelineno-6-46"></a>16,subcr-5,Subscription,Connectivity
+</span><span id="__span-6-47"><a href="#__codelineno-6-47" id="__codelineno-6-47" name="__codelineno-6-47"></a>17,subcr-6,Subscription,Identity
+</span><span id="__span-6-48"><a href="#__codelineno-6-48" id="__codelineno-6-48" name="__codelineno-6-48"></a>18,subcr-7,Subscription,Management
+</span></code></pre></div>
+<h3 id="make-your-diagram-animated-and-interactive"><a class="toclink" href="../../2024/04/24/how-to-create-a-management-group-diagram-with-drawio/#make-your-diagram-animated-and-interactive">Make your diagram animated and interactive</a></h3>
+<p>You can make your diagram animated and interactive by following these steps:</p>
+<ol>
+<li>File &gt; Export as &gt; URL</li>
+<li>Add p=ex&amp; after the first ? in the URL.</li>
+</ol>
+<p>For example, the URL should look like this:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a href="#__codelineno-7-1" id="__codelineno-7-1" name="__codelineno-7-1"></a>https://viewer.diagrams.net/?p=ex&amp;tags=%7B%7D&amp;highlight=0000ff&amp;layers=1&amp;nav=1&amp;title=MGs.drawio#R7Zxbc5s4FMc%2FjR%2BbAQkEPK7dJHWn3XbW6exMX3ZkkLFakDxCvvXTr7jFxrZi1k0Wg5lxYnR0QfqfHxqOBB7AUbx5FHgx%2F8wDEg2AEWwG8P0AAGAgQ32llm1uMU0X5pZQ0KCw7QwT%2BosUxqJiuKQBSSoFJeeRpIuq0eeMEV9WbFgIvq4Wm%2FGoetYFDsmRYeLj6Nj6Nw3kvBwG8nYZHwgN58WpXeDkGTEuCxcjSeY44Os9E7wfwJHgXOZH8WZEolS9Upe83oMm97ljgjB5osK3hIgv0x%2BpJsCI8FQ5Jis0AHZAk0WEt3%2FimKhU3k7Z7HBLxq7x42mcwOHy%2B0dn9PCRvIOFz%2FYrZqWfCMMsPcFf6TCA8Sj4clE0KEn8tF0UBT9jpoSKCTso9TXr%2Fjgo%2B5YNKcI%2BmStHEbHvvKoMidyWLioGN6Rx7ksah0qFiE7Vf%2FxrKUgqSkgYEVjVfNh15Z%2BsI8ldsgpV9fVcdXmyUOdWbawVzso2l3Eqm6kOVVEWkKBIpSjRKBrxiIusF3aaTNWEw0QK%2FpPssiDyXTKdqZxqFRhg4s58ZV9wymQ2VnuoPsadcsrIqPzZqsLoOc88zFOftFOpfCsiJNloIdnX8pHwmEixVUWKCpYD7goituU1nCfXO%2FqB4ea2%2BR74dmHDhc%2FC57Z3TKqDwoFlco%2FS16fW0lA7ZpKImAQUZ0PXsXkJwS9cED3WDWINnQOsTegec%2B20g2tbw%2FV74vM4pklCOVMuvRjimtdHD3RzQJezcjlJ2%2BiIZtNrB81IQ%2FMnzALKFCLGd4Vz0uPcYZyhZ57nuSWzs6Ph%2BWuE5YyLuAe5wyB7rn0eZKsdILsakCdqYp7yze9MySfn9p7bBu8nAKxwCx3rmFvUDm49DbcjLn4jsuuRvTJkLWieRxa0AlnL0CD7hUWUkR7azkBre955aGE7oDW182y2FE9XVG4vR7d6u9wz2xyzjuN05d7AAhpmx4ESo%2Be1E7wexmBtnmN1G2%2F7TPbEtp1Y00Q1wq92rH9Zul23ZDn1xTvzFK%2BT5TTxBV1IytkpUk9tbLwxr%2FtdentWAzRFNjpmdTabAf8VWc0GXz7HANAr3dPWmG5bEofpdtZydsEl7B6slvXYXgu2wKrOuZYHWsutbg8t5xZewu1utaxH9lqQPVzyajOyum2yHFnrEmT3V8t6aK8FWmRYnYFWtyWWQ2tfAu3xalmP7rWg63hOZ9DV7Yrl6KJL0K0umvXYXgu2nmd0BVtbtzOWY%2Btcgu3h2lkP7rWAa5qu2yS5Ry9ZnGayGNcKR0tSog2qjPhLsXp2IGHBH%2BmrKCo5jbj%2F82lOWW5%2BSB2ZF5pxJovXX8ysUhCSSdEgF3LOQ85wdL%2BzFoKn5V6WW3WML4VPXhhS%2BYKHxCIk8qWC1mkHChJhdQ9T7cl%2FcEZN5UH3lLfqKm83qjy8YeVRo8pbN6y806jydveUR3WVdxtVHt2w8l6jyju3q3z%2BFF5jyrvdU96pq7wmLPiflPduWHnQpPLlrwPcpPKwUeU7GMPadZVvNIZFHYxh3brKNxrDog7GsF5d5RuNYVH3YtjylY3zyjcaw6LuxbDlewfnlW80hkXdi2HLp%2BfPK99oDIu6F8Naddfn7TeKYVVy90tVWd7eD37B%2B38B#%7B%22pageId%22%3A%22UGUHswWqf16rUITyRAQM%22%7D
+</span></code></pre></div>
+<p>You can check it <a href="https://viewer.diagrams.net/?p=ex&amp;tags=%7B%7D&amp;highlight=0000ff&amp;layers=1&amp;nav=1&amp;title=MGs.drawio#R7Zxbc5s4FMc%2FjR%2BbAQkEPK7dJHWn3XbW6exMX3ZkkLFakDxCvvXTr7jFxrZi1k0Wg5lxYnR0QfqfHxqOBB7AUbx5FHgx%2F8wDEg2AEWwG8P0AAGAgQ32llm1uMU0X5pZQ0KCw7QwT%2BosUxqJiuKQBSSoFJeeRpIuq0eeMEV9WbFgIvq4Wm%2FGoetYFDsmRYeLj6Nj6Nw3kvBwG8nYZHwgN58WpXeDkGTEuCxcjSeY44Os9E7wfwJHgXOZH8WZEolS9Upe83oMm97ljgjB5osK3hIgv0x%2BpJsCI8FQ5Jis0AHZAk0WEt3%2FimKhU3k7Z7HBLxq7x42mcwOHy%2B0dn9PCRvIOFz%2FYrZqWfCMMsPcFf6TCA8Sj4clE0KEn8tF0UBT9jpoSKCTso9TXr%2Fjgo%2B5YNKcI%2BmStHEbHvvKoMidyWLioGN6Rx7ksah0qFiE7Vf%2FxrKUgqSkgYEVjVfNh15Z%2BsI8ldsgpV9fVcdXmyUOdWbawVzso2l3Eqm6kOVVEWkKBIpSjRKBrxiIusF3aaTNWEw0QK%2FpPssiDyXTKdqZxqFRhg4s58ZV9wymQ2VnuoPsadcsrIqPzZqsLoOc88zFOftFOpfCsiJNloIdnX8pHwmEixVUWKCpYD7goituU1nCfXO%2FqB4ea2%2BR74dmHDhc%2FC57Z3TKqDwoFlco%2FS16fW0lA7ZpKImAQUZ0PXsXkJwS9cED3WDWINnQOsTegec%2B20g2tbw%2FV74vM4pklCOVMuvRjimtdHD3RzQJezcjlJ2%2BiIZtNrB81IQ%2FMnzALKFCLGd4Vz0uPcYZyhZ57nuSWzs6Ph%2BWuE5YyLuAe5wyB7rn0eZKsdILsakCdqYp7yze9MySfn9p7bBu8nAKxwCx3rmFvUDm49DbcjLn4jsuuRvTJkLWieRxa0AlnL0CD7hUWUkR7azkBre955aGE7oDW182y2FE9XVG4vR7d6u9wz2xyzjuN05d7AAhpmx4ESo%2Be1E7wexmBtnmN1G2%2F7TPbEtp1Y00Q1wq92rH9Zul23ZDn1xTvzFK%2BT5TTxBV1IytkpUk9tbLwxr%2FtdentWAzRFNjpmdTabAf8VWc0GXz7HANAr3dPWmG5bEofpdtZydsEl7B6slvXYXgu2wKrOuZYHWsutbg8t5xZewu1utaxH9lqQPVzyajOyum2yHFnrEmT3V8t6aK8FWmRYnYFWtyWWQ2tfAu3xalmP7rWg63hOZ9DV7Yrl6KJL0K0umvXYXgu2nmd0BVtbtzOWY%2Btcgu3h2lkP7rWAa5qu2yS5Ry9ZnGayGNcKR0tSog2qjPhLsXp2IGHBH%2BmrKCo5jbj%2F82lOWW5%2BSB2ZF5pxJovXX8ysUhCSSdEgF3LOQ85wdL%2BzFoKn5V6WW3WML4VPXhhS%2BYKHxCIk8qWC1mkHChJhdQ9T7cl%2FcEZN5UH3lLfqKm83qjy8YeVRo8pbN6y806jydveUR3WVdxtVHt2w8l6jyju3q3z%2BFF5jyrvdU96pq7wmLPiflPduWHnQpPLlrwPcpPKwUeU7GMPadZVvNIZFHYxh3brKNxrDog7GsF5d5RuNYVH3YtjylY3zyjcaw6LuxbDlewfnlW80hkXdi2HLp%2BfPK99oDIu6F8Naddfn7TeKYVVy90tVWd7eD37B%2B38B#%7B%22pageId%22%3A%22UGUHswWqf16rUITyRAQM%22%7D">here</a></p>
+<h3 id="references"><a class="toclink" href="../../2024/04/24/how-to-create-a-management-group-diagram-with-drawio/#references">References</a></h3>
+<ul>
+<li><a href="https://drawio-app.com/blog/automatically-create-draw-io-diagrams-from-csv-files/">Automatically create draw.io diagrams from CSV files</a></li>
+<li><a href="https://drawio-app.com/blog/animation-and-automatic-layout-explore-complex-diagrams/">Animation and Automatic Layout: Explore Complex Diagrams</a></li>
+</ul>
+</div>
+</article>
 <article class="md-post md-post--excerpt">
 <header class="md-post__header">
 <nav class="md-post__authors md-typeset">
@@ -2053,80 +2240,6 @@ Custom Roles has the same structure as built-in roles:</p>
 </tr>
 </tbody>
 </table>
-</div>
-</article>
-<article class="md-post md-post--excerpt">
-<header class="md-post__header">
-<nav class="md-post__authors md-typeset">
-<span class="md-author">
-<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341"/>
-</span>
-</nav>
-<div class="md-post__meta md-meta">
-<ul class="md-meta__list">
-<li class="md-meta__item">
-<time datetime="2024-04-17 00:00:00">April 17, 2024</time></li>
-<li class="md-meta__item">
-            in
-            
-              <a class="md-meta__link" href="../../category/azure-services/">Azure Services</a></li>
-<li class="md-meta__item">
-            
-              2 min read
-            
-          </li>
-</ul>
-</div>
-</header>
-<div class="md-post__content md-typeset">
-<h2 id="azure-policy-useful-queries"><a class="toclink" href="../../2024/04/17/azure-policy-useful-queries/">Azure Policy useful queries</a></h2>
-<h3 id="policy-assignments-and-information-about-each-of-its-respective-definitions"><a class="toclink" href="../../2024/04/17/azure-policy-useful-queries/#policy-assignments-and-information-about-each-of-its-respective-definitions">Policy assignments and information about each of its respective definitions</a></h3>
-<div class="language-kusto highlight"><pre><span></span><code><span id="__span-0-1"><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c">// Policy assignments and information about each of its respective definitions</span>
-</span><span id="__span-0-2"><a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="c">// Gets policy assignments in your environment with the respective assignment name,definition associated, category of definition (if applicable), as well as whether the definition type is an initiative or a single policy.</span>
-</span><span id="__span-0-3"><a href="#__codelineno-0-3" id="__codelineno-0-3" name="__codelineno-0-3"></a>
-</span><span id="__span-0-4"><a href="#__codelineno-0-4" id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="n">policyResources</span>
-</span><span id="__span-0-5"><a href="#__codelineno-0-5" id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="p">=~</span><span class="s">'Microsoft.Authorization/PolicyAssignments'</span>
-</span><span id="__span-0-6"><a href="#__codelineno-0-6" id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="p">|</span><span class="w"> </span><span class="k">project</span><span class="w"> </span><span class="n">policyAssignmentId</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">tolower</span><span class="p">(</span><span class="n">tostring</span><span class="p">(</span><span class="n">id</span><span class="p">)),</span><span class="w"> </span><span class="n">policyAssignmentDisplayName</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">tostring</span><span class="p">(</span><span class="n">properties</span><span class="err">.</span><span class="n">displayName</span><span class="p">),</span><span class="w"> </span><span class="n">policyAssignmentDefinitionId</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">tolower</span><span class="p">(</span><span class="n">properties</span><span class="err">.</span><span class="n">policyDefinitionId</span><span class="p">)</span>
-</span><span id="__span-0-7"><a href="#__codelineno-0-7" id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="p">|</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">kind</span><span class="p">=</span><span class="n">leftouter</span><span class="p">(</span>
-</span><span id="__span-0-8"><a href="#__codelineno-0-8" id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="w"> </span><span class="n">policyResources</span>
-</span><span id="__span-0-9"><a href="#__codelineno-0-9" id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="p">=~</span><span class="s">'Microsoft.Authorization/PolicySetDefinitions'</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="p">=~</span><span class="s">'Microsoft.Authorization/PolicyDefinitions'</span>
-</span><span id="__span-0-10"><a href="#__codelineno-0-10" id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="k">project</span><span class="w"> </span><span class="n">definitionId</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">tolower</span><span class="p">(</span><span class="n">id</span><span class="p">),</span><span class="w"> </span><span class="n">category</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">tostring</span><span class="p">(</span><span class="n">properties</span><span class="err">.</span><span class="n">metadata</span><span class="err">.</span><span class="n">category</span><span class="p">),</span><span class="w"> </span><span class="n">definitionType</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">iff</span><span class="p">(</span><span class="n">type</span><span class="w"> </span><span class="p">=~</span><span class="w"> </span><span class="s">'Microsoft.Authorization/PolicysetDefinitions'</span><span class="p">,</span><span class="w"> </span><span class="s">'initiative'</span><span class="p">,</span><span class="w"> </span><span class="s">'policy'</span><span class="p">)</span>
-</span><span id="__span-0-11"><a href="#__codelineno-0-11" id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="err">$</span><span class="n">left</span><span class="err">.</span><span class="n">policyAssignmentDefinitionId</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="err">$</span><span class="n">right</span><span class="err">.</span><span class="n">definitionId</span>
-</span></code></pre></div>
-<ul>
-<li><a href="https://https://gist.github.com/timothywarner/8e5b6dea296f506871223883eb33059e">Original Gist</a></li>
-</ul>
-<h3 id="list-subscriptionid-and-subscriptionname"><a class="toclink" href="../../2024/04/17/azure-policy-useful-queries/#list-subscriptionid-and-subscriptionname">List SubscriptionId and SubscriptionName</a></h3>
-<div class="language-kusto highlight"><pre><span></span><code><span id="__span-1-1"><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="n">ResourceContainers</span>
-</span><span id="__span-1-2"><a href="#__codelineno-1-2" id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="p">=~</span><span class="w"> </span><span class="s">'microsoft.resources/subscriptions'</span>
-</span><span id="__span-1-3"><a href="#__codelineno-1-3" id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="p">|</span><span class="w"> </span><span class="k">project</span><span class="w"> </span><span class="n">subscriptionId</span><span class="p">,</span><span class="w"> </span><span class="n">subscriptionName</span><span class="p">=</span><span class="n">name</span>
-</span></code></pre></div>
-<h3 id="list-managementgroupid-and-managementgroupname"><a class="toclink" href="../../2024/04/17/azure-policy-useful-queries/#list-managementgroupid-and-managementgroupname">List ManagementGroupId and ManagementGroupName</a></h3>
-<div class="language-kusto highlight"><pre><span></span><code><span id="__span-2-1"><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="n">ResourceContainers</span>
-</span><span id="__span-2-2"><a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="p">=~</span><span class="w"> </span><span class="s">'microsoft.management/managementgroups'</span>
-</span><span id="__span-2-3"><a href="#__codelineno-2-3" id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="p">|</span><span class="w"> </span><span class="k">project</span><span class="w"> </span><span class="n">mgname</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">displayName</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">properties</span><span class="err">.</span><span class="n">displayName</span>
-</span></code></pre></div>
-<h3 id="policy-assignments-and-information-about-each-of-its-respective-definitions-displaying-the-scope-of-the-assignment-the-subscription-display-name-the-management-group-id-the-resource-group-name-the-definition-type-the-assignment-name-the-category-of-the-definition-and-the-policy-assignment-id"><a class="toclink" href="../../2024/04/17/azure-policy-useful-queries/#policy-assignments-and-information-about-each-of-its-respective-definitions-displaying-the-scope-of-the-assignment-the-subscription-display-name-the-management-group-id-the-resource-group-name-the-definition-type-the-assignment-name-the-category-of-the-definition-and-the-policy-assignment-id">Policy assignments and information about each of its respective definitions displaying the scope of the assignment, the subscription display name, the management group id, the resource group name, the definition type, the assignment name, the category of the definition, and the policy assignment ID.</a></h3>
-<div class="language-kusto highlight"><pre><span></span><code><span id="__span-3-1"><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="n">policyResources</span>
-</span><span id="__span-3-2"><a href="#__codelineno-3-2" id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="p">=~</span><span class="s">'Microsoft.Authorization/PolicyAssignments'</span>
-</span><span id="__span-3-3"><a href="#__codelineno-3-3" id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="p">|</span><span class="w"> </span><span class="k">project</span><span class="w"> </span><span class="n">policyAssignmentId</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">tolower</span><span class="p">(</span><span class="n">tostring</span><span class="p">(</span><span class="n">id</span><span class="p">)),</span><span class="w"> </span><span class="n">policyAssignmentDisplayName</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">tostring</span><span class="p">(</span><span class="n">properties</span><span class="err">.</span><span class="n">displayName</span><span class="p">),</span><span class="w"> </span><span class="n">policyAssignmentDefinitionId</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">tolower</span><span class="p">(</span><span class="n">properties</span><span class="err">.</span><span class="n">policyDefinitionId</span><span class="p">),</span><span class="w"> </span><span class="n">subscriptionId</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">tostring</span><span class="p">(</span><span class="n">subscriptionId</span><span class="p">),</span><span class="n">resourceGroup</span><span class="p">=</span><span class="n">tostring</span><span class="p">(</span><span class="n">resourceGroup</span><span class="p">),</span><span class="w"> </span><span class="n">AssignmentDefinition</span><span class="p">=</span><span class="n">properties</span>
-</span><span id="__span-3-4"><a href="#__codelineno-3-4" id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="p">|</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">kind</span><span class="p">=</span><span class="n">leftouter</span><span class="p">(</span>
-</span><span id="__span-3-5"><a href="#__codelineno-3-5" id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="w">    </span><span class="n">policyResources</span>
-</span><span id="__span-3-6"><a href="#__codelineno-3-6" id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="w">    </span><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="p">=~</span><span class="s">'Microsoft.Authorization/PolicySetDefinitions'</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="p">=~</span><span class="s">'Microsoft.Authorization/PolicyDefinitions'</span>
-</span><span id="__span-3-7"><a href="#__codelineno-3-7" id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="w">    </span><span class="p">|</span><span class="w"> </span><span class="k">project</span><span class="w"> </span><span class="n">definitionId</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">tolower</span><span class="p">(</span><span class="n">id</span><span class="p">),</span><span class="w"> </span><span class="n">category</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">tostring</span><span class="p">(</span><span class="n">properties</span><span class="err">.</span><span class="n">metadata</span><span class="err">.</span><span class="n">category</span><span class="p">),</span><span class="w"> </span><span class="n">definitionType</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">iff</span><span class="p">(</span><span class="n">type</span><span class="w"> </span><span class="p">=~</span><span class="w"> </span><span class="s">'Microsoft.Authorization/PolicysetDefinitions'</span><span class="p">,</span><span class="w"> </span><span class="s">'initiative'</span><span class="p">,</span><span class="w"> </span><span class="s">'policy'</span><span class="p">),</span><span class="n">PolicyDefinition</span><span class="p">=</span><span class="n">properties</span>
-</span><span id="__span-3-8"><a href="#__codelineno-3-8" id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="err">$</span><span class="n">left</span><span class="err">.</span><span class="n">policyAssignmentDefinitionId</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="err">$</span><span class="n">right</span><span class="err">.</span><span class="n">definitionId</span>
-</span><span id="__span-3-9"><a href="#__codelineno-3-9" id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="p">|</span><span class="w"> </span><span class="k">extend</span><span class="w"> </span><span class="n">scope</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">iff</span><span class="p">(</span><span class="n">policyAssignmentId</span><span class="w"> </span><span class="k">contains</span><span class="w"> </span><span class="s">'/subscriptions/'</span><span class="p">,</span><span class="w"> </span><span class="s">'Subscription'</span><span class="p">,</span><span class="w"> </span><span class="n">iff</span><span class="p">(</span><span class="n">policyAssignmentId</span><span class="w"> </span><span class="k">contains</span><span class="w"> </span><span class="s">'/providers/microsoft.management/managementgroups'</span><span class="p">,</span><span class="w"> </span><span class="s">'Management Group'</span><span class="p">,</span><span class="w"> </span><span class="s">'Resource Group'</span><span class="p">))</span>
-</span><span id="__span-3-10"><a href="#__codelineno-3-10" id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="p">|</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">kind</span><span class="p">=</span><span class="n">leftouter</span><span class="w"> </span><span class="p">(</span><span class="n">ResourceContainers</span>
-</span><span id="__span-3-11"><a href="#__codelineno-3-11" id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="p">=~</span><span class="w"> </span><span class="s">'microsoft.resources/subscriptions'</span>
-</span><span id="__span-3-12"><a href="#__codelineno-3-12" id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="p">|</span><span class="w"> </span><span class="k">project</span><span class="w"> </span><span class="n">subscriptionId</span><span class="p">,</span><span class="w"> </span><span class="n">subscriptionName</span><span class="p">=</span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="err">$</span><span class="n">left</span><span class="err">.</span><span class="n">subscriptionId</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="err">$</span><span class="n">right</span><span class="err">.</span><span class="n">subscriptionId</span>
-</span><span id="__span-3-13"><a href="#__codelineno-3-13" id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="p">|</span><span class="w"> </span><span class="k">extend</span><span class="w"> </span><span class="n">SubscriptionDisplayName</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">iff</span><span class="p">(</span><span class="n">isnotempty</span><span class="p">(</span><span class="n">subscriptionId</span><span class="p">),</span><span class="w"> </span><span class="n">subscriptionName</span><span class="p">,</span><span class="w"> </span><span class="s">''</span><span class="p">)</span>
-</span><span id="__span-3-14"><a href="#__codelineno-3-14" id="__codelineno-3-14" name="__codelineno-3-14"></a><span class="p">|</span><span class="w"> </span><span class="k">extend</span><span class="w"> </span><span class="n">ManagementGroupName</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">iff</span><span class="p">(</span><span class="n">policyAssignmentId</span><span class="w"> </span><span class="k">contains</span><span class="w"> </span><span class="s">'/providers/microsoft.management/'</span><span class="p">,</span><span class="w"> </span><span class="n">split</span><span class="p">(</span><span class="n">policyAssignmentId</span><span class="p">,</span><span class="w"> </span><span class="s">'/'</span><span class="p">)[</span><span class="mi">4</span><span class="p">],</span><span class="s">''</span><span class="p">)</span>
-</span><span id="__span-3-15"><a href="#__codelineno-3-15" id="__codelineno-3-15" name="__codelineno-3-15"></a><span class="p">|</span><span class="w"> </span><span class="k">extend</span><span class="w"> </span><span class="n">resourceGroupDisplayName</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">iff</span><span class="p">(</span><span class="n">isnotempty</span><span class="p">(</span><span class="n">resourceGroup</span><span class="p">),</span><span class="w"> </span><span class="n">resourceGroup</span><span class="p">,</span><span class="w"> </span><span class="s">''</span><span class="p">)</span>
-</span><span id="__span-3-16"><a href="#__codelineno-3-16" id="__codelineno-3-16" name="__codelineno-3-16"></a><span class="p">|</span><span class="w"> </span><span class="k">project</span><span class="w"> </span><span class="n">ManagementGroupName</span><span class="p">,</span><span class="n">SubscriptionDisplayName</span><span class="p">,</span><span class="n">resourceGroupDisplayName</span><span class="p">,</span><span class="w"> </span><span class="n">scope</span><span class="p">,</span><span class="n">definitionType</span><span class="p">,</span><span class="n">policyAssignmentDisplayName</span><span class="p">,</span><span class="w"> </span><span class="n">category</span><span class="p">,</span><span class="n">policyAssignmentId</span><span class="p">,</span><span class="w"> </span><span class="n">AssignmentDefinition</span><span class="p">,</span><span class="w"> </span><span class="n">PolicyDefinition</span>
-</span></code></pre></div>
-<ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"><span class="task-list-indicator"></span></input></label> Add Management Group Display Name</li>
-</ul>
 </div>
 </article>
 <nav class="md-pagination">

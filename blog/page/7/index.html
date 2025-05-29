@@ -241,6 +241,13 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/05/">
+<span class="md-ellipsis">
+    2025/05
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../../2025/02/">
 <span class="md-ellipsis">
     2025/02
@@ -688,6 +695,104 @@
 <header class="md-typeset">
 <h1 id="blog">Blog</h1>
 </header>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341"/>
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-02-25 00:00:00">February 25, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/azure-services/">Azure Services</a></li>
+<li class="md-meta__item">
+            
+              3 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="writing-your-first-initiative-with-portal"><a class="toclink" href="../../2024/02/25/writing-your-first-initiative-with-portal/">Writing Your First Initiative with Portal</a></h2>
+<p>Azure Policy is a service in Azure that you use to create, assign and manage policies. These policies enforce different rules and effects over your resources, so those resources stay compliant with your corporate standards and service level agreements.</p>
+<p>In this post, we'll walk through the steps of creating your first initiative in Azure.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>You need to have a good understanding of Azure Policy before creating an initiative. If you're new to Azure Policy, check out our post on <a href="../../2024/02/24/azure-policy/">Azure Policy</a> and <a href="../../2024/02/26/writing-your-first-policy-in-azure-with-portal/">Writing Your First Policy in Azure with Portal</a>.</p>
+</div>
+<h3 id="prerequisites"><a class="toclink" href="../../2024/02/25/writing-your-first-initiative-with-portal/#prerequisites">Prerequisites</a></h3>
+<ol>
+<li>An active Azure subscription.</li>
+<li>Access to Azure portal.</li>
+<li>Azure Policy defined in your subscription, if you don't have one, you can follow the steps in <a href="../../2024/02/26/writing-your-first-policy-in-azure-with-portal/">Writing Your First Policy in Azure with Portal</a>.</li>
+</ol>
+<h3 id="step-1-open-azure-policy"><a class="toclink" href="../../2024/02/25/writing-your-first-initiative-with-portal/#step-1-open-azure-policy">Step 1: Open Azure Policy</a></h3>
+<ul>
+<li>Login to the <a href="https://portal.azure.com/">Azure Portal</a>.</li>
+<li>In the left-hand menu, click on <code>All services</code>.</li>
+<li>In the <code>All services</code> blade, search for <code>Policy</code>.</li>
+</ul>
+<h3 id="step-2-create-a-new-initiative-definition"><a class="toclink" href="../../2024/02/25/writing-your-first-initiative-with-portal/#step-2-create-a-new-initiative-definition">Step 2: Create a New Initiative Definition</a></h3>
+<ul>
+<li>Click on <code>Defitinions</code> under the <code>Authoring</code> section.</li>
+<li>Click on <code>+ Initiative definition</code>.</li>
+</ul>
+<h3 id="step-3-fill-out-the-initiative-definition"><a class="toclink" href="../../2024/02/25/writing-your-first-initiative-with-portal/#step-3-fill-out-the-initiative-definition">Step 3: Fill Out the Initiative Definition</a></h3>
+<p>You will need to fill out several fields:</p>
+<ul>
+<li><strong>Basics</strong>:</li>
+<li><strong>Initiative location</strong>: The location where the initiative is stored.</li>
+<li><strong>Name</strong>: This is a unique name for your initiative.</li>
+<li><strong>Description</strong>: A detailed description of what the initiative does.</li>
+<li><strong>Category</strong>: You can categorize your initiative for easier searching and filtering.</li>
+<li><strong>Policies</strong>:</li>
+<li><strong>Add policy definition(s)</strong>: Here you can add the policies that will be part of the initiative.</li>
+<li><strong>Initiative parameters</strong>:</li>
+<li><strong>Add parameter</strong>: Here you can add parameters that will be used in the initiative.
+  <img alt="Initiative parameters" src="../../2024/02/image.png"/></li>
+<li><strong>Policy parameters</strong>:</li>
+<li>
+<p><strong>Add policy parameter</strong>: Here you can add parameters that will be used in the policies that are part of the initiative. You can use the parameters defined in the initiative as value for different policies.
+  <img alt="Policy parameters" src="../../2024/02/image-1.png"/></p>
+</li>
+<li>
+<p>Click on <code>Review + create</code>: Review the assignment and click on <code>Create</code>.</p>
+</li>
+</ul>
+<h3 id="step-4-assign-the-initiative"><a class="toclink" href="../../2024/02/25/writing-your-first-initiative-with-portal/#step-4-assign-the-initiative">Step 4: Assign the Initiative</a></h3>
+<ul>
+<li>Go to <code>Policy</code> again.</li>
+<li>Go to <code>Assignments</code> under the <code>Authoring</code> section.</li>
+<li>Click on <code>+ Assign initiative</code>.</li>
+</ul>
+<p>You will need to fill out several fields:
+- <strong>Basics</strong>:
+  - <strong>Scope</strong>: Select the scope where you want to assign the initiative.
+  - <strong>Basics</strong>: 
+    - <strong>Initiative definition</strong>: Select the initiative you just created.
+    - <strong>Assignment name</strong>: A unique name for the assignment.
+    - <strong>Description</strong>: A detailed description of what the assignment does.
+    - <strong>Policy enforcement</strong>: Choose the enforcement mode for the assignment.
+- <strong>Parameters</strong>:
+  - <strong>Add parameter</strong>: Initialize parameters that will be used in the 
+initiative.
+- <strong>Remediation</strong>: 
+  - <strong>Auto-remediation</strong>: Enable or disable auto-remediation. That means that if a resource is not compliant, it will be remediated automatically. In other post it will be explained how to create a remediation task.
+- <strong>Non-compliance messages</strong>:
+  - <strong>Non-compliance message</strong>: Define a message that will be shown when a resource is not compliant.</p>
+<ul>
+<li>Click on <code>Review + create</code>: Review the assignment and click on <code>Create</code>.</li>
+</ul>
+<h3 id="conclusion"><a class="toclink" href="../../2024/02/25/writing-your-first-initiative-with-portal/#conclusion">Conclusion</a></h3>
+<p>Creating an initiative in Azure Policy is a powerful way to group policies together and enforce them across your Azure environment. By defining initiatives, you can streamline governance, simplify compliance management, and ensure consistent application of policies to your resources. Start creating initiatives today to enhance the security, compliance, and operational efficiency of your Azure environment.</p>
+</div>
+</article>
 <article class="md-post md-post--excerpt">
 <header class="md-post__header">
 <nav class="md-post__authors md-typeset">
@@ -1542,45 +1647,6 @@ https://learn.microsoft.com/en-us/azure/container-apps/compare-options</li>
 <p>I hope you like it.</p>
 <p>I am going to start with <a href="../../2023/11/18/azure-communication-services/">Azure Communication Services</a></p>
 <p>That's all folks!, thanks for reading <img alt="❤" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/2764.svg" title=":heart:">!</img></p>
-</div>
-</article>
-<article class="md-post md-post--excerpt">
-<header class="md-post__header">
-<div class="md-post__meta md-meta">
-<ul class="md-meta__list">
-<li class="md-meta__item">
-<time datetime="2023-11-04 00:00:00">November 4, 2023</time></li>
-<li class="md-meta__item">
-            in
-            
-              <a class="md-meta__link" href="../../category/development/">Development</a></li>
-<li class="md-meta__item">
-            
-              1 min read
-            
-          </li>
-</ul>
-</div>
-</header>
-<div class="md-post__content md-typeset">
-<h2 id="starting-to-develop-in-c"><a class="toclink" href="../../2023/11/04/starting-to-develop-in-c/">Starting to develop in c#</a></h2>
-<p>First, I need to clarify that I'm not a C# developer. I'm learning C# so I can better understand the code that has to be deployed to some Azure services when .NET is used.</p>
-<p>If someone that knows me is reading this post, he/she will be thinking: </p>
-<ul>
-<li>"What the hell is he doing?"</li>
-<li>"He is crazy"</li>
-<li>"He is going to die trying".</li>
-<li>The end of the world is approaching!!</li>
-</ul>
-<p>Maybe the last thought can be really true but I have to say that I have decided to learn a programming language and that I have chosen C# because many of the examples for Azure Developers that I have seen are written in C#.</p>
-<p>I repeat, I am not a developer but I'd like to share with you my experience learning C#.</p>
-<h3 id="my-first-steps"><a class="toclink" href="../../2023/11/04/starting-to-develop-in-c/#my-first-steps">My first Steps</a></h3>
-<p>You have a lot of resources for learning on <a href="https://dotnet.microsoft.com/">Learn .NET</a> and in <a href="https://docs.microsoft.com/en-us/dotnet/csharp/">c# documentation</a>.</p>
-<p>In my case I prefer to simplify and follow <a href="https://github.com/dotnet/csharp-notebooks">csharp-notebooks</a>, these materials are designed to be used with <a href="https://learn.microsoft.com/en-us/shows/csharp-101/">
-C# 101 SERIES</a>.</p>
-<p>After that, I will follow the free course <a href="https://www.freecodecamp.org/learn/foundational-c-sharp-with-microsoft/">(New) Foundational C# with Microsoft</a>.</p>
-<p>And after that, I think that I will be ready to start with <a href="https://learn.microsoft.com/en-us/dotnet/standard/get-started?source=recommendations">Tutorials for getting started with .NET</a> and plan next steps.</p>
-<p>That's all folks!!</p>
 </div>
 </article>
 <nav class="md-pagination">

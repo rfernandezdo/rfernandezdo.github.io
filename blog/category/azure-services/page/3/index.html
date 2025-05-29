@@ -241,6 +241,13 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2025/05/">
+<span class="md-ellipsis">
+    2025/05
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../../../../2025/02/">
 <span class="md-ellipsis">
     2025/02
@@ -689,6 +696,129 @@
 <header class="md-typeset">
 <h1 id="azure-services">Azure Services</h1>
 </header>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341"/>
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-04-18 00:00:00">April 18, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../">Azure Services</a></li>
+<li class="md-meta__item">
+            
+              3 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="kusto-query-language-kql-for-azure-resource-graph"><a class="toclink" href="../../../../2024/04/18/kusto-query-language-kql-for-azure-resource-graph/">Kusto Query Language (KQL) for Azure Resource Graph</a></h2>
+<p>Azure Graph is a powerful tool provided by Microsoft to query data across all your Azure resources. It uses the Kusto Query Language (KQL), a read-only language similar to SQL, designed to query vast amounts of data in Azure services.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Only a subset of KQL is supported in Azure Resource Graph. For more information, see the <a href="https://learn.microsoft.com/en-us/azure/governance/resource-graph/concepts/query-language#supported-kql-language-elements">Azure Resource Graph Supported KQL Language Elements</a>.</p>
+</div>
+<h3 id="what-is-kql"><a class="toclink" href="../../../../2024/04/18/kusto-query-language-kql-for-azure-resource-graph/#what-is-kql"><strong>What is KQL?</strong></a></h3>
+<p>KQL stands for Kusto Query Language. It's a request to process data and return results. The syntax is easy to read and author, making it ideal for data exploration and ad-hoc data mining tasks.</p>
+<h3 id="using-kql-with-azure-graph"><a class="toclink" href="../../../../2024/04/18/kusto-query-language-kql-for-azure-resource-graph/#using-kql-with-azure-graph"><strong>Using KQL with Azure Graph</strong></a></h3>
+<p>Azure Graph allows you to use KQL to create complex queries that fetch information from your Azure resources. You can filter, sort, aggregate, and join data from different resources using KQL.</p>
+<p>Here's an example of how you might use KQL to query Azure Graph:</p>
+<div class="language-kql highlight"><pre><span></span><code><span id="__span-12-1"><a href="#__codelineno-12-1" id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="n">Resources</span>
+</span><span id="__span-12-2"><a href="#__codelineno-12-2" id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="p">=~</span><span class="w"> </span><span class="s">'microsoft.web/sites'</span>
+</span><span id="__span-12-3"><a href="#__codelineno-12-3" id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="p">|</span><span class="w"> </span><span class="k">project</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">location</span><span class="p">,</span><span class="w"> </span><span class="n">resourceGroup</span>
+</span></code></pre></div>
+<p>This query retrieves all Azure Web Apps (websites) and projects their <code>name</code>, <code>location</code>, and <code>resourceGroup</code>.</p>
+<h3 id="key-characteristics-of-kql"><a class="toclink" href="../../../../2024/04/18/kusto-query-language-kql-for-azure-resource-graph/#key-characteristics-of-kql"><strong>Key Characteristics of KQL</strong></a></h3>
+<ol>
+<li><strong>Case Sensitivity</strong>: Unlike SQL, KQL is case-sensitive. So 'Name' and 'name' would be considered different identifiers.</li>
+<li><strong>Schema-Free</strong>: Kusto (Azure Data Explorer) doesn't require a fixed schema, allowing storage of diverse types of data.</li>
+<li><strong>Extensibility</strong>: While KQL has a wide array of functions, you can also create custom functions as per your needs.</li>
+</ol>
+<h3 id="common-operators-in-kql"><a class="toclink" href="../../../../2024/04/18/kusto-query-language-kql-for-azure-resource-graph/#common-operators-in-kql"><strong>Common Operators in KQL</strong></a></h3>
+<ul>
+<li><code>|</code> : This operator creates a pipeline where the output of one command becomes the input of another.</li>
+<li><code>where</code> : Filters rows based on specified conditions.</li>
+<li><code>summarize</code> : Groups rows and calculates aggregate expressions.</li>
+<li><code>join</code> : Combines rows from two tables based on a common column.</li>
+<li><code>project</code> : Selects specific columns from the input.</li>
+<li><code>extend</code> : Adds new columns to the input.</li>
+<li><code>order by</code> : Sorts rows based on specified columns.</li>
+</ul>
+<h3 id="kql-query-examples"><a class="toclink" href="../../../../2024/04/18/kusto-query-language-kql-for-azure-resource-graph/#kql-query-examples"><strong>KQL Query Examples</strong></a></h3>
+<h4 id="1-list-all-azure-resources-in-a-subscription"><a class="toclink" href="../../../../2024/04/18/kusto-query-language-kql-for-azure-resource-graph/#1-list-all-azure-resources-in-a-subscription"><strong>1. List all Azure resources in a subscription</strong></a></h4>
+<div class="language-kql highlight"><pre><span></span><code><span id="__span-13-1"><a href="#__codelineno-13-1" id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="n">Resources</span>
+</span></code></pre></div>
+<h4 id="2-list-all-azure-resources-in-a-resource-group"><a class="toclink" href="../../../../2024/04/18/kusto-query-language-kql-for-azure-resource-graph/#2-list-all-azure-resources-in-a-resource-group"><strong>2. List all Azure resources in a resource group</strong></a></h4>
+<div class="language-kql highlight"><pre><span></span><code><span id="__span-14-1"><a href="#__codelineno-14-1" id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="n">Resources</span>
+</span><span id="__span-14-2"><a href="#__codelineno-14-2" id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">resourceGroup</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="s">'myResourceGroup'</span>
+</span></code></pre></div>
+<h4 id="3-list-all-azure-resources-of-a-specific-type"><a class="toclink" href="../../../../2024/04/18/kusto-query-language-kql-for-azure-resource-graph/#3-list-all-azure-resources-of-a-specific-type"><strong>3. List all Azure resources of a specific type</strong></a></h4>
+<div class="language-kql highlight"><pre><span></span><code><span id="__span-15-1"><a href="#__codelineno-15-1" id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="n">Resources</span>
+</span><span id="__span-15-2"><a href="#__codelineno-15-2" id="__codelineno-15-2" name="__codelineno-15-2"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="p">=~</span><span class="w"> </span><span class="s">'Microsoft.Compute/virtualMachines'</span>
+</span></code></pre></div>
+<h3 id="pagination-in-kql"><a class="toclink" href="../../../../2024/04/18/kusto-query-language-kql-for-azure-resource-graph/#pagination-in-kql"><strong>Pagination in KQL</strong></a></h3>
+<p>KQL supports pagination using the <code>limit</code> and <code>offset</code> operators. You can use these operators to control the number of rows returned and skip a certain number of rows.</p>
+<div class="language-kql highlight"><pre><span></span><code><span id="__span-16-1"><a href="#__codelineno-16-1" id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="n">Resources</span>
+</span><span id="__span-16-2"><a href="#__codelineno-16-2" id="__codelineno-16-2" name="__codelineno-16-2"></a><span class="p">|</span><span class="w"> </span><span class="k">limit</span><span class="w"> </span><span class="mi">10</span>
+</span><span id="__span-16-3"><a href="#__codelineno-16-3" id="__codelineno-16-3" name="__codelineno-16-3"></a><span class="p">|</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="mi">5</span>
+</span></code></pre></div>
+<p>If you exceed payload limits, you can paginate Azure Resource Graph query results with powershell:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-17-1"><a href="#__codelineno-17-1" id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="nv">$kqlQuery</span> <span class="p">=</span> <span class="s2">"policyResources | where type =~'Microsoft.Authorization/PolicySetDefinitions' or type =~'Microsoft.Authorization/PolicyDefinitions' | project definitionId = tolower(id), category = tostring(properties.metadata.category), definitionType = iff(type =~ 'Microsoft.Authorization/PolicysetDefinitions', 'initiative', 'policy'),PolicyDefinition=properties"</span>
+</span><span id="__span-17-2"><a href="#__codelineno-17-2" id="__codelineno-17-2" name="__codelineno-17-2"></a>
+</span><span id="__span-17-3"><a href="#__codelineno-17-3" id="__codelineno-17-3" name="__codelineno-17-3"></a><span class="nv">$batchSize</span> <span class="p">=</span> <span class="n">5</span>
+</span><span id="__span-17-4"><a href="#__codelineno-17-4" id="__codelineno-17-4" name="__codelineno-17-4"></a><span class="nv">$skipResult</span> <span class="p">=</span> <span class="n">0</span>
+</span><span id="__span-17-5"><a href="#__codelineno-17-5" id="__codelineno-17-5" name="__codelineno-17-5"></a>
+</span><span id="__span-17-6"><a href="#__codelineno-17-6" id="__codelineno-17-6" name="__codelineno-17-6"></a><span class="no">[System.Collections.Generic.List[string]]</span><span class="nv">$kqlResult</span>
+</span><span id="__span-17-7"><a href="#__codelineno-17-7" id="__codelineno-17-7" name="__codelineno-17-7"></a>
+</span><span id="__span-17-8"><a href="#__codelineno-17-8" id="__codelineno-17-8" name="__codelineno-17-8"></a><span class="k">while</span> <span class="p">(</span><span class="nv">$true</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-17-9"><a href="#__codelineno-17-9" id="__codelineno-17-9" name="__codelineno-17-9"></a>
+</span><span id="__span-17-10"><a href="#__codelineno-17-10" id="__codelineno-17-10" name="__codelineno-17-10"></a>  <span class="k">if</span> <span class="p">(</span><span class="nv">$skipResult</span> <span class="o">-gt</span> <span class="n">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-17-11"><a href="#__codelineno-17-11" id="__codelineno-17-11" name="__codelineno-17-11"></a>    <span class="nv">$graphResult</span> <span class="p">=</span> <span class="nb">Search-AzGraph</span> <span class="n">-Query</span> <span class="nv">$kqlQuery</span> <span class="n">-First</span> <span class="nv">$batchSize</span> <span class="n">-SkipToken</span> <span class="nv">$graphResult</span><span class="p">.</span><span class="n">SkipToken</span>
+</span><span id="__span-17-12"><a href="#__codelineno-17-12" id="__codelineno-17-12" name="__codelineno-17-12"></a>  <span class="p">}</span>
+</span><span id="__span-17-13"><a href="#__codelineno-17-13" id="__codelineno-17-13" name="__codelineno-17-13"></a>  <span class="k">else</span> <span class="p">{</span>
+</span><span id="__span-17-14"><a href="#__codelineno-17-14" id="__codelineno-17-14" name="__codelineno-17-14"></a>    <span class="nv">$graphResult</span> <span class="p">=</span> <span class="nb">Search-AzGraph</span> <span class="n">-Query</span> <span class="nv">$kqlQuery</span> <span class="n">-First</span> <span class="nv">$batchSize</span>
+</span><span id="__span-17-15"><a href="#__codelineno-17-15" id="__codelineno-17-15" name="__codelineno-17-15"></a>  <span class="p">}</span>
+</span><span id="__span-17-16"><a href="#__codelineno-17-16" id="__codelineno-17-16" name="__codelineno-17-16"></a>
+</span><span id="__span-17-17"><a href="#__codelineno-17-17" id="__codelineno-17-17" name="__codelineno-17-17"></a>  <span class="nv">$kqlResult</span> <span class="p">+=</span> <span class="nv">$graphResult</span><span class="p">.</span><span class="n">data</span>
+</span><span id="__span-17-18"><a href="#__codelineno-17-18" id="__codelineno-17-18" name="__codelineno-17-18"></a>
+</span><span id="__span-17-19"><a href="#__codelineno-17-19" id="__codelineno-17-19" name="__codelineno-17-19"></a>  <span class="k">if</span> <span class="p">(</span><span class="nv">$graphResult</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">Count</span> <span class="o">-lt</span> <span class="nv">$batchSize</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-17-20"><a href="#__codelineno-17-20" id="__codelineno-17-20" name="__codelineno-17-20"></a>    <span class="k">break</span><span class="p">;</span>
+</span><span id="__span-17-21"><a href="#__codelineno-17-21" id="__codelineno-17-21" name="__codelineno-17-21"></a>  <span class="p">}</span>
+</span><span id="__span-17-22"><a href="#__codelineno-17-22" id="__codelineno-17-22" name="__codelineno-17-22"></a>  <span class="nv">$skipResult</span> <span class="p">+=</span> <span class="nv">$skipResult</span> <span class="p">+</span> <span class="nv">$batchSize</span>
+</span><span id="__span-17-23"><a href="#__codelineno-17-23" id="__codelineno-17-23" name="__codelineno-17-23"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="best-practices-for-writing-kql-queries"><a class="toclink" href="../../../../2024/04/18/kusto-query-language-kql-for-azure-resource-graph/#best-practices-for-writing-kql-queries"><strong>Best Practices for Writing KQL Queries</strong></a></h3>
+<ol>
+<li><strong>Use <code>project</code> to Select Columns</strong>: Only select the columns you need to reduce the amount of data returned.</li>
+<li><strong>Use <code>where</code> to Filter Rows</strong>: Apply filters to reduce the number of rows processed.</li>
+<li><strong>Use <code>summarize</code> to Aggregate Data</strong>: Aggregate data to reduce the number of rows returned.</li>
+<li><strong>Use <code>join</code> to Combine Data</strong>: Combine data from different tables using the <code>join</code> operator.</li>
+<li><strong>Use <code>order by</code> to Sort Data</strong>: Sort data based on specific columns to make it easier to read.</li>
+</ol>
+<h3 id="limitations-of-kql"><a class="toclink" href="../../../../2024/04/18/kusto-query-language-kql-for-azure-resource-graph/#limitations-of-kql"><strong>Limitations of KQL</strong></a></h3>
+<ol>
+<li><strong>No DDL Operations</strong>: KQL doesn't support Data Definition Language (DDL) operations like creating tables or indexes.</li>
+<li><strong>No DML Operations</strong>: KQL doesn't support Data Manipulation Language (DML) operations like inserting, updating, or deleting data.</li>
+<li><strong>Limited Data Types</strong>: KQL has a limited set of data types compared to SQL.</li>
+<li><strong>No Transactions</strong>: KQL doesn't support transactions, so you can't group multiple operations into a single transaction.</li>
+</ol>
+<h3 id="conclusion"><a class="toclink" href="../../../../2024/04/18/kusto-query-language-kql-for-azure-resource-graph/#conclusion"><strong>Conclusion</strong></a></h3>
+<p>KQL is a potent tool for querying large datasets in Azure. Its SQL-like syntax makes it accessible for anyone familiar with SQL, and its rich set of features makes it a flexible solution for a variety of data processing needs. Practice writing KQL queries to uncover valuable insights from your Azure resources!</p>
+<h3 id="references"><a class="toclink" href="../../../../2024/04/18/kusto-query-language-kql-for-azure-resource-graph/#references">References</a></h3>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/sqlcheatsheet">SQL to Kusto Query Language cheat sheet</a></li>
+<li><a href="https://portal.azure.com/#view/Microsoft_OperationsManagementSuite_Workspace/LogsDemo.ReactView">Demo for play</a></li>
+</ul>
+</div>
+</article>
 <article class="md-post md-post--excerpt">
 <header class="md-post__header">
 <nav class="md-post__authors md-typeset">
@@ -1634,54 +1764,6 @@ initiative.
 <ul>
 <li><a href="https://docs.microsoft.com/en-us/azure/governance/policy/overview">Azure Policy overview</a></li>
 </ul>
-</div>
-</article>
-<article class="md-post md-post--excerpt">
-<header class="md-post__header">
-<nav class="md-post__authors md-typeset">
-<span class="md-author">
-<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341"/>
-</span>
-</nav>
-<div class="md-post__meta md-meta">
-<ul class="md-meta__list">
-<li class="md-meta__item">
-<time datetime="2023-12-01 00:00:00">December 1, 2023</time></li>
-<li class="md-meta__item">
-            in
-            
-              <a class="md-meta__link" href="../../">Azure Services</a></li>
-<li class="md-meta__item">
-            
-              2 min read
-            
-          </li>
-</ul>
-</div>
-</header>
-<div class="md-post__content md-typeset">
-<h2 id="azure-functions"><a class="toclink" href="../../../../2023/12/01/azure-functions/">Azure Functions</a></h2>
-<h3 id="introduction"><a class="toclink" href="../../../../2023/12/01/azure-functions/#introduction">Introduction</a></h3>
-<p>Azure Functions is a serverless compute service provided by Microsoft Azure. This analysis aims to provide a comprehensive understanding of Azure Functions, its architecture, deployment, scalability, security, and more.</p>
-<h3 id="service-overview"><a class="toclink" href="../../../../2023/12/01/azure-functions/#service-overview">Service Overview</a></h3>
-<p>Azure Functions allows developers to run small pieces of code (called "functions") without worrying about application infrastructure. With Azure Functions, the cloud infrastructure provides all the up-to-date servers needed to keep your applications running at scale.</p>
-<h3 id="architecture-and-components"><a class="toclink" href="../../../../2023/12/01/azure-functions/#architecture-and-components">Architecture and Components</a></h3>
-<p>Azure Functions is built on an event-driven, compute-on-demand experience that extends the existing Azure application platform with capabilities to implement code triggered by events occurring in Azure or third-party services.</p>
-<h3 id="deployment-and-configuration"><a class="toclink" href="../../../../2023/12/01/azure-functions/#deployment-and-configuration">Deployment and Configuration</a></h3>
-<p>Azure Functions can be deployed using the Azure portal, Azure Resource Manager (ARM) templates, or the Azure Command-Line Interface (CLI). Configuration settings can be managed through environment variables and application settings.</p>
-<h3 id="scalability-and-performance"><a class="toclink" href="../../../../2023/12/01/azure-functions/#scalability-and-performance">Scalability and Performance</a></h3>
-<p>Azure Functions supports auto-scaling based on the load, ensuring optimal performance. It also provides features like load balancing to distribute incoming traffic across multiple instances of a function app.</p>
-<h3 id="security-and-compliance"><a class="toclink" href="../../../../2023/12/01/azure-functions/#security-and-compliance">Security and Compliance</a></h3>
-<p>Azure Functions provides built-in authentication and authorization support. It also supports network isolation with Azure Virtual Network (VNet) and encryption of data at rest and in transit. Azure Functions complies with key international and industry-specific compliance standards like ISO, SOC, and GDPR.</p>
-<h3 id="monitoring-and-logging"><a class="toclink" href="../../../../2023/12/01/azure-functions/#monitoring-and-logging">Monitoring and Logging</a></h3>
-<p>Azure Functions integrates with Azure Monitor and Application Insights for monitoring and logging. It provides real-time information on how your function app is performing and where your application is spending its time.</p>
-<h3 id="use-cases-and-examples"><a class="toclink" href="../../../../2023/12/01/azure-functions/#use-cases-and-examples">Use Cases and Examples</a></h3>
-<p>Azure Functions is commonly used for processing data, integrating systems, working with the internet-of-things (IoT), and building simple APIs and microservices.</p>
-<h3 id="best-practices-and-tips"><a class="toclink" href="../../../../2023/12/01/azure-functions/#best-practices-and-tips">Best Practices and Tips</a></h3>
-<p>When using Azure Functions, it's recommended to keep functions small and focused on a single task. Also, avoid long-running functions as they may cause unexpected timeout issues.</p>
-<p>If you are using long-running functions, consider using Durable Functions, which are an extension of Azure Functions that lets you write stateful functions in a serverless environment.</p>
-<h3 id="conclusion"><a class="toclink" href="../../../../2023/12/01/azure-functions/#conclusion">Conclusion</a></h3>
-<p>Azure Functions is a powerful service for running event-driven applications at scale. It offers a wide range of features and capabilities that can meet the needs of almost any application. We encourage you to explore Azure Functions further and see how it can benefit your applications.</p>
 </div>
 </article>
 <nav class="md-pagination">

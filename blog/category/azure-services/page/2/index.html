@@ -241,6 +241,13 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2025/05/">
+<span class="md-ellipsis">
+    2025/05
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../../../../2025/02/">
 <span class="md-ellipsis">
     2025/02
@@ -689,6 +696,86 @@
 <header class="md-typeset">
 <h1 id="azure-services">Azure Services</h1>
 </header>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341"/>
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-06-15 00:00:00">June 15, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../">Azure Services</a></li>
+<li class="md-meta__item">
+            
+              3 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="tagging-best-practices-in-azure"><a class="toclink" href="../../../../2024/06/15/tagging-best-practices-in-azure/">Tagging best practices in Azure</a></h2>
+<p>In this post, I will show you some best practices for tagging resources in Azure.</p>
+<h3 id="what-are-tags"><a class="toclink" href="../../../../2024/06/15/tagging-best-practices-in-azure/#what-are-tags">What are tags?</a></h3>
+<p>Tags are key-value pairs that you can assign to your Azure resources to organize and manage them more effectively. Tags allow you to categorize resources in different ways, such as by environment, owner, or cost center, and to apply policies and automation based on these categories.</p>
+<p>If you don't know anything about tags, you can read the <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/tag-resources">official documentation</a> to learn more about them.</p>
+<h3 id="why-use-tags"><a class="toclink" href="../../../../2024/06/15/tagging-best-practices-in-azure/#why-use-tags">Why use tags?</a></h3>
+<p>There are several reasons to use tags:</p>
+<ul>
+<li>
+<p><strong>Organization</strong>: Tags allow you to organize your resources in a way that makes sense for your organization. You can use tags to group resources by environment, project, or department, making it easier to manage and monitor them.</p>
+</li>
+<li>
+<p><strong>Cost management</strong>: Tags allow you to track and manage costs more effectively. You can use tags to identify resources that are part of a specific project or department, and to allocate costs accordingly.</p>
+</li>
+<li>
+<p><strong>Automation</strong>: Tags allow you to automate tasks based on resource categories. You can use tags to apply policies, trigger alerts, or enforce naming conventions, making it easier to manage your resources at scale.</p>
+</li>
+</ul>
+<h3 id="best-practices-for-tagging-resources-in-azure"><a class="toclink" href="../../../../2024/06/15/tagging-best-practices-in-azure/#best-practices-for-tagging-resources-in-azure">Best practices for tagging resources in Azure</a></h3>
+<p>Here are some best practices for tagging resources in Azure:</p>
+<ul>
+<li>
+<p><strong>Use consistent naming conventions</strong>: Define a set of standard tags that you will use across all your resources. This will make it easier to search for and manage resources, and to apply policies and automation consistently.</p>
+</li>
+<li>
+<p><strong>Apply tags at resource creation</strong>: Apply tags to resources when you create them, rather than adding them later. This will ensure that all resources are tagged correctly from the start, and will help you avoid missing or incorrect tags.</p>
+</li>
+<li>
+<p><strong>Use tags to track costs</strong>: Use tags to track costs by project, department, or environment. This will help you allocate costs more effectively, and will make it easier to identify resources that are not being used or are costing more than expected.</p>
+</li>
+<li>
+<p><strong>Define tags by hierarchy</strong>: Define tags in a hierarchy that makes sense for your organization, from more general at level subscription to more specific at resource group level. </p>
+</li>
+<li>
+<p><strong>Use inherited tags</strong>: Use inherited tags to apply tags to resources automatically based on their parent resources. This will help you ensure that all resources are tagged consistently, and will reduce the risk of missing or incorrect tags. Exist Azure Policy to enforce inherited tags for example, you can check all in   <a href="https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/tag-policies#policy-definitions">Assign policy definitions for tag compliance</a></p>
+</li>
+<li>
+<p><strong>Don't use tags for policy filtering</strong>: If you use Azure Policy, it's highly recommended not to use tag filtering in your policy rules when the policy relates to security setting, when you use tags to filter, resources without tag appear Compliance. Azure Policy exemptions or Azure Policy exclusions are recommended.</p>
+</li>
+<li>
+<p><strong>Don't use tags for replace naming convention gaps</strong>: Tags are not a replacement for naming conventions. Use tags to categorize resources, and use naming conventions to identify resources uniquely.</p>
+</li>
+<li>
+<p><strong>Use tags for automation</strong>: Use tags to trigger automation tasks, such as scaling, backup, or monitoring. You can use tags to define policies that enforce specific actions based on resource categories.</p>
+</li>
+<li>
+<p><strong>Don't go crazy adding tags</strong>: Don't add too many tags to your resources. Keep it simple and use tags that are meaningful and useful. Too many tags can make it difficult to manage. You can begin with a small set of tags and expand as needed, for example: <a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging#minimum-suggested-tags">Minimum Suggested Tags</a></p>
+</li>
+<li>
+<p><strong>Not all Azure services support tags</strong>: Keep in mind that not all Azure services support tags. You can check in the <a href="https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/tag-support">Tag support for Azure resources</a> to see which services support tags.</p>
+</li>
+</ul>
+<h3 id="conclusion"><a class="toclink" href="../../../../2024/06/15/tagging-best-practices-in-azure/#conclusion">Conclusion</a></h3>
+<p>By using tags, you can organize and manage your resources more effectively, track and manage costs more efficiently, and automate tasks based on resource categories. I hope this post has given you a good introduction to tagging best practices in Azure and how you can use tags to optimize your cloud environment.</p>
+</div>
+</article>
 <article class="md-post md-post--excerpt">
 <header class="md-post__header">
 <nav class="md-post__authors md-typeset">
@@ -1739,129 +1826,6 @@ In this case, it would be connecting the Spoke networks to each other via virtua
 <ul>
 <li><a href="https://docs.microsoft.com/en-us/azure/network-watcher/frequently-asked-questions">Network Watcher frequently asked questions (FAQ)</a></li>
 <li><a href="https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/hybrid-networking/hub-spoke">Azure Topology</a></li>
-</ul>
-</div>
-</article>
-<article class="md-post md-post--excerpt">
-<header class="md-post__header">
-<nav class="md-post__authors md-typeset">
-<span class="md-author">
-<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341"/>
-</span>
-</nav>
-<div class="md-post__meta md-meta">
-<ul class="md-meta__list">
-<li class="md-meta__item">
-<time datetime="2024-04-18 00:00:00">April 18, 2024</time></li>
-<li class="md-meta__item">
-            in
-            
-              <a class="md-meta__link" href="../../">Azure Services</a></li>
-<li class="md-meta__item">
-            
-              3 min read
-            
-          </li>
-</ul>
-</div>
-</header>
-<div class="md-post__content md-typeset">
-<h2 id="kusto-query-language-kql-for-azure-resource-graph"><a class="toclink" href="../../../../2024/04/18/kusto-query-language-kql-for-azure-resource-graph/">Kusto Query Language (KQL) for Azure Resource Graph</a></h2>
-<p>Azure Graph is a powerful tool provided by Microsoft to query data across all your Azure resources. It uses the Kusto Query Language (KQL), a read-only language similar to SQL, designed to query vast amounts of data in Azure services.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Only a subset of KQL is supported in Azure Resource Graph. For more information, see the <a href="https://learn.microsoft.com/en-us/azure/governance/resource-graph/concepts/query-language#supported-kql-language-elements">Azure Resource Graph Supported KQL Language Elements</a>.</p>
-</div>
-<h3 id="what-is-kql"><a class="toclink" href="../../../../2024/04/18/kusto-query-language-kql-for-azure-resource-graph/#what-is-kql"><strong>What is KQL?</strong></a></h3>
-<p>KQL stands for Kusto Query Language. It's a request to process data and return results. The syntax is easy to read and author, making it ideal for data exploration and ad-hoc data mining tasks.</p>
-<h3 id="using-kql-with-azure-graph"><a class="toclink" href="../../../../2024/04/18/kusto-query-language-kql-for-azure-resource-graph/#using-kql-with-azure-graph"><strong>Using KQL with Azure Graph</strong></a></h3>
-<p>Azure Graph allows you to use KQL to create complex queries that fetch information from your Azure resources. You can filter, sort, aggregate, and join data from different resources using KQL.</p>
-<p>Here's an example of how you might use KQL to query Azure Graph:</p>
-<div class="language-kql highlight"><pre><span></span><code><span id="__span-12-1"><a href="#__codelineno-12-1" id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="n">Resources</span>
-</span><span id="__span-12-2"><a href="#__codelineno-12-2" id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="p">=~</span><span class="w"> </span><span class="s">'microsoft.web/sites'</span>
-</span><span id="__span-12-3"><a href="#__codelineno-12-3" id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="p">|</span><span class="w"> </span><span class="k">project</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">location</span><span class="p">,</span><span class="w"> </span><span class="n">resourceGroup</span>
-</span></code></pre></div>
-<p>This query retrieves all Azure Web Apps (websites) and projects their <code>name</code>, <code>location</code>, and <code>resourceGroup</code>.</p>
-<h3 id="key-characteristics-of-kql"><a class="toclink" href="../../../../2024/04/18/kusto-query-language-kql-for-azure-resource-graph/#key-characteristics-of-kql"><strong>Key Characteristics of KQL</strong></a></h3>
-<ol>
-<li><strong>Case Sensitivity</strong>: Unlike SQL, KQL is case-sensitive. So 'Name' and 'name' would be considered different identifiers.</li>
-<li><strong>Schema-Free</strong>: Kusto (Azure Data Explorer) doesn't require a fixed schema, allowing storage of diverse types of data.</li>
-<li><strong>Extensibility</strong>: While KQL has a wide array of functions, you can also create custom functions as per your needs.</li>
-</ol>
-<h3 id="common-operators-in-kql"><a class="toclink" href="../../../../2024/04/18/kusto-query-language-kql-for-azure-resource-graph/#common-operators-in-kql"><strong>Common Operators in KQL</strong></a></h3>
-<ul>
-<li><code>|</code> : This operator creates a pipeline where the output of one command becomes the input of another.</li>
-<li><code>where</code> : Filters rows based on specified conditions.</li>
-<li><code>summarize</code> : Groups rows and calculates aggregate expressions.</li>
-<li><code>join</code> : Combines rows from two tables based on a common column.</li>
-<li><code>project</code> : Selects specific columns from the input.</li>
-<li><code>extend</code> : Adds new columns to the input.</li>
-<li><code>order by</code> : Sorts rows based on specified columns.</li>
-</ul>
-<h3 id="kql-query-examples"><a class="toclink" href="../../../../2024/04/18/kusto-query-language-kql-for-azure-resource-graph/#kql-query-examples"><strong>KQL Query Examples</strong></a></h3>
-<h4 id="1-list-all-azure-resources-in-a-subscription"><a class="toclink" href="../../../../2024/04/18/kusto-query-language-kql-for-azure-resource-graph/#1-list-all-azure-resources-in-a-subscription"><strong>1. List all Azure resources in a subscription</strong></a></h4>
-<div class="language-kql highlight"><pre><span></span><code><span id="__span-13-1"><a href="#__codelineno-13-1" id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="n">Resources</span>
-</span></code></pre></div>
-<h4 id="2-list-all-azure-resources-in-a-resource-group"><a class="toclink" href="../../../../2024/04/18/kusto-query-language-kql-for-azure-resource-graph/#2-list-all-azure-resources-in-a-resource-group"><strong>2. List all Azure resources in a resource group</strong></a></h4>
-<div class="language-kql highlight"><pre><span></span><code><span id="__span-14-1"><a href="#__codelineno-14-1" id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="n">Resources</span>
-</span><span id="__span-14-2"><a href="#__codelineno-14-2" id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">resourceGroup</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="s">'myResourceGroup'</span>
-</span></code></pre></div>
-<h4 id="3-list-all-azure-resources-of-a-specific-type"><a class="toclink" href="../../../../2024/04/18/kusto-query-language-kql-for-azure-resource-graph/#3-list-all-azure-resources-of-a-specific-type"><strong>3. List all Azure resources of a specific type</strong></a></h4>
-<div class="language-kql highlight"><pre><span></span><code><span id="__span-15-1"><a href="#__codelineno-15-1" id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="n">Resources</span>
-</span><span id="__span-15-2"><a href="#__codelineno-15-2" id="__codelineno-15-2" name="__codelineno-15-2"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="p">=~</span><span class="w"> </span><span class="s">'Microsoft.Compute/virtualMachines'</span>
-</span></code></pre></div>
-<h3 id="pagination-in-kql"><a class="toclink" href="../../../../2024/04/18/kusto-query-language-kql-for-azure-resource-graph/#pagination-in-kql"><strong>Pagination in KQL</strong></a></h3>
-<p>KQL supports pagination using the <code>limit</code> and <code>offset</code> operators. You can use these operators to control the number of rows returned and skip a certain number of rows.</p>
-<div class="language-kql highlight"><pre><span></span><code><span id="__span-16-1"><a href="#__codelineno-16-1" id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="n">Resources</span>
-</span><span id="__span-16-2"><a href="#__codelineno-16-2" id="__codelineno-16-2" name="__codelineno-16-2"></a><span class="p">|</span><span class="w"> </span><span class="k">limit</span><span class="w"> </span><span class="mi">10</span>
-</span><span id="__span-16-3"><a href="#__codelineno-16-3" id="__codelineno-16-3" name="__codelineno-16-3"></a><span class="p">|</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="mi">5</span>
-</span></code></pre></div>
-<p>If you exceed payload limits, you can paginate Azure Resource Graph query results with powershell:</p>
-<div class="language-powershell highlight"><pre><span></span><code><span id="__span-17-1"><a href="#__codelineno-17-1" id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="nv">$kqlQuery</span> <span class="p">=</span> <span class="s2">"policyResources | where type =~'Microsoft.Authorization/PolicySetDefinitions' or type =~'Microsoft.Authorization/PolicyDefinitions' | project definitionId = tolower(id), category = tostring(properties.metadata.category), definitionType = iff(type =~ 'Microsoft.Authorization/PolicysetDefinitions', 'initiative', 'policy'),PolicyDefinition=properties"</span>
-</span><span id="__span-17-2"><a href="#__codelineno-17-2" id="__codelineno-17-2" name="__codelineno-17-2"></a>
-</span><span id="__span-17-3"><a href="#__codelineno-17-3" id="__codelineno-17-3" name="__codelineno-17-3"></a><span class="nv">$batchSize</span> <span class="p">=</span> <span class="n">5</span>
-</span><span id="__span-17-4"><a href="#__codelineno-17-4" id="__codelineno-17-4" name="__codelineno-17-4"></a><span class="nv">$skipResult</span> <span class="p">=</span> <span class="n">0</span>
-</span><span id="__span-17-5"><a href="#__codelineno-17-5" id="__codelineno-17-5" name="__codelineno-17-5"></a>
-</span><span id="__span-17-6"><a href="#__codelineno-17-6" id="__codelineno-17-6" name="__codelineno-17-6"></a><span class="no">[System.Collections.Generic.List[string]]</span><span class="nv">$kqlResult</span>
-</span><span id="__span-17-7"><a href="#__codelineno-17-7" id="__codelineno-17-7" name="__codelineno-17-7"></a>
-</span><span id="__span-17-8"><a href="#__codelineno-17-8" id="__codelineno-17-8" name="__codelineno-17-8"></a><span class="k">while</span> <span class="p">(</span><span class="nv">$true</span><span class="p">)</span> <span class="p">{</span>
-</span><span id="__span-17-9"><a href="#__codelineno-17-9" id="__codelineno-17-9" name="__codelineno-17-9"></a>
-</span><span id="__span-17-10"><a href="#__codelineno-17-10" id="__codelineno-17-10" name="__codelineno-17-10"></a>  <span class="k">if</span> <span class="p">(</span><span class="nv">$skipResult</span> <span class="o">-gt</span> <span class="n">0</span><span class="p">)</span> <span class="p">{</span>
-</span><span id="__span-17-11"><a href="#__codelineno-17-11" id="__codelineno-17-11" name="__codelineno-17-11"></a>    <span class="nv">$graphResult</span> <span class="p">=</span> <span class="nb">Search-AzGraph</span> <span class="n">-Query</span> <span class="nv">$kqlQuery</span> <span class="n">-First</span> <span class="nv">$batchSize</span> <span class="n">-SkipToken</span> <span class="nv">$graphResult</span><span class="p">.</span><span class="n">SkipToken</span>
-</span><span id="__span-17-12"><a href="#__codelineno-17-12" id="__codelineno-17-12" name="__codelineno-17-12"></a>  <span class="p">}</span>
-</span><span id="__span-17-13"><a href="#__codelineno-17-13" id="__codelineno-17-13" name="__codelineno-17-13"></a>  <span class="k">else</span> <span class="p">{</span>
-</span><span id="__span-17-14"><a href="#__codelineno-17-14" id="__codelineno-17-14" name="__codelineno-17-14"></a>    <span class="nv">$graphResult</span> <span class="p">=</span> <span class="nb">Search-AzGraph</span> <span class="n">-Query</span> <span class="nv">$kqlQuery</span> <span class="n">-First</span> <span class="nv">$batchSize</span>
-</span><span id="__span-17-15"><a href="#__codelineno-17-15" id="__codelineno-17-15" name="__codelineno-17-15"></a>  <span class="p">}</span>
-</span><span id="__span-17-16"><a href="#__codelineno-17-16" id="__codelineno-17-16" name="__codelineno-17-16"></a>
-</span><span id="__span-17-17"><a href="#__codelineno-17-17" id="__codelineno-17-17" name="__codelineno-17-17"></a>  <span class="nv">$kqlResult</span> <span class="p">+=</span> <span class="nv">$graphResult</span><span class="p">.</span><span class="n">data</span>
-</span><span id="__span-17-18"><a href="#__codelineno-17-18" id="__codelineno-17-18" name="__codelineno-17-18"></a>
-</span><span id="__span-17-19"><a href="#__codelineno-17-19" id="__codelineno-17-19" name="__codelineno-17-19"></a>  <span class="k">if</span> <span class="p">(</span><span class="nv">$graphResult</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">Count</span> <span class="o">-lt</span> <span class="nv">$batchSize</span><span class="p">)</span> <span class="p">{</span>
-</span><span id="__span-17-20"><a href="#__codelineno-17-20" id="__codelineno-17-20" name="__codelineno-17-20"></a>    <span class="k">break</span><span class="p">;</span>
-</span><span id="__span-17-21"><a href="#__codelineno-17-21" id="__codelineno-17-21" name="__codelineno-17-21"></a>  <span class="p">}</span>
-</span><span id="__span-17-22"><a href="#__codelineno-17-22" id="__codelineno-17-22" name="__codelineno-17-22"></a>  <span class="nv">$skipResult</span> <span class="p">+=</span> <span class="nv">$skipResult</span> <span class="p">+</span> <span class="nv">$batchSize</span>
-</span><span id="__span-17-23"><a href="#__codelineno-17-23" id="__codelineno-17-23" name="__codelineno-17-23"></a><span class="p">}</span>
-</span></code></pre></div>
-<h3 id="best-practices-for-writing-kql-queries"><a class="toclink" href="../../../../2024/04/18/kusto-query-language-kql-for-azure-resource-graph/#best-practices-for-writing-kql-queries"><strong>Best Practices for Writing KQL Queries</strong></a></h3>
-<ol>
-<li><strong>Use <code>project</code> to Select Columns</strong>: Only select the columns you need to reduce the amount of data returned.</li>
-<li><strong>Use <code>where</code> to Filter Rows</strong>: Apply filters to reduce the number of rows processed.</li>
-<li><strong>Use <code>summarize</code> to Aggregate Data</strong>: Aggregate data to reduce the number of rows returned.</li>
-<li><strong>Use <code>join</code> to Combine Data</strong>: Combine data from different tables using the <code>join</code> operator.</li>
-<li><strong>Use <code>order by</code> to Sort Data</strong>: Sort data based on specific columns to make it easier to read.</li>
-</ol>
-<h3 id="limitations-of-kql"><a class="toclink" href="../../../../2024/04/18/kusto-query-language-kql-for-azure-resource-graph/#limitations-of-kql"><strong>Limitations of KQL</strong></a></h3>
-<ol>
-<li><strong>No DDL Operations</strong>: KQL doesn't support Data Definition Language (DDL) operations like creating tables or indexes.</li>
-<li><strong>No DML Operations</strong>: KQL doesn't support Data Manipulation Language (DML) operations like inserting, updating, or deleting data.</li>
-<li><strong>Limited Data Types</strong>: KQL has a limited set of data types compared to SQL.</li>
-<li><strong>No Transactions</strong>: KQL doesn't support transactions, so you can't group multiple operations into a single transaction.</li>
-</ol>
-<h3 id="conclusion"><a class="toclink" href="../../../../2024/04/18/kusto-query-language-kql-for-azure-resource-graph/#conclusion"><strong>Conclusion</strong></a></h3>
-<p>KQL is a potent tool for querying large datasets in Azure. Its SQL-like syntax makes it accessible for anyone familiar with SQL, and its rich set of features makes it a flexible solution for a variety of data processing needs. Practice writing KQL queries to uncover valuable insights from your Azure resources!</p>
-<h3 id="references"><a class="toclink" href="../../../../2024/04/18/kusto-query-language-kql-for-azure-resource-graph/#references">References</a></h3>
-<ul>
-<li><a href="https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/sqlcheatsheet">SQL to Kusto Query Language cheat sheet</a></li>
-<li><a href="https://portal.azure.com/#view/Microsoft_OperationsManagementSuite_Workspace/LogsDemo.ReactView">Demo for play</a></li>
 </ul>
 </div>
 </article>
