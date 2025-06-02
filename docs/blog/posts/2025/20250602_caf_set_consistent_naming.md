@@ -23,6 +23,7 @@ Really, the Azure Naming Tool is not only for Azure, it can be used for any clou
 ## Why Use Consistent Naming?
 
 Consistent naming is essential for several reasons:
+
 - **Clarity**: Clear and consistent names make it easier to understand the purpose of each resource.
 - **Maintainability**: When resources are named consistently, it simplifies management and reduces the risk of errors.
 - **Compliance**: Many organizations have compliance requirements that mandate specific naming conventions for resources.
