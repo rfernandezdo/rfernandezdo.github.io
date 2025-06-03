@@ -2044,11 +2044,13 @@
 <p>The Azure Naming Tool is an open-source project that provides a framework for defining and enforcing naming conventions for Azure resources. It allows you to create a set of rules that can be applied to various resource types, ensuring that all resources follow a consistent naming pattern. This is particularly useful in large organizations where multiple teams may be creating resources independently.</p>
 <p>Really, the Azure Naming Tool is not only for Azure, it can be used for any cloud provider, as it is a generic tool that can be adapted to different environments if you define the rules correctly. You have the option  <code>Resource Type Editing documentation</code> that allows you to define the rules for each resource type or create your own custom resource types, for AWS, GCP, or any other cloud provider. </p>
 <h3 id="why-use-consistent-naming"><a class="toclink" href="../../2025/06/02/how-to-set-consistent-naming-in-cloud-with-azure-naming-tool-and-terraform/#why-use-consistent-naming">Why Use Consistent Naming?</a></h3>
-<p>Consistent naming is essential for several reasons:
-- <strong>Clarity</strong>: Clear and consistent names make it easier to understand the purpose of each resource.
-- <strong>Maintainability</strong>: When resources are named consistently, it simplifies management and reduces the risk of errors.
-- <strong>Compliance</strong>: Many organizations have compliance requirements that mandate specific naming conventions for resources.
-- <strong>Automation</strong>: Consistent naming allows for easier automation and scripting, as you can predict resource names based on their types and roles.</p>
+<p>Consistent naming is essential for several reasons:</p>
+<ul>
+<li><strong>Clarity</strong>: Clear and consistent names make it easier to understand the purpose of each resource.</li>
+<li><strong>Maintainability</strong>: When resources are named consistently, it simplifies management and reduces the risk of errors.</li>
+<li><strong>Compliance</strong>: Many organizations have compliance requirements that mandate specific naming conventions for resources.</li>
+<li><strong>Automation</strong>: Consistent naming allows for easier automation and scripting, as you can predict resource names based on their types and roles.</li>
+</ul>
 <h3 id="what-is-the-problem"><a class="toclink" href="../../2025/06/02/how-to-set-consistent-naming-in-cloud-with-azure-naming-tool-and-terraform/#what-is-the-problem">What is the problem?</a></h3>
 <p>The problem with naming  is the interfaces that we use to create resources, Azure Naming Tool portal is a great tool to define the rules, but it is not integrated with Terraform, so we need another way to apply the rules defined in the Azure Naming Tool to our Terraform code.</p>
 <h3 id="solution"><a class="toclink" href="../../2025/06/02/how-to-set-consistent-naming-in-cloud-with-azure-naming-tool-and-terraform/#solution">Solution</a></h3>
