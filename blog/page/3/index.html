@@ -241,6 +241,13 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/06/">
+<span class="md-ellipsis">
+    2025/06
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../../2025/05/">
 <span class="md-ellipsis">
     2025/05
@@ -387,6 +394,13 @@
 <a class="md-nav__link" href="../../category/azure-updates/">
 <span class="md-ellipsis">
     Azure Updates
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/caf/">
+<span class="md-ellipsis">
+    CAF
   </span>
 </a>
 </li>
@@ -695,6 +709,46 @@
 <header class="md-typeset">
 <h1 id="blog">Blog</h1>
 </header>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341"/>
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-06-18 00:00:00">June 18, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/microsoft-entra/">Microsoft Entra</a></li>
+<li class="md-meta__item">
+            
+              1 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="when-to-use-service-principals"><a class="toclink" href="../../2024/06/18/when-to-use-service-principals/">When to use service principals</a></h2>
+<p>In Azure, there are two ways to authenticate your applications and services: service principals and managed identities. </p>
+<p>Basically, <strong>don't use service principals if you can use managed identities</strong>. Managed identities are a more secure way to authenticate your applications and services in Azure. However, there are some scenarios where you need to use service principals instead of managed identities. Here are some scenarios where you should use service principals:</p>
+<pre class="mermaid"><code>flowchart TD
+    A[When to use service principals] --&gt; B{Is your application or service running on-premises?}
+    B --&gt; |Yes| C{Is Azure Arc supported?}
+    C --&gt; |Yes| D[Use Managed Identity]
+    C --&gt; |No| E[Use Service Principal]
+    B --&gt; |No| F{Do the resources or applications support managed identities?}
+    F --&gt; |No| G[Use Service Principal]
+    F --&gt; |Yes| H[Use Managed Identity]
+</code></pre>
+<h3 id="conclusion"><a class="toclink" href="../../2024/06/18/when-to-use-service-principals/#conclusion">Conclusion</a></h3>
+<p>In conclusion, you should use managed identities whenever possible. However, if your application or service is running on-premises or if the resources or applications do not support managed identities, you should use service principals instead.</p>
+</div>
+</article>
 <article class="md-post md-post--excerpt">
 <header class="md-post__header">
 <nav class="md-post__authors md-typeset">
@@ -2205,68 +2259,6 @@ H --&gt; L{Tag Enforcement}
 <p>This command creates a new branch called <code>feature-branch</code> and switches to it.</p>
 <h3 id="conclusion"><a class="toclink" href="../../2024/05/07/repository-strategy-how-to-test-branching-strategy-in-local-repository/#conclusion">Conclusion</a></h3>
 <p>By following these steps, you can test your branching strategy in a local repository before pushing changes to a remote repository. This allows you to experiment with different branching strategies and workflows without affecting your production codebase.</p>
-</div>
-</article>
-<article class="md-post md-post--excerpt">
-<header class="md-post__header">
-<nav class="md-post__authors md-typeset">
-<span class="md-author">
-<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341"/>
-</span>
-</nav>
-<div class="md-post__meta md-meta">
-<ul class="md-meta__list">
-<li class="md-meta__item">
-<time datetime="2024-05-06 00:00:00">May 6, 2024</time></li>
-<li class="md-meta__item">
-            in
-            
-              <a class="md-meta__link" href="../../category/m365/">M365</a></li>
-<li class="md-meta__item">
-            
-              2 min read
-            
-          </li>
-</ul>
-</div>
-</header>
-<div class="md-post__content md-typeset">
-<h2 id="configure-your-teams-meetings-options-to-improve-your-collaboration-experience"><a class="toclink" href="../../2024/05/06/configure-your-teams-meetings-options-to-improve-your-collaboration-experience/">Configure your Teams meetings options to improve your collaboration experience</a></h2>
-<p>Microsoft Teams is a powerful collaboration tool that allows you to communicate and work with your team members from anywhere in the world. One of the key features of Teams is the ability to schedule and host meetings with your colleagues, clients, or partners.</p>
-<p>In this blog post, we will show you how to configure your Teams meetings options to improve your collaboration experience and make your meetings more productive.</p>
-<h3 id="what-are-teams-meetings-options"><a class="toclink" href="../../2024/05/06/configure-your-teams-meetings-options-to-improve-your-collaboration-experience/#what-are-teams-meetings-options">What are Teams meetings options?</a></h3>
-<p>Teams meetings options are settings that allow you to control various aspects of your meetings, such as who can bypass the lobby, who can present, and who can record the meeting. By configuring these options, you can ensure that your meetings run smoothly and securely.</p>
-<h3 id="how-to-configure-your-teams-meetings-options"><a class="toclink" href="../../2024/05/06/configure-your-teams-meetings-options-to-improve-your-collaboration-experience/#how-to-configure-your-teams-meetings-options">How to configure your Teams meetings options</a></h3>
-<p>To configure your Teams meetings options, follow these steps:</p>
-<ol>
-<li>Open the Teams app on your computer or mobile device.</li>
-<li>Click on the calendar icon in the left-hand menu to view your calendar.</li>
-<li>Click on the "Meetings" tab at the top of the screen to view your upcoming meetings.</li>
-<li>Click on the meeting you want to configure to open the meeting details.</li>
-<li>Click on the "Meeting options" link at the bottom of the meeting details window.</li>
-<li>Configure the meeting options according to your preferences. You can control who can bypass the lobby, who can present, who can record the meeting, and other settings.</li>
-</ol>
-<h3 id="key-settings-to-configure"><a class="toclink" href="../../2024/05/06/configure-your-teams-meetings-options-to-improve-your-collaboration-experience/#key-settings-to-configure">Key settings to configure</a></h3>
-<p>Here are some key settings that you may want to configure in your Teams meetings options:</p>
-<ul>
-<li>
-<p><strong>Who can bypass the lobby:</strong> By default, all participants are sent to the lobby when they join a meeting. You can configure this setting to allow participants to bypass the lobby and join the meeting directly.</p>
-</li>
-<li>
-<p><strong>Who can present:</strong> By default, only the meeting organizer can present in a meeting. You can configure this setting to allow other participants to present as well.</p>
-</li>
-<li>
-<p><strong>Who can record the meeting:</strong> By default, only the meeting organizer can record a meeting. You can configure this setting to allow other participants to record the meeting as well.</p>
-</li>
-<li>
-<p><strong>Automatically admit people:</strong> By default, participants need to be admitted to the meeting by the organizer or a presenter. You can configure this setting to automatically admit people to the meeting.</p>
-</li>
-<li>
-<p><strong>Allow attendees to unmute:</strong> By default, attendees are muted when they join a meeting. You can configure this setting to allow attendees to unmute themselves.</p>
-</li>
-</ul>
-<h3 id="conclusion"><a class="toclink" href="../../2024/05/06/configure-your-teams-meetings-options-to-improve-your-collaboration-experience/#conclusion">Conclusion</a></h3>
-<p>Configuring your Teams meetings options is a great way to improve your collaboration experience and make your meetings more productive. By configuring these settings, you can ensure that your meetings run smoothly and securely, allowing you to focus on the task at hand.</p>
 </div>
 </article>
 <nav class="md-pagination">
