@@ -76,8 +76,7 @@ plugins:
       archive_date_format: yyyy/MM
       archive_url_date_format: yyyy/MM
       archive_url_format: "{date}"
-  - tags:
-      tags_file: blog/tags.md
+  - tags
   - rss:
       match_path: blog/posts/.*/.*
       date_from_meta:
