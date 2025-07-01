@@ -159,6 +159,11 @@ nav:
           - Azure/Security/MCSB/Network Security.md
           - Azure/Security/MCSB/Posture and Vulnerability Mgmt.md
           - Azure/Security/MCSB/Privileged Access.md
+  - Tools:
+    - Federated Identity Credentials Report:
+      - Tools/Federated_Identity_Credentials_Report/federated-identity-credentials-report.md
+      - Tools/Federated_Identity_Credentials_Report/README-federated-identity-credentials.md
+      - Tools/Federated_Identity_Credentials_Report/examples.sh
 
 extra_javascript:
   - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
