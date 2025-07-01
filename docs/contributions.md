@@ -8,16 +8,28 @@ Generally, I try to contribute to the community in the following ways:
 - Post in my blog
 - Some contributions to github projects azure related(see below)
 
+## Tools Development
+
+- [Microsoft Azure dynamic diagrams with draw.io and Azure Resource Graph](https://github.com/rfernandezdo/inventariographdrawio)
+- **[azurenamingtoolapi](https://registry.terraform.io/modules/rfernandezdo/azurenamingtoolapi/azure/latest)**, a Terraform module to use the [Azure Naming Tool API](https://github.com/mspnp/AzureNamingTool) to generate names for Azure resources.
+- New **[terraform-azurerm-caf](https://github.com/aztfmodnew/terraform-azurerm-caf)**, a Terraform module to deploy the Cloud Adoption Framework for Azure.
+
 ## 2025
+
+- Organizer of **[Azure Global Seville 2025](https://azuresevilla.github.io/blog/category/global-azure-sevilla-2025/)**
+- [Some updates for Microsoft Entra Domain Services](https://github.com/MicrosoftDocs/entra-docs/pulls?q=is%3Apr+is%3Aclosed+rfernandezdo+)
+- [Ilustrative relationship between components in Azure Virtual Network Manager](https://github.com/rfernandezdo/azure-docs/blob/f7338c8f5dfa9febd8ed1eaf8eccd08750c9a43e/articles/virtual-network-manager/concept-network-groups.md#illustrative-relationship-between-components)
+- [Initial development of CIS M365 5.0 for Monkey365](https://github.com/silverhack/monkey365/pull/149)
+- [Create deploy-azure-naming-tool-to-azure-webapps-dotnet-core-oidc.yml in Azure Naming Tool](https://github.com/mspnp/AzureNamingTool/pull/155)
 
 ## 2024
 
-- [Cloud Adoption Framework for Azure - Terraform module](https://github.com/aztfmod/terraform-azurerm-caf)
+- [Cloud Adoption Framework for Azure - Terraform module](https://github.com/aztfmod/terraform-azurerm-caf) contributions.
 - [Update considerations for Microsoft Entra Domain Services](https://github.com/MicrosoftDocs/entra-docs/pull/1146/)
 - [Azure/Enterprise-azure-policy-as-code](https://github.com/Azure/enterprise-azure-policy-as-code)
     - [Update ci-cd-github-actions.md ](https://github.com/Azure/enterprise-azure-policy-as-code/pull/563/)
-- Organizer of **[Azure Global Seville 2024](https://globalazure.net/communities/2024/AzureSevilla)** and collaborator in Global Azure Spain 2024, Zaragoza.
-- Speaker in **[Azure Global Seville 2024](https://globalazure.net/communities/2024/AzureSevilla)**.
+- Organizer of **[Azure Global Seville 2024](https://azuresevilla.github.io/blog/category/global-azure-sevilla-2024/)** and collaborator in Global Azure Spain 2024, Zaragoza.
+- Speaker in **[Azure Global Seville 2024](https://azuresevilla.github.io/blog/category/global-azure-sevilla-2024/)**.
 - [Update firewall-faq.yml to add support force tunneling in Azure Firewall Basic](https://github.com/MicrosoftDocs/azure-docs/pull/118931)
 
 ## 2023
