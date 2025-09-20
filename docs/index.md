@@ -17,7 +17,9 @@ Soy Rafa , y este es mi pequeño rincón en la web.
 
 Como profesional apasionado de la informática, me encanta explorar nuevas tecnologías, enfrentar nuevos desafíos y compartir mis experiencias con otros.
 
-Como soy bastante malo presentándome, le he pedido a chatgpt que me ayude a hacerlo en base a los comentarios de algunos de mis compañeros de trabajo en Linkedin, este es el resultado:
+A parte de este blog, también me puedes encontrar en [Linkedin](https://www.linkedin.com/in/rafaelfernandez/) y en [GitHub](https://github.com/rfernandezdo), donde podrás ver algunos de mis proyectos y colaboraciones.
+
+He pedido a chatgpt que me ayude a resumir lo que dicen de mi mis compañeros de trabajo en Linkedin, este es el resultado:
 
 ### Un Líder y Mentor Excepcional
 
