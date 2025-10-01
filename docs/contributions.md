@@ -16,6 +16,8 @@ Generally, I try to contribute to the community in the following ways:
 
 ## 2025
 
+- [Enterprise-azure-policy-as-code](https://github.com/Azure/enterprise-azure-policy-as-code)
+    - [Improve documentation with EPAC](https://github.com/Azure/enterprise-azure-policy-as-code/pull/1056)
 - Organizer of **[Azure Global Seville 2025](https://azuresevilla.github.io/blog/category/global-azure-sevilla-2025/)**
 - [Some updates for Microsoft Entra Domain Services](https://github.com/MicrosoftDocs/entra-docs/pulls?q=is%3Apr+is%3Aclosed+rfernandezdo+)
 - [Ilustrative relationship between components in Azure Virtual Network Manager](https://github.com/rfernandezdo/azure-docs/blob/f7338c8f5dfa9febd8ed1eaf8eccd08750c9a43e/articles/virtual-network-manager/concept-network-groups.md#illustrative-relationship-between-components)
