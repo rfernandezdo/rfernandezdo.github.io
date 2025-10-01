@@ -11,12 +11,11 @@ tags:
 
 # Documentar con EPAC
 
-Voy al grano: EPAC tiene una opción muy útil llamada "Document All Assignments"
-(https://azure.github.io/enterprise-azure-policy-as-code/operational-scripts-documenting-policy/#document-all-assignments) que genera Markdown y CSV con todas las
-asignaciones de policy. Pero hay dos detalles importantes que conviene saber:
+Voy al grano: EPAC tiene una opción muy útil llamada ["Document All Assignments"](https://azure.github.io/enterprise-azure-policy-as-code/operational-scripts-documenting-policy/#document-all-assignments) que genera Markdown y CSV con todas las asignaciones de policy. Pero hay dos detalles importantes que conviene saber:
 
 1) Antes no se podían excluir tipos enteros de scope (por ejemplo: todas las
    `subscriptions` o `resourceGroups`) desde la configuración.
+
 2) He subido una PR para solucionarlo: https://github.com/Azure/enterprise-azure-policy-as-code/pull/1056
 
 Aquí lo que cambia, rápido y claro.

@@ -45,9 +45,9 @@ Install-Module ImportExcel -Force
 
 ## Files
 
-- [federated-identity-credentials-report.py](federated-identity-credentials-report.py): Script en Python para generar reportes de credenciales federadas.
-- [federated-identity-credentials-report.ps1](federated-identity-credentials-report.ps1): Script en PowerShell para generar reportes de credenciales federadas.
-- [requirements-federated-identity-report.txt](requirements-federated-identity-report.txt): Archivo de dependencias para la versión Python.
+- [federated-identity-credentials-report.py](./federated-identity-credentials-report.py): Script en Python para generar reportes de credenciales federadas.
+- [federated-identity-credentials-report.ps1](./federated-identity-credentials-report.ps1): Script en PowerShell para generar reportes de credenciales federadas.
+- [requirements-federated-identity-report.txt](./requirements-federated-identity-report.txt): Archivo de dependencias para la versión Python.
 
 ## 🔐 Autenticación
 

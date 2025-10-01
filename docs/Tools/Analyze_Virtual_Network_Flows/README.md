@@ -1,9 +1,12 @@
 # Analyze-VNETFlowLogs
 
-Analizador de logs de flujo de Azure (NSG / VNet). Este script PowerShell procesa archivos JSON generados por Azure Network Watcher (flow logs) y genera un análisis en consola con detección de anomalías y, opcionalmente, exporta resultados a CSV.
+Analizador de logs de flujo de Azure (VNet). Este script PowerShell procesa archivos JSON generados por Azure Network Watcher (flow logs) y genera un análisis en consola con detección de anomalías y, opcionalmente, exporta resultados a CSV.
 
 ## Contenido
-- `Analyze-VNETFlowLogs.ps1` — Script principal que realiza el análisis.
+- [`Analyze-VNETFlowLogs.ps1`](./Analyze-VNETFlowLogs.ps1) — Script principal que realiza el análisis.
+
+Puedes leer un artículo que explica VNet flow logs y muestra cómo usar esta herramienta en:
+- [Analizando VNet Flow Logs en Azure](../../blog/posts/2025/202501001_Analyze_VNet_Flows.md)
 
 ## Requisitos
 - PowerShell 5.1 o superior (Windows PowerShell o PowerShell Core / pwsh).

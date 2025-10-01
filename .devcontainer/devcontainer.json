@@ -5,10 +5,10 @@
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/python:1-3.12-bullseye",
 	"features": {		
-		"ghcr.io/devcontainers-contrib/features/bash-command:1": {
+		"ghcr.io/devcontainers-extra/features/bash-command:1": {
 			"command": "echo hi!"
 		},
-		"ghcr.io/devcontainers-contrib/features/mkdocs:2": {
+		"ghcr.io/devcontainers-extra/features/mkdocs:2": {
 			"version": "latest",
 			"plugins": "mkdocs-material mkdocs-material[imaging] pymdown-extensions mkdocstrings[crystal,python] mkdocs-monorepo-plugin mkdocs-pdf-export-plugin mkdocs-awesome-pages-plugin mkdocs-glightbox mkdocs-minify-plugin mkdocs-mermaid2-plugin mkdocs-rss-plugin mkdocs-static-i18n"
 		},
