@@ -42,10 +42,10 @@ análisis.
 
 ### Dónde está el script y ejemplos
 
-- Script: [Analyze-VNETFlowLogs.ps1](../../Tools/Analyze%20Virtual%20Network%20Flows/Analyze-VNETFlowLogs.ps1)
-- README con instrucciones: [README.md](../../Tools/Analyze%20Virtual%20Network%20Flows/README.md)
-- Ejemplo de flow log (reducido) para pruebas: [sample-flowlog.json](../../Tools/Analyze%20Virtual%20Network%20Flows/samples/sample-flowlog.json)
-- Ejecuciones de ejemplo (reports) generadas: [reports/](../../Tools/Analyze%20Virtual%20Network%20Flows/reports/)
+- Script: [Analyze-VNETFlowLogs.ps1](../../Tools/Analyze_Virtual_Network_Flows/Analyze-VNETFlowLogs.ps1)
+- README con instrucciones: [README.md](../../Tools/Analyze_Virtual_Network_Flows/README.md)
+- Ejemplo de flow log (reducido) para pruebas: [sample-flowlog.json](../../Tools/Analyze_Virtual_Network_Flows/samples/sample-flowlog.json)
+- Ejecuciones de ejemplo (reports) generadas: [reports/](../../Tools/Analyze_Virtual_Network_Flows/reports/)
 
 ## Cómo usar el script
 
@@ -53,7 +53,7 @@ análisis.
 2. Abrir PowerShell (Windows) o pwsh (Linux/macOS) y ejecutar (ejemplo):
 
 ```powershell
-pwsh -File "./docs/Tools/Analyze Virtual Network Flows/Analyze-VNETFlowLogs.ps1" -LogFiles "./docs/Tools/Analyze Virtual Network Flows/samples/*.json" -ExportCSV -OutputPath "./docs/Tools/Analyze Virtual Network Flows/reports" -ShowGraphs
+pwsh -File "./Analyze-VNETFlowLogs.ps1" -LogFiles "./samples/*.json" -ExportCSV -OutputPath "./reports" -ShowGraphs
 ```
 
 ### Explicación rápida de parámetros
