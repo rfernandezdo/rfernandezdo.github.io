@@ -4,9 +4,10 @@ Analizador de logs de flujo de Azure (VNet). Este script PowerShell procesa arch
 
 ## Contenido
 - [`Analyze-VNETFlowLogs.ps1`](./Analyze-VNETFlowLogs.ps1) — Script principal que realiza el análisis.
+- [`Download-FlowLogs.ps1`](./Download-FlowLogs.ps1) — Descarga y normaliza Flow Logs (estructura por fecha, rutas largas).
 
 Puedes leer un artículo que explica VNet flow logs y muestra cómo usar esta herramienta en:
-- [Analizando VNet Flow Logs en Azure](../../blog/posts/2025/202501001_Analyze_VNet_Flows.md)
+- [Analizando VNet Flow Logs en Azure](../../blog/posts/2025/20250925_Analyze_VNet_Flows.md)
 
 ## Requisitos
 - PowerShell 5.1 o superior (Windows PowerShell o PowerShell Core / pwsh).
@@ -18,19 +19,59 @@ documentación oficial:
 
 https://learn.microsoft.com/azure/network-watcher/vnet-flow-logs-overview
 
+## Descarga opcional de logs (Download-FlowLogs.ps1)
+
+Si tus Flow Logs están aún en la cuenta de almacenamiento, puedes usar `Download-FlowLogs.ps1` para:
+
+- Descargar todos los blobs del contenedor (por defecto `insights-logs-flowlogflowevent`).
+- Evitar problemas de rutas largas en Windows (hash automático con `-AutoShorten`).
+- Reorganizar los archivos JSON en jerarquía `YYYY-MM-DD/HH/FlowLog_<timestamp>_original.json`.
+- Preparar un set homogéneo sobre el cual aplicar el analizador.
+
+Parámetros clave:
+- `-StorageAccount` (obligatorio)
+- `-ContainerName` (default: `insights-logs-flowlogflowevent`)
+- `-DownloadPath` (default: `./FlowLogs`)
+- `-AutoShorten` (switch): acorta rutas largas mediante hashing
+- `-Force` (switch): omite confirmaciones
+
+Autenticación soportada:
+1. Account Key: si existe variable `AZ_STORAGE_KEY` o se puede descubrir la clave intentando resolver el resource group y listando keys.
+2. Azure AD Login (`--auth-mode login`): fallback automático si no hay clave.
+
+Variables de entorno soportadas:
+- `AZ_STORAGE_KEY`: clave de la storage account
+- `AZ_RESOURCE_GROUP`: pista para descubrir la key si no se definió manualmente
+
+Ejemplo descarga + análisis:
+
+```powershell
+# Descargar y organizar logs de flujo
+pwsh -File ./Analyze_Virtual_Network_Flows/Download-FlowLogs.ps1 `
+  -StorageAccount mystorageacct `
+  -DownloadPath ./FlowLogs `
+  -AutoShorten -Force
+
+# Analizar todos los JSON descargados
+pwsh -File ./Analyze_Virtual_Network_Flows/Analyze-VNETFlowLogs.ps1 `
+  -LogFiles "./FlowLogs/**/*.json" `
+  -ExportCSV -OutputPath ./reports -ShowGraphs
+```
+
+Si ya tienes los JSON localmente (AzCopy, etc.) puedes omitir el paso de descarga.
 
 ## Uso rápido
 Abrir PowerShell o pwsh y ejecutar el script con uno o varios archivos (acepta wildcards):
 
 ```bash
 # Ejecutar contra todos los JSON en un directorio y exportar CSV
-pwsh -File ./docs/Tools/Analyze\ Virtual\ Network\ Flows/Analyze-VNETFlowLogs.ps1 -LogFiles "./samples/*.json" -ExportCSV -OutputPath "./reports"
+pwsh -File ./Analyze_Virtual_Network_Flows/Analyze-VNETFlowLogs.ps1 -LogFiles "./samples/*.json" -ExportCSV -OutputPath "./reports"
 
 # Analizar un único archivo y mostrar gráficos en consola
-pwsh -File ./docs/Tools/Analyze\ Virtual\ Network\ Flows/Analyze-VNETFlowLogs.ps1 -LogFiles "./flowlog.json" -ShowGraphs
+pwsh -File ./Analyze_Virtual_Network_Flows/Analyze-VNETFlowLogs.ps1 -LogFiles "./flowlog.json" -ShowGraphs
 
 # Analizar y centrarse en IPs específicas
-pwsh -File ./docs/Tools/Analyze\ Virtual\ Network\ Flows/Analyze-VNETFlowLogs.ps1 -LogFiles "./flowlog.json" -SpecificIPs @("10.0.0.5","192.168.1.10")
+pwsh -File ./Analyze_Virtual_Network_Flows/Analyze-VNETFlowLogs.ps1 -LogFiles "./flowlog.json" -SpecificIPs @("10.0.0.5","192.168.1.10")
 ```
 
 > Nota: en sistemas Linux/macOS con `pwsh`, use `pwsh` en lugar de `powershell`.

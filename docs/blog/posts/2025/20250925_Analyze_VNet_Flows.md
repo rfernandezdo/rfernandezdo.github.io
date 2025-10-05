@@ -40,12 +40,47 @@ He incluido un script llamado `Analyze-VNETFlowLogs.ps1` que procesa archivos JS
 y genera un análisis en consola. Además puede exportar dos ficheros CSV con el detalle y el resumen del
 análisis.
 
+### (Opcional) Descarga de Flow Logs previa
+
+Si tus logs están aún en la cuenta de almacenamiento, puedes usar el script de apoyo
+[`Download-FlowLogs.ps1`](/Tools/Analyze_Virtual_Network_Flows/Download-FlowLogs.ps1) para:
+
+- Descargar todos los blobs del contenedor (por defecto `insights-logs-flowlogflowevent`).
+- Manejar rutas largas en Windows (hash si usas `-AutoShorten`).
+- Reorganizar los archivos en una jerarquía `YYYY-MM-DD/HH/FlowLog_<timestamp>_*.json`.
+- Facilitar un patrón único de entrada para el analizador.
+
+Parámetros clave:
+- `-StorageAccount` (obligatorio): Nombre de la storage account.
+- `-ContainerName`: Contenedor (default: `insights-logs-flowlogflowevent`).
+- `-DownloadPath`: Carpeta destino local (default: `./FlowLogs`).
+- `-AutoShorten`: Acorta automáticamente rutas demasiado largas mediante hashing.
+- `-Force`: Omite confirmaciones interactivas.
+
+Variables de entorno soportadas:
+- `AZ_STORAGE_KEY`: Si está definida se usa esa clave directamente.
+- `AZ_RESOURCE_GROUP`: Permite intentar descubrir la key si no se pasó manualmente.
+
+Si no hay clave disponible o el intento de descubrimiento falla, se intentará usar automáticamente `--auth-mode login` para la autenticación.
+
+Ejemplo de uso completo (descarga + análisis):
+
+```powershell
+# 1. Descargar y organizar
+pwsh -File ./Download-FlowLogs.ps1 -StorageAccount mystorageacct -DownloadPath ./FlowLogs -AutoShorten -Force
+
+# 2. Analizar todos los logs resultantes
+pwsh -File ./Analyze-VNETFlowLogs.ps1 -LogFiles "./FlowLogs/**/*.json" -ExportCSV -OutputPath ./reports -ShowGraphs
+```
+
+Si ya tienes los JSON en local (por AzCopy u otro método), puedes saltarte el paso 1.
+
 ### Dónde está el script y ejemplos
 
-- Script: [Analyze-VNETFlowLogs.ps1](../../Tools/Analyze_Virtual_Network_Flows/Analyze-VNETFlowLogs.ps1)
-- README con instrucciones: [README.md](../../Tools/Analyze_Virtual_Network_Flows/README.md)
-- Ejemplo de flow log (reducido) para pruebas: [sample-flowlog.json](../../Tools/Analyze_Virtual_Network_Flows/samples/sample-flowlog.json)
-- Ejecuciones de ejemplo (reports) generadas: [reports/](../../Tools/Analyze_Virtual_Network_Flows/reports/)
+- Script: [Analyze-VNETFlowLogs.ps1](/Tools/Analyze_Virtual_Network_Flows/Analyze-VNETFlowLogs.ps1)
+- README con instrucciones: [README.md](/Tools/Analyze_Virtual_Network_Flows/)
+- Ejemplo de flow log (reducido) para pruebas: [sample-flowlog.json](/Tools/Analyze_Virtual_Network_Flows/samples/sample-flowlog.json)
+- Ejecuciones de ejemplo (reports) generadas: [reports/](/Tools/Analyze_Virtual_Network_Flows/#ejemplos-de-ejecucion)
 
 ## Cómo usar el script
 
@@ -89,6 +124,7 @@ pwsh -File "./Analyze-VNETFlowLogs.ps1" -LogFiles "./samples/*.json" -ExportCSV 
 ## Archivos incluidos
 
 - `Analyze-VNETFlowLogs.ps1` — script principal.
+- `Download-FlowLogs.ps1` — utilidad para descargar y normalizar logs desde la cuenta de almacenamiento.
 - `README.md` — instrucciones y referencia a la doc oficial.
 - `samples/sample-flowlog.json` — ejemplo para pruebas.
 
