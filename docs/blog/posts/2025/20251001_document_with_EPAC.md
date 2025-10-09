@@ -46,7 +46,7 @@ PR: https://github.com/Azure/enterprise-azure-policy-as-code/pull/1056
 
 Antes tenías que usar algo así:
 
-```
+```jsonc
 {
   "documentAssignments": {
     "documentAllAssignments": [
@@ -62,7 +62,7 @@ Antes tenías que usar algo así:
 
 Después basta con añadir `excludeScopeTypes`:
 
-```
+```jsonc
 {
   "documentAssignments": {
     "documentAllAssignments": [
@@ -80,7 +80,7 @@ Después basta con añadir `excludeScopeTypes`:
 Y si quieres pruebas rápidas sin que el pipeline falle por referencias
 rotas:
 
-```
+```pwsh
 ./Build-PolicyDocumentation.ps1 -StrictMode:$false
 ```
 
