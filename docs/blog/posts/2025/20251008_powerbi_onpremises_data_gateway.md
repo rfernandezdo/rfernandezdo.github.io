@@ -11,6 +11,8 @@ tags:
    - On-Premises
 ---
 
+# Power BI On-Premises Data Gateway: guía práctica (instalación estándar)
+
 ## Resumen
 
 Esta entrada explica de forma práctica qué es el Power BI On-Premises Data Gateway Standard, su arquitectura básica, y cómo realizar una instalación estándar y configurarlo para refrescos y conexiones seguras desde el servicio de Power BI. Está orientada a administradores y responsables de plataforma que necesiten conectar fuentes de datos locales a Power BI sin usar soluciones de red avanzadas (no cubre la instalación en Virtual Network Data Gateway ni escenarios sovereign).
