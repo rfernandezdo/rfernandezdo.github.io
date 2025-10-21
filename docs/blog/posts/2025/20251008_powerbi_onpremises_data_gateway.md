@@ -1,5 +1,5 @@
 ---
-title: "Power BI On-Premises Data Gateway: guía práctica (instalación estándar)"
+draft: false
 date: 2025-10-08
 author: 
    - rfernandezdo

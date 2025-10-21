@@ -1,5 +1,5 @@
 ---
-title: "Cómo Resolver Divergencias en Git: Sincronizando Ramas Local y Remota"
+draft: false
 date: 2025-10-21
 authors:
   - name: rfernandezdo
