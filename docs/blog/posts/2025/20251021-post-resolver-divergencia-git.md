@@ -2,7 +2,7 @@
 draft: false
 date: 2025-10-21
 authors:
-  - name: rfernandezdo
+  - rfernandezdo
 categories:
   - Git
   - DevOps
