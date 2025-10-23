@@ -70,7 +70,7 @@ mkdocs serve                  # Preview en http://127.0.0.1:8000
 **Ejemplos del estilo real:**
 ```markdown
 ✅ CORRECTO (estilo del autor):
-"Voy al grano: EPAC tiene una opción muy útil llamada..."
+"EPAC tiene una opción muy útil llamada..."
 "El Gateway es un componente que actúa como puente..."
 
 ❌ INCORRECTO (demasiado formal/genérico):
@@ -243,6 +243,23 @@ az group create --name $RESOURCE_GROUP --location $LOCATION
 4. **Traducir términos técnicos** → Mantén nombres originales
 5. **Artículos demasiado largos** → Prefiere conciso + enlace a docs
 
+
+## Validación de Contenido Técnico
+
+
+1. **CRÍTICO - Validar contra Microsoft Docs (MCP)**: Todo contenido técnico sobre productos Microsoft/Azure debe validarse usando las herramientas MCP MicrosoftDocs disponibles:
+  - Usa `microsoft_docs_search` para verificar conceptos, características y mejores prácticas
+  - Usa `microsoft_code_sample_search` para validar ejemplos de código y configuraciones
+  - Usa `microsoft_docs_fetch` para información completa cuando sea necesario
+  - **NUNCA inventes información técnica** - todo debe estar respaldado por documentación oficial
+  - **Deja constancia en el proceso**: Cuando generes o edites un post técnico, indica en la conversación que la validación MCP se ha realizado y enlaza a la documentación oficial utilizada. No es necesario añadir la nota en el post, pero sí en el flujo de trabajo y mensajes de validación.
+
+2. **CRÍTICO - Validar Terraform para Azure con MCP**: Todo contenido técnico sobre Terraform en Azure debe validarse usando el MCP de Terraform:
+  - Usa el MCP de Terraform para obtener y aplicar buenas prácticas, ejemplos y configuraciones recomendadas
+  - Valida que los recursos, módulos y sintaxis estén alineados con la documentación oficial de Azure y Terraform
+  - **Nunca inventes recursos, argumentos o configuraciones**: todo debe estar respaldado por la documentación oficial
+  - **Deja constancia en el proceso**: Cuando generes o edites un post técnico sobre Terraform, indica en la conversación que la validación MCP de Terraform se ha realizado y enlaza a la documentación oficial utilizada. No es necesario añadir la nota en el post, pero sí en el flujo de trabajo y mensajes de validación.
+
 ---
 
 ## 🔧 FLUJO DE TRABAJO RECOMENDADO
@@ -302,9 +319,11 @@ mkdocs serve
 
 ## 💡 PRINCIPIO RECTOR
 
-> **"Voy al grano: contenido práctico que el lector pueda implementar hoy, sin teoría innecesaria ni relleno. Ejemplos ejecutables, advertencias claras, enlaces a docs oficiales para profundizar."**
+> **"Contenido práctico que el lector pueda implementar hoy, sin teoría innecesaria ni relleno. Ejemplos ejecutables, advertencias claras, enlaces a docs oficiales para profundizar."**
 
 Este es el espíritu del blog. Cuando tengas dudas, pregúntate: *"¿Un admin con prisa encontraría esto útil para resolver su problema YA?"*
 
 Si la respuesta es sí → publícalo.
 Si la respuesta es no → simplifica o elimina.
+
+
