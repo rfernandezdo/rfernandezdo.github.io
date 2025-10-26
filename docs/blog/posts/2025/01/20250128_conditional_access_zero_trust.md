@@ -15,7 +15,7 @@ tags:
 
 ## Resumen
 
-Conditional Access es el corazón de Zero Trust en Azure. Voy al grano: aquí están las 5 políticas que deberías implementar HOY en tu tenant.
+Conditional Access es el corazón de Zero Trust en Azure. aquí están las 5 políticas que deberías implementar HOY en tu tenant.
 
 ## ¿Qué es Conditional Access?
 

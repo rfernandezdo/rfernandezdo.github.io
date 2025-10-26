@@ -15,7 +15,7 @@ tags:
 
 ## Resumen
 
-Templates eliminan código duplicado en pipelines. Voy al grano: template parameters, extends y multistage.
+Templates eliminan código duplicado en pipelines. template parameters, extends y multistage.
 
 ## Introducción
 

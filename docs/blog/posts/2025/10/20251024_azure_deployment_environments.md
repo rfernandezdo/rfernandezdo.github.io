@@ -17,7 +17,7 @@ tags:
 
 ## Resumen
 
-Voy al grano: Azure Deployment Environments es el reemplazo de DevTest Labs, diseñado para que equipos de desarrollo creen entornos completos (App Service + Cosmos + Key Vault + Storage) desde un catálogo de plantillas IaC sin esperar a Platform Engineering. Dev Centers centralizan la gobernanza, Projects definen permisos, y developers despliegan con CLI/Portal. Zero acceso a subscriptions de producción.
+Azure Deployment Environments es el reemplazo de DevTest Labs, diseñado para que equipos de desarrollo creen entornos completos (App Service + Cosmos + Key Vault + Storage) desde un catálogo de plantillas IaC sin esperar a Platform Engineering. Dev Centers centralizan la gobernanza, Projects definen permisos, y developers despliegan con CLI/Portal. Zero acceso a subscriptions de producción.
 
 <!-- more -->
 

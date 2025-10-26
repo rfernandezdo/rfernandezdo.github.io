@@ -15,7 +15,7 @@ tags:
 
 ## Resumen
 
-Application Insights te da observability completa de tu aplicación: traces, metrics, logs y dependencies. Voy al grano: aquí está el setup mínimo para .NET, Python y Node.js.
+Application Insights te da observability completa de tu aplicación: traces, metrics, logs y dependencies. aquí está el setup mínimo para .NET, Python y Node.js.
 
 ## ¿Qué es Application Insights?
 

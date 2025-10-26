@@ -15,7 +15,7 @@ tags:
 
 ## Resumen
 
-Los Deployment Slots en Azure App Service te permiten desplegar nuevas versiones de tu aplicación sin tiempo de inactividad. Voy al grano: es la forma más sencilla de implementar blue-green deployments en Azure.
+Los Deployment Slots en Azure App Service te permiten desplegar nuevas versiones de tu aplicación sin tiempo de inactividad. es la forma más sencilla de implementar blue-green deployments en Azure.
 
 ## ¿Qué son los Deployment Slots?
 

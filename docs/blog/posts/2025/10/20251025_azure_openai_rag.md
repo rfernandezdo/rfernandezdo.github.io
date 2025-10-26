@@ -18,7 +18,7 @@ tags:
 
 ## Resumen
 
-Retrieval Augmented Generation (RAG) es el patrón que permite a modelos como GPT-4 responder preguntas basándose en tus datos corporativos. Voy al grano: combinar Azure OpenAI con Azure AI Search te permite crear chatbots que conocen tu documentación, productos o políticas internas sin tener que reentrenar modelos.
+Retrieval Augmented Generation (RAG) es el patrón que permite a modelos como GPT-4 responder preguntas basándose en tus datos corporativos. combinar Azure OpenAI con Azure AI Search te permite crear chatbots que conocen tu documentación, productos o políticas internas sin tener que reentrenar modelos.
 
 <!-- more -->
 

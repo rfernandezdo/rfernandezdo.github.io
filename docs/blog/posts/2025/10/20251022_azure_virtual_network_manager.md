@@ -17,7 +17,7 @@ tags:
 
 ## Resumen
 
-Voy al grano: Azure Virtual Network Manager (AVNM) centraliza la gestión de conectividad y seguridad de cientos o miles de VNets desde un solo panel. Creas topologías hub-spoke o mesh con clicks, defines security admin rules que se evalúan **antes** que los NSGs, y despliegas cambios por regiones de forma controlada. Sin scripts custom, sin gestionar peerings manualmente.
+Azure Virtual Network Manager (AVNM) centraliza la gestión de conectividad y seguridad de cientos o miles de VNets desde un solo panel. Creas topologías hub-spoke o mesh con clicks, defines security admin rules que se evalúan **antes** que los NSGs, y despliegas cambios por regiones de forma controlada. Sin scripts custom, sin gestionar peerings manualmente.
 
 <!-- more -->
 

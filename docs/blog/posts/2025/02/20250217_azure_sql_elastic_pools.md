@@ -15,7 +15,7 @@ tags:
 
 ## Resumen
 
-Los Elastic Pools te permiten compartir recursos (eDTUs o vCores) entre múltiples bases de datos SQL. Voy al grano: es la solución cuando tienes muchas DBs con picos de uso en diferentes momentos y quieres pagar por el pool en lugar de sobreaprovisionar cada DB individual.
+Los Elastic Pools te permiten compartir recursos (eDTUs o vCores) entre múltiples bases de datos SQL. es la solución cuando tienes muchas DBs con picos de uso en diferentes momentos y quieres pagar por el pool en lugar de sobreaprovisionar cada DB individual.
 
 ## ¿Qué problema resuelven los Elastic Pools?
 

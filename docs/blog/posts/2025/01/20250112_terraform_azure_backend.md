@@ -15,7 +15,7 @@ tags:
 
 ## Resumen
 
-Guardar el estado de Terraform en local es peligroso y no escala. Voy al grano: Azure Storage con state locking es la solución estándar para equipos. Aquí el setup completo en 5 minutos.
+Guardar el estado de Terraform en local es peligroso y no escala. Azure Storage con state locking es la solución estándar para equipos. Aquí el setup completo en 5 minutos.
 
 ## ¿Por qué usar remote backend?
 

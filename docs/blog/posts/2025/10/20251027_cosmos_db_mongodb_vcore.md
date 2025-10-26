@@ -18,7 +18,7 @@ tags:
 
 ## Resumen
 
-Voy al grano: Azure Cosmos DB for MongoDB vCore es MongoDB real en Azure, con arquitectura vCore (CPU + RAM) que escala vertical y horizontalmente sin downtime. Soporte nativo para vector search (DiskANN), sharding automático y 99.99% SLA con HA activado. Ideal para lift & shift de aplicaciones MongoDB existentes o nuevas apps que necesiten queries complejas, aggregations y transacciones distribuidas.
+Azure Cosmos DB for MongoDB vCore es MongoDB real en Azure, con arquitectura vCore (CPU + RAM) que escala vertical y horizontalmente sin downtime. Soporte nativo para vector search (DiskANN), sharding automático y 99.99% SLA con HA activado. Ideal para lift & shift de aplicaciones MongoDB existentes o nuevas apps que necesiten queries complejas, aggregations y transacciones distribuidas.
 
 <!-- more -->
 

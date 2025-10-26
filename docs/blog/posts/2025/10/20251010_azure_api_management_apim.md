@@ -17,7 +17,7 @@ tags:
 
 ## Resumen
 
-Voy al grano: **API Management (APIM)** centraliza gestión de APIs, aplica políticas (rate limiting, caching, transformations), maneja autenticación OAuth/JWT, y publica documentación. En este post verás setup de APIM, policies críticas, OAuth integration, backends, y monitoring.
+**API Management (APIM)** centraliza gestión de APIs, aplica políticas (rate limiting, caching, transformations), maneja autenticación OAuth/JWT, y publica documentación. En este post verás setup de APIM, policies críticas, OAuth integration, backends, y monitoring.
 
 <!-- more -->
 

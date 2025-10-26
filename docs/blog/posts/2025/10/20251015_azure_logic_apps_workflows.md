@@ -17,7 +17,7 @@ tags:
 
 ## Resumen
 
-Voy al grano: **Logic Apps** automatiza workflows de integración con 400+ conectores (Office 365, Salesforce, SAP, Twitter, SQL). Visual designer, triggers, actions, conditions, loops. En este post verás diseño de workflows, conectores críticos, error handling, y deployment con Bicep/ARM.
+**Logic Apps** automatiza workflows de integración con 400+ conectores (Office 365, Salesforce, SAP, Twitter, SQL). Visual designer, triggers, actions, conditions, loops. En este post verás diseño de workflows, conectores críticos, error handling, y deployment con Bicep/ARM.
 
 <!-- more -->
 

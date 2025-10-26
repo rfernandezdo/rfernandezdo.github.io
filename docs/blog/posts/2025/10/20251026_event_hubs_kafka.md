@@ -18,7 +18,7 @@ tags:
 
 ## Resumen
 
-Voy al grano: Azure Event Hubs soporta el protocolo Kafka de forma nativa. Puedes apuntar tus aplicaciones Kafka existentes al endpoint de Event Hubs cambiando solo el connection string. Sin gestionar Zookeeper, sin actualizar brokers, sin parches de seguridad. Totalmente gestionado con auto-inflate, geo-replication y 99.99% SLA.
+Azure Event Hubs soporta el protocolo Kafka de forma nativa. Puedes apuntar tus aplicaciones Kafka existentes al endpoint de Event Hubs cambiando solo el connection string. Sin gestionar Zookeeper, sin actualizar brokers, sin parches de seguridad. Totalmente gestionado con auto-inflate, geo-replication y 99.99% SLA.
 
 <!-- more -->
 

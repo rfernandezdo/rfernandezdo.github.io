@@ -15,7 +15,7 @@ tags:
 
 ## Resumen
 
-Load Balancer distribuye tráfico TCP/UDP entre VMs. Voy al grano: aquí está el setup para alta disponibilidad.
+Load Balancer distribuye tráfico TCP/UDP entre VMs. aquí está el setup para alta disponibilidad.
 
 ## Introducción
 

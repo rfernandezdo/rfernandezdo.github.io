@@ -16,7 +16,7 @@ tags:
 
 ## Resumen
 
-Service Bus es el servicio de mensajería enterprise de Azure. Queues para comunicación punto a punto, Topics para pub/sub. Voy al grano: setup completo con dead-letter queues y sessions.
+Service Bus es el servicio de mensajería enterprise de Azure. Queues para comunicación punto a punto, Topics para pub/sub. setup completo con dead-letter queues y sessions.
 
 ## ¿Qué es Azure Service Bus?
 

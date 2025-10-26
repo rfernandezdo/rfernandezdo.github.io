@@ -16,7 +16,7 @@ tags:
 
 ## Resumen
 
-AKS elimina la complejidad de gestionar el control plane de Kubernetes. Voy al grano: aquí está el setup mínimo para producción con autoscaling, availability zones y networking correcto.
+AKS elimina la complejidad de gestionar el control plane de Kubernetes. aquí está el setup mínimo para producción con autoscaling, availability zones y networking correcto.
 
 ## ¿Qué es AKS?
 
