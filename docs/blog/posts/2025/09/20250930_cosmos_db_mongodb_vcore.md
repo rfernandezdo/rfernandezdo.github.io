@@ -1,6 +1,6 @@
 ---
 draft: false
-date: 2025-10-27
+date: 2025-09-30
 
 authors:
   - rfernandezdo
@@ -404,7 +404,7 @@ az datafactory create --resource-group $RESOURCE_GROUP --name myDataFactory --lo
 ## Costos optimizados
 
 | Escenario | Tier | HA | Storage | Coste mensual* |
-|-----------|------|----|---------|--------------| 
+|-----------|------|----|---------|--------------|
 | Dev/Test | M30 | No | 128GB | ~€175 |
 | Producción pequeña | M40 | Sí | 256GB | ~€700 |
 | Producción media | M50 | Sí | 512GB | ~€1,400 |

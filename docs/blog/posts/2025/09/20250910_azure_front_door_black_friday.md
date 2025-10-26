@@ -1,6 +1,6 @@
 ---
 draft: false
-date: 2025-11-01
+date: 2025-09-10
 authors:
   - rfernandezdo
 categories:
@@ -40,7 +40,7 @@ flowchart LR
     WAF --> Cache[Cache Layer<br/>Static Assets]
     Cache --> Primary[Primary Origin<br/>West Europe]
     Cache --> Secondary[Secondary Origin<br/>East US]
-    
+
     Primary -.Failover.-> Secondary
 ```
 
@@ -301,15 +301,15 @@ az afd origin-group update \
 
 ```csharp
 // ASP.NET Core health check
-app.MapGet("/health", () => 
+app.MapGet("/health", () =>
 {
     // Verificar DB connection, external APIs, etc.
     var dbHealthy = CheckDatabaseConnection();
     var cacheHealthy = CheckRedisConnection();
-    
+
     if (!dbHealthy || !cacheHealthy)
         return Results.StatusCode(503);  // Unhealthy
-    
+
     return Results.Ok(new { status = "healthy", timestamp = DateTime.UtcNow });
 });
 ```

@@ -1,6 +1,6 @@
 ---
 draft: false
-date: 2025-12-01
+date: 2025-09-20
 authors:
   - rfernandezdo
 categories:
@@ -30,10 +30,10 @@ flowchart LR
     Metrics[Azure Metrics<br/>CPU, Memory, HTTP] --> Rules[Alert Rules<br/>Thresholds]
     Logs[Log Analytics<br/>Application Logs] --> KQL[KQL Queries]
     KQL --> Rules
-    
+
     Rules --> Fired{Alert Fired?}
     Fired -->|Yes| AG[Action Group]
-    
+
     AG --> Email[Email/SMS]
     AG --> Webhook[Webhook]
     AG --> Runbook[Automation Runbook]
@@ -511,7 +511,7 @@ AlertsManagementResources
 | where properties.essentials.monitorCondition == "Fired"
 | extend FiredTime = todatetime(properties.essentials.startDateTime)
 | where FiredTime < ago(24h)
-| project 
+| project
     AlertRule = properties.essentials.alertRule,
     Severity = properties.essentials.severity,
     FiredTime,

@@ -13,3 +13,5 @@ pillow
 mkdocs-google-translate
 pymdown-extensions
 mkdocs-markmap
+pre-commit>=3.5.0
+pyyaml>=6.0

@@ -1,0 +1,38 @@
+# Pre-commit hooks para rfernandezdo.github.io
+# Para instalar: pip install pre-commit && pre-commit install
+# Para ejecutar manualmente: pre-commit run --all-files
+
+repos:
+  # Validación de posts MkDocs
+  - repo: local
+    hooks:
+      - id: validate-mkdocs-posts
+        name: Validar formato posts MkDocs
+        entry: python scripts/validate_post.py
+        language: system
+        files: ^docs/blog/posts/.*\.md$
+        pass_filenames: true
+        verbose: true
+
+  # Hooks estándar de Python
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: ^docs/blog/posts/template/
+      - id: end-of-file-fixer
+        exclude: ^docs/blog/posts/template/
+      - id: check-yaml
+        args: ['--unsafe']  # Necesario para mkdocs.yml con tags personalizados
+      - id: check-added-large-files
+        args: ['--maxkb=500']
+      - id: check-merge-conflict
+
+  # Validación de Markdown (opcional - requiere Ruby)
+  # Comentar/descomentar según necesidad
+  # - repo: https://github.com/markdownlint/markdownlint
+  #   rev: v0.12.0
+  #   hooks:
+  #     - id: markdownlint
+  #       args: [--config, .markdownlint.json]
+  #       exclude: ^(docs/Azure/Security/MCSB/|docs/blog/posts/template/)
