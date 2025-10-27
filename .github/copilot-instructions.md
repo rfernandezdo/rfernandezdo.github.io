@@ -191,8 +191,42 @@ flowchart LR
 bash
 az containerapp create --name myapp
 
-# Tablas Excel embebidas
+# Tablas Excel embedidas
 {{ read_excel('docs/assets/tables/file.xlsx', engine='openpyxl') }}
+```
+
+**Reglas de formato Markdown (MD032):**
+
+!!! warning "Listas y bloques de código"
+    - **SIEMPRE** dejar línea en blanco antes y después de listas (bullets/numeradas)
+    - **SIEMPRE** dejar línea en blanco antes y después de bloques de código
+    - Referencia: [MD032 - Lists should be surrounded by blank lines](https://github.com/DavidAnson/markdownlint/blob/v0.35.0/doc/md032.md)
+
+**Ejemplos correctos:**
+
+```markdown
+✅ CORRECTO:
+Texto antes de la lista.
+
+- Item 1
+- Item 2
+
+Texto después de la lista.
+
+✅ CORRECTO:
+Explicación del código.
+
+```bash
+comando aqui
+```
+
+Texto después del código.
+
+❌ INCORRECTO:
+Texto pegado a la lista.
+- Item 1
+- Item 2
+Sin línea en blanco.
 ```
 
 ---
