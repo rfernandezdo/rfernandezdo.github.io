@@ -17,7 +17,7 @@ Soy Rafa , y este es mi pequeño rincón en la web.
 
 Como profesional apasionado de la informática, me encanta explorar nuevas tecnologías, enfrentar nuevos desafíos y compartir mis experiencias con otros.
 
-**Sobre el contenido del blog**: Desde octubre de 2025, utilizo IA (GitHub Copilot / Azure OpenAI) como asistente en la creación de algunos posts técnicos. La IA me ayuda con estructura, ejemplos de código y documentación, pero siempre bajo mi supervisión y validación.
+**Sobre el contenido del blog**: Desde octubre de 2025, la IA me ayuda a crear contenido técnico de manera más eficiente.
 
 A parte de este blog, también me puedes encontrar en [Linkedin](https://www.linkedin.com/in/rafaelfernandez/) y en [GitHub](https://github.com/rfernandezdo), donde podrás ver algunos de mis proyectos y colaboraciones.
 
@@ -41,17 +41,15 @@ Rafael es un maestro en las artes informáticas y un verdadero profesional. En s
 
 Espero que este testimonio brinde una visión clara del increíble profesional y persona que es Rafael. Estoy seguro de que aquellos que tengan la oportunidad de trabajar con él se beneficiarán enormemente de su liderazgo, conocimientos técnicos y actitud positiva.
 
-
 ## Who am I?
 
 Hello everyone!
-
 
 I'm Rafa, and this is my little corner on the web.
 
 As a passionate IT professional, I love exploring new technologies, facing new challenges, and sharing my experiences with others.
 
-**About the blog content**: Since October 2025, I use AI (GitHub Copilot / Azure OpenAI) as an assistant in creating some technical posts. AI helps me with structure, code examples and documentation, but always under my supervision and validation.
+**About the blog content**: Since October 2025, I have been using AI to help me create technical content more efficiently.
 
 Since I'm pretty bad at introducing myself, I've asked chatgpt to help me do it based on comments from some of my coworkers on Linkedin, this is the result:
 
