@@ -29,19 +29,20 @@ tags:
 flowchart LR
     Users[Remote Users] --> Gateway[AVD Gateway]
     Gateway --> Broker[Connection Broker]
-    
+
     Broker --> Pool1[Host Pool 1<br/>Pooled Desktops]
     Broker --> Pool2[Host Pool 2<br/>Personal Desktops]
     Broker --> Pool3[Host Pool 3<br/>RemoteApp]
-    
+
     Pool1 --> Storage[Azure Files<br/>FSLogix Profiles]
     Pool2 --> Storage
     Pool3 --> Storage
-    
+
     Pool1 --> AD[Entra ID /<br/>AD DS]
 ```
 
 **Ventajas vs on-premises VDI:**
+
 - ✅ Sin CAPEX (infraestructura hardware)
 - ✅ Multiusuario Windows 11 (hasta 20 usuarios/VM)
 - ✅ Autoscaling (apagar VMs fuera de horario)
@@ -53,6 +54,7 @@ flowchart LR
 ## Componentes AVD
 
 **Host Pool:** Colección de VMs idénticas (session hosts)
+
 - **Pooled:** Usuarios comparten VMs (non-persistent)
 - **Personal:** 1 usuario = 1 VM (persistent)
 
@@ -155,7 +157,7 @@ TOKEN=$(az desktopvirtualization hostpool retrieve-registration-token \
 # Loop crear 3 session hosts
 for i in {1..3}; do
   VM_NAME="vmavd-prod-$i"
-  
+
   # Crear VM
   az vm create \
     --resource-group $RESOURCE_GROUP \
@@ -171,7 +173,7 @@ for i in {1..3}; do
     --public-ip-address "" \  # Sin IP pública
     --nsg "" \  # Usar NSG del subnet
     --accelerated-networking true
-  
+
   # Instalar AVD agent (via custom script extension)
   az vm extension set \
     --resource-group $RESOURCE_GROUP \
@@ -503,12 +505,14 @@ az vm extension set \
 ## Buenas prácticas
 
 **Design:**
+
 - ✅ Pooled para task workers (call center, data entry)
 - ✅ Personal para power users (developers, CAD)
 - ✅ RemoteApp para apps específicas (Office, LOB apps)
 - ✅ Separate host pools por departamento/security level
 
 **Security:**
+
 - ✅ Entra ID join (no AD DS si es posible)
 - ✅ Conditional Access policies (MFA, device compliance)
 - ✅ No public IPs en session hosts
@@ -516,12 +520,14 @@ az vm extension set \
 - ✅ Screen capture protection
 
 **Performance:**
+
 - ✅ Premium SSD para session hosts
 - ✅ Azure Files Premium para FSLogix (4,000 IOPS mínimo)
 - ✅ Accelerated networking en VMs
 - ✅ ExpressRoute para on-premises (< 20ms latency)
 
 **Cost optimization:**
+
 - ✅ Autoscale (apagar VMs off-hours)
 - ✅ Spot VMs para non-production
 - ✅ B-series VMs para light users
@@ -534,6 +540,7 @@ az vm extension set \
 ### Problema: User no ve workspace
 
 **Check:**
+
 1. Usuario asignado a Application Group?
 2. Application Group asociado a Workspace?
 

@@ -38,6 +38,7 @@ Azure Event Hubs es una plataforma de **streaming de eventos** que actúa como *
 | Broker | Managed by Azure (invisible) |
 
 **Ventajas vs. Kafka self-managed:**
+
 - ✅ **Zero ops**: No gestión de brokers, Zookeeper, networking
 - ✅ **Auto-scaling**: Throughput Units o Processing Units ajustables
 - ✅ **Built-in features**: Capture (archiving), Schema Registry, Geo-DR
@@ -52,21 +53,21 @@ flowchart LR
         K1[Kafka Producer] -->|SASL_SSL:9093| EH
         K2[AMQP Producer] -->|AMQP:5671| EH
     end
-    
+
     subgraph "Event Hubs Namespace"
         EH[Event Hub: orders<br/>32 partitions]
         EH --> P1[Partition 0]
         EH --> P2[Partition 1]
         EH --> P3[... Partition 31]
     end
-    
+
     subgraph Consumers
         P1 --> CG1[Consumer Group 1<br/>offset: 1234]
         P2 --> CG1
         P1 --> CG2[Consumer Group 2<br/>offset: 5678]
         P2 --> CG2
     end
-    
+
     EH -.->|Capture| BLOB[(Blob Storage<br/>Parquet/Avro)]
 ```
 
@@ -162,10 +163,10 @@ public class EventHubsProducer {
     public static void main(String[] args) {
         Properties props = new Properties();
         props.load(new FileInputStream("producer.properties"));
-        
+
         // Código Kafka estándar - ¡cero cambios!
         Producer<String, String> producer = new KafkaProducer<>(props);
-        
+
         for (int i = 0; i < 100; i++) {
             ProducerRecord<String, String> record = new ProducerRecord<>(
                 "orders",  // Event Hub name (Kafka topic)
@@ -174,7 +175,7 @@ public class EventHubsProducer {
             );
             producer.send(record, (metadata, exception) -> {
                 if (exception == null) {
-                    System.out.printf("Sent to partition %d, offset %d%n", 
+                    System.out.printf("Sent to partition %d, offset %d%n",
                         metadata.partition(), metadata.offset());
                 } else {
                     exception.printStackTrace();
@@ -199,19 +200,19 @@ public class EventHubsConsumer {
         props.setProperty("bootstrap.servers", "evhns-kafka.servicebus.windows.net:9093");
         props.setProperty("security.protocol", "SASL_SSL");
         props.setProperty("sasl.mechanism", "PLAIN");
-        props.setProperty("sasl.jaas.config", 
+        props.setProperty("sasl.jaas.config",
             "org.apache.kafka.common.security.plain.PlainLoginModule required " +
             "username=\"$ConnectionString\" " +
             "password=\"Endpoint=sb://evhns-kafka.servicebus.windows.net/;SharedAccessKeyName=...;SharedAccessKey=...\";");
-        
+
         props.setProperty("group.id", "order-processors");  // Consumer group
         props.setProperty("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         props.setProperty("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         props.setProperty("auto.offset.reset", "earliest");
-        
+
         Consumer<String, String> consumer = new KafkaConsumer<>(props);
         consumer.subscribe(Collections.singletonList("orders"));
-        
+
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
             for (ConsumerRecord<String, String> record : records) {
@@ -225,6 +226,7 @@ public class EventHubsConsumer {
 ```
 
 **Consumer groups best practices:**
+
 - **1 consumer per partition** (máximo paralelismo)
 - **Hasta 5 consumers per partition** (todos reciben los mismos eventos)
 - **20 consumer groups max** por Event Hub (Standard tier)
@@ -312,6 +314,7 @@ az eventhubs eventhub update \
 ```
 
 **Capture settings:**
+
 - `capture-interval`: Cada 5 min (60-900 segundos)
 - `capture-size-limit`: 300 MB max (10-524288000 bytes)
 - **Formato**: Avro o Parquet (configurable desde Portal)
@@ -412,21 +415,25 @@ Producer<String, String> producer = new KafkaProducer<>(props);
 ## Buenas prácticas
 
 **Particionamiento:**
+
 - **32 partitions** (Standard): 1 MB/s × 32 = 32 MB/s max teórico
 - **Partition key**: Usa customer_id, device_id (alta cardinalidad)
 - **Evita**: Enviar directamente a partition (baja HA)
 
 **Throughput Units:**
+
 - **1 TU**: 1 MB/s ingress, 2 MB/s egress, 84 GB/día
 - **Regla**: 1 TU por cada 1 MB/s ingress esperado
 - **Auto-inflate**: Activa para picos de tráfico
 
 **Retention:**
+
 - **Standard**: 1-7 días (7 días recomendado)
 - **Premium/Dedicated**: Hasta 90 días
 - **Capture**: Archiva a Blob Storage si necesitas >90 días
 
 **Consumer groups:**
+
 - **1 CG por aplicación lógica** (analytics, archiving, alerting)
 - **No compartas CGs** entre apps (offset conflicts)
 
@@ -445,6 +452,7 @@ az monitor log-analytics query \
 ```
 
 **Alertas recomendadas:**
+
 - **ThrottledRequests > 0**: Necesitas más TUs
 - **ServerErrors > 1%**: Revisar configuración
 - **Capture failures**: Verificar permisos Storage Account
@@ -462,6 +470,7 @@ az monitor log-analytics query \
 *Precios aproximados West Europe
 
 **Capture pricing:**
+
 - **Primeras 100 GB/mes**: Incluido
 - **>100 GB**: ~€0.10/GB capturado
 - **Storage**: Según Blob Storage (LRS ~€0.018/GB/mes)

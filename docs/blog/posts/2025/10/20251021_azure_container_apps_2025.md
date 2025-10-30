@@ -55,7 +55,7 @@ flowchart TB
   subgraph Internet["Internet / Usuarios"]
     USER["Cliente HTTP/API"]
   end
-  
+
   subgraph ACA["Azure Container Apps Environment"]
     INGRESS["Ingress (Envoy)"]
     APP1["Container App 1"]
@@ -64,13 +64,13 @@ flowchart TB
     DAPR["Dapr Sidecar"]
     KEDA["KEDA Scaler"]
   end
-  
+
   subgraph Backend["Servicios Backend"]
     STORAGE["Azure Storage"]
     COSMOSDB["Cosmos DB"]
     SERVICEBUS["Service Bus"]
   end
-  
+
   USER --> INGRESS
   INGRESS --> APP1
   INGRESS --> APP2
@@ -177,11 +177,13 @@ az containerapp create \
 ### 4. Workload Profiles Mejorados
 
 **Consumption Profile** (por defecto):
+
 - Escalado automático
 - Pago solo por uso activo
 - Hasta 4 vCPU / 8 GiB memoria por réplica
 
 **Dedicated Profiles** (opcionales):
+
 - General purpose (D4, D8, D16, D32)
 - Memory optimized (E4, E8, E16, E32)
 - GPU enabled (NC24-A100, NC48-A100, NC96-A100)
@@ -235,19 +237,19 @@ Para aplicaciones Spring:
 flowchart TD
   START["¿Necesitas ejecutar contenedores?"]
   START --> K8S_API{"¿Necesitas acceso directo a Kubernetes API?"}
-  
+
   K8S_API -->|Sí| AKS["Azure Kubernetes Service (AKS)"]
   K8S_API -->|No| SERVERLESS{"¿Prefieres serverless con escalado a cero?"}
-  
+
   SERVERLESS -->|Sí| MICROSERVICES{"¿Es una arquitectura de microservicios / API?"}
   SERVERLESS -->|No| DEDICATED{"¿Necesitas hardware dedicado/GPU?"}
-  
+
   MICROSERVICES -->|Sí| ACA["✅ Azure Container Apps"]
   MICROSERVICES -->|No| FUNCTIONS{"¿Solo funciones event-driven?"}
-  
+
   FUNCTIONS -->|Sí| AZFUNC["Azure Functions"]
   FUNCTIONS -->|No| ACA2["✅ Azure Container Apps"]
-  
+
   DEDICATED -->|Sí| ACA_DEDICATED["✅ Azure Container Apps<br/>(Dedicated Workload Profiles)"]
   DEDICATED -->|No| WEBAPP["Web App for Containers"]
 ```

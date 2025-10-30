@@ -1,14 +1,14 @@
 ---
 draft: false
 date: 2025-10-08
-author: 
-   - rfernandezdo
+authors:
+  - rfernandezdo
 categories:
-   - Power BI
-tags: 
-   - Power BI
-   - Gateway
-   - On-Premises
+  - Power BI
+tags:
+  - Power BI
+  - Gateway
+  - On-Premises
 ---
 
 # Power BI On-Premises Data Gateway: guía práctica (instalación estándar)
@@ -22,6 +22,7 @@ Esta entrada explica de forma práctica qué es el Power BI On-Premises Data Gat
 El On-Premises Data Gateway es un componente que actúa como puente entre los servicios cloud de Microsoft (por ejemplo, Power BI, Power Automate, Power Apps) y tus datos que residen en la red local o en entornos no accesibles públicamente. Proporciona un canal saliente seguro (TLS) para permitir conexiones desde la nube hacia los orígenes de datos on‑premises sin abrir puertos entrantes en tu red.
 
 Principales funciones:
+
 - Habilitar refrescos programados de datasets de Power BI.
 - Soportar consultas en vivo (DirectQuery/Live Connection) hacia orígenes compatibles.
 - Permitir que flujos y aplicaciones en cloud accedan a bases de datos y servicios internos.
@@ -39,9 +40,9 @@ flowchart LR
   PB["Power BI Service"]
   AZ["Azure Relay / Service Bus"]
   GW["On-Premises Gateway"]
-  DB["Origen de datos"]  
+  DB["Origen de datos"]
   DB --> GW
-  GW --> | TLS saliente | AZ 
+  GW --> | TLS saliente | AZ
   AZ --> PB
 ```
 
@@ -64,19 +65,19 @@ flowchart LR
   end
   AZ["Azure Relay / Service Bus"]
 
-  
+
   GW1 --- GW2
   GW2 --- GW3
   AZ --> PB
   Cluster --> | TLS saliente | AZ
   DB --> Cluster
- 
-  
+
+
 ```
 
 !!! note
-    Físicamente el Gateway establece conexiones salientes TLS hacia los servicios de Azure (Azure Service Bus / Azure Relay). Las solicitudes brokered se mantienen gracias a las conexiones salientes iniciadas por el gateway.    
-    
+    Físicamente el Gateway establece conexiones salientes TLS hacia los servicios de Azure (Azure Service Bus / Azure Relay). Las solicitudes brokered se mantienen gracias a las conexiones salientes iniciadas por el gateway.
+
 
 ## Instalación (instalación estándar)
 
@@ -113,6 +114,7 @@ Los pasos siguientes describen una instalación típica y segura de un Gateway e
 4. Para DirectQuery/Live connection: asegúrate de que el data source esté correctamente configurado y que el usuario tenga permisos adecuados.
 
 Consejos prácticos:
+
 - Centraliza la definición de data sources para facilitar el mantenimiento.
 - Usa credenciales de tipo "service principal" o cuentas administradas cuando el origen lo permita y por seguridad.
 
@@ -136,4 +138,3 @@ Consejos prácticos:
 ## Referencias y lecturas recomendadas
 
 - Documentación oficial de Microsoft (Power BI - On-premises data gateway): https://learn.microsoft.com/power-bi/connect-data/service-gateway-onprem
-

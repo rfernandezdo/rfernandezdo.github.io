@@ -29,17 +29,18 @@ tags:
 flowchart TD
     Trigger[Trigger:<br/>HTTP Request,<br/>Timer, Email, Blob] --> Action1[Action 1:<br/>Parse JSON]
     Action1 --> Condition{Condition:<br/>Status == 'approved'?}
-    
+
     Condition -->|Yes| Action2[Send Email<br/>Outlook connector]
     Condition -->|No| Action3[Post to Teams<br/>Teams connector]
-    
+
     Action2 --> Action4[Insert row SQL<br/>SQL connector]
     Action3 --> Action4
-    
+
     Action4 --> End[End]
 ```
 
 **Casos de uso:**
+
 - Procesar archivos al subirlos a Blob Storage
 - Integrar CRM (Salesforce) con ERP (SAP)
 - Aprobar facturas por email
@@ -60,6 +61,7 @@ flowchart TD
 | Precio típico | $0.000025/acción | ~$200/mes |
 
 **Cuándo usar Standard:**
+
 - High throughput (>1M actions/mes)
 - VNet integration requerida
 - Dev/test local con VS Code
@@ -673,24 +675,28 @@ AzureDiagnostics
 ## Buenas prácticas
 
 **Design:**
+
 - ✅ Usar Scopes para agrupar actions relacionadas
 - ✅ Implement try-catch pattern con runAfter
 - ✅ Variables para datos compartidos entre actions
 - ✅ Parameters para configuraciones por entorno
 
 **Performance:**
+
 - ✅ Stateless workflows para high throughput (Standard)
 - ✅ Batch triggers (procesar múltiples items juntos)
 - ✅ Until loops con timeout y count limit
 - ✅ Async pattern para operaciones largas
 
 **Security:**
+
 - ✅ Managed Identity para conectores Azure
 - ✅ Key Vault para secrets (connection strings, API keys)
 - ✅ No hardcodear credentials en definition
 - ✅ Secure inputs/outputs (ocultar datos sensibles en logs)
 
 **Cost optimization:**
+
 - ✅ Consumption para < 1M actions/mes
 - ✅ Standard con stateless para > 1M actions/mes
 - ✅ Evitar polling frecuente (usar Event Grid triggers)

@@ -17,6 +17,7 @@ tags:
 
 ## ¿Qué es Azure Service Bus?
 Azure Service Bus es un servicio PaaS de mensajería que ofrece:
+
 - Colas (Queues) para comunicación punto a punto
 - Topics y subscriptions para pub/sub
 - Entrega garantizada y ordenada
@@ -30,6 +31,7 @@ flowchart LR
   SB -- Recibe mensaje --> App2[Consumidor]
   SB -. Dead-letter .-> DLQ[Dead Letter Queue]
 ```
+
 - El productor envía mensajes a la cola
 - El consumidor los procesa de forma asíncrona
 - Mensajes fallidos van a la Dead Letter Queue
@@ -93,11 +95,13 @@ asyncio.run(receive_message())
 ```
 
 Más detalles y ejemplos oficiales:
+
 - [Quickstart: Python passwordless](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-python-how-to-use-queues#authenticate-the-app-to-azure)
 - [Service Bus security baseline](https://learn.microsoft.com/en-us/security/benchmark/azure/baselines/service-bus-security-baseline)
 - [Dead-letter queues](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-dead-letter-queues)
 
 ## Buenas prácticas / Seguridad
+
 - Usa Managed Identities en vez de connection strings
 - Activa el cifrado con claves gestionadas por el cliente (CMK) si es necesario
 - Configura reglas de red y firewall
@@ -105,5 +109,6 @@ Más detalles y ejemplos oficiales:
 - Monitoriza con Azure Monitor y alertas
 
 ## Referencias
+
 - [Documentación oficial Azure Service Bus](https://learn.microsoft.com/es-es/azure/service-bus-messaging/service-bus-messaging-overview)
 - [SDK Python Azure Service Bus](https://learn.microsoft.com/es-es/python/api/overview/azure/servicebus)

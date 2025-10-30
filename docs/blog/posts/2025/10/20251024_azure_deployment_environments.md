@@ -42,17 +42,17 @@ flowchart TD
         CAT[Catalog: GitHub/Azure Repos<br/>Environment Definitions]
         ET[Environment Types:<br/>Dev, Test, Prod]
     end
-    
+
     subgraph Projects["Development Teams"]
         P1[Project: Team A]
         P2[Project: Team B]
     end
-    
+
     subgraph Developers["Self-service"]
         D1[Developer creates<br/>WebApp + DB environment]
         D2[Environment deployed<br/>to target subscription]
     end
-    
+
     DC --> CAT
     DC --> ET
     DC --> P1
@@ -63,6 +63,7 @@ flowchart TD
 ```
 
 **Ventajas vs. DevTest Labs:**
+
 - ✅ **IaC nativo**: Bicep/ARM/Terraform (vs. custom JSON en Labs)
 - ✅ **Multi-resource**: Despliegues complejos (App Service + dependencies)
 - ✅ **RBAC granular**: Deployment Environments User, Project Admin
@@ -107,6 +108,7 @@ az role assignment create \
 ```
 
 **Managed Identity roles:**
+
 - `Contributor`: Crear recursos en target subscriptions
 - `User Access Administrator`: Asignar RBAC a developers en environments creados
 
@@ -171,6 +173,7 @@ az devcenter admin catalog create \
 ```
 
 **Catalog sync:**
+
 - **Manual**: Portal → Catalog → Sync button
 - **Automático**: Every 30 min (habilitable en catalog settings)
 
@@ -369,6 +372,7 @@ az role assignment create \
 ```
 
 **Roles en Project:**
+
 - `Deployment Environments User`: Crear/eliminar environments
 - `DevCenter Project Admin`: Gestionar environment types del project
 - `Deployment Environments Reader`: Solo lectura
@@ -475,6 +479,7 @@ azd deploy
 ```
 
 **azd vs. az CLI:**
+
 - `azd`: Developer workflow (provision + deploy code)
 - `az devcenter`: Admin/Platform Engineering tasks
 
@@ -495,6 +500,7 @@ azd deploy
 ```
 
 **Environment Definition naming:**
+
 - **Descriptivo**: `webapp-postgresql-redis` vs. `env1`
 - **Versionado**: `v1.0.0` en `environment.yaml`
 - **Tags**: Incluye tags en Bicep para cost tracking
@@ -592,6 +598,7 @@ AzureActivity
 ## Costos
 
 **Pricing model:**
+
 - **€0.007/vCore-hour** (aprox.) por environments activos
 - **Catalogs**: Sin coste (storage en Git gratuito)
 - **Recursos desplegados**: Según pricing de cada servicio (App Service, SQL, etc.)
@@ -609,6 +616,7 @@ Vs. manual provisioning:
 ```
 
 **Free tier:**
+
 - **No existe** free tier específico
 - **Alternativa**: Usa Azure Free Account (primeros 12 meses con créditos)
 

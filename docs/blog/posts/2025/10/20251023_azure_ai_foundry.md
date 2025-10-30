@@ -55,18 +55,18 @@ flowchart TB
         Playground["Playground<br/>Chat/Completions/Audio"]
         Eval["Evaluation<br/>Métricas + Safety"]
     end
-    
+
     subgraph Project["AI Project"]
         Models["Deployed Models<br/>GPT-4o, o1-mini, etc."]
         Data["Connected Data<br/>AI Search, Cosmos DB"]
         Agents["Agents<br/>Tools + Functions"]
     end
-    
+
     subgraph App["Your Application"]
         SDK["Azure AI SDK<br/>Python/C#/TS"]
         LangChain["LangChain<br/>Semantic Kernel"]
     end
-    
+
     Portal --> Project
     Project --> Models
     Project --> Data
@@ -283,7 +283,7 @@ run = project.agents.runs.create_and_process(
 messages = project.agents.messages.list(thread_id=thread.id)
 for msg in messages:
     print(f"{msg.role}: {msg.content}")
-    
+
     # Descargar imágenes generadas
     for img in msg.image_contents:
         project.agents.files.save(
@@ -420,6 +420,7 @@ Exporta métricas a Azure Monitor/Log Analytics para alertas custom.
 - Consultar [calculadora de precios](https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/)
 
 !!! tip "Optimización de costes"
+
     - Usa `gpt-4o-mini` para tareas simples (clasificación, resúmenes)
     - Activa **prompt caching** (reduce 50% costes en prompts repetidos)
     - Configura `max_tokens` para evitar respuestas largas innecesarias

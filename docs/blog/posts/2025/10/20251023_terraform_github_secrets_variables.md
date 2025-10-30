@@ -22,6 +22,7 @@ Cómo usar variables y secrets de GitHub en despliegues con Terraform para Azure
 Permite gestionar credenciales y parámetros sensibles (como client secrets, IDs, claves) de forma segura en pipelines de GitHub Actions, evitando exponerlos en el código fuente.
 
 ## ¿Qué es y cómo funciona?
+
 - **Secrets**: Valores cifrados almacenados en GitHub (por repo o por entorno). Ej: credenciales Azure, claves API.
 - **Variables de configuración**: Valores no sensibles, útiles para parámetros de entorno, nombres, ubicaciones, flags, etc. Se gestionan en Settings → Secrets and variables → Actions → Variables.
 - Los workflows de GitHub Actions pueden acceder a estos valores como variables de entorno.
@@ -32,6 +33,7 @@ Permite gestionar credenciales y parámetros sensibles (como client secrets, IDs
 ## Ejemplo sencillo: despliegue de Azure Resource Group con variables y secrets
 
 ### 1. Añadir secrets en GitHub
+
 - Ve a tu repo → Settings → Secrets and variables → Actions
 - Añade los secrets:
   - `AZURE_CLIENT_ID`
@@ -39,6 +41,7 @@ Permite gestionar credenciales y parámetros sensibles (como client secrets, IDs
   - `AZURE_SUBSCRIPTION_ID`
 
 ### 2. Añadir variables de configuración (no sensibles)
+
 - Ejemplo: `RG_NAME`, `LOCATION`
 
 ### 3. Workflow de GitHub Actions (`.github/workflows/terraform.yml`)
@@ -145,18 +148,22 @@ Así puedes pasar cualquier estructura compleja (mapas, listas, objetos anidados
 draft: false
 date: 2025-10-23
 authors:
+
   - rfernandezdo
 categories:
+
   - DevOps
   - Terraform
   - GitHub Actions
 tags:
+
   - Terraform
   - GitHub Secrets
   - Azure
 ---
 
 ## Buenas prácticas
+
 - Usa federated identity (OIDC) siempre que sea posible, evita client secrets.
 - Nunca subas secrets al repo ni los hardcodees en el código.
 - Usa GitHub Environments para separar prod/dev y limitar acceso a secrets.
@@ -165,8 +172,8 @@ tags:
 - Rota los secrets periódicamente si usas client secrets legacy.
 
 ## Referencias
+
 - [GitHub Actions: Encrypted secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets)
 - [Terraform Azure Provider Auth](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret)
 - [Automate deployments with GitHub Actions & Terraform](https://learn.microsoft.com/en-us/azure/spring-apps/enterprise/quickstart-automate-deployments-github-actions-enterprise#set-up-a-github-repository-and-authenticate)
 - [Best practices Terraform](https://developer.hashicorp.com/terraform/language/style)
-

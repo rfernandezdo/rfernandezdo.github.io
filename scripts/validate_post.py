@@ -179,6 +179,9 @@ class PostValidator:
                 "Usa ```bash, ```python, etc."
             )
 
+        # MD032: Listas deben tener línea en blanco antes y después
+        self._validate_list_spacing()
+
         # Detectar marcas prohibidas (validado MCP, etc.)
         forbidden_marks = [
             'validado MCP', 'MCP validado', 'verificado con MCP',
@@ -190,6 +193,63 @@ class PostValidator:
                     f"Marca prohibida detectada: '{mark}'. "
                     "La validación MCP es interna, no debe aparecer en el post."
                 )
+
+    def _validate_list_spacing(self):
+        """Valida MD032: Lists should be surrounded by blank lines"""
+        if not self.content:
+            return
+
+        lines = self.content.split('\n')
+        in_code_block = False
+        in_frontmatter = False
+        issues = []
+
+        for i, line in enumerate(lines, start=1):
+            # Detectar frontmatter
+            if line.strip() == '---':
+                if i == 1:
+                    in_frontmatter = True
+                elif in_frontmatter:
+                    in_frontmatter = False
+                continue
+
+            if in_frontmatter:
+                continue
+
+            # Detectar bloques de código
+            if line.startswith('```'):
+                in_code_block = not in_code_block
+                continue
+
+            if in_code_block:
+                continue
+
+            # Detectar inicio de lista (-, *, + o número.)
+            is_list_item = bool(re.match(r'^(\s*)([-*+]|\d+\.)\s+', line))
+
+            if is_list_item:
+                # Verificar línea anterior (debe estar vacía o ser parte de lista/tabla)
+                if i > 1:
+                    prev_line = lines[i - 2]  # i-1 porque enumerate empieza en 1
+                    prev_is_list = bool(re.match(r'^(\s*)([-*+]|\d+\.)\s+', prev_line))
+                    prev_is_table = prev_line.strip().startswith('|')
+                    prev_is_empty = prev_line.strip() == ''
+
+                    # Casos válidos: línea anterior vacía, es otra lista, o es tabla
+                    if not (prev_is_empty or prev_is_list or prev_is_table):
+                        # Verificar si la línea anterior es bold/italic (ej: "**Título:**")
+                        # En ese caso necesita línea en blanco
+                        if prev_line.strip() and not prev_line.startswith('#'):
+                            issues.append(
+                                f"Línea {i}: Lista sin línea en blanco anterior. "
+                                f"Agrega línea vacía antes de '{line.strip()[:50]}...'"
+                            )
+
+        if issues:
+            self.errors.append(
+                f"MD032 - Listas deben estar rodeadas de líneas en blanco:\n  " +
+                "\n  ".join(issues[:5])  # Mostrar solo primeros 5
+            )
 
     def print_results(self):
         """Imprime resultados de la validación"""

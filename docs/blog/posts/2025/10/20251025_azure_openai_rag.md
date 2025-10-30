@@ -32,6 +32,7 @@ RAG mejora las respuestas del LLM (Large Language Model) añadiendo un paso de *
 4. **Genera** una respuesta basada en tus datos reales
 
 **Ventajas clave:**
+
 - No necesitas reentrenar el modelo con tus datos
 - Reduces alucinaciones (el modelo inventa menos)
 - Mantienes control sobre qué datos se usan
@@ -100,6 +101,7 @@ az cognitiveservices account deployment create \
 ```
 
 **Capacidades (TPM - Tokens Per Minute):**
+
 - `text-embedding-ada-002`: 120K TPM para procesamiento de documentos
 - `gpt-4o`: 10K TPM (ajusta según carga esperada)
 
@@ -126,6 +128,7 @@ az search service update \
 ```
 
 **SKUs recomendados:**
+
 - **Basic**: Hasta 15GB, ideal para POCs
 - **Standard S1**: Producción pequeña-mediana (25GB, 12 particiones)
 - **Standard S2+**: Empresas con múltiples índices
@@ -139,7 +142,7 @@ import os
 
 # Autenticación con Managed Identity
 token_provider = get_bearer_token_provider(
-    DefaultAzureCredential(), 
+    DefaultAzureCredential(),
     "https://cognitiveservices.azure.com/.default"
 )
 
@@ -178,7 +181,8 @@ print(completion.choices[0].message.content)
 ```
 
 **Parámetros clave:**
-- `query_type`: 
+
+- `query_type`:
   - `simple`: Solo keyword
   - `vector`: Solo similitud semántica
   - `vector_semantic_hybrid`: **Recomendado** - máxima precisión
@@ -231,6 +235,7 @@ index_client.create_index(index)
 ```
 
 **HNSW (Hierarchical Navigable Small World):**
+
 - Algoritmo de búsqueda de vecinos más cercanos
 - Balance velocidad/precisión óptimo para RAG
 - Alternativa: Exhaustive KNN (más preciso, más lento)
@@ -238,6 +243,7 @@ index_client.create_index(index)
 ## Buenas prácticas
 
 **Chunking estratégico:**
+
 - **Tamaño**: 500-1000 tokens por chunk (ni muy corto ni muy largo)
 - **Overlap**: 10-20% entre chunks para no perder contexto
 - **Metadata**: Incluye título, fecha, categoría para filtrado
@@ -253,6 +259,7 @@ REGLAS:
 ```
 
 **Seguridad:**
+
 - Usa **Managed Identity** en producción (evita API keys)
 - Implementa **RBAC** en Azure AI Search para control de acceso
 - **Private endpoints** para tráfico interno
@@ -275,6 +282,7 @@ az monitor log-analytics query \
 ```
 
 **Alertas recomendadas:**
+
 - Latencia > 5 segundos en chat completions
 - Tasa de error > 5%
 - Consumo de tokens cerca del límite de cuota
@@ -290,6 +298,7 @@ az monitor log-analytics query \
 | **Total estimado** | | **€250/mes** (POC) |
 
 **Optimización:**
+
 - Cachea embeddings de documentos (calcular 1 vez)
 - Usa `gpt-35-turbo` para casos simples (70% más barato)
 - Ajusta TPM según uso real (puedes empezar con 1K)

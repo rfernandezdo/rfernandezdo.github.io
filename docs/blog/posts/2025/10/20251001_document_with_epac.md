@@ -33,9 +33,11 @@ informes.
 - Añade `excludeScopeTypes` en la configuración de `documentAllAssignments`.
   Con esto se puede indicar que no se documenten assignments que estén en
   `subscriptions` o en `resourceGroups`.
+
 - Añade `StrictMode` (switch) en los scripts. Por defecto está activado. Si lo
   desactivas (`-StrictMode:$false`) el script no aborta cuando falta alguna
   definición; registra avisos y continúa. Útil en pipelines de prueba.
+
 - Mejora el parsing y el manejo de `skipPolicyAssignments`/`skipPolicyDefinitions`
   (funcionan mejor con arrays u objetos) y corrige bugs menores (p. ej.
   convertir `markdownMaxParameterLength` a entero).
@@ -89,6 +91,7 @@ rotas:
 - Usa `excludeScopeTypes` para reducir ruido cuando necesites una vista global.
 - No confundas `excludeScopeTypes` con exemptions: esto solo evita que se
   documente; no evita que la policy se aplique. Para eso usa exemptions.
+
 - Mantén `StrictMode` activado en producción (ayuda a detectar referencias rotas).
 - Usa `skipPolicyAssignments` para exclusiones puntuales que conozcas por id.
 
@@ -101,4 +104,3 @@ La mejora es pequeña pero práctica: menos limpieza manual, informes más
 - Hacer build local del sitio y comprobar cómo queda el Markdown final.
 
 PR de referencia: https://github.com/Azure/enterprise-azure-policy-as-code/pull/1056
-

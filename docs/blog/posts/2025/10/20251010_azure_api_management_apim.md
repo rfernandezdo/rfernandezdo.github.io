@@ -29,18 +29,19 @@ tags:
 flowchart LR
     Apps[Mobile/Web Apps] --> APIM[API Management]
     Partners[Partner APIs] --> APIM
-    
+
     APIM --> Policy1[Policies:<br/>Rate Limit, Cache,<br/>Transform, Validate]
-    
+
     Policy1 --> Backend1[Backend API 1<br/>Azure Functions]
     Policy1 --> Backend2[Backend API 2<br/>AKS Services]
     Policy1 --> Backend3[Backend API 3<br/>On-premises]
-    
+
     APIM --> DevPortal[Developer Portal<br/>Docs, Testing]
     APIM --> Analytics[Analytics &<br/>Monitoring]
 ```
 
 **Casos de uso:**
+
 - Exponer microservices como API unificada
 - Rate limiting para evitar abuse
 - Transformar requests/responses (XML ↔ JSON)
@@ -225,10 +226,10 @@ az apim api policy create \
                 </claim>
             </required-claims>
         </validate-jwt>
-        
+
         <!-- JSON to XML transformation -->
         <json-to-xml apply="always" consider-accept-header="false" />
-        
+
         <!-- Set backend header -->
         <set-header name="X-API-Key" exists-action="override">
             <value>{{backend-api-key}}</value>
@@ -240,11 +241,11 @@ az apim api policy create \
     <outbound>
         <!-- XML to JSON transformation -->
         <xml-to-json kind="direct" apply="always" consider-accept-header="false" />
-        
+
         <!-- Remove internal headers -->
         <set-header name="X-Powered-By" exists-action="delete" />
         <set-header name="X-AspNet-Version" exists-action="delete" />
-        
+
         <base />
     </outbound>
     <on-error>
@@ -750,23 +751,27 @@ spec:
 ## Buenas prácticas
 
 **Design:**
+
 - ✅ Usar Products para agrupar APIs por plan (Free, Basic, Premium)
 - ✅ Versioning para breaking changes (`/v1/`, `/v2/`)
 - ✅ Revisions para non-breaking changes
 - ✅ Named values para configuraciones por entorno
 
 **Security:**
+
 - ✅ Validate JWT tokens en inbound policy
 - ✅ IP filtering para admin APIs
 - ✅ Rate limiting + quota por product
 - ✅ Remove internal headers en outbound
 
 **Performance:**
+
 - ✅ Cache responses estáticas (GET requests)
 - ✅ Mock responses para testing (sin backend)
 - ✅ Backend circuit breaker (evitar cascade failures)
 
 **Monitoring:**
+
 - ✅ Application Insights integration
 - ✅ Alertas en latency y error rate
 - ✅ Custom logging con trace policies

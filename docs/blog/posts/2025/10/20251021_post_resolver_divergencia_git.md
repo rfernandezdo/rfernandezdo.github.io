@@ -24,7 +24,7 @@ Al intentar hacer `git pull`, te encuentras con el siguiente error:
 hint: You have divergent branches and need to specify how to reconcile them.
 hint: You can do so by running one of the following commands sometime before
 hint: your next pull:
-hint: 
+hint:
 hint:   git config pull.rebase false  # merge
 hint:   git config pull.rebase true   # rebase
 hint:   git config pull.ff only       # fast-forward only
@@ -109,11 +109,13 @@ Existen tres estrategias principales:
 **Cuándo usarlo**: Cuando trabajas con un equipo y quieres preservar toda la historia, incluyendo los merge commits de PRs.
 
 **Ventajas**:
+
 - ✅ Preserva la historia completa (incluidos merge commits)
 - ✅ Muestra claramente cuándo se integraron features
 - ✅ Más seguro: no reescribe historia
 
 **Desventajas**:
+
 - ⚠️ Crea un commit de merge adicional
 - ⚠️ Historia no completamente lineal
 
@@ -134,10 +136,12 @@ git merge origin/main
 **Cuándo usarlo**: Cuando trabajas solo o en una feature branch que aún no has compartido públicamente.
 
 **Ventajas**:
+
 - ✅ Historia completamente lineal
 - ✅ Más limpia para revisar con `git log`
 
 **Desventajas**:
+
 - ⚠️ Reescribe commits locales (cambian sus SHAs)
 - ⚠️ Puede causar problemas si ya compartiste estos commits
 - ⚠️ Pierdes el contexto de cuándo se integró el PR remoto
@@ -232,13 +236,13 @@ Deberías ver algo como:
 
 ```
 *   3e1ed57 (HEAD -> main) Merge remote-tracking branch 'origin/main' into main
-|\  
+|\
 | * 9d3e3e9 (origin/main) Merge pull request #42
 | * 285a538 Complete documentation review
 | * 000b9cb Fix configuration parameters
 | * a7694d3 Initial implementation plan
 * | 81e3b93 feat: add new feature for data processing
-|/  
+|/
 * d140dce feat: improved monthly workflow
 ```
 

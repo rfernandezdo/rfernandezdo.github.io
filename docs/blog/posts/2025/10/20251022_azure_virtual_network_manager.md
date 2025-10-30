@@ -40,11 +40,11 @@ flowchart TD
         CC[Connectivity Config<br/>Hub-Spoke]
         SAC[Security Admin Config<br/>Block RDP from internet]
     end
-    
+
     NG1 --> V1[VNet Prod-WestEU]
     NG1 --> V2[VNet Prod-EastUS]
     NG2 --> V3[VNet Dev-WestEU]
-    
+
     CC -.->|Deploy to regions| V1
     CC -.->|Deploy to regions| V2
     SAC -.->|Enforce rules| V1
@@ -92,11 +92,13 @@ az network manager create \
 ```
 
 **Scope types:**
+
 - **Management Group**: Aplica a todas las subs bajo el MG (recomendado empresas)
 - **Subscription list**: Lista explícita de subscriptions
 - **Cross-tenant**: Con Azure Lighthouse para MSPs
 
 **Scope accesses:**
+
 - `Connectivity`: Hub-spoke, mesh topologies
 - `SecurityAdmin`: Security admin rules (evaluadas antes NSGs)
 - `Routing`: User-defined routes (en preview)
@@ -142,6 +144,7 @@ az network manager group static-member create \
 ```
 
 **Ventajas Policy-based:**
+
 - Auto-inclusión de VNets con tag `Environment=Production`
 - No necesitas actualizar membresía manualmente
 - Compliance auditable con Azure Policy
@@ -227,6 +230,7 @@ az network manager connect-config create \
 | Ideal: <50 VNets misma región | Ideal: >50 VNets multi-región |
 
 **Regional vs. Global Mesh:**
+
 - **Regional** (`isGlobal: false`): Solo VNets en misma región conectadas
 - **Global** (`isGlobal: true`): Cross-region, mayor latencia pero full connectivity
 
@@ -339,6 +343,7 @@ az network manager post-commit \
 ```
 
 **Deployment considerations:**
+
 - **NO toma efecto** hasta que ejecutas `post-commit`
 - **Regional deployment**: Solo afecta VNets en `target-locations`
 - **Rollback**: Puedes revertir deployment desde portal
@@ -373,6 +378,7 @@ az network nic show-effective-route-table \
 ```
 
 **NextHopType:**
+
 - `ConnectedGroup`: Mesh o direct connectivity entre spokes
 - `VNetPeering`: Hub-spoke peering
 - `VirtualNetworkGateway`: Tráfico via VPN/ExpressRoute
@@ -380,16 +386,19 @@ az network nic show-effective-route-table \
 ## Buenas prácticas
 
 **Scope design:**
+
 - **Root MG scope** para security admin rules (applies to all)
 - **Intermediate MG** para connectivity (por landing zone)
 - **Evita múltiples AVNMs** en mismo scope (conflictos)
 
 **Network Groups:**
+
 - **Policy-based** para auto-scaling (tag-based membership)
 - **Static** para casos específicos (hub VNet, shared services)
 - **Máximo 50 network groups** por AVNM (Standard tier)
 
 **Security Admin Rules:**
+
 - **Priority 1-100**: Reglas críticas (deny RDP, allow scanners)
 - **Priority 101-500**: Reglas de compliance
 - **Priority 501-4096**: Reglas específicas por team
@@ -448,6 +457,7 @@ AzureDiagnostics
 ## Costos
 
 **Pricing model:**
+
 - **Charged por VNet con config aplicada** (no por AVNM instance)
 - **€4.50/VNet/mes** (aprox.) con connectivity config deployed
 - **€9/VNet/mes** (aprox.) con connectivity + security admin
@@ -471,6 +481,7 @@ Manual management:
 ```
 
 **Free tier:**
+
 - **No existe** free tier para AVNM
 - **Alternativa dev/test**: Usa standalone VNet peerings (<10 VNets)
 
