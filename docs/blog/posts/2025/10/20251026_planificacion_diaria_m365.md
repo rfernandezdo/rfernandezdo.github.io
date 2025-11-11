@@ -226,7 +226,3 @@ Checklist:
 - Viva Insights Focus / Book focus time: https://learn.microsoft.com/en-us/viva/insights/personal/briefing/be-focus
 - Focus plan / hábitos productividad: https://learn.microsoft.com/en-us/viva/insights/personal/teams/focus
 - Planner + Tasks integración en Teams: https://learn.microsoft.com/en-us/microsoft-365/community/which-task-management-option#tasks-by-planner-and-to-do-teams-app
-
-## Cierre
-
-Sistema ligero, incremental y auditable. La clave: **una sola fuente de verdad**, priorización explícita y bloques de foco protegidos. Itera semanalmente: elimina fricción y automatiza validaciones.
