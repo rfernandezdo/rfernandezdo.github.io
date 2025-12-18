@@ -1,0 +1,18 @@
+# Dependencias para el script de reporte de Federated Identity Credentials
+# Instalar con: pip install -r requirements-federated-identity-report.txt
+
+# Azure SDK components
+azure-identity>=1.15.0
+azure-mgmt-msi>=7.0.0
+azure-mgmt-resource>=23.0.0
+
+# Data processing and export
+pandas>=2.0.0
+openpyxl>=3.1.0
+
+# Logging and utilities (ya incluidos en Python standard library)
+# logging
+# argparse
+# json
+# datetime
+# typing
