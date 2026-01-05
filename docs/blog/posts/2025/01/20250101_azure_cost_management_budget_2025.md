@@ -10,6 +10,7 @@ tags:
   - FinOps
   - Presupuestos
   - Optimización
+  - Terraform
 ---
 
 # Azure Cost Management: planifica tu presupuesto 2025

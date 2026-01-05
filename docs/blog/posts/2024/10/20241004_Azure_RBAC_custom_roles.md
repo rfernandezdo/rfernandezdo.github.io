@@ -8,6 +8,7 @@ categories:
 
 tags:
     - Azure RBAC
+    - Terraform
     
 ---
 

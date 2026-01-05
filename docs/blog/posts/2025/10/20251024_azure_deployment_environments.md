@@ -11,6 +11,7 @@ tags:
   - IaC
   - Self-service
   - DevTest Labs
+  - Terraform
 ---
 
 # Azure Deployment Environments: Self-service para desarrolladores

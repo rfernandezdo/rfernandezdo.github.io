@@ -11,6 +11,7 @@ tags:
   - Security Posture
   - Governance
   - Compliance
+  - Terraform
 ---
 
 # Microsoft Defender for Cloud CSPM: Governance y Attack Paths

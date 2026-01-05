@@ -11,6 +11,7 @@ tags:
   - Action Groups
   - Monitoring
   - Kusto
+  - Terraform
 ---
 
 # Azure Monitor Alerts y Action Groups: monitoring proactivo en 2025

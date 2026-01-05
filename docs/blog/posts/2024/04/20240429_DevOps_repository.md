@@ -7,6 +7,8 @@ categories:
     - DevOps
 tags:
     - git
+    - IaC
+    - Terraform
 ---
 
 # Repository Strategy: Monorepo vs Multi-repo

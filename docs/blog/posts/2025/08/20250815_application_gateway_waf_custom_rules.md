@@ -10,6 +10,7 @@ tags:
   - Web Application Firewall
   - Security
   - Custom Rules
+  - Terraform
 ---
 
 # Azure Application Gateway: Reglas personalizadas de WAF v2

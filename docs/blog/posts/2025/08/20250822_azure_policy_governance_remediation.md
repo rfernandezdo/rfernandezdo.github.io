@@ -10,6 +10,7 @@ tags:
   - Governance
   - Compliance
   - Remediation
+  - Terraform
 ---
 
 # Azure Policy: Governance automatizado y remediación de recursos
