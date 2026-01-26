@@ -3,7 +3,7 @@ site_description: A blog about Azure, DevOps and other stuff
 site_author: Rafael Fernández
 site_url: https://rfernandezdo.github.io
 
-theme: 
+theme:
   name: material
   palette:
     - scheme: default
@@ -101,6 +101,7 @@ plugins:
   - social
 hooks:
     - scripts/splitMCSB.py
+    - scripts/splitMCSBv2.py
 markdown_extensions:
   - admonition
   - pymdownx.details
@@ -146,7 +147,7 @@ nav:
   - Contributions: contributions.md
   - Azure:
     - Security:
-      - MCSB:
+      - MCSB v1:
           - Azure/Security/MCSB/Readme.md
           - Azure/Security/MCSB/Asset Management.md
           - Azure/Security/MCSB/Backup and Recovery.md
@@ -160,6 +161,19 @@ nav:
           - Azure/Security/MCSB/Network Security.md
           - Azure/Security/MCSB/Posture and Vulnerability Mgmt.md
           - Azure/Security/MCSB/Privileged Access.md
+      - MCSB v2:
+          - Azure/Security/MCSBv2/Index.md
+          - Azure/Security/MCSBv2/Network Security.md
+          - Azure/Security/MCSBv2/Identity Management.md
+          - Azure/Security/MCSBv2/Privileged Access.md
+          - Azure/Security/MCSBv2/Data Protection.md
+          - Azure/Security/MCSBv2/Asset Management.md
+          - Azure/Security/MCSBv2/Logging and Threat Detection.md
+          - Azure/Security/MCSBv2/Incident Response.md
+          - Azure/Security/MCSBv2/Posture and Vulnerability Manag.md
+          - Azure/Security/MCSBv2/Endpoint Security.md
+          - Azure/Security/MCSBv2/Backup and Recovery.md
+          - Azure/Security/MCSBv2/Artificial Intelligence Securit.md
   - Tools:
     - Federated Identity Credentials Report:
       - Tools/Federated_Identity_Credentials_Report/README-federated-identity-credentials.md
