@@ -1,0 +1,2564 @@
+<!DOCTYPE html><html class="no-js" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width,initial-scale=1" name="viewport">
+<meta content="A blog about Azure, DevOps and other stuff" name="description">
+<meta content="Rafael Fernández" name="author">
+<link href="https://rfernandezdo.github.io/blog/category/security/" rel="canonical">
+<link href="../productividad--microsoft-365/" rel="prev">
+<link href="../seguridad/" rel="next">
+<link href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=es&amp;_x_tr_hl=es&amp;_x_tr_pto=wapp" hreflang="en" rel="alternate">
+<link href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=en&amp;_x_tr_hl=en&amp;_x_tr_pto=wapp" hreflang="es" rel="alternate">
+<link href="../../../feed_rss_created.xml" rel="alternate" title="RSS feed" type="application/rss+xml">
+<link href="../../../feed_rss_updated.xml" rel="alternate" title="RSS feed of updated content" type="application/rss+xml">
+<link href="../../../assets/images/favicon.png" rel="icon">
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.1" name="generator">
+<title>Security - Un Rinconcito donde contar lo que quiera</title>
+<link href="../../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet">
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet">
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<meta content="website" property="og:type">
+<meta content="Security - Un Rinconcito donde contar lo que quiera" property="og:title">
+<meta content="A blog about Azure, DevOps and other stuff" property="og:description">
+<meta content="https://rfernandezdo.github.io/assets/images/social/blog/category/security.png" property="og:image">
+<meta content="image/png" property="og:image:type">
+<meta content="1200" property="og:image:width">
+<meta content="630" property="og:image:height">
+<meta content="https://rfernandezdo.github.io/blog/category/security/" property="og:url">
+<meta content="summary_large_image" property="twitter:card">
+<meta content="Security - Un Rinconcito donde contar lo que quiera" property="twitter:title">
+<meta content="A blog about Azure, DevOps and other stuff" property="twitter:description">
+<meta content="https://rfernandezdo.github.io/assets/images/social/blog/category/security.png" property="twitter:image">
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+<body data-md-color-accent="blue" data-md-color-primary="blue" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox">
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox">
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#security">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Un Rinconcito donde contar lo que quiera" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="Un Rinconcito donde contar lo que quiera">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Un Rinconcito donde contar lo que quiera
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Security
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="blue" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio">
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="black" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio">
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="Select language" class="md-header__button md-icon">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=es&amp;_x_tr_hl=es&amp;_x_tr_pto=wapp" hreflang="en">
+              English
+            </a>
+</li>
+<li class="md-select__item">
+<a class="md-select__link" href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=en&amp;_x_tr_hl=en&amp;_x_tr_pto=wapp" hreflang="es">
+              Spanish
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text">
+<label class="md-search__icon md-icon" for="__search">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+  Blog
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+        
+  
+  
+    
+  
+  About
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../contributions/">
+        
+  
+  
+    
+  
+  Contributions
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../Azure/Security/MCSB/Readme/">
+          
+  
+  
+  Azure
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../Tools/Federated_Identity_Credentials_Report/README-federated-identity-credentials/">
+          
+  
+  
+  Tools
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Un Rinconcito donde contar lo que quiera" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="Un Rinconcito donde contar lo que quiera">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    Un Rinconcito donde contar lo que quiera
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_1" type="checkbox">
+<label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_1_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Blog
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../tags/">
+<span class="md-ellipsis">
+    
+  
+    Posts by Tags
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_1_3" type="checkbox">
+<label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Archive
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Archive
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/12/">
+<span class="md-ellipsis">
+    
+  
+    2025/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/11/">
+<span class="md-ellipsis">
+    
+  
+    2025/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/10/">
+<span class="md-ellipsis">
+    
+  
+    2025/10
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/09/">
+<span class="md-ellipsis">
+    
+  
+    2025/09
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/08/">
+<span class="md-ellipsis">
+    
+  
+    2025/08
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/07/">
+<span class="md-ellipsis">
+    
+  
+    2025/07
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/06/">
+<span class="md-ellipsis">
+    
+  
+    2025/06
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/05/">
+<span class="md-ellipsis">
+    
+  
+    2025/05
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/04/">
+<span class="md-ellipsis">
+    
+  
+    2025/04
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/03/">
+<span class="md-ellipsis">
+    
+  
+    2025/03
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/02/">
+<span class="md-ellipsis">
+    
+  
+    2025/02
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/01/">
+<span class="md-ellipsis">
+    
+  
+    2025/01
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/12/">
+<span class="md-ellipsis">
+    
+  
+    2024/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/11/">
+<span class="md-ellipsis">
+    
+  
+    2024/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/10/">
+<span class="md-ellipsis">
+    
+  
+    2024/10
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/09/">
+<span class="md-ellipsis">
+    
+  
+    2024/09
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/06/">
+<span class="md-ellipsis">
+    
+  
+    2024/06
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/05/">
+<span class="md-ellipsis">
+    
+  
+    2024/05
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/04/">
+<span class="md-ellipsis">
+    
+  
+    2024/04
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/03/">
+<span class="md-ellipsis">
+    
+  
+    2024/03
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/02/">
+<span class="md-ellipsis">
+    
+  
+    2024/02
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2023/12/">
+<span class="md-ellipsis">
+    
+  
+    2023/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2023/11/">
+<span class="md-ellipsis">
+    
+  
+    2023/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2023/10/">
+<span class="md-ellipsis">
+    
+  
+    2023/10
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_1_4" type="checkbox">
+<label class="md-nav__link" for="__nav_1_4" id="__nav_1_4_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Categories
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_1_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Categories
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../azure/">
+<span class="md-ellipsis">
+    
+  
+    Azure
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../azure-ad/">
+<span class="md-ellipsis">
+    
+  
+    Azure AD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../azure-automation/">
+<span class="md-ellipsis">
+    
+  
+    Azure Automation
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../azure-devops/">
+<span class="md-ellipsis">
+    
+  
+    Azure DevOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../azure-frameworks/">
+<span class="md-ellipsis">
+    
+  
+    Azure Frameworks
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../azure-governance/">
+<span class="md-ellipsis">
+    
+  
+    Azure Governance
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../azure-networking/">
+<span class="md-ellipsis">
+    
+  
+    Azure Networking
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../azure-security/">
+<span class="md-ellipsis">
+    
+  
+    Azure Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../azure-services/">
+<span class="md-ellipsis">
+    
+  
+    Azure Services
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../azure-updates/">
+<span class="md-ellipsis">
+    
+  
+    Azure Updates
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../caf/">
+<span class="md-ellipsis">
+    
+  
+    CAF
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../cicd/">
+<span class="md-ellipsis">
+    
+  
+    CI/CD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../devops/">
+<span class="md-ellipsis">
+    
+  
+    DevOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../development/">
+<span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../drift-detection/">
+<span class="md-ellipsis">
+    
+  
+    Drift Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../english/">
+<span class="md-ellipsis">
+    
+  
+    English
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../enterprise-policy-as-code/">
+<span class="md-ellipsis">
+    
+  
+    Enterprise Policy as Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../finops/">
+<span class="md-ellipsis">
+    
+  
+    FinOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../firewall/">
+<span class="md-ellipsis">
+    
+  
+    Firewall
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../gtd/">
+<span class="md-ellipsis">
+    
+  
+    GTD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../git/">
+<span class="md-ellipsis">
+    
+  
+    Git
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../github-actions/">
+<span class="md-ellipsis">
+    
+  
+    GitHub Actions
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../hashicorp/">
+<span class="md-ellipsis">
+    
+  
+    HashiCorp
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../hello_world/">
+<span class="md-ellipsis">
+    
+  
+    Hello_World
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../infrastructure-as-code/">
+<span class="md-ellipsis">
+    
+  
+    Infrastructure as Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../learning/">
+<span class="md-ellipsis">
+    
+  
+    Learning
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../m365/">
+<span class="md-ellipsis">
+    
+  
+    M365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../microsoft-365/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft 365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../microsoft-entra/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../microsoft-entra-external-id/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra External ID
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../microsoft-entra-id/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra ID
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../networking/">
+<span class="md-ellipsis">
+    
+  
+    Networking
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../outlook/">
+<span class="md-ellipsis">
+    
+  
+    Outlook
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../pim/">
+<span class="md-ellipsis">
+    
+  
+    PIM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../power-automate/">
+<span class="md-ellipsis">
+    
+  
+    Power Automate
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../power-bi/">
+<span class="md-ellipsis">
+    
+  
+    Power BI
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../productividad/">
+<span class="md-ellipsis">
+    
+  
+    Productividad
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../productividad--microsoft-365/">
+<span class="md-ellipsis">
+    
+  
+    Productividad / Microsoft 365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox">
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../seguridad/">
+<span class="md-ellipsis">
+    
+  
+    Seguridad
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../snowflake/">
+<span class="md-ellipsis">
+    
+  
+    Snowflake
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../terraform/">
+<span class="md-ellipsis">
+    
+  
+    Terraform
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../threat-intelligence/">
+<span class="md-ellipsis">
+    
+  
+    Threat Intelligence
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../tools/">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../troubleshooting/">
+<span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../visual-studio-code/">
+<span class="md-ellipsis">
+    
+  
+    Visual Studio Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../viva-insights/">
+<span class="md-ellipsis">
+    
+  
+    Viva Insights
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../windows/">
+<span class="md-ellipsis">
+    
+  
+    Windows
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../contributions/">
+<span class="md-ellipsis">
+    
+  
+    Contributions
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4" type="checkbox">
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Azure
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Azure
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Security
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1_1" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1_1" id="__nav_4_1_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    MCSB v1
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_4_1_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    MCSB v1
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Readme/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Readme
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Asset%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Asset Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Backup%20and%20Recovery/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Backup and Recovery
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Data%20Protection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Data Protection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/DevOps%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - DevOps Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Endpoint%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Endpoint Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Governance%20and%20Strategy/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Governance and Strategy
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Identity%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Identity Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Incident%20Response/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Incident Response
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Logging%20and%20Threat%20Detection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Logging and Threat Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Network%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Network Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Posture%20and%20Vulnerability%20Mgmt/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Posture and Vulnerability Mgmt
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Privileged%20Access/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Privileged Access
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1_2" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1_2" id="__nav_4_1_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_4_1_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    MCSB v2
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Index/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Cloud Security Benchmark v2
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Network%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Network Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Identity%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Identity Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Privileged%20Access/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Privileged Access
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Data%20Protection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Data Protection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Asset%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Asset Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Logging%20and%20Threat%20Detection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Logging and Threat Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Incident%20Response/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Incident Response
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Posture%20and%20Vulnerability%20Manag/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Posture and Vulnerability Manag
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Endpoint%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Endpoint Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Backup%20and%20Recovery/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Backup and Recovery
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Artificial%20Intelligence%20Securit/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Artificial Intelligence Securit
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5" type="checkbox">
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Tools
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5_1" type="checkbox">
+<label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Federated Identity Credentials Report
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_1_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Federated Identity Credentials Report
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Tools/Federated_Identity_Credentials_Report/README-federated-identity-credentials/">
+<span class="md-ellipsis">
+    
+  
+    Script de Reporte para Federated Identity Credentials
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5_2" type="checkbox">
+<label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Analyze Virtual Network Flows
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Analyze Virtual Network Flows
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Tools/Analyze_Virtual_Network_Flows/">
+<span class="md-ellipsis">
+    
+  
+    Analyze-VNETFlowLogs
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<div class="md-content__inner">
+<header class="md-typeset">
+<h1 id="security">Security</h1>
+</header>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2025-10-20 00:00:00+00:00">October 20, 2025</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../azure-devops/">Azure DevOps</a>, 
+              <a class="md-meta__link" href="../cicd/">CI/CD</a>, 
+              <a class="md-meta__link" href="./">Security</a></li>
+<li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="azure-devops-pipelines-environments-approvals-y-seguridad-de-secretos"><a class="toclink" href="../../2025/10/20/azure-devops-pipelines-environments-approvals-y-seguridad-de-secretos/">Azure DevOps Pipelines: environments, approvals y seguridad de secretos</a></h2>
+<h3 id="resumen"><a class="toclink" href="../../2025/10/20/azure-devops-pipelines-environments-approvals-y-seguridad-de-secretos/#resumen">Resumen</a></h3>
+<p>Azure DevOps Pipelines permite CI/CD seguro con environments, approvals y gestión avanzada de secretos. Este post va directo: cómo definir environments, configurar approvals, proteger secretos y auditar despliegues.</p>
+<h3 id="que-es-pipelines-avanzado"><a class="toclink" href="../../2025/10/20/azure-devops-pipelines-environments-approvals-y-seguridad-de-secretos/#que-es-pipelines-avanzado">¿Qué es Pipelines avanzado?</a></h3>
+<ul>
+<li>Environments para dev, test, prod</li>
+<li>Approvals y checks antes de despliegue</li>
+<li>Secure secrets (Key Vault, variable groups)</li>
+<li>Auditoría y compliance</li>
+<li>Integración con Azure Monitor</li>
+</ul>
+<h3 id="arquitectura-como-funciona"><a class="toclink" href="../../2025/10/20/azure-devops-pipelines-environments-approvals-y-seguridad-de-secretos/#arquitectura-como-funciona">Arquitectura / Cómo funciona</a></h3>
+<pre class="mermaid"><code>flowchart LR
+    Dev[Dev] --&gt; Repo[Repo]
+    Repo --&gt; Pipeline[Pipeline]
+    Pipeline --&gt; Env1[Environment: Dev]
+    Pipeline --&gt; Env2[Environment: Prod]
+    Pipeline -.-&gt; KeyVault[Key Vault]
+    Pipeline -.-&gt; Monitor[Azure Monitor]
+</code></pre>
+<h3 id="definir-environments-y-approvals"><a class="toclink" href="../../2025/10/20/azure-devops-pipelines-environments-approvals-y-seguridad-de-secretos/#definir-environments-y-approvals">Definir environments y approvals</a></h3>
+<ol>
+<li>
+<p>Crear environment:
+</p><div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a href="#__codelineno-16-1" id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="c1"># Portal: Pipelines &gt; Environments &gt; New environment</span>
+</span><span id="__span-16-2"><a href="#__codelineno-16-2" id="__codelineno-16-2" name="__codelineno-16-2"></a><span class="c1"># Ejemplo: "prod-env"</span>
+</span></code></pre></div><p></p>
+</li>
+<li>
+<p>Configurar approval:
+</p><div class="language-yaml highlight"><pre><span></span><code><span id="__span-17-1"><a href="#__codelineno-17-1" id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="nt">environments</span><span class="p">:</span>
+</span><span id="__span-17-2"><a href="#__codelineno-17-2" id="__codelineno-17-2" name="__codelineno-17-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod-env</span>
+</span><span id="__span-17-3"><a href="#__codelineno-17-3" id="__codelineno-17-3" name="__codelineno-17-3"></a><span class="w">    </span><span class="nt">resourceType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VirtualMachine</span>
+</span><span id="__span-17-4"><a href="#__codelineno-17-4" id="__codelineno-17-4" name="__codelineno-17-4"></a><span class="w">    </span><span class="nt">approval</span><span class="p">:</span>
+</span><span id="__span-17-5"><a href="#__codelineno-17-5" id="__codelineno-17-5" name="__codelineno-17-5"></a><span class="w">      </span><span class="nt">steps</span><span class="p">:</span>
+</span><span id="__span-17-6"><a href="#__codelineno-17-6" id="__codelineno-17-6" name="__codelineno-17-6"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo "Aprobado por admin"</span>
+</span></code></pre></div><p></p>
+</li>
+<li>
+<p>Checks avanzados:</p>
+</li>
+<li>Deployment gates (Azure Monitor, REST API, Query Work Item)</li>
+</ol>
+<h3 id="seguridad-de-secretos"><a class="toclink" href="../../2025/10/20/azure-devops-pipelines-environments-approvals-y-seguridad-de-secretos/#seguridad-de-secretos">Seguridad de secretos</a></h3>
+<ul>
+<li>
+<p>Usar Azure Key Vault:
+</p><div class="language-yaml highlight"><pre><span></span><code><span id="__span-18-1"><a href="#__codelineno-18-1" id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="nt">variables</span><span class="p">:</span>
+</span><span id="__span-18-2"><a href="#__codelineno-18-2" id="__codelineno-18-2" name="__codelineno-18-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kv-secrets</span>
+</span><span id="__span-18-3"><a href="#__codelineno-18-3" id="__codelineno-18-3" name="__codelineno-18-3"></a><span class="nt">steps</span><span class="p">:</span>
+</span><span id="__span-18-4"><a href="#__codelineno-18-4" id="__codelineno-18-4" name="__codelineno-18-4"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">task</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AzureKeyVault@2</span>
+</span><span id="__span-18-5"><a href="#__codelineno-18-5" id="__codelineno-18-5" name="__codelineno-18-5"></a><span class="w">  </span><span class="nt">inputs</span><span class="p">:</span>
+</span><span id="__span-18-6"><a href="#__codelineno-18-6" id="__codelineno-18-6" name="__codelineno-18-6"></a><span class="w">    </span><span class="nt">azureSubscription</span><span class="p">:</span><span class="w"> </span><span class="s">'MySub'</span>
+</span><span id="__span-18-7"><a href="#__codelineno-18-7" id="__codelineno-18-7" name="__codelineno-18-7"></a><span class="w">    </span><span class="nt">KeyVaultName</span><span class="p">:</span><span class="w"> </span><span class="s">'kv-prod'</span>
+</span><span id="__span-18-8"><a href="#__codelineno-18-8" id="__codelineno-18-8" name="__codelineno-18-8"></a><span class="w">    </span><span class="nt">SecretsFilter</span><span class="p">:</span><span class="w"> </span><span class="s">'DbPassword,ApiKey'</span>
+</span><span id="__span-18-9"><a href="#__codelineno-18-9" id="__codelineno-18-9" name="__codelineno-18-9"></a><span class="w">    </span><span class="nt">RunAsPreJob</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span></code></pre></div><p></p>
+</li>
+<li>
+<p>Variable groups (portal):
+</p><div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a href="#__codelineno-19-1" id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="c1"># Pipelines &gt; Library &gt; Variable groups &gt; Link secrets</span>
+</span></code></pre></div><p></p>
+</li>
+<li>
+<p>Secure files (certificados, pfx):
+</p><div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a href="#__codelineno-20-1" id="__codelineno-20-1" name="__codelineno-20-1"></a><span class="c1"># Pipelines &gt; Library &gt; Secure files</span>
+</span></code></pre></div><p></p>
+</li>
+</ul>
+<h3 id="auditoria-y-compliance"><a class="toclink" href="../../2025/10/20/azure-devops-pipelines-environments-approvals-y-seguridad-de-secretos/#auditoria-y-compliance">Auditoría y compliance</a></h3>
+<ul>
+<li>
+<p>Auditar deployments:
+</p><div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a href="#__codelineno-21-1" id="__codelineno-21-1" name="__codelineno-21-1"></a>az<span class="w"> </span>pipelines<span class="w"> </span>runs<span class="w"> </span>list<span class="w"> </span>--pipeline-name<span class="w"> </span><span class="s2">"prod-pipeline"</span>
+</span></code></pre></div><p></p>
+</li>
+<li>
+<p>Monitorizar cambios:
+</p><div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a href="#__codelineno-22-1" id="__codelineno-22-1" name="__codelineno-22-1"></a>az<span class="w"> </span>monitor<span class="w"> </span>activity-log<span class="w"> </span>list<span class="w"> </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span>
+</span></code></pre></div><p></p>
+</li>
+<li>
+<p>Alertas por cambios no aprobados:
+</p><div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a href="#__codelineno-23-1" id="__codelineno-23-1" name="__codelineno-23-1"></a>az<span class="w"> </span>monitor<span class="w"> </span>metrics<span class="w"> </span>alert<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>alert-unapproved<span class="w"> </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span>--scopes<span class="w"> </span>/subscriptions/<span class="nv">$SUB_ID</span>/resourceGroups/<span class="nv">$RESOURCE_GROUP</span>/providers/Microsoft.DevOps/pipelines/prod-pipeline<span class="w"> </span>--condition<span class="w"> </span><span class="s2">"total UnapprovedDeployments &gt; 0"</span><span class="w"> </span>--window-size<span class="w"> </span>5m<span class="w"> </span>--action<span class="w"> </span><span class="nv">$ACTION_GROUP_ID</span>
+</span></code></pre></div><p></p>
+</li>
+</ul>
+<h3 id="buenas-practicas"><a class="toclink" href="../../2025/10/20/azure-devops-pipelines-environments-approvals-y-seguridad-de-secretos/#buenas-practicas">Buenas prácticas</a></h3>
+<ul>
+<li>Usar environments y approvals en todos los despliegues a prod</li>
+<li>Proteger secretos en Key Vault o variable groups</li>
+<li>Auditar deployments y cambios semanalmente</li>
+<li>Integrar alertas con Monitor y Sentinel</li>
+<li>Usar secure files para certificados</li>
+</ul>
+<h3 id="costes"><a class="toclink" href="../../2025/10/20/azure-devops-pipelines-environments-approvals-y-seguridad-de-secretos/#costes">Costes</a></h3>
+<ul>
+<li>Azure DevOps: gratis hasta 1,800 min/mes</li>
+<li>Key Vault: ~$0.03/secret/mes</li>
+<li>Monitor: ~$2.30/GB</li>
+</ul>
+<h3 id="referencias"><a class="toclink" href="../../2025/10/20/azure-devops-pipelines-environments-approvals-y-seguridad-de-secretos/#referencias">Referencias</a></h3>
+<ul>
+<li><a href="https://learn.microsoft.com/azure/devops/pipelines/process/environments">Azure DevOps Environments</a></li>
+<li><a href="https://learn.microsoft.com/azure/devops/pipelines/process/approvals">Approvals and Checks</a></li>
+<li><a href="https://learn.microsoft.com/azure/devops/pipelines/library/variable-groups">Key Vault Integration</a></li>
+<li><a href="https://learn.microsoft.com/azure/devops/organizations/audit/audit-log">Audit and Compliance</a></li>
+</ul>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2025-09-05 00:00:00+00:00">September 5, 2025</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../azure-services/">Azure Services</a>, 
+              <a class="md-meta__link" href="../infrastructure-as-code/">Infrastructure as Code</a>, 
+              <a class="md-meta__link" href="./">Security</a>, 
+              <a class="md-meta__link" href="../devops/">DevOps</a></li>
+<li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="azure-bicep-avanzado-testing-linting-y-despliegue-seguro-multi-entorno"><a class="toclink" href="../../2025/09/05/azure-bicep-avanzado-testing-linting-y-despliegue-seguro-multi-entorno/">Azure Bicep avanzado: testing, linting y despliegue seguro multi-entorno</a></h2>
+<h3 id="resumen"><a class="toclink" href="../../2025/09/05/azure-bicep-avanzado-testing-linting-y-despliegue-seguro-multi-entorno/#resumen">Resumen</a></h3>
+<p>Bicep permite IaC declarativo en Azure, pero en producción necesitas testing, linting y despliegue seguro por entorno. Este post va al grano: cómo testear plantillas, usar linting, parametrizar para dev/prod y evitar errores comunes.</p>
+<h3 id="que-es-bicep-avanzado"><a class="toclink" href="../../2025/09/05/azure-bicep-avanzado-testing-linting-y-despliegue-seguro-multi-entorno/#que-es-bicep-avanzado">¿Qué es Bicep avanzado?</a></h3>
+<ul>
+<li>Modularización y reutilización</li>
+<li>Testing de plantillas antes de deploy</li>
+<li>Linting para calidad y seguridad</li>
+<li>Parametrización por entorno (dev, prod, test)</li>
+<li>Integración con pipelines CI/CD</li>
+</ul>
+<h3 id="arquitectura-como-funciona"><a class="toclink" href="../../2025/09/05/azure-bicep-avanzado-testing-linting-y-despliegue-seguro-multi-entorno/#arquitectura-como-funciona">Arquitectura / Cómo funciona</a></h3>
+<pre class="mermaid"><code>flowchart LR
+    Dev[Dev] --&gt; CI[CI Pipeline]
+    CI --&gt; Lint[Lint]
+    CI --&gt; Test[Test]
+    CI --&gt; Deploy[Deploy]
+    Deploy --&gt; Azure[Azure]
+    Azure --&gt; RG1[Resource Group Dev]
+    Azure --&gt; RG2[Resource Group Prod]
+</code></pre>
+<h3 id="testing-de-plantillas-bicep"><a class="toclink" href="../../2025/09/05/azure-bicep-avanzado-testing-linting-y-despliegue-seguro-multi-entorno/#testing-de-plantillas-bicep">Testing de plantillas Bicep</a></h3>
+<ol>
+<li>Validar sintaxis:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a href="#__codelineno-16-1" id="__codelineno-16-1" name="__codelineno-16-1"></a>bicep<span class="w"> </span>build<span class="w"> </span>main.bicep
+</span></code></pre></div></li>
+<li>Test de despliegue (dry-run):
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a href="#__codelineno-17-1" id="__codelineno-17-1" name="__codelineno-17-1"></a>az<span class="w"> </span>deployment<span class="w"> </span>sub<span class="w"> </span>validate<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-2"><a href="#__codelineno-17-2" id="__codelineno-17-2" name="__codelineno-17-2"></a><span class="w">  </span>--location<span class="w"> </span>westeurope<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-3"><a href="#__codelineno-17-3" id="__codelineno-17-3" name="__codelineno-17-3"></a><span class="w">  </span>--template-file<span class="w"> </span>main.bicep<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-4"><a href="#__codelineno-17-4" id="__codelineno-17-4" name="__codelineno-17-4"></a><span class="w">  </span>--parameters<span class="w"> </span><span class="nv">environment</span><span class="o">=</span><span class="s2">"dev"</span>
+</span></code></pre></div></li>
+<li>Test unitario con <a href="https://github.com/Azure/PSRule.Rules.Azure">PSRule for Azure</a>:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a href="#__codelineno-18-1" id="__codelineno-18-1" name="__codelineno-18-1"></a>pwsh<span class="w"> </span>-c<span class="w"> </span><span class="s2">"Invoke-PSRule -Path ./main.bicep"</span>
+</span></code></pre></div></li>
+</ol>
+<h3 id="linting-y-calidad"><a class="toclink" href="../../2025/09/05/azure-bicep-avanzado-testing-linting-y-despliegue-seguro-multi-entorno/#linting-y-calidad">Linting y calidad</a></h3>
+<ul>
+<li>Usar <a href="https://learn.microsoft.com/azure/azure-resource-manager/bicep/linter">bicep linter</a>:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a href="#__codelineno-19-1" id="__codelineno-19-1" name="__codelineno-19-1"></a>bicep<span class="w"> </span>build<span class="w"> </span>main.bicep
+</span><span id="__span-19-2"><a href="#__codelineno-19-2" id="__codelineno-19-2" name="__codelineno-19-2"></a>bicep<span class="w"> </span>linter<span class="w"> </span>main.bicep
+</span></code></pre></div></li>
+<li>Reglas custom en <code>.bicepconfig.json</code>:
+<div class="language-json highlight"><pre><span></span><code><span id="__span-20-1"><a href="#__codelineno-20-1" id="__codelineno-20-1" name="__codelineno-20-1"></a><span class="p">{</span>
+</span><span id="__span-20-2"><a href="#__codelineno-20-2" id="__codelineno-20-2" name="__codelineno-20-2"></a><span class="w">  </span><span class="nt">"analyzers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-20-3"><a href="#__codelineno-20-3" id="__codelineno-20-3" name="__codelineno-20-3"></a><span class="w">    </span><span class="nt">"core"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-20-4"><a href="#__codelineno-20-4" id="__codelineno-20-4" name="__codelineno-20-4"></a><span class="w">      </span><span class="nt">"rules"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-20-5"><a href="#__codelineno-20-5" id="__codelineno-20-5" name="__codelineno-20-5"></a><span class="w">        </span><span class="nt">"no-hardcoded-secrets"</span><span class="p">:</span><span class="w"> </span><span class="s2">"warning"</span><span class="p">,</span>
+</span><span id="__span-20-6"><a href="#__codelineno-20-6" id="__codelineno-20-6" name="__codelineno-20-6"></a><span class="w">        </span><span class="nt">"secure-parameters"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span>
+</span><span id="__span-20-7"><a href="#__codelineno-20-7" id="__codelineno-20-7" name="__codelineno-20-7"></a><span class="w">      </span><span class="p">}</span>
+</span><span id="__span-20-8"><a href="#__codelineno-20-8" id="__codelineno-20-8" name="__codelineno-20-8"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-20-9"><a href="#__codelineno-20-9" id="__codelineno-20-9" name="__codelineno-20-9"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-20-10"><a href="#__codelineno-20-10" id="__codelineno-20-10" name="__codelineno-20-10"></a><span class="p">}</span>
+</span></code></pre></div></li>
+</ul>
+<h3 id="parametrizacion-multi-entorno"><a class="toclink" href="../../2025/09/05/azure-bicep-avanzado-testing-linting-y-despliegue-seguro-multi-entorno/#parametrizacion-multi-entorno">Parametrización multi-entorno</a></h3>
+<ul>
+<li>Usar parámetros y archivos por entorno:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a href="#__codelineno-21-1" id="__codelineno-21-1" name="__codelineno-21-1"></a>az<span class="w"> </span>deployment<span class="w"> </span>group<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-2"><a href="#__codelineno-21-2" id="__codelineno-21-2" name="__codelineno-21-2"></a><span class="w">  </span>--resource-group<span class="w"> </span>rg-dev<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-3"><a href="#__codelineno-21-3" id="__codelineno-21-3" name="__codelineno-21-3"></a><span class="w">  </span>--template-file<span class="w"> </span>main.bicep<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-4"><a href="#__codelineno-21-4" id="__codelineno-21-4" name="__codelineno-21-4"></a><span class="w">  </span>--parameters<span class="w"> </span>@dev.parameters.json
+</span><span id="__span-21-5"><a href="#__codelineno-21-5" id="__codelineno-21-5" name="__codelineno-21-5"></a>az<span class="w"> </span>deployment<span class="w"> </span>group<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-6"><a href="#__codelineno-21-6" id="__codelineno-21-6" name="__codelineno-21-6"></a><span class="w">  </span>--resource-group<span class="w"> </span>rg-prod<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-7"><a href="#__codelineno-21-7" id="__codelineno-21-7" name="__codelineno-21-7"></a><span class="w">  </span>--template-file<span class="w"> </span>main.bicep<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-8"><a href="#__codelineno-21-8" id="__codelineno-21-8" name="__codelineno-21-8"></a><span class="w">  </span>--parameters<span class="w"> </span>@prod.parameters.json
+</span></code></pre></div></li>
+<li>Ejemplo de parámetros:
+<div class="language-json highlight"><pre><span></span><code><span id="__span-22-1"><a href="#__codelineno-22-1" id="__codelineno-22-1" name="__codelineno-22-1"></a><span class="p">{</span>
+</span><span id="__span-22-2"><a href="#__codelineno-22-2" id="__codelineno-22-2" name="__codelineno-22-2"></a><span class="w">  </span><span class="nt">"environment"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dev"</span><span class="p">},</span>
+</span><span id="__span-22-3"><a href="#__codelineno-22-3" id="__codelineno-22-3" name="__codelineno-22-3"></a><span class="w">  </span><span class="nt">"adminPassword"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SuperSecret123!"</span><span class="p">}</span>
+</span><span id="__span-22-4"><a href="#__codelineno-22-4" id="__codelineno-22-4" name="__codelineno-22-4"></a><span class="p">}</span>
+</span></code></pre></div></li>
+</ul>
+<h3 id="integracion-cicd"><a class="toclink" href="../../2025/09/05/azure-bicep-avanzado-testing-linting-y-despliegue-seguro-multi-entorno/#integracion-cicd">Integración CI/CD</a></h3>
+<ul>
+<li>Pipeline YAML ejemplo:
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-23-1"><a href="#__codelineno-23-1" id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="nt">trigger</span><span class="p">:</span>
+</span><span id="__span-23-2"><a href="#__codelineno-23-2" id="__codelineno-23-2" name="__codelineno-23-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span>
+</span><span id="__span-23-3"><a href="#__codelineno-23-3" id="__codelineno-23-3" name="__codelineno-23-3"></a><span class="nt">pool</span><span class="p">:</span>
+</span><span id="__span-23-4"><a href="#__codelineno-23-4" id="__codelineno-23-4" name="__codelineno-23-4"></a><span class="w">  </span><span class="nt">vmImage</span><span class="p">:</span><span class="w"> </span><span class="s">'ubuntu-latest'</span>
+</span><span id="__span-23-5"><a href="#__codelineno-23-5" id="__codelineno-23-5" name="__codelineno-23-5"></a><span class="nt">steps</span><span class="p">:</span>
+</span><span id="__span-23-6"><a href="#__codelineno-23-6" id="__codelineno-23-6" name="__codelineno-23-6"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bicep build main.bicep</span>
+</span><span id="__span-23-7"><a href="#__codelineno-23-7" id="__codelineno-23-7" name="__codelineno-23-7"></a><span class="w">    </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">'Build</span><span class="nv"> </span><span class="s">Bicep'</span>
+</span><span id="__span-23-8"><a href="#__codelineno-23-8" id="__codelineno-23-8" name="__codelineno-23-8"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bicep linter main.bicep</span>
+</span><span id="__span-23-9"><a href="#__codelineno-23-9" id="__codelineno-23-9" name="__codelineno-23-9"></a><span class="w">    </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">'Lint</span><span class="nv"> </span><span class="s">Bicep'</span>
+</span><span id="__span-23-10"><a href="#__codelineno-23-10" id="__codelineno-23-10" name="__codelineno-23-10"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pwsh -c "Invoke-PSRule -Path ./main.bicep"</span>
+</span><span id="__span-23-11"><a href="#__codelineno-23-11" id="__codelineno-23-11" name="__codelineno-23-11"></a><span class="w">    </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">'Test</span><span class="nv"> </span><span class="s">Bicep'</span>
+</span><span id="__span-23-12"><a href="#__codelineno-23-12" id="__codelineno-23-12" name="__codelineno-23-12"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">az deployment group create --resource-group rg-dev --template-file main.bicep --parameters @dev.parameters.json</span>
+</span><span id="__span-23-13"><a href="#__codelineno-23-13" id="__codelineno-23-13" name="__codelineno-23-13"></a><span class="w">    </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">'Deploy</span><span class="nv"> </span><span class="s">Dev'</span>
+</span></code></pre></div></li>
+</ul>
+<h3 id="buenas-practicas"><a class="toclink" href="../../2025/09/05/azure-bicep-avanzado-testing-linting-y-despliegue-seguro-multi-entorno/#buenas-practicas">Buenas prácticas</a></h3>
+<ul>
+<li>Nunca hardcodear secretos en plantillas</li>
+<li>Usar Key Vault para parámetros sensibles</li>
+<li>Validar y testear antes de cada despliegue</li>
+<li>Mantener módulos reutilizables y versionados</li>
+<li>Revisar resultados de linting y testing en cada PR</li>
+</ul>
+<h3 id="costes"><a class="toclink" href="../../2025/09/05/azure-bicep-avanzado-testing-linting-y-despliegue-seguro-multi-entorno/#costes">Costes</a></h3>
+<ul>
+<li>Bicep: gratis</li>
+<li>PSRule: gratis</li>
+<li>Azure DevOps: desde $0 (hasta 1,800 min/mes)</li>
+</ul>
+<h3 id="referencias"><a class="toclink" href="../../2025/09/05/azure-bicep-avanzado-testing-linting-y-despliegue-seguro-multi-entorno/#referencias">Referencias</a></h3>
+<ul>
+<li><a href="https://learn.microsoft.com/azure/azure-resource-manager/bicep/linter">Bicep Linter</a></li>
+<li><a href="https://learn.microsoft.com/azure/ps-rule-azure/">PSRule for Azure</a></li>
+<li><a href="https://learn.microsoft.com/azure/azure-resource-manager/bicep/deploy-multiple-environments">Multi-environment deployments</a></li>
+</ul>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2025-07-01 00:00:00+00:00">July 1, 2025</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../azure/">Azure</a>, 
+              <a class="md-meta__link" href="./">Security</a></li>
+<li class="md-meta__item">
+            
+              5 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="scripts-de-reporte-para-credenciales-federadas-de-azure-visibilidad-total-de-tus-identidades-administradas"><a class="toclink" href="../../2025/07/01/scripts-de-reporte-para-credenciales-federadas-de-azure-visibilidad-total-de-tus-identidades-administradas/"><strong>Scripts de Reporte para Credenciales Federadas de Azure: Visibilidad Total de tus Identidades Administradas</strong></a></h2>
+<p>¡Hola a todos! En el mundo de la seguridad en la nube, mantener un control exhaustivo sobre las credenciales federadas es fundamental para una gestión de identidades robusta. Hoy quiero compartir con vosotros una solución que he desarrollado para resolver uno de los retos más comunes: <strong>generar reportes completos de las credenciales federadas de identidades administradas en Azure</strong>.</p>
+<p>Si habéis trabajado con <strong>GitHub Actions</strong>, <strong>Azure DevOps</strong>, o cualquier sistema CI/CD que se integre con Azure usando identidades administradas, sabréis lo importante que es tener visibilidad sobre qué credenciales están configuradas, dónde y cómo.</p>
+<h3 id="el-problema-falta-de-visibilidad"><a class="toclink" href="../../2025/07/01/scripts-de-reporte-para-credenciales-federadas-de-azure-visibilidad-total-de-tus-identidades-administradas/#el-problema-falta-de-visibilidad"><strong>El Problema: Falta de Visibilidad</strong></a></h3>
+<p>Cuando gestionáis múltiples suscripciones de Azure con decenas o cientos de identidades administradas, es muy difícil responder a preguntas básicas como:</p>
+<ul>
+<li>¿Qué credenciales federadas tengo configuradas en todas mis suscripciones?</li>
+<li>¿Qué repositorios de GitHub tienen acceso a mis recursos de Azure?</li>
+<li>¿Hay credenciales obsoletas que debería eliminar?</li>
+<li>¿Cómo puedo auditar todas mis configuraciones de identidad federada?</li>
+</ul>
+<p>El portal de Azure nos permite ver esto recurso por recurso, pero no hay una vista consolidada que nos permita tener el "big picture" de toda nuestra configuración de seguridad.</p>
+<h3 id="la-solucion-scripts-de-reporte-automatizados"><a class="toclink" href="../../2025/07/01/scripts-de-reporte-para-credenciales-federadas-de-azure-visibilidad-total-de-tus-identidades-administradas/#la-solucion-scripts-de-reporte-automatizados"><strong>La Solución: Scripts de Reporte Automatizados</strong></a></h3>
+<p>He desarrollado una solución completa que incluye scripts tanto en <strong>Python</strong> como en <strong>PowerShell</strong> para generar reportes detallados de todas las credenciales federadas de identidades administradas en vuestro entorno Azure.</p>
+<h4 id="caracteristicas-principales"><a class="toclink" href="../../2025/07/01/scripts-de-reporte-para-credenciales-federadas-de-azure-visibilidad-total-de-tus-identidades-administradas/#caracteristicas-principales"><strong>Características Principales</strong></a></h4>
+<p>✅ <strong>Soporte Multi-Suscripción</strong>: Procesa todas las suscripciones disponibles o las que especifiquéis<br>
+✅ <strong>Filtrado por Tenant</strong>: Permite filtrar suscripciones por tenant específico<br>
+✅ <strong>Múltiples Formatos</strong>: Exporta a JSON, CSV y Excel<br>
+✅ <strong>Logging Robusto</strong>: Logs detallados separados de los datos de salida<br>
+✅ <strong>Validación de Datos</strong>: Evita procesar identidades con datos inválidos<br>
+✅ <strong>Autenticación Flexible</strong>: Soporta Managed Identity, Azure CLI, MFA, etc.<br>
+✅ <strong>Archivo de Tuplas</strong>: Genera un archivo adicional con solo las tuplas de credenciales  </p>
+<h4 id="que-informacion-captura"><a class="toclink" href="../../2025/07/01/scripts-de-reporte-para-credenciales-federadas-de-azure-visibilidad-total-de-tus-identidades-administradas/#que-informacion-captura"><strong>¿Qué Información Captura?</strong></a></h4>
+<p>Los scripts capturan información completa tanto de las identidades administradas como de sus credenciales federadas:</p>
+<p><strong>Información de la Identidad:</strong>
+- Nombre y ID de la identidad
+- Grupo de recursos y ubicación
+- Principal ID y Client ID
+- Tenant ID</p>
+<p><strong>Información de las Credenciales Federadas:</strong>
+- Nombre e ID de la credencial
+- Issuer (emisor)
+- Subject (sujeto)
+- Audiences (audiencias)
+- Descripción y tipo</p>
+<p><strong>Metadatos del Reporte:</strong>
+- ID y nombre de la suscripción
+- Tenant ID
+- Timestamp del reporte</p>
+<h3 id="como-empezar"><a class="toclink" href="../../2025/07/01/scripts-de-reporte-para-credenciales-federadas-de-azure-visibilidad-total-de-tus-identidades-administradas/#como-empezar"><strong>¿Cómo Empezar?</strong></a></h3>
+<h4 id="requisitos-previos"><a class="toclink" href="../../2025/07/01/scripts-de-reporte-para-credenciales-federadas-de-azure-visibilidad-total-de-tus-identidades-administradas/#requisitos-previos"><strong>Requisitos Previos</strong></a></h4>
+<p><strong>Para Python:</strong>
+</p><div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a href="#__codelineno-12-1" id="__codelineno-12-1" name="__codelineno-12-1"></a>pip<span class="w"> </span>install<span class="w"> </span>azure-identity<span class="w"> </span>azure-mgmt-msi<span class="w"> </span>azure-mgmt-resource<span class="w"> </span>pandas<span class="w"> </span>openpyxl
+</span></code></pre></div><p></p>
+<p><strong>Para PowerShell:</strong>
+</p><div class="language-powershell highlight"><pre><span></span><code><span id="__span-13-1"><a href="#__codelineno-13-1" id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="nb">Install-Module</span> <span class="n">-Name</span> <span class="n">Az</span><span class="p">.</span><span class="n">Accounts</span><span class="p">,</span> <span class="n">Az</span><span class="p">.</span><span class="n">ManagedServiceIdentity</span><span class="p">,</span> <span class="n">Az</span><span class="p">.</span><span class="n">Resources</span><span class="p">,</span> <span class="n">ImportExcel</span>
+</span></code></pre></div><p></p>
+<h4 id="ejemplos-de-uso"><a class="toclink" href="../../2025/07/01/scripts-de-reporte-para-credenciales-federadas-de-azure-visibilidad-total-de-tus-identidades-administradas/#ejemplos-de-uso"><strong>Ejemplos de Uso</strong></a></h4>
+<p><strong>Script de Python:</strong>
+</p><div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a href="#__codelineno-14-1" id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="c1"># Reporte de todas las suscripciones</span>
+</span><span id="__span-14-2"><a href="#__codelineno-14-2" id="__codelineno-14-2" name="__codelineno-14-2"></a>python<span class="w"> </span>federated-identity-credentials-report.py<span class="w"> </span>--all-subscriptions<span class="w"> </span>--format<span class="w"> </span>excel
+</span><span id="__span-14-3"><a href="#__codelineno-14-3" id="__codelineno-14-3" name="__codelineno-14-3"></a>
+</span><span id="__span-14-4"><a href="#__codelineno-14-4" id="__codelineno-14-4" name="__codelineno-14-4"></a><span class="c1"># Reporte filtrado por tenant</span>
+</span><span id="__span-14-5"><a href="#__codelineno-14-5" id="__codelineno-14-5" name="__codelineno-14-5"></a>python<span class="w"> </span>federated-identity-credentials-report.py<span class="w"> </span>--tenant-id<span class="w"> </span><span class="s2">"your-tenant-id"</span><span class="w"> </span>--all-subscriptions<span class="w"> </span>--format<span class="w"> </span>json
+</span><span id="__span-14-6"><a href="#__codelineno-14-6" id="__codelineno-14-6" name="__codelineno-14-6"></a>
+</span><span id="__span-14-7"><a href="#__codelineno-14-7" id="__codelineno-14-7" name="__codelineno-14-7"></a><span class="c1"># Reporte de una suscripción específica</span>
+</span><span id="__span-14-8"><a href="#__codelineno-14-8" id="__codelineno-14-8" name="__codelineno-14-8"></a>python<span class="w"> </span>federated-identity-credentials-report.py<span class="w"> </span>--subscription-id<span class="w"> </span><span class="s2">"12345678-1234-1234-1234-123456789012"</span><span class="w"> </span>--format<span class="w"> </span>csv
+</span></code></pre></div><p></p>
+<p><strong>Script de PowerShell:</strong>
+</p><div class="language-powershell highlight"><pre><span></span><code><span id="__span-15-1"><a href="#__codelineno-15-1" id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="c"># Reporte de todas las suscripciones</span>
+</span><span id="__span-15-2"><a href="#__codelineno-15-2" id="__codelineno-15-2" name="__codelineno-15-2"></a><span class="p">.\</span><span class="n">federated-identity-credentials-report</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-AllSubscriptions</span> <span class="n">-Format</span> <span class="n">Excel</span>
+</span><span id="__span-15-3"><a href="#__codelineno-15-3" id="__codelineno-15-3" name="__codelineno-15-3"></a>
+</span><span id="__span-15-4"><a href="#__codelineno-15-4" id="__codelineno-15-4" name="__codelineno-15-4"></a><span class="c"># Reporte filtrado por tenant</span>
+</span><span id="__span-15-5"><a href="#__codelineno-15-5" id="__codelineno-15-5" name="__codelineno-15-5"></a><span class="p">.\</span><span class="n">federated-identity-credentials-report</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-TenantId</span> <span class="s2">"your-tenant-id"</span> <span class="n">-AllSubscriptions</span> <span class="n">-Format</span> <span class="n">JSON</span>
+</span><span id="__span-15-6"><a href="#__codelineno-15-6" id="__codelineno-15-6" name="__codelineno-15-6"></a>
+</span><span id="__span-15-7"><a href="#__codelineno-15-7" id="__codelineno-15-7" name="__codelineno-15-7"></a><span class="c"># Reporte de un grupo de recursos específico</span>
+</span><span id="__span-15-8"><a href="#__codelineno-15-8" id="__codelineno-15-8" name="__codelineno-15-8"></a><span class="p">.\</span><span class="n">federated-identity-credentials-report</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-SubscriptionId</span> <span class="s2">"12345678-1234-1234-1234-123456789012"</span> <span class="n">-ResourceGroupName</span> <span class="s2">"my-rg"</span> <span class="n">-Format</span> <span class="n">CSV</span>
+</span></code></pre></div><p></p>
+<h3 id="caracteristicas-avanzadas"><a class="toclink" href="../../2025/07/01/scripts-de-reporte-para-credenciales-federadas-de-azure-visibilidad-total-de-tus-identidades-administradas/#caracteristicas-avanzadas"><strong>Características Avanzadas</strong></a></h3>
+<h4 id="archivo-de-tuplas-de-credenciales"><a class="toclink" href="../../2025/07/01/scripts-de-reporte-para-credenciales-federadas-de-azure-visibilidad-total-de-tus-identidades-administradas/#archivo-de-tuplas-de-credenciales"><strong>Archivo de Tuplas de Credenciales</strong></a></h4>
+<p>Además del reporte principal, los scripts generan automáticamente un archivo adicional con solo las tuplas de credenciales (<code>credential_issuer</code>, <code>credential_subject</code>, <code>credential_audiences</code>, <code>credential_type</code>). Esto es especialmente útil para:</p>
+<ul>
+<li>Análisis de patrones de configuración</li>
+<li>Auditorías de seguridad</li>
+<li>Integración con otras herramientas de análisis</li>
+</ul>
+<h4 id="logging-separado"><a class="toclink" href="../../2025/07/01/scripts-de-reporte-para-credenciales-federadas-de-azure-visibilidad-total-de-tus-identidades-administradas/#logging-separado"><strong>Logging Separado</strong></a></h4>
+<p>Una característica importante es que los logs nunca se mezclan con los datos de salida. Los logs van a <code>stderr</code> y a un archivo de log separado, mientras que los datos puros van a <code>stdout</code> o al archivo especificado. Esto es crucial para la automatización y integración con pipelines de CI/CD.</p>
+<h4 id="validacion-de-datos"><a class="toclink" href="../../2025/07/01/scripts-de-reporte-para-credenciales-federadas-de-azure-visibilidad-total-de-tus-identidades-administradas/#validacion-de-datos"><strong>Validación de Datos</strong></a></h4>
+<p>Los scripts incluyen validación robusta para evitar procesar identidades con nombres vacíos o nulos, lo que puede ocurrir en ciertos escenarios de configuración incompleta.</p>
+<h3 id="casos-de-uso-reales"><a class="toclink" href="../../2025/07/01/scripts-de-reporte-para-credenciales-federadas-de-azure-visibilidad-total-de-tus-identidades-administradas/#casos-de-uso-reales"><strong>Casos de Uso Reales</strong></a></h3>
+<h4 id="1-auditoria-de-seguridad"><a class="toclink" href="../../2025/07/01/scripts-de-reporte-para-credenciales-federadas-de-azure-visibilidad-total-de-tus-identidades-administradas/#1-auditoria-de-seguridad"><strong>1. Auditoría de Seguridad</strong></a></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a href="#__codelineno-16-1" id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="c1"># Generar reporte completo en Excel para auditoría</span>
+</span><span id="__span-16-2"><a href="#__codelineno-16-2" id="__codelineno-16-2" name="__codelineno-16-2"></a>python<span class="w"> </span>federated-identity-credentials-report.py<span class="w"> </span>--all-subscriptions<span class="w"> </span>--format<span class="w"> </span>excel<span class="w"> </span>--output<span class="w"> </span>security-audit-<span class="k">$(</span>date<span class="w"> </span>+%Y%m%d<span class="k">)</span>.xlsx
+</span></code></pre></div>
+<h4 id="2-cleanup-de-credenciales-obsoletas"><a class="toclink" href="../../2025/07/01/scripts-de-reporte-para-credenciales-federadas-de-azure-visibilidad-total-de-tus-identidades-administradas/#2-cleanup-de-credenciales-obsoletas"><strong>2. Cleanup de Credenciales Obsoletas</strong></a></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a href="#__codelineno-17-1" id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="c1"># Exportar a CSV para análisis con herramientas de datos</span>
+</span><span id="__span-17-2"><a href="#__codelineno-17-2" id="__codelineno-17-2" name="__codelineno-17-2"></a>python<span class="w"> </span>federated-identity-credentials-report.py<span class="w"> </span>--all-subscriptions<span class="w"> </span>--format<span class="w"> </span>csv<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">"old-repo-name"</span>
+</span></code></pre></div>
+<h4 id="3-monitoreo-continuo"><a class="toclink" href="../../2025/07/01/scripts-de-reporte-para-credenciales-federadas-de-azure-visibilidad-total-de-tus-identidades-administradas/#3-monitoreo-continuo"><strong>3. Monitoreo Continuo</strong></a></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a href="#__codelineno-18-1" id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="c1"># Integrar en pipeline de CI/CD para monitoreo continuo</span>
+</span><span id="__span-18-2"><a href="#__codelineno-18-2" id="__codelineno-18-2" name="__codelineno-18-2"></a>python<span class="w"> </span>federated-identity-credentials-report.py<span class="w"> </span>--tenant-id<span class="w"> </span><span class="s2">"</span><span class="nv">$TENANT_ID</span><span class="s2">"</span><span class="w"> </span>--all-subscriptions<span class="w"> </span>--format<span class="w"> </span>json<span class="w"> </span>&gt;<span class="w"> </span>daily-report.json
+</span></code></pre></div>
+<h3 id="estructura-de-archivos-generados"><a class="toclink" href="../../2025/07/01/scripts-de-reporte-para-credenciales-federadas-de-azure-visibilidad-total-de-tus-identidades-administradas/#estructura-de-archivos-generados"><strong>Estructura de Archivos Generados</strong></a></h3>
+<p><strong>Archivo Principal</strong> (<code>federated_identity_credentials_report_YYYYMMDD_HHMMSS.json/csv/xlsx</code>):
+</p><div class="language-json highlight"><pre><span></span><code><span id="__span-19-1"><a href="#__codelineno-19-1" id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="p">[</span>
+</span><span id="__span-19-2"><a href="#__codelineno-19-2" id="__codelineno-19-2" name="__codelineno-19-2"></a><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-19-3"><a href="#__codelineno-19-3" id="__codelineno-19-3" name="__codelineno-19-3"></a><span class="w">    </span><span class="nt">"identity_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"github-actions-identity"</span><span class="p">,</span>
+</span><span id="__span-19-4"><a href="#__codelineno-19-4" id="__codelineno-19-4" name="__codelineno-19-4"></a><span class="w">    </span><span class="nt">"identity_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/subscriptions/.../userAssignedIdentities/github-actions-identity"</span><span class="p">,</span>
+</span><span id="__span-19-5"><a href="#__codelineno-19-5" id="__codelineno-19-5" name="__codelineno-19-5"></a><span class="w">    </span><span class="nt">"identity_resource_group"</span><span class="p">:</span><span class="w"> </span><span class="s2">"security-rg"</span><span class="p">,</span>
+</span><span id="__span-19-6"><a href="#__codelineno-19-6" id="__codelineno-19-6" name="__codelineno-19-6"></a><span class="w">    </span><span class="nt">"identity_location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eastus"</span><span class="p">,</span>
+</span><span id="__span-19-7"><a href="#__codelineno-19-7" id="__codelineno-19-7" name="__codelineno-19-7"></a><span class="w">    </span><span class="nt">"credential_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GitHub-Main-Branch"</span><span class="p">,</span>
+</span><span id="__span-19-8"><a href="#__codelineno-19-8" id="__codelineno-19-8" name="__codelineno-19-8"></a><span class="w">    </span><span class="nt">"credential_issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://token.actions.githubusercontent.com"</span><span class="p">,</span>
+</span><span id="__span-19-9"><a href="#__codelineno-19-9" id="__codelineno-19-9" name="__codelineno-19-9"></a><span class="w">    </span><span class="nt">"credential_subject"</span><span class="p">:</span><span class="w"> </span><span class="s2">"repo:myorg/myrepo:ref:refs/heads/main"</span><span class="p">,</span>
+</span><span id="__span-19-10"><a href="#__codelineno-19-10" id="__codelineno-19-10" name="__codelineno-19-10"></a><span class="w">    </span><span class="nt">"credential_audiences"</span><span class="p">:</span><span class="w"> </span><span class="s2">"api://AzureADTokenExchange"</span><span class="p">,</span>
+</span><span id="__span-19-11"><a href="#__codelineno-19-11" id="__codelineno-19-11" name="__codelineno-19-11"></a><span class="w">    </span><span class="nt">"subscription_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Production"</span><span class="p">,</span>
+</span><span id="__span-19-12"><a href="#__codelineno-19-12" id="__codelineno-19-12" name="__codelineno-19-12"></a><span class="w">    </span><span class="nt">"tenant_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345678-1234-1234-1234-123456789012"</span><span class="p">,</span>
+</span><span id="__span-19-13"><a href="#__codelineno-19-13" id="__codelineno-19-13" name="__codelineno-19-13"></a><span class="w">    </span><span class="nt">"report_timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-07-01T10:30:00"</span>
+</span><span id="__span-19-14"><a href="#__codelineno-19-14" id="__codelineno-19-14" name="__codelineno-19-14"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-19-15"><a href="#__codelineno-19-15" id="__codelineno-19-15" name="__codelineno-19-15"></a><span class="p">]</span>
+</span></code></pre></div><p></p>
+<p><strong>Archivo de Tuplas</strong> (<code>credential_tuples_YYYYMMDD_HHMMSS.json/csv/xlsx</code>):
+</p><div class="language-json highlight"><pre><span></span><code><span id="__span-20-1"><a href="#__codelineno-20-1" id="__codelineno-20-1" name="__codelineno-20-1"></a><span class="p">[</span>
+</span><span id="__span-20-2"><a href="#__codelineno-20-2" id="__codelineno-20-2" name="__codelineno-20-2"></a><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-20-3"><a href="#__codelineno-20-3" id="__codelineno-20-3" name="__codelineno-20-3"></a><span class="w">    </span><span class="nt">"credential_issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://token.actions.githubusercontent.com"</span><span class="p">,</span>
+</span><span id="__span-20-4"><a href="#__codelineno-20-4" id="__codelineno-20-4" name="__codelineno-20-4"></a><span class="w">    </span><span class="nt">"credential_subject"</span><span class="p">:</span><span class="w"> </span><span class="s2">"repo:myorg/myrepo:ref:refs/heads/main"</span><span class="p">,</span>
+</span><span id="__span-20-5"><a href="#__codelineno-20-5" id="__codelineno-20-5" name="__codelineno-20-5"></a><span class="w">    </span><span class="nt">"credential_audiences"</span><span class="p">:</span><span class="w"> </span><span class="s2">"api://AzureADTokenExchange"</span><span class="p">,</span>
+</span><span id="__span-20-6"><a href="#__codelineno-20-6" id="__codelineno-20-6" name="__codelineno-20-6"></a><span class="w">    </span><span class="nt">"credential_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Microsoft.ManagedIdentity/userAssignedIdentities/federatedIdentityCredentials"</span>
+</span><span id="__span-20-7"><a href="#__codelineno-20-7" id="__codelineno-20-7" name="__codelineno-20-7"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-20-8"><a href="#__codelineno-20-8" id="__codelineno-20-8" name="__codelineno-20-8"></a><span class="p">]</span>
+</span></code></pre></div><p></p>
+<h3 id="mejores-practicas-de-uso"><a class="toclink" href="../../2025/07/01/scripts-de-reporte-para-credenciales-federadas-de-azure-visibilidad-total-de-tus-identidades-administradas/#mejores-practicas-de-uso"><strong>Mejores Prácticas de Uso</strong></a></h3>
+<h4 id="1-automatizacion"><a class="toclink" href="../../2025/07/01/scripts-de-reporte-para-credenciales-federadas-de-azure-visibilidad-total-de-tus-identidades-administradas/#1-automatizacion"><strong>1. Automatización</strong></a></h4>
+<p>Integrad estos scripts en vuestros pipelines de CI/CD para generar reportes automáticos:</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-21-1"><a href="#__codelineno-21-1" id="__codelineno-21-1" name="__codelineno-21-1"></a><span class="c1"># GitHub Actions ejemplo</span>
+</span><span id="__span-21-2"><a href="#__codelineno-21-2" id="__codelineno-21-2" name="__codelineno-21-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Generate Federated Credentials Report</span>
+</span><span id="__span-21-3"><a href="#__codelineno-21-3" id="__codelineno-21-3" name="__codelineno-21-3"></a><span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+</span><span id="__span-21-4"><a href="#__codelineno-21-4" id="__codelineno-21-4" name="__codelineno-21-4"></a><span class="w">    </span><span class="no">python federated-identity-credentials-report.py --all-subscriptions --format json --output report-${{ github.run_number }}.json</span>
+</span><span id="__span-21-5"><a href="#__codelineno-21-5" id="__codelineno-21-5" name="__codelineno-21-5"></a>
+</span><span id="__span-21-6"><a href="#__codelineno-21-6" id="__codelineno-21-6" name="__codelineno-21-6"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Upload Report as Artifact</span>
+</span><span id="__span-21-7"><a href="#__codelineno-21-7" id="__codelineno-21-7" name="__codelineno-21-7"></a><span class="w">  </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/upload-artifact@v3</span>
+</span><span id="__span-21-8"><a href="#__codelineno-21-8" id="__codelineno-21-8" name="__codelineno-21-8"></a><span class="w">  </span><span class="nt">with</span><span class="p">:</span>
+</span><span id="__span-21-9"><a href="#__codelineno-21-9" id="__codelineno-21-9" name="__codelineno-21-9"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">federated-credentials-report</span>
+</span><span id="__span-21-10"><a href="#__codelineno-21-10" id="__codelineno-21-10" name="__codelineno-21-10"></a><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">report-*.json</span>
+</span></code></pre></div>
+<h4 id="2-monitoreo-regular"><a class="toclink" href="../../2025/07/01/scripts-de-reporte-para-credenciales-federadas-de-azure-visibilidad-total-de-tus-identidades-administradas/#2-monitoreo-regular"><strong>2. Monitoreo Regular</strong></a></h4>
+<p>Ejecutad los scripts de forma regular (diaria o semanal) para detectar cambios no autorizados:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a href="#__codelineno-22-1" id="__codelineno-22-1" name="__codelineno-22-1"></a><span class="c1"># Cron job ejemplo</span>
+</span><span id="__span-22-2"><a href="#__codelineno-22-2" id="__codelineno-22-2" name="__codelineno-22-2"></a><span class="m">0</span><span class="w"> </span><span class="m">6</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span><span class="m">1</span><span class="w"> </span>/usr/bin/python3<span class="w"> </span>/path/to/federated-identity-credentials-report.py<span class="w"> </span>--all-subscriptions<span class="w"> </span>--format<span class="w"> </span>excel<span class="w"> </span>--output<span class="w"> </span>/reports/weekly-<span class="k">$(</span>date<span class="w"> </span>+<span class="se">\%</span>Y<span class="se">\%</span>m<span class="se">\%</span>d<span class="k">)</span>.xlsx
+</span></code></pre></div>
+<h4 id="3-analisis-de-drift"><a class="toclink" href="../../2025/07/01/scripts-de-reporte-para-credenciales-federadas-de-azure-visibilidad-total-de-tus-identidades-administradas/#3-analisis-de-drift"><strong>3. Análisis de Drift</strong></a></h4>
+<p>Comparad reportes de diferentes fechas para detectar cambios de configuración:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a href="#__codelineno-23-1" id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="c1"># Comparar reportes para detectar cambios</span>
+</span><span id="__span-23-2"><a href="#__codelineno-23-2" id="__codelineno-23-2" name="__codelineno-23-2"></a>diff<span class="w"> </span>&lt;<span class="o">(</span>jq<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>report-20250701.json<span class="o">)</span><span class="w"> </span>&lt;<span class="o">(</span>jq<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>report-20250708.json<span class="o">)</span>
+</span></code></pre></div>
+<h3 id="consideraciones-de-seguridad"><a class="toclink" href="../../2025/07/01/scripts-de-reporte-para-credenciales-federadas-de-azure-visibilidad-total-de-tus-identidades-administradas/#consideraciones-de-seguridad"><strong>Consideraciones de Seguridad</strong></a></h3>
+<p>⚠️ <strong>Permisos Mínimos</strong>: Los scripts requieren permisos de lectura sobre las identidades administradas y sus credenciales federadas<br>
+⚠️ <strong>Datos Sensibles</strong>: Los reportes contienen información de configuración sensible - almacenadlos de forma segura<br>
+⚠️ <strong>Logs</strong>: Revisad los logs regularmente para detectar errores de autenticación o acceso  </p>
+<h3 id="conclusion"><a class="toclink" href="../../2025/07/01/scripts-de-reporte-para-credenciales-federadas-de-azure-visibilidad-total-de-tus-identidades-administradas/#conclusion"><strong>Conclusión</strong></a></h3>
+<p>Tener visibilidad completa sobre las credenciales federadas de vuestras identidades administradas es fundamental para mantener una postura de seguridad sólida en Azure. Estos scripts os permitirán:</p>
+<ul>
+<li><strong>Reducir el riesgo de seguridad</strong> mediante auditorías regulares</li>
+<li><strong>Cumplir con requisitos de compliance</strong> generando reportes detallados</li>
+<li><strong>Optimizar la gestión</strong> identificando credenciales obsoletas o mal configuradas</li>
+<li><strong>Automatizar el monitoreo</strong> integrando los scripts en vuestros procesos existentes</li>
+</ul>
+<p>Los scripts están disponibles en mi repositorio y son completamente gratuitos y de código abierto. Si os resultan útiles, no dudéis en contribuir con mejoras o reportar issues.</p>
+<p>¡Espero que esta herramienta os ayude a mantener vuestros entornos Azure más seguros y mejor documentados!</p>
+<p><strong>Enlaces útiles:</strong>
+- 📖 <a href="https://rfernandezdo.github.io/Tools/Federated_Identity_Credentials_Report/README-federated-identity-credentials/">Documentación completa y scripts</a></p>
+<hr>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-09-22 00:00:00+00:00">September 22, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../microsoft-entra/">Microsoft Entra</a>, 
+              <a class="md-meta__link" href="./">Security</a></li>
+<li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="microsoft-entra-id-protection"><a class="toclink" href="../../2024/09/22/microsoft-entra-id-protection/">Microsoft Entra ID Protection</a></h2>
+<p>Microsoft Entra offers a comprehensive set of security features to protect your organization's data and resources. One of these features is <strong>ID Protection</strong>, which helps you secure your users' identities and prevent unauthorized access to your organization's data. Here are some key benefits of using <strong>ID Protection</strong> in Microsoft Entra:</p>
+<ul>
+<li>
+<p><strong>Multi-factor authentication (MFA)</strong>: <strong>ID Protection</strong> enables you to enforce multi-factor authentication for all users in your organization. This adds an extra layer of security to your users' accounts and helps prevent unauthorized access.</p>
+</li>
+<li>
+<p><strong>Conditional access policies</strong>: With <strong>ID Protection</strong>, you can create conditional access policies that define the conditions under which users can access your organization's resources. For example, you can require users to use multi-factor authentication when accessing sensitive data or restrict access to certain applications based on the user's location.</p>
+</li>
+<li>
+<p><strong>Risk-based policies</strong>: <strong>ID Protection</strong> uses advanced machine learning algorithms to detect suspicious activities and risky sign-in attempts. You can create risk-based policies that automatically block or allow access based on the risk level associated with the sign-in attempt.</p>
+</li>
+<li>
+<p><strong>Identity protection reports</strong>: <strong>ID Protection</strong> provides detailed reports and insights into your organization's identity security posture. You can use these reports to identify security risks, monitor user activity, and take proactive measures to protect your organization's data.</p>
+</li>
+</ul>
+<p>By using <strong>ID Protection</strong> in Microsoft Entra, you can enhance the security of your organization's data and resources and protect your users' identities from cyber threats. If you want to learn more about <strong>ID Protection</strong> and other security features in Microsoft Entra, contact us today! </p>
+<p>I hope this helps!</p>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-09-17 00:00:00+00:00">September 17, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="./">Security</a></li>
+<li class="md-meta__item">
+            
+              3 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="security-score-system"><a class="toclink" href="../../2024/09/17/security-score-system/">Security Score System</a></h2>
+<p>The Common Vulnerability Scoring System (CVSS) is a framework for scoring the severity of security vulnerabilities. It provides a standardized method for assessing the impact of vulnerabilities and helps organizations prioritize their response to security threats. In this article, we will discuss the CVSS and how it can be used to calculate the severity of security vulnerabilities.</p>
+<h3 id="what-is-cvss"><a class="toclink" href="../../2024/09/17/security-score-system/#what-is-cvss">What is CVSS?</a></h3>
+<p>The Common Vulnerability Scoring System (CVSS) is an open framework for scoring the severity of security vulnerabilities. It was developed by the Forum of Incident Response and Security Teams (FIRST) to provide a standardized method for assessing the impact of vulnerabilities. CVSS assigns a numerical score to vulnerabilities based on their characteristics, such as the impact on confidentiality, integrity, and availability, and the complexity of the attack vector.</p>
+<p>CVSS is widely used by security researchers, vendors, and organizations to prioritize their response to security threats. It helps organizations understand the severity of vulnerabilities and allocate resources to address the most critical issues first.</p>
+<h3 id="how-is-cvss-calculated"><a class="toclink" href="../../2024/09/17/security-score-system/#how-is-cvss-calculated">How is CVSS calculated?</a></h3>
+<p>In CVSS Version 4.0, vulnerabilities are scored on a scale of 0.0 to 10.0, with 10.0 being the most severe. The CVSS score is calculated based on several metrics groups, including:</p>
+<ul>
+<li>
+<p><strong>Base Metric</strong>: The Base metric group represents the intrinsic characteristics of a vulnerability that are constant over time and across user environments. It is composed of two sets of metrics: the Exploitability metrics and the Impact metrics.</p>
+</li>
+<li>
+<p><strong>Threat metric group</strong>: The Threat metric group reflects the characteristics of a vulnerability related to threat that may change over time but not necessarily across user environments. </p>
+</li>
+<li>
+<p><strong>Environmental metric group</strong>: The Environmental metric group represents the characteristics of a vulnerability that are relevant and unique to a particular user's environment.</p>
+</li>
+<li>
+<p><strong>The Supplementary metric group</strong>: The Supplemental metric group includes metrics that provide context as well as describe and measure additional extrinsic attributes of a vulnerability. </p>
+</li>
+</ul>
+<h3 id="cvss-version-40-metrics"><a class="toclink" href="../../2024/09/17/security-score-system/#cvss-version-40-metrics">CVSS Version 4.0 Metrics</a></h3>
+<h4 id="base-metrics"><a class="toclink" href="../../2024/09/17/security-score-system/#base-metrics">Base Metrics</a></h4>
+<p>The Base metric group includes the following metrics:</p>
+<ul>
+<li><strong>Exploitability Metrics</strong>: These metrics describe the characteristics of the vulnerability that affect how easy it is to exploit. They include the Attack Vector (AV), Attack Complexity (AC), Privileges Required (PR), and User Interaction (UI).</li>
+<li><strong>Vulnerable System Impact Metrics</strong>: These metrics describe the impact on the system if the vulnerability is exploited. They include the Confidentiality(VC), Integrity (VI), and Availability (VA) impacts.</li>
+<li><strong>Subsequent System Impact Metrics</strong>: These metrics describe the impact on the system if the vulnerability is exploited. They include the Confidentiality(SC), Integrity (II), and Availability (SA) impacts.</li>
+</ul>
+<h5 id="exploitability-metrics"><a class="toclink" href="../../2024/09/17/security-score-system/#exploitability-metrics">Exploitability Metrics</a></h5>
+<ul>
+<li><strong>Attack Vector (AV)</strong>: This metric describes the context where vulnerability is exploited. It can be either Local (L), Adjacent Network (A), Network (N), or Physical (P).</li>
+<li><strong>Attack Complexity (AC)</strong>: This metric describes the complexity of the attack required to exploit the vulnerability. It can be either Low (L), High (H).</li>
+<li><strong>Privileges Required (PR)</strong>: This metric describes the level of privileges required to exploit the vulnerability. It can be either None (N), Low (L), or High (H).</li>
+<li><strong>User Interaction (UI)</strong>: This metric describes whether user interaction is required to exploit the vulnerability. It can be either None (N), Required (R).</li>
+</ul>
+<h5 id="vulnerable-system-impact-metrics"><a class="toclink" href="../../2024/09/17/security-score-system/#vulnerable-system-impact-metrics">Vulnerable System Impact Metrics</a></h5>
+<ul>
+<li>
+<p><strong>Confidentiality Impact (VC)</strong>: This metric measures the impact on the confidentiality of the information managed by the vulnerable system due to a successful exploit of the vulnerability. It can be either Low (L), High (H), or None (N).</p>
+</li>
+<li>
+<p><strong>Integrity Impact (VI)</strong>: This metric measures the impact on the integrity of the information managed by the vulnerable system due to a successful exploit of the vulnerability. It can be either Low (L), High (H), or None (N).</p>
+</li>
+<li>
+<p><strong>Availability Impact (VA)</strong>: This metric measures the impact on the availability of the services of the vulnerable system due to a successful exploit of the vulnerability. It can be either Low (L), High (H), or None (N).</p>
+</li>
+</ul>
+<h5 id="subsequent-system-impact-metrics"><a class="toclink" href="../../2024/09/17/security-score-system/#subsequent-system-impact-metrics">Subsequent System Impact Metrics</a></h5>
+<ul>
+<li><strong>Confidentiality Impact (SC)</strong>: This metric measures the impact to the confidentiality of the information managed by the Subsequent System due to a successful exploit of the vulnerability. It can be either Low (L), High (H), or None (N).</li>
+</ul>
+<h3 id="references"><a class="toclink" href="../../2024/09/17/security-score-system/#references">References</a></h3>
+<ul>
+<li><a href="https://www.first.org/cvss/v4.0/specification-document">Common Vulnerability Scoring System version 4.0: Specification Document</a></li>
+<li><a href="https://www.first.org/cvss/calculator/4.0">CVSS Version 4.0 Calculator</a></li>
+<li><a href="https://www.first.org/cvss/user-guide">CVSS Version 4.0 User Guide</a></li>
+</ul>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-06-13 00:00:00+00:00">June 13, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../azure-services/">Azure Services</a>, 
+              <a class="md-meta__link" href="./">Security</a></li>
+<li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="restrict-managed-disks-from-being-imported-or-exported"><a class="toclink" href="../../2024/06/13/restrict-managed-disks-from-being-imported-or-exported/">Restrict managed disks from being imported or exported</a></h2>
+<p>In this post, I will show you how to restrict managed disks from being imported or exported in Azure.</p>
+<h3 id="what-are-managed-disks"><a class="toclink" href="../../2024/06/13/restrict-managed-disks-from-being-imported-or-exported/#what-are-managed-disks">What are managed disks?</a></h3>
+<p>Azure Managed Disks are block-level storage volumes that are managed by Azure and used with Azure Virtual Machines. Managed Disks are designed for high availability and durability, and they provide a simple and scalable way to manage your storage.</p>
+<p>If you don't know anything about Azue Managed Disks, grab a cup of coffee( it will take you a while), you can read the <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/managed-disks-overview">official documentation</a> to learn more about them.</p>
+<h3 id="why-restrict-managed-disks-from-being-imported-or-exported"><a class="toclink" href="../../2024/06/13/restrict-managed-disks-from-being-imported-or-exported/#why-restrict-managed-disks-from-being-imported-or-exported">Why restrict managed disks from being imported or exported?</a></h3>
+<p>There are several reasons to restrict managed disks from being imported or exported:</p>
+<ul>
+<li><strong>Security</strong>: By restricting managed disks from being imported or exported, you can reduce the risk of unauthorized access to your data.</li>
+<li><strong>Compliance</strong>: By restricting managed disks from being imported or exported, you can help ensure that your organization complies with data protection regulations.</li>
+</ul>
+<h3 id="how-to-restrict-managed-disks-from-being-imported-or-exported"><a class="toclink" href="../../2024/06/13/restrict-managed-disks-from-being-imported-or-exported/#how-to-restrict-managed-disks-from-being-imported-or-exported">How to restrict managed disks from being imported or exported</a></h3>
+<h4 id="at-deployment-time"><a class="toclink" href="../../2024/06/13/restrict-managed-disks-from-being-imported-or-exported/#at-deployment-time">At deployment time</a></h4>
+<p>An example with azcli:</p>
+<h5 id="create-a-managed-disk-with-public-network-access-disabled"><a class="toclink" href="../../2024/06/13/restrict-managed-disks-from-being-imported-or-exported/#create-a-managed-disk-with-public-network-access-disabled">Create a managed disk with public network access disabled</a></h5>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a>## Create a managed disk with public network access disabled
+</span><span id="__span-1-2"><a href="#__codelineno-1-2" id="__codelineno-1-2" name="__codelineno-1-2"></a>az disk create --resource-group myResourceGroup --name myDisk --size-gb 128 --location eastus --sku Standard_LRS --no-wait --public-network-access disabled 
+</span></code></pre></div>
+<h5 id="create-a-managed-disk-with-public-network-access-disabled-and-private-endpoint-enabled"><a class="toclink" href="../../2024/06/13/restrict-managed-disks-from-being-imported-or-exported/#create-a-managed-disk-with-public-network-access-disabled-and-private-endpoint-enabled">Create a managed disk with public network access disabled and private endpoint enabled</a></h5>
+<p>Follow <a href="https://learn.microsoft.com/en-us/azure/virtual-machines/linux/disks-export-import-private-links-cli#log-in-into-your-subscription-and-set-your-variables">Azure CLI - Restrict import/export access for managed disks with Private Links</a></p>
+<h4 id="at-scale"><a class="toclink" href="../../2024/06/13/restrict-managed-disks-from-being-imported-or-exported/#at-scale">At Scale</a></h4>
+<p>If you want to restrict managed disks from being imported or exported, you can use Azure Policy to enforce this restriction. Azure Policy is a service in Azure that you can use to create, assign, and manage policies that enforce rules and effects over your resources. By using Azure Policy, you can ensure that your resources comply with your organization's standards and service-level agreements.</p>
+<p>To restrict managed disks from being imported or exported using Azure Policy, you can use or create a policy definition that specifies the conditions under which managed disks can be imported or exported. You can then assign this policy definition to a scope, such as a management group, subscription, or resource group, to enforce the restriction across your resources.</p>
+<p>In this case we have a Built-in policy definition that restricts managed disks from being imported or exported <a href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F582bd7a6-a5f6-4dc6-b9dc-9cb81fe0d4c5">Configure disk access resources with private endpoints</a></p>
+<h3 id="conclusion"><a class="toclink" href="../../2024/06/13/restrict-managed-disks-from-being-imported-or-exported/#conclusion">Conclusion</a></h3>
+<p>In this post, I showed you how to restrict managed disks from being imported or exported in Azure. By restricting managed disks from being imported or exported, you can reduce the risk of unauthorized access to your data and help ensure that your organization complies with data protection regulations. </p>
+<p>Curiosly, restrict managed disks from being imported or exported, it's not a compliance check in the Microsoft cloud security benchmark but it's a good practice to follow.</p>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-04-04 00:00:00+00:00">April 4, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="./">Security</a></li>
+<li class="md-meta__item">
+            
+              4 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="privileged-access-management-pam-strategy-with-microsoft-entra-id-and-some-azure-services"><a class="toclink" href="../../2024/04/04/privileged-access-management-pam-strategy-with-microsoft-entra-id-and-some-azure-services/">Privileged Access Management (PAM) Strategy with Microsoft Entra ID and some Azure Services</a></h2>
+<p>Today, I'd like to share a brief of a recommended strategy for Privileged Access Management (PAM) of other vendors with Microsoft Entra ID and some Azure Services. This strategy is divided into seven phases:</p>
+<pre class="mermaid"><code>
+graph LR;
+    A[Phase 1: Set Policy] 
+    C[Phase 2: The Process of Discovery]
+    E[Phase 3: Protect Credentials]
+    G[Phase 4: Secure Privileged Access]
+    I[Phase 5: Least Privilege]
+    K[Phase 6: Control All Applications]
+    M[Phase 7: Detect and Respond]
+
+    A--&gt;C
+    C--&gt;E
+    E--&gt;G
+    G--&gt;I
+    I--&gt;K
+    K--&gt;M
+    M--&gt;A
+
+    classDef phase fill:#f9f,stroke:#333,stroke-width:2px;
+    class A,C,E,G,I,K,M phase;
+
+
+</code></pre>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Be hybrid, be secure with a single control plane, use Azure ARC to inherit the same security and compliance policies across your on-premises, multi-cloud, and edge environments as in Azure.</p>
+</div>
+<h3 id="phase-1-set-policy"><a class="toclink" href="../../2024/04/04/privileged-access-management-pam-strategy-with-microsoft-entra-id-and-some-azure-services/#phase-1-set-policy"><strong>Phase 1: Set Policy</strong></a></h3>
+<p>The first step in any PAM strategy is to establish a clear policy. This policy should define who has access to what, when they have access, and what they can do with that access. It should also include guidelines for password management and multi-factor authentication. For example:</p>
+<ul>
+<li>Define clear access control policies.</li>
+<li>Establish guidelines for password management and multi-factor authentication.</li>
+<li>Regularly review and update the policy to reflect changes in the organization.</li>
+</ul>
+<p>How to implement this:</p>
+<ul>
+<li>Use <strong>Azure Policy</strong> to define and manage policies for your Azure environment.</li>
+<li>Use <strong>Microsoft Entra multifactor authentication</strong> for implementing multi-factor authentication.</li>
+</ul>
+<h3 id="phase-2-the-process-of-discovery"><a class="toclink" href="../../2024/04/04/privileged-access-management-pam-strategy-with-microsoft-entra-id-and-some-azure-services/#phase-2-the-process-of-discovery"><strong>Phase 2: The Process of Discovery</strong></a></h3>
+<p>In this phase, we identify all the privileged accounts across the organization. This includes service accounts, local administrative accounts, domain administrative accounts, emergency accounts, and application accounts. For example:</p>
+<ul>
+<li>Use automated tools to identify all privileged accounts across the organization.</li>
+<li>Regularly update the inventory of privileged accounts.</li>
+<li>Identify any accounts that are no longer in use and deactivate them.</li>
+</ul>
+<p>How to implement this:</p>
+<ul>
+<li>Use <strong>Microsoft Entra Privileged Identity Management</strong> to discover, restrict and monitor administrators and their access to resources and provide just-in-time access when needed.</li>
+</ul>
+<h3 id="phase-3-protect-credentials"><a class="toclink" href="../../2024/04/04/privileged-access-management-pam-strategy-with-microsoft-entra-id-and-some-azure-services/#phase-3-protect-credentials"><strong>Phase 3: Protect Credentials</strong></a></h3>
+<p>Once we've identified all privileged accounts, we need to ensure that these credentials are stored securely. This could involve using a secure vault, regularly rotating passwords, and using unique passwords for each account. For example:</p>
+<ul>
+<li>Store credentials in a secure vault.</li>
+<li>Implement regular password rotation.</li>
+<li>Use unique passwords for each account.</li>
+</ul>
+<p>How to implement this:</p>
+<ul>
+<li>Use <strong>Azure Key Vault</strong> to safeguard cryptographic keys and other secrets used by your apps and services and <a href="https://learn.microsoft.com/en-us/azure/key-vault/secrets/tutorial-rotation-dual?tabs=azure-cli">rotate secrets regularly</a>.</li>
+<li>Implement <strong>Microsoft Entra ID Password Protection</strong> to protect against weak passwords that can be easily guessed or cracked.</li>
+</ul>
+<h3 id="phase-4-secure-privileged-access"><a class="toclink" href="../../2024/04/04/privileged-access-management-pam-strategy-with-microsoft-entra-id-and-some-azure-services/#phase-4-secure-privileged-access"><strong>Phase 4: Secure Privileged Access</strong></a></h3>
+<p>Securing privileged access involves implementing controls to prevent unauthorized access. This could include limiting the number of privileged accounts, implementing least privilege, and using just-in-time access. For example:</p>
+<ul>
+<li>Limit the number of privileged accounts.</li>
+<li>Implement just-in-time access, where access is granted only for the duration of a task.</li>
+<li>Use session recording and monitoring for privileged access.</li>
+</ul>
+<p>How to implement this:</p>
+<ul>
+<li>Use <strong>Microsoft Entra ID Conditional Access</strong> to enforce controls on the access to apps in your environment based on specific conditions.</li>
+<li>Implement <strong>Microsoft Entra Privileged Identity Management</strong> for just-in-time access.</li>
+</ul>
+<h3 id="phase-5-least-privilege"><a class="toclink" href="../../2024/04/04/privileged-access-management-pam-strategy-with-microsoft-entra-id-and-some-azure-services/#phase-5-least-privilege"><strong>Phase 5: Least Privilege</strong></a></h3>
+<p>The principle of least privilege involves giving users the minimum levels of access — or permissions — they need to complete their job functions. By limiting the access rights of users, the risk of a security breach is reduced. For example:</p>
+<ul>
+<li>Implement role-based access control (RBAC) in Azure to grant the minimum necessary access to users.</li>
+<li>Regularly review user roles and access rights.</li>
+<li>Implement a process for revoking access when it's no longer needed.</li>
+</ul>
+<p>How to implement this:</p>
+<ul>
+<li>Implement <strong>Role-Based Access Control (RBAC)</strong> in Azure to grant the minimum necessary access to users.</li>
+<li>Use <strong>Microsoft Entra ID Access Reviews</strong> to efficiently manage group memberships, access to enterprise applications, and role assignments.</li>
+</ul>
+<h3 id="phase-6-control-all-applications"><a class="toclink" href="../../2024/04/04/privileged-access-management-pam-strategy-with-microsoft-entra-id-and-some-azure-services/#phase-6-control-all-applications"><strong>Phase 6: Control All Applications</strong></a></h3>
+<p>In this phase, we ensure that all applications, whether on-premises or in the cloud, are controlled and monitored. This includes implementing application control policies and monitoring application usage. For example:</p>
+<ul>
+<li>Implement application control policies that dictate what applications can be run on systems.</li>
+<li>Monitor application usage and block unauthorized applications.</li>
+<li>Regularly update and patch all applications to reduce vulnerabilities.</li>
+</ul>
+<p>How to implement this:</p>
+<ul>
+<li>Use <strong>Microsoft Entra Application Proxy</strong> to control and secure access to on-premises and cloud apps.</li>
+<li>Enable Change Tracking and Inventory in <strong>Azure Automation</strong> to track changes to your Azure VMs. Use desired state configuration to ensure that your VMs are configured correctly.</li>
+<li>Implement <strong>Microsoft Intune</strong> to manage and secure your devices and applications.</li>
+</ul>
+<h3 id="phase-7-detect-and-respond"><a class="toclink" href="../../2024/04/04/privileged-access-management-pam-strategy-with-microsoft-entra-id-and-some-azure-services/#phase-7-detect-and-respond"><strong>Phase 7: Detect and Respond</strong></a></h3>
+<p>The final phase involves setting up systems to detect and respond to any suspicious activity. This could involve setting up alerts for unusual activity, regularly auditing access logs, and having a response plan in place for when a breach occurs. For example:</p>
+<ul>
+<li>Set up alerts for unusual activity.</li>
+<li>Regularly audit access logs.</li>
+<li>Have a response plan in place for when a breach occurs, including steps for containment, eradication, and recovery.</li>
+</ul>
+<p>How to implement this:</p>
+<ul>
+<li>Use <strong>Microsoft Defender for Cloud</strong> for increased visibility into your security state and to detect and respond to threats.</li>
+<li>Implement <strong>Azure Sentinel</strong>, Microsoft's cloud-native SIEM solution, for intelligent security analytics.</li>
+</ul>
+<p>By following these seven phases, you can create a robust PAM strategy that protects your organization from security breaches and helps you maintain compliance with various regulations.</p>
+<p>Remember, a good PAM strategy is not a one-time effort but an ongoing process that needs to be regularly reviewed and updated. Microsoft and Azure services provide a robust set of tools to help you implement and manage your PAM strategy effectively.</p>
+</div>
+</article>
+<nav class="md-pagination">
+</nav>
+</div>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2023-now Rafael Fernández
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://www.linkedin.com/in/rafaelfernandezd/" rel="noopener" target="_blank" title="LinkedIn">
+<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"></path></svg>
+</a>
+<a class="md-social__link" href="https://github.com/rfernandezdo" rel="noopener" target="_blank" title="GitHub">
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="https://rfernandezdo.github.io/feed_rss_created.xml" rel="noopener" target="_blank" title="RSS feed">
+<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M64 32C28.7 32 0 60.7 0 96v320c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64zm32 104c0-13.3 10.7-24 24-24 137 0 248 111 248 248 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-110.5-89.5-200-200-200-13.3 0-24-10.7-24-24m0 96c0-13.3 10.7-24 24-24 83.9 0 152 68.1 152 152 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-57.4-46.6-104-104-104-13.3 0-24-10.7-24-24m0 120a32 32 0 1 1 64 0 32 32 0 1 1-64 0"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tabs", "navigation.tabs.sticky", "navigation.expand", "navigation.sections", "navigation.top", "navigation.tracking", "toc.integrate", "toc.nested", "toc.smoothscroll", "footer", "content.code.copy", "content.code.select", "content.code.annotate", "content.tooltips"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../javascripts/tablesort.js"></script>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.mermaidConfig = {default: {
+    startOnLoad: false
+}};</script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

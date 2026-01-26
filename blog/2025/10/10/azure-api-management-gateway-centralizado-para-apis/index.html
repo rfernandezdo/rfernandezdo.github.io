@@ -1,0 +1,2941 @@
+<!DOCTYPE html><html class="no-js" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width,initial-scale=1" name="viewport">
+<meta content="A blog about Azure, DevOps and other stuff" name="description">
+<meta content="Rafael Fernández" name="author">
+<link href="https://rfernandezdo.github.io/blog/2025/10/10/azure-api-management-gateway-centralizado-para-apis/" rel="canonical">
+<link href="../../08/power-bi-on-premises-data-gateway-gu%C3%ADa-pr%C3%A1ctica-instalaci%C3%B3n-est%C3%A1ndar/" rel="prev">
+<link href="../../15/azure-logic-apps-workflows-de-integraci%C3%B3n-sin-c%C3%B3digo/" rel="next">
+<link href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=es&amp;_x_tr_hl=es&amp;_x_tr_pto=wapp" hreflang="en" rel="alternate">
+<link href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=en&amp;_x_tr_hl=en&amp;_x_tr_pto=wapp" hreflang="es" rel="alternate">
+<link href="../../../../../feed_rss_created.xml" rel="alternate" title="RSS feed" type="application/rss+xml">
+<link href="../../../../../feed_rss_updated.xml" rel="alternate" title="RSS feed of updated content" type="application/rss+xml">
+<link href="../../../../../assets/images/favicon.png" rel="icon">
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.1" name="generator">
+<title>Azure API Management: gateway centralizado para APIs - Un Rinconcito donde contar lo que quiera</title>
+<link href="../../../../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet">
+<link href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet">
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<meta content="website" property="og:type">
+<meta content="Azure API Management: gateway centralizado para APIs - Un Rinconcito donde contar lo que quiera" property="og:title">
+<meta content="A blog about Azure, DevOps and other stuff" property="og:description">
+<meta content="https://rfernandezdo.github.io/assets/images/social/blog/2025/10/10/azure-api-management-gateway-centralizado-para-apis.png" property="og:image">
+<meta content="image/png" property="og:image:type">
+<meta content="1200" property="og:image:width">
+<meta content="630" property="og:image:height">
+<meta content="https://rfernandezdo.github.io/blog/2025/10/10/azure-api-management-gateway-centralizado-para-apis/" property="og:url">
+<meta content="summary_large_image" property="twitter:card">
+<meta content="Azure API Management: gateway centralizado para APIs - Un Rinconcito donde contar lo que quiera" property="twitter:title">
+<meta content="A blog about Azure, DevOps and other stuff" property="twitter:description">
+<meta content="https://rfernandezdo.github.io/assets/images/social/blog/2025/10/10/azure-api-management-gateway-centralizado-para-apis.png" property="twitter:image">
+<link href="../../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+<body data-md-color-accent="blue" data-md-color-primary="blue" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox">
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox">
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#azure-api-management-gateway-centralizado-para-apis">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Un Rinconcito donde contar lo que quiera" class="md-header__button md-logo" data-md-component="logo" href="../../../../.." title="Un Rinconcito donde contar lo que quiera">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Un Rinconcito donde contar lo que quiera
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Azure API Management: gateway centralizado para APIs
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="blue" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio">
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="black" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio">
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="Select language" class="md-header__button md-icon">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=es&amp;_x_tr_hl=es&amp;_x_tr_pto=wapp" hreflang="en">
+              English
+            </a>
+</li>
+<li class="md-select__item">
+<a class="md-select__link" href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=en&amp;_x_tr_hl=en&amp;_x_tr_pto=wapp" hreflang="es">
+              Spanish
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text">
+<label class="md-search__icon md-icon" for="__search">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../../../">
+          
+  
+  
+  Blog
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../..">
+        
+  
+  
+    
+  
+  About
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../../contributions/">
+        
+  
+  
+    
+  
+  Contributions
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../../Azure/Security/MCSB/Readme/">
+          
+  
+  
+  Azure
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../../Tools/Federated_Identity_Credentials_Report/README-federated-identity-credentials/">
+          
+  
+  
+  Tools
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden="">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Un Rinconcito donde contar lo que quiera" class="md-nav__button md-logo" data-md-component="logo" href="../../../../.." title="Un Rinconcito donde contar lo que quiera">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    Un Rinconcito donde contar lo que quiera
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_1" type="checkbox">
+<label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_1_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Blog
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active">
+<a class="md-nav__link" href="../../../../">
+<span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../tags/">
+<span class="md-ellipsis">
+    
+  
+    Posts by Tags
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_1_3" type="checkbox">
+<label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Archive
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Archive
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../12/">
+<span class="md-ellipsis">
+    
+  
+    2025/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../11/">
+<span class="md-ellipsis">
+    
+  
+    2025/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    2025/10
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../09/">
+<span class="md-ellipsis">
+    
+  
+    2025/09
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../08/">
+<span class="md-ellipsis">
+    
+  
+    2025/08
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../07/">
+<span class="md-ellipsis">
+    
+  
+    2025/07
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../06/">
+<span class="md-ellipsis">
+    
+  
+    2025/06
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../05/">
+<span class="md-ellipsis">
+    
+  
+    2025/05
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../04/">
+<span class="md-ellipsis">
+    
+  
+    2025/04
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../03/">
+<span class="md-ellipsis">
+    
+  
+    2025/03
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../02/">
+<span class="md-ellipsis">
+    
+  
+    2025/02
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../01/">
+<span class="md-ellipsis">
+    
+  
+    2025/01
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/12/">
+<span class="md-ellipsis">
+    
+  
+    2024/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/11/">
+<span class="md-ellipsis">
+    
+  
+    2024/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/10/">
+<span class="md-ellipsis">
+    
+  
+    2024/10
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/09/">
+<span class="md-ellipsis">
+    
+  
+    2024/09
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/06/">
+<span class="md-ellipsis">
+    
+  
+    2024/06
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/05/">
+<span class="md-ellipsis">
+    
+  
+    2024/05
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/04/">
+<span class="md-ellipsis">
+    
+  
+    2024/04
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/03/">
+<span class="md-ellipsis">
+    
+  
+    2024/03
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/02/">
+<span class="md-ellipsis">
+    
+  
+    2024/02
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2023/12/">
+<span class="md-ellipsis">
+    
+  
+    2023/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2023/11/">
+<span class="md-ellipsis">
+    
+  
+    2023/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2023/10/">
+<span class="md-ellipsis">
+    
+  
+    2023/10
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_1_4" type="checkbox">
+<label class="md-nav__link" for="__nav_1_4" id="__nav_1_4_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Categories
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Categories
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure/">
+<span class="md-ellipsis">
+    
+  
+    Azure
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-ad/">
+<span class="md-ellipsis">
+    
+  
+    Azure AD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-automation/">
+<span class="md-ellipsis">
+    
+  
+    Azure Automation
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-devops/">
+<span class="md-ellipsis">
+    
+  
+    Azure DevOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-frameworks/">
+<span class="md-ellipsis">
+    
+  
+    Azure Frameworks
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-governance/">
+<span class="md-ellipsis">
+    
+  
+    Azure Governance
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-networking/">
+<span class="md-ellipsis">
+    
+  
+    Azure Networking
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-security/">
+<span class="md-ellipsis">
+    
+  
+    Azure Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-services/">
+<span class="md-ellipsis">
+    
+  
+    Azure Services
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-updates/">
+<span class="md-ellipsis">
+    
+  
+    Azure Updates
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/caf/">
+<span class="md-ellipsis">
+    
+  
+    CAF
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/cicd/">
+<span class="md-ellipsis">
+    
+  
+    CI/CD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/devops/">
+<span class="md-ellipsis">
+    
+  
+    DevOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/development/">
+<span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/drift-detection/">
+<span class="md-ellipsis">
+    
+  
+    Drift Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/english/">
+<span class="md-ellipsis">
+    
+  
+    English
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/enterprise-policy-as-code/">
+<span class="md-ellipsis">
+    
+  
+    Enterprise Policy as Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/finops/">
+<span class="md-ellipsis">
+    
+  
+    FinOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/firewall/">
+<span class="md-ellipsis">
+    
+  
+    Firewall
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/gtd/">
+<span class="md-ellipsis">
+    
+  
+    GTD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/git/">
+<span class="md-ellipsis">
+    
+  
+    Git
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/github-actions/">
+<span class="md-ellipsis">
+    
+  
+    GitHub Actions
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/hashicorp/">
+<span class="md-ellipsis">
+    
+  
+    HashiCorp
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/hello_world/">
+<span class="md-ellipsis">
+    
+  
+    Hello_World
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/infrastructure-as-code/">
+<span class="md-ellipsis">
+    
+  
+    Infrastructure as Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/learning/">
+<span class="md-ellipsis">
+    
+  
+    Learning
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/m365/">
+<span class="md-ellipsis">
+    
+  
+    M365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/microsoft-365/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft 365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/microsoft-entra/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/microsoft-entra-external-id/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra External ID
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/microsoft-entra-id/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra ID
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/networking/">
+<span class="md-ellipsis">
+    
+  
+    Networking
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/outlook/">
+<span class="md-ellipsis">
+    
+  
+    Outlook
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/pim/">
+<span class="md-ellipsis">
+    
+  
+    PIM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/power-automate/">
+<span class="md-ellipsis">
+    
+  
+    Power Automate
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/power-bi/">
+<span class="md-ellipsis">
+    
+  
+    Power BI
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/productividad/">
+<span class="md-ellipsis">
+    
+  
+    Productividad
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/productividad--microsoft-365/">
+<span class="md-ellipsis">
+    
+  
+    Productividad / Microsoft 365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/security/">
+<span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/seguridad/">
+<span class="md-ellipsis">
+    
+  
+    Seguridad
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/snowflake/">
+<span class="md-ellipsis">
+    
+  
+    Snowflake
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/terraform/">
+<span class="md-ellipsis">
+    
+  
+    Terraform
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/threat-intelligence/">
+<span class="md-ellipsis">
+    
+  
+    Threat Intelligence
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/tools/">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/troubleshooting/">
+<span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/visual-studio-code/">
+<span class="md-ellipsis">
+    
+  
+    Visual Studio Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/viva-insights/">
+<span class="md-ellipsis">
+    
+  
+    Viva Insights
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/windows/">
+<span class="md-ellipsis">
+    
+  
+    Windows
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../..">
+<span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../contributions/">
+<span class="md-ellipsis">
+    
+  
+    Contributions
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4" type="checkbox">
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Azure
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Azure
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Security
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1_1" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1_1" id="__nav_4_1_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    MCSB v1
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_4_1_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    MCSB v1
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Readme/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Readme
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Asset%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Asset Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Backup%20and%20Recovery/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Backup and Recovery
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Data%20Protection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Data Protection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/DevOps%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - DevOps Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Endpoint%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Endpoint Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Governance%20and%20Strategy/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Governance and Strategy
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Identity%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Identity Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Incident%20Response/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Incident Response
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Logging%20and%20Threat%20Detection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Logging and Threat Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Network%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Network Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Posture%20and%20Vulnerability%20Mgmt/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Posture and Vulnerability Mgmt
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Privileged%20Access/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Privileged Access
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1_2" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1_2" id="__nav_4_1_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_4_1_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    MCSB v2
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Index/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Cloud Security Benchmark v2
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Network%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Network Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Identity%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Identity Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Privileged%20Access/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Privileged Access
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Data%20Protection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Data Protection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Asset%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Asset Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Logging%20and%20Threat%20Detection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Logging and Threat Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Incident%20Response/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Incident Response
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Posture%20and%20Vulnerability%20Manag/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Posture and Vulnerability Manag
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Endpoint%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Endpoint Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Backup%20and%20Recovery/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Backup and Recovery
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Artificial%20Intelligence%20Securit/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Artificial Intelligence Securit
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5" type="checkbox">
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Tools
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5_1" type="checkbox">
+<label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Federated Identity Credentials Report
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_1_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Federated Identity Credentials Report
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Tools/Federated_Identity_Credentials_Report/README-federated-identity-credentials/">
+<span class="md-ellipsis">
+    
+  
+    Script de Reporte para Federated Identity Credentials
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5_2" type="checkbox">
+<label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Analyze Virtual Network Flows
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Analyze Virtual Network Flows
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Tools/Analyze_Virtual_Network_Flows/">
+<span class="md-ellipsis">
+    
+  
+    Analyze-VNETFlowLogs
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content md-content--post" data-md-component="content">
+<div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner md-post">
+<nav class="md-nav md-nav--primary">
+<div class="md-post__back">
+<div class="md-nav__title md-nav__container">
+<a class="md-nav__link" href="../../../../">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+<span class="md-ellipsis">
+                    Back to index
+                  </span>
+</a>
+</div>
+</div>
+<div class="md-post__authors md-typeset">
+<div class="md-profile md-post__profile">
+<span class="md-author md-author--long">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+<span class="md-profile__description">
+<strong>
+                        
+                          Rafael Fernández
+                        
+                      </strong>
+<br>
+                      Creator
+                    </span>
+</div>
+</div>
+<ul class="md-post__meta md-nav__list">
+<li class="md-nav__item md-nav__item--section">
+<div class="md-post__title">
+<span class="md-ellipsis">
+                    Metadata
+                  </span>
+</div>
+<nav class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<div class="md-nav__link">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"></path></svg>
+<time class="md-ellipsis" datetime="2025-10-10 00:00:00+00:00">October 10, 2025</time>
+</div>
+</li>
+<li class="md-nav__item">
+<div class="md-nav__link">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"></path></svg>
+<span class="md-ellipsis">
+                            in
+                            
+                              <a href="../../../../category/azure-services/">Azure Services</a></span>
+</div>
+</li>
+<li class="md-nav__item">
+<div class="md-nav__link">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"></path></svg>
+<span class="md-ellipsis">
+                            
+                              9 min read
+                            
+                          </span>
+</div>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#resumen">
+<span class="md-ellipsis">
+      
+        Resumen
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#que-es-azure-api-management">
+<span class="md-ellipsis">
+      
+        ¿Qué es Azure API Management?
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#setup-basico-apim">
+<span class="md-ellipsis">
+      
+        Setup básico APIM
+      
+    </span>
+</a>
+<nav aria-label="Setup básico APIM" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#crear-instancia-apim">
+<span class="md-ellipsis">
+      
+        Crear instancia APIM
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#apis-y-operations">
+<span class="md-ellipsis">
+      
+        APIs y Operations
+      
+    </span>
+</a>
+<nav aria-label="APIs y Operations" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#importar-api-desde-openapi-spec">
+<span class="md-ellipsis">
+      
+        Importar API desde OpenAPI spec
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#crear-api-manualmente">
+<span class="md-ellipsis">
+      
+        Crear API manualmente
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#policies-transformaciones-y-seguridad">
+<span class="md-ellipsis">
+      
+        Policies: transformaciones y seguridad
+      
+    </span>
+</a>
+<nav aria-label="Policies: transformaciones y seguridad" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rate-limiting">
+<span class="md-ellipsis">
+      
+        Rate limiting
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#caching">
+<span class="md-ellipsis">
+      
+        Caching
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#requestresponse-transformation">
+<span class="md-ellipsis">
+      
+        Request/Response transformation
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ip-filtering">
+<span class="md-ellipsis">
+      
+        IP filtering
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#quota-limite-mensual">
+<span class="md-ellipsis">
+      
+        Quota (límite mensual)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mock-responses-testing">
+<span class="md-ellipsis">
+      
+        Mock responses (testing)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#autenticacion-oauth-20-entra-id">
+<span class="md-ellipsis">
+      
+        Autenticación: OAuth 2.0 / Entra ID
+      
+    </span>
+</a>
+<nav aria-label="Autenticación: OAuth 2.0 / Entra ID" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#validar-jwt-tokens">
+<span class="md-ellipsis">
+      
+        Validar JWT tokens
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#oauth-authorization-server">
+<span class="md-ellipsis">
+      
+        OAuth authorization server
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#backends-multiples-servicios">
+<span class="md-ellipsis">
+      
+        Backends: múltiples servicios
+      
+    </span>
+</a>
+<nav aria-label="Backends: múltiples servicios" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#named-values-variables">
+<span class="md-ellipsis">
+      
+        Named values (variables)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#backend-entity">
+<span class="md-ellipsis">
+      
+        Backend entity
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#products-y-subscriptions">
+<span class="md-ellipsis">
+      
+        Products y Subscriptions
+      
+    </span>
+</a>
+<nav aria-label="Products y Subscriptions" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#crear-product">
+<span class="md-ellipsis">
+      
+        Crear product
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#crear-subscription">
+<span class="md-ellipsis">
+      
+        Crear subscription
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#versioning-y-revisions">
+<span class="md-ellipsis">
+      
+        Versioning y Revisions
+      
+    </span>
+</a>
+<nav aria-label="Versioning y Revisions" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api-versions">
+<span class="md-ellipsis">
+      
+        API versions
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#revisions-sin-breaking-changes">
+<span class="md-ellipsis">
+      
+        Revisions (sin breaking changes)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#developer-portal-customization">
+<span class="md-ellipsis">
+      
+        Developer Portal customization
+      
+    </span>
+</a>
+<nav aria-label="Developer Portal customization" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#habilitar-developer-portal">
+<span class="md-ellipsis">
+      
+        Habilitar Developer Portal
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#monitoring-y-analytics">
+<span class="md-ellipsis">
+      
+        Monitoring y analytics
+      
+    </span>
+</a>
+<nav aria-label="Monitoring y analytics" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#application-insights-integration">
+<span class="md-ellipsis">
+      
+        Application Insights integration
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#queries-kql-utiles">
+<span class="md-ellipsis">
+      
+        Queries KQL útiles
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#alertas">
+<span class="md-ellipsis">
+      
+        Alertas
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#self-hosted-gateway-hybridon-premises">
+<span class="md-ellipsis">
+      
+        Self-hosted Gateway (hybrid/on-premises)
+      
+    </span>
+</a>
+<nav aria-label="Self-hosted Gateway (hybrid/on-premises)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#deploy-self-hosted-gateway">
+<span class="md-ellipsis">
+      
+        Deploy self-hosted gateway
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#buenas-practicas">
+<span class="md-ellipsis">
+      
+        Buenas prácticas
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#costes">
+<span class="md-ellipsis">
+      
+        Costes
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#referencias">
+<span class="md-ellipsis">
+      
+        Referencias
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag" href="../../../../tags/#tag:api-gateway">API Gateway</a>
+<a class="md-tag" href="../../../../tags/#tag:api-management">API Management</a>
+<a class="md-tag" href="../../../../tags/#tag:apim">APIM</a>
+<a class="md-tag" href="../../../../tags/#tag:microservices">Microservices</a>
+<a class="md-tag" href="../../../../tags/#tag:oauth">OAuth</a>
+</nav>
+<h1 id="azure-api-management-gateway-centralizado-para-apis">Azure API Management: gateway centralizado para APIs</h1>
+<h2 id="resumen">Resumen</h2>
+<p><strong>API Management (APIM)</strong> centraliza gestión de APIs, aplica políticas (rate limiting, caching, transformations), maneja autenticación OAuth/JWT, y publica documentación. En este post verás setup de APIM, policies críticas, OAuth integration, backends, y monitoring.</p>
+<!-- more -->
+<h2 id="que-es-azure-api-management">¿Qué es Azure API Management?</h2>
+<p><strong>API Gateway pattern:</strong></p>
+<pre class="mermaid"><code>flowchart LR
+    Apps[Mobile/Web Apps] --&gt; APIM[API Management]
+    Partners[Partner APIs] --&gt; APIM
+
+    APIM --&gt; Policy1[Policies:<br>Rate Limit, Cache,<br>Transform, Validate]
+
+    Policy1 --&gt; Backend1[Backend API 1<br>Azure Functions]
+    Policy1 --&gt; Backend2[Backend API 2<br>AKS Services]
+    Policy1 --&gt; Backend3[Backend API 3<br>On-premises]
+
+    APIM --&gt; DevPortal[Developer Portal<br>Docs, Testing]
+    APIM --&gt; Analytics[Analytics &amp;<br>Monitoring]
+</code></pre>
+<p><strong>Casos de uso:</strong></p>
+<ul>
+<li>Exponer microservices como API unificada</li>
+<li>Rate limiting para evitar abuse</li>
+<li>Transformar requests/responses (XML ↔ JSON)</li>
+<li>Cachear responses (reducir carga backends)</li>
+<li>Autenticación centralizada (OAuth, JWT)</li>
+<li>Versioning y breaking changes control</li>
+</ul>
+<hr>
+<h2 id="setup-basico-apim">Setup básico APIM</h2>
+<h3 id="crear-instancia-apim">Crear instancia APIM</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1"># Variables</span>
+</span><span id="__span-0-2"><a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="nv">RESOURCE_GROUP</span><span class="o">=</span><span class="s2">"rg-apim-prod"</span>
+</span><span id="__span-0-3"><a href="#__codelineno-0-3" id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="nv">LOCATION</span><span class="o">=</span><span class="s2">"westeurope"</span>
+</span><span id="__span-0-4"><a href="#__codelineno-0-4" id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="nv">APIM_NAME</span><span class="o">=</span><span class="s2">"apim-prod-</span><span class="nv">$RANDOM</span><span class="s2">"</span>
+</span><span id="__span-0-5"><a href="#__codelineno-0-5" id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="nv">VNET_NAME</span><span class="o">=</span><span class="s2">"vnet-apim"</span>
+</span><span id="__span-0-6"><a href="#__codelineno-0-6" id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="nv">SUBNET_APIM</span><span class="o">=</span><span class="s2">"subnet-apim"</span>
+</span><span id="__span-0-7"><a href="#__codelineno-0-7" id="__codelineno-0-7" name="__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a href="#__codelineno-0-8" id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="c1"># Crear APIM (Developer tier - 30 min deployment)</span>
+</span><span id="__span-0-9"><a href="#__codelineno-0-9" id="__codelineno-0-9" name="__codelineno-0-9"></a>az<span class="w"> </span>apim<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-10"><a href="#__codelineno-0-10" id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-11"><a href="#__codelineno-0-11" id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="w">  </span>--name<span class="w"> </span><span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-12"><a href="#__codelineno-0-12" id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="w">  </span>--location<span class="w"> </span><span class="nv">$LOCATION</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-13"><a href="#__codelineno-0-13" id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="w">  </span>--publisher-email<span class="w"> </span>admin@example.com<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-14"><a href="#__codelineno-0-14" id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="w">  </span>--publisher-name<span class="w"> </span><span class="s2">"Example Corp"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-15"><a href="#__codelineno-0-15" id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="w">  </span>--sku-name<span class="w"> </span>Developer<span class="w"> </span><span class="se">\ </span><span class="w"> </span><span class="c1"># Developer, Basic, Standard, Premium</span>
+</span><span id="__span-0-16"><a href="#__codelineno-0-16" id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="w">  </span>--enable-managed-identity<span class="w"> </span><span class="nb">true</span>
+</span><span id="__span-0-17"><a href="#__codelineno-0-17" id="__codelineno-0-17" name="__codelineno-0-17"></a>
+</span><span id="__span-0-18"><a href="#__codelineno-0-18" id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="c1"># Nota: Deployment tarda ~30 minutos</span>
+</span></code></pre></div>
+<p><strong>SKUs comparación:</strong></p>
+<table>
+<thead>
+<tr>
+<th>SKU</th>
+<th>Max requests/sec</th>
+<th>SLA</th>
+<th>Multi-region</th>
+<th>Internal VNet</th>
+<th>Precio/mes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Developer</strong></td>
+<td>500</td>
+<td>No SLA</td>
+<td>❌</td>
+<td>❌</td>
+<td>~$50</td>
+</tr>
+<tr>
+<td><strong>Basic</strong></td>
+<td>1,000</td>
+<td>99.95%</td>
+<td>❌</td>
+<td>❌</td>
+<td>~$160</td>
+</tr>
+<tr>
+<td><strong>Standard</strong></td>
+<td>2,500</td>
+<td>99.95%</td>
+<td>❌</td>
+<td>❌</td>
+<td>~$700</td>
+</tr>
+<tr>
+<td><strong>Premium</strong></td>
+<td>4,000</td>
+<td>99.99%</td>
+<td>✅</td>
+<td>✅</td>
+<td>~$2,800</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="apis-y-operations">APIs y Operations</h2>
+<h3 id="importar-api-desde-openapi-spec">Importar API desde OpenAPI spec</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="c1"># Importar API desde URL OpenAPI</span>
+</span><span id="__span-1-2"><a href="#__codelineno-1-2" id="__codelineno-1-2" name="__codelineno-1-2"></a>az<span class="w"> </span>apim<span class="w"> </span>api<span class="w"> </span>import<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-3"><a href="#__codelineno-1-3" id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-4"><a href="#__codelineno-1-4" id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="w">  </span>--service-name<span class="w"> </span><span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-5"><a href="#__codelineno-1-5" id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="w">  </span>--api-id<span class="w"> </span>petstore-api<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-6"><a href="#__codelineno-1-6" id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="w">  </span>--path<span class="w"> </span>/petstore<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-7"><a href="#__codelineno-1-7" id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="w">  </span>--display-name<span class="w"> </span><span class="s2">"Pet Store API"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-8"><a href="#__codelineno-1-8" id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="w">  </span>--protocols<span class="w"> </span>https<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-9"><a href="#__codelineno-1-9" id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="w">  </span>--specification-format<span class="w"> </span>OpenApi<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-10"><a href="#__codelineno-1-10" id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="w">  </span>--specification-url<span class="w"> </span>https://petstore3.swagger.io/api/v3/openapi.json
+</span><span id="__span-1-11"><a href="#__codelineno-1-11" id="__codelineno-1-11" name="__codelineno-1-11"></a>
+</span><span id="__span-1-12"><a href="#__codelineno-1-12" id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="c1"># O desde archivo local</span>
+</span><span id="__span-1-13"><a href="#__codelineno-1-13" id="__codelineno-1-13" name="__codelineno-1-13"></a>az<span class="w"> </span>apim<span class="w"> </span>api<span class="w"> </span>import<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-14"><a href="#__codelineno-1-14" id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-15"><a href="#__codelineno-1-15" id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="w">  </span>--service-name<span class="w"> </span><span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-16"><a href="#__codelineno-1-16" id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="w">  </span>--api-id<span class="w"> </span>orders-api<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-17"><a href="#__codelineno-1-17" id="__codelineno-1-17" name="__codelineno-1-17"></a><span class="w">  </span>--path<span class="w"> </span>/orders<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-18"><a href="#__codelineno-1-18" id="__codelineno-1-18" name="__codelineno-1-18"></a><span class="w">  </span>--display-name<span class="w"> </span><span class="s2">"Orders API"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-19"><a href="#__codelineno-1-19" id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="w">  </span>--protocols<span class="w"> </span>https<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-20"><a href="#__codelineno-1-20" id="__codelineno-1-20" name="__codelineno-1-20"></a><span class="w">  </span>--specification-format<span class="w"> </span>OpenApiJson<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-21"><a href="#__codelineno-1-21" id="__codelineno-1-21" name="__codelineno-1-21"></a><span class="w">  </span>--specification-path<span class="w"> </span>./openapi-orders.json<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-22"><a href="#__codelineno-1-22" id="__codelineno-1-22" name="__codelineno-1-22"></a><span class="w">  </span>--service-url<span class="w"> </span>https://backend-orders.azurewebsites.net
+</span></code></pre></div>
+<h3 id="crear-api-manualmente">Crear API manualmente</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1"># Crear API</span>
+</span><span id="__span-2-2"><a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a>az<span class="w"> </span>apim<span class="w"> </span>api<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-3"><a href="#__codelineno-2-3" id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-4"><a href="#__codelineno-2-4" id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="w">  </span>--service-name<span class="w"> </span><span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-5"><a href="#__codelineno-2-5" id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="w">  </span>--api-id<span class="w"> </span>products-api<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-6"><a href="#__codelineno-2-6" id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="w">  </span>--path<span class="w"> </span>/products<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-7"><a href="#__codelineno-2-7" id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="w">  </span>--display-name<span class="w"> </span><span class="s2">"Products API"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-8"><a href="#__codelineno-2-8" id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="w">  </span>--protocols<span class="w"> </span>https<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-9"><a href="#__codelineno-2-9" id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="w">  </span>--service-url<span class="w"> </span>https://backend-products.azurewebsites.net
+</span><span id="__span-2-10"><a href="#__codelineno-2-10" id="__codelineno-2-10" name="__codelineno-2-10"></a>
+</span><span id="__span-2-11"><a href="#__codelineno-2-11" id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="c1"># Agregar operation GET /products</span>
+</span><span id="__span-2-12"><a href="#__codelineno-2-12" id="__codelineno-2-12" name="__codelineno-2-12"></a>az<span class="w"> </span>apim<span class="w"> </span>api<span class="w"> </span>operation<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-13"><a href="#__codelineno-2-13" id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-14"><a href="#__codelineno-2-14" id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="w">  </span>--service-name<span class="w"> </span><span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-15"><a href="#__codelineno-2-15" id="__codelineno-2-15" name="__codelineno-2-15"></a><span class="w">  </span>--api-id<span class="w"> </span>products-api<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-16"><a href="#__codelineno-2-16" id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="w">  </span>--operation-id<span class="w"> </span>get-products<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-17"><a href="#__codelineno-2-17" id="__codelineno-2-17" name="__codelineno-2-17"></a><span class="w">  </span>--method<span class="w"> </span>GET<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-18"><a href="#__codelineno-2-18" id="__codelineno-2-18" name="__codelineno-2-18"></a><span class="w">  </span>--url-template<span class="w"> </span><span class="s2">"/"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-19"><a href="#__codelineno-2-19" id="__codelineno-2-19" name="__codelineno-2-19"></a><span class="w">  </span>--display-name<span class="w"> </span><span class="s2">"Get all products"</span>
+</span><span id="__span-2-20"><a href="#__codelineno-2-20" id="__codelineno-2-20" name="__codelineno-2-20"></a>
+</span><span id="__span-2-21"><a href="#__codelineno-2-21" id="__codelineno-2-21" name="__codelineno-2-21"></a><span class="c1"># Operation GET /products/{id}</span>
+</span><span id="__span-2-22"><a href="#__codelineno-2-22" id="__codelineno-2-22" name="__codelineno-2-22"></a>az<span class="w"> </span>apim<span class="w"> </span>api<span class="w"> </span>operation<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-23"><a href="#__codelineno-2-23" id="__codelineno-2-23" name="__codelineno-2-23"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-24"><a href="#__codelineno-2-24" id="__codelineno-2-24" name="__codelineno-2-24"></a><span class="w">  </span>--service-name<span class="w"> </span><span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-25"><a href="#__codelineno-2-25" id="__codelineno-2-25" name="__codelineno-2-25"></a><span class="w">  </span>--api-id<span class="w"> </span>products-api<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-26"><a href="#__codelineno-2-26" id="__codelineno-2-26" name="__codelineno-2-26"></a><span class="w">  </span>--operation-id<span class="w"> </span>get-product-by-id<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-27"><a href="#__codelineno-2-27" id="__codelineno-2-27" name="__codelineno-2-27"></a><span class="w">  </span>--method<span class="w"> </span>GET<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-28"><a href="#__codelineno-2-28" id="__codelineno-2-28" name="__codelineno-2-28"></a><span class="w">  </span>--url-template<span class="w"> </span><span class="s2">"/{id}"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-29"><a href="#__codelineno-2-29" id="__codelineno-2-29" name="__codelineno-2-29"></a><span class="w">  </span>--display-name<span class="w"> </span><span class="s2">"Get product by ID"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-30"><a href="#__codelineno-2-30" id="__codelineno-2-30" name="__codelineno-2-30"></a><span class="w">  </span>--template-parameters<span class="w"> </span><span class="nv">name</span><span class="o">=</span>id<span class="w"> </span><span class="nv">description</span><span class="o">=</span><span class="s2">"Product ID"</span><span class="w"> </span><span class="nv">type</span><span class="o">=</span>string<span class="w"> </span><span class="nv">required</span><span class="o">=</span><span class="nb">true</span>
+</span><span id="__span-2-31"><a href="#__codelineno-2-31" id="__codelineno-2-31" name="__codelineno-2-31"></a>
+</span><span id="__span-2-32"><a href="#__codelineno-2-32" id="__codelineno-2-32" name="__codelineno-2-32"></a><span class="c1"># Operation POST /products</span>
+</span><span id="__span-2-33"><a href="#__codelineno-2-33" id="__codelineno-2-33" name="__codelineno-2-33"></a>az<span class="w"> </span>apim<span class="w"> </span>api<span class="w"> </span>operation<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-34"><a href="#__codelineno-2-34" id="__codelineno-2-34" name="__codelineno-2-34"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-35"><a href="#__codelineno-2-35" id="__codelineno-2-35" name="__codelineno-2-35"></a><span class="w">  </span>--service-name<span class="w"> </span><span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-36"><a href="#__codelineno-2-36" id="__codelineno-2-36" name="__codelineno-2-36"></a><span class="w">  </span>--api-id<span class="w"> </span>products-api<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-37"><a href="#__codelineno-2-37" id="__codelineno-2-37" name="__codelineno-2-37"></a><span class="w">  </span>--operation-id<span class="w"> </span>create-product<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-38"><a href="#__codelineno-2-38" id="__codelineno-2-38" name="__codelineno-2-38"></a><span class="w">  </span>--method<span class="w"> </span>POST<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-39"><a href="#__codelineno-2-39" id="__codelineno-2-39" name="__codelineno-2-39"></a><span class="w">  </span>--url-template<span class="w"> </span><span class="s2">"/"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-40"><a href="#__codelineno-2-40" id="__codelineno-2-40" name="__codelineno-2-40"></a><span class="w">  </span>--display-name<span class="w"> </span><span class="s2">"Create product"</span>
+</span></code></pre></div>
+<hr>
+<h2 id="policies-transformaciones-y-seguridad">Policies: transformaciones y seguridad</h2>
+<h3 id="rate-limiting">Rate limiting</h3>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-3-1"><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="cm">&lt;!-- Policy: Rate limit 100 calls/minuto por subscription key --&gt;</span>
+</span><span id="__span-3-2"><a href="#__codelineno-3-2" id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="nt">&lt;policies&gt;</span>
+</span><span id="__span-3-3"><a href="#__codelineno-3-3" id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="w">    </span><span class="nt">&lt;inbound&gt;</span>
+</span><span id="__span-3-4"><a href="#__codelineno-3-4" id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="w">        </span><span class="nt">&lt;rate-limit</span><span class="w"> </span><span class="na">calls=</span><span class="s">"100"</span><span class="w"> </span><span class="na">renewal-period=</span><span class="s">"60"</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-3-5"><a href="#__codelineno-3-5" id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="w">        </span><span class="nt">&lt;base</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-3-6"><a href="#__codelineno-3-6" id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="w">    </span><span class="nt">&lt;/inbound&gt;</span>
+</span><span id="__span-3-7"><a href="#__codelineno-3-7" id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="nt">&lt;/policies&gt;</span>
+</span></code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="c1"># Aplicar policy a API level</span>
+</span><span id="__span-4-2"><a href="#__codelineno-4-2" id="__codelineno-4-2" name="__codelineno-4-2"></a>az<span class="w"> </span>apim<span class="w"> </span>api<span class="w"> </span>policy<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-3"><a href="#__codelineno-4-3" id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-4"><a href="#__codelineno-4-4" id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="w">  </span>--service-name<span class="w"> </span><span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-5"><a href="#__codelineno-4-5" id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">  </span>--api-id<span class="w"> </span>products-api<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-6"><a href="#__codelineno-4-6" id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">  </span>--xml-policy<span class="w"> </span><span class="s1">'&lt;policies&gt;</span>
+</span><span id="__span-4-7"><a href="#__codelineno-4-7" id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="s1">    &lt;inbound&gt;</span>
+</span><span id="__span-4-8"><a href="#__codelineno-4-8" id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="s1">        &lt;rate-limit calls="100" renewal-period="60" /&gt;</span>
+</span><span id="__span-4-9"><a href="#__codelineno-4-9" id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="s1">        &lt;base /&gt;</span>
+</span><span id="__span-4-10"><a href="#__codelineno-4-10" id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="s1">    &lt;/inbound&gt;</span>
+</span><span id="__span-4-11"><a href="#__codelineno-4-11" id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="s1">&lt;/policies&gt;'</span>
+</span></code></pre></div>
+<h3 id="caching">Caching</h3>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-5-1"><a href="#__codelineno-5-1" id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="cm">&lt;!-- Cache responses por 1 hora --&gt;</span>
+</span><span id="__span-5-2"><a href="#__codelineno-5-2" id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="nt">&lt;policies&gt;</span>
+</span><span id="__span-5-3"><a href="#__codelineno-5-3" id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="w">    </span><span class="nt">&lt;inbound&gt;</span>
+</span><span id="__span-5-4"><a href="#__codelineno-5-4" id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="w">        </span><span class="nt">&lt;cache-lookup</span><span class="w"> </span><span class="na">vary-by-developer=</span><span class="s">"false"</span><span class="w"> </span><span class="na">vary-by-developer-groups=</span><span class="s">"false"</span><span class="nt">&gt;</span>
+</span><span id="__span-5-5"><a href="#__codelineno-5-5" id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="w">            </span><span class="nt">&lt;vary-by-query-parameter&gt;</span>category<span class="nt">&lt;/vary-by-query-parameter&gt;</span>
+</span><span id="__span-5-6"><a href="#__codelineno-5-6" id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="w">            </span><span class="nt">&lt;vary-by-query-parameter&gt;</span>page<span class="nt">&lt;/vary-by-query-parameter&gt;</span>
+</span><span id="__span-5-7"><a href="#__codelineno-5-7" id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="w">        </span><span class="nt">&lt;/cache-lookup&gt;</span>
+</span><span id="__span-5-8"><a href="#__codelineno-5-8" id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="w">        </span><span class="nt">&lt;base</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-5-9"><a href="#__codelineno-5-9" id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="w">    </span><span class="nt">&lt;/inbound&gt;</span>
+</span><span id="__span-5-10"><a href="#__codelineno-5-10" id="__codelineno-5-10" name="__codelineno-5-10"></a><span class="w">    </span><span class="nt">&lt;outbound&gt;</span>
+</span><span id="__span-5-11"><a href="#__codelineno-5-11" id="__codelineno-5-11" name="__codelineno-5-11"></a><span class="w">        </span><span class="nt">&lt;cache-store</span><span class="w"> </span><span class="na">duration=</span><span class="s">"3600"</span><span class="w"> </span><span class="nt">/&gt;</span><span class="w">  </span><span class="cm">&lt;!-- 1 hora --&gt;</span>
+</span><span id="__span-5-12"><a href="#__codelineno-5-12" id="__codelineno-5-12" name="__codelineno-5-12"></a><span class="w">        </span><span class="nt">&lt;base</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-5-13"><a href="#__codelineno-5-13" id="__codelineno-5-13" name="__codelineno-5-13"></a><span class="w">    </span><span class="nt">&lt;/outbound&gt;</span>
+</span><span id="__span-5-14"><a href="#__codelineno-5-14" id="__codelineno-5-14" name="__codelineno-5-14"></a><span class="nt">&lt;/policies&gt;</span>
+</span></code></pre></div>
+<h3 id="requestresponse-transformation">Request/Response transformation</h3>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-6-1"><a href="#__codelineno-6-1" id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="cm">&lt;!-- Transformar JSON request a backend legacy XML --&gt;</span>
+</span><span id="__span-6-2"><a href="#__codelineno-6-2" id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="nt">&lt;policies&gt;</span>
+</span><span id="__span-6-3"><a href="#__codelineno-6-3" id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="w">    </span><span class="nt">&lt;inbound&gt;</span>
+</span><span id="__span-6-4"><a href="#__codelineno-6-4" id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="w">        </span><span class="nt">&lt;base</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-6-5"><a href="#__codelineno-6-5" id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="w">        </span><span class="cm">&lt;!-- Validar JWT token --&gt;</span>
+</span><span id="__span-6-6"><a href="#__codelineno-6-6" id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="w">        </span><span class="nt">&lt;validate-jwt</span><span class="w"> </span><span class="na">header-name=</span><span class="s">"Authorization"</span><span class="w"> </span><span class="na">failed-validation-httpcode=</span><span class="s">"401"</span><span class="nt">&gt;</span>
+</span><span id="__span-6-7"><a href="#__codelineno-6-7" id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="w">            </span><span class="nt">&lt;openid-config</span><span class="w"> </span><span class="na">url=</span><span class="s">"https://login.microsoftonline.com/{tenant}/.well-known/openid-configuration"</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-6-8"><a href="#__codelineno-6-8" id="__codelineno-6-8" name="__codelineno-6-8"></a><span class="w">            </span><span class="nt">&lt;required-claims&gt;</span>
+</span><span id="__span-6-9"><a href="#__codelineno-6-9" id="__codelineno-6-9" name="__codelineno-6-9"></a><span class="w">                </span><span class="nt">&lt;claim</span><span class="w"> </span><span class="na">name=</span><span class="s">"aud"</span><span class="nt">&gt;</span>
+</span><span id="__span-6-10"><a href="#__codelineno-6-10" id="__codelineno-6-10" name="__codelineno-6-10"></a><span class="w">                    </span><span class="nt">&lt;value&gt;</span>api://myapp<span class="nt">&lt;/value&gt;</span>
+</span><span id="__span-6-11"><a href="#__codelineno-6-11" id="__codelineno-6-11" name="__codelineno-6-11"></a><span class="w">                </span><span class="nt">&lt;/claim&gt;</span>
+</span><span id="__span-6-12"><a href="#__codelineno-6-12" id="__codelineno-6-12" name="__codelineno-6-12"></a><span class="w">            </span><span class="nt">&lt;/required-claims&gt;</span>
+</span><span id="__span-6-13"><a href="#__codelineno-6-13" id="__codelineno-6-13" name="__codelineno-6-13"></a><span class="w">        </span><span class="nt">&lt;/validate-jwt&gt;</span>
+</span><span id="__span-6-14"><a href="#__codelineno-6-14" id="__codelineno-6-14" name="__codelineno-6-14"></a>
+</span><span id="__span-6-15"><a href="#__codelineno-6-15" id="__codelineno-6-15" name="__codelineno-6-15"></a><span class="w">        </span><span class="cm">&lt;!-- JSON to XML transformation --&gt;</span>
+</span><span id="__span-6-16"><a href="#__codelineno-6-16" id="__codelineno-6-16" name="__codelineno-6-16"></a><span class="w">        </span><span class="nt">&lt;json-to-xml</span><span class="w"> </span><span class="na">apply=</span><span class="s">"always"</span><span class="w"> </span><span class="na">consider-accept-header=</span><span class="s">"false"</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-6-17"><a href="#__codelineno-6-17" id="__codelineno-6-17" name="__codelineno-6-17"></a>
+</span><span id="__span-6-18"><a href="#__codelineno-6-18" id="__codelineno-6-18" name="__codelineno-6-18"></a><span class="w">        </span><span class="cm">&lt;!-- Set backend header --&gt;</span>
+</span><span id="__span-6-19"><a href="#__codelineno-6-19" id="__codelineno-6-19" name="__codelineno-6-19"></a><span class="w">        </span><span class="nt">&lt;set-header</span><span class="w"> </span><span class="na">name=</span><span class="s">"X-API-Key"</span><span class="w"> </span><span class="na">exists-action=</span><span class="s">"override"</span><span class="nt">&gt;</span>
+</span><span id="__span-6-20"><a href="#__codelineno-6-20" id="__codelineno-6-20" name="__codelineno-6-20"></a><span class="w">            </span><span class="nt">&lt;value&gt;</span>{{backend-api-key}}<span class="nt">&lt;/value&gt;</span>
+</span><span id="__span-6-21"><a href="#__codelineno-6-21" id="__codelineno-6-21" name="__codelineno-6-21"></a><span class="w">        </span><span class="nt">&lt;/set-header&gt;</span>
+</span><span id="__span-6-22"><a href="#__codelineno-6-22" id="__codelineno-6-22" name="__codelineno-6-22"></a><span class="w">    </span><span class="nt">&lt;/inbound&gt;</span>
+</span><span id="__span-6-23"><a href="#__codelineno-6-23" id="__codelineno-6-23" name="__codelineno-6-23"></a><span class="w">    </span><span class="nt">&lt;backend&gt;</span>
+</span><span id="__span-6-24"><a href="#__codelineno-6-24" id="__codelineno-6-24" name="__codelineno-6-24"></a><span class="w">        </span><span class="nt">&lt;base</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-6-25"><a href="#__codelineno-6-25" id="__codelineno-6-25" name="__codelineno-6-25"></a><span class="w">    </span><span class="nt">&lt;/backend&gt;</span>
+</span><span id="__span-6-26"><a href="#__codelineno-6-26" id="__codelineno-6-26" name="__codelineno-6-26"></a><span class="w">    </span><span class="nt">&lt;outbound&gt;</span>
+</span><span id="__span-6-27"><a href="#__codelineno-6-27" id="__codelineno-6-27" name="__codelineno-6-27"></a><span class="w">        </span><span class="cm">&lt;!-- XML to JSON transformation --&gt;</span>
+</span><span id="__span-6-28"><a href="#__codelineno-6-28" id="__codelineno-6-28" name="__codelineno-6-28"></a><span class="w">        </span><span class="nt">&lt;xml-to-json</span><span class="w"> </span><span class="na">kind=</span><span class="s">"direct"</span><span class="w"> </span><span class="na">apply=</span><span class="s">"always"</span><span class="w"> </span><span class="na">consider-accept-header=</span><span class="s">"false"</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-6-29"><a href="#__codelineno-6-29" id="__codelineno-6-29" name="__codelineno-6-29"></a>
+</span><span id="__span-6-30"><a href="#__codelineno-6-30" id="__codelineno-6-30" name="__codelineno-6-30"></a><span class="w">        </span><span class="cm">&lt;!-- Remove internal headers --&gt;</span>
+</span><span id="__span-6-31"><a href="#__codelineno-6-31" id="__codelineno-6-31" name="__codelineno-6-31"></a><span class="w">        </span><span class="nt">&lt;set-header</span><span class="w"> </span><span class="na">name=</span><span class="s">"X-Powered-By"</span><span class="w"> </span><span class="na">exists-action=</span><span class="s">"delete"</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-6-32"><a href="#__codelineno-6-32" id="__codelineno-6-32" name="__codelineno-6-32"></a><span class="w">        </span><span class="nt">&lt;set-header</span><span class="w"> </span><span class="na">name=</span><span class="s">"X-AspNet-Version"</span><span class="w"> </span><span class="na">exists-action=</span><span class="s">"delete"</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-6-33"><a href="#__codelineno-6-33" id="__codelineno-6-33" name="__codelineno-6-33"></a>
+</span><span id="__span-6-34"><a href="#__codelineno-6-34" id="__codelineno-6-34" name="__codelineno-6-34"></a><span class="w">        </span><span class="nt">&lt;base</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-6-35"><a href="#__codelineno-6-35" id="__codelineno-6-35" name="__codelineno-6-35"></a><span class="w">    </span><span class="nt">&lt;/outbound&gt;</span>
+</span><span id="__span-6-36"><a href="#__codelineno-6-36" id="__codelineno-6-36" name="__codelineno-6-36"></a><span class="w">    </span><span class="nt">&lt;on-error&gt;</span>
+</span><span id="__span-6-37"><a href="#__codelineno-6-37" id="__codelineno-6-37" name="__codelineno-6-37"></a><span class="w">        </span><span class="nt">&lt;base</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-6-38"><a href="#__codelineno-6-38" id="__codelineno-6-38" name="__codelineno-6-38"></a><span class="w">        </span><span class="cm">&lt;!-- Custom error response --&gt;</span>
+</span><span id="__span-6-39"><a href="#__codelineno-6-39" id="__codelineno-6-39" name="__codelineno-6-39"></a><span class="w">        </span><span class="nt">&lt;return-response&gt;</span>
+</span><span id="__span-6-40"><a href="#__codelineno-6-40" id="__codelineno-6-40" name="__codelineno-6-40"></a><span class="w">            </span><span class="nt">&lt;set-status</span><span class="w"> </span><span class="na">code=</span><span class="s">"500"</span><span class="w"> </span><span class="na">reason=</span><span class="s">"Internal Server Error"</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-6-41"><a href="#__codelineno-6-41" id="__codelineno-6-41" name="__codelineno-6-41"></a><span class="w">            </span><span class="nt">&lt;set-body&gt;</span>@{
+</span><span id="__span-6-42"><a href="#__codelineno-6-42" id="__codelineno-6-42" name="__codelineno-6-42"></a><span class="w">                </span>return<span class="w"> </span>new<span class="w"> </span>JObject(
+</span><span id="__span-6-43"><a href="#__codelineno-6-43" id="__codelineno-6-43" name="__codelineno-6-43"></a><span class="w">                    </span>new<span class="w"> </span>JProperty("error",<span class="w"> </span>context.LastError.Message),
+</span><span id="__span-6-44"><a href="#__codelineno-6-44" id="__codelineno-6-44" name="__codelineno-6-44"></a><span class="w">                    </span>new<span class="w"> </span>JProperty("timestamp",<span class="w"> </span>DateTime.UtcNow.ToString("o"))
+</span><span id="__span-6-45"><a href="#__codelineno-6-45" id="__codelineno-6-45" name="__codelineno-6-45"></a><span class="w">                </span>).ToString();
+</span><span id="__span-6-46"><a href="#__codelineno-6-46" id="__codelineno-6-46" name="__codelineno-6-46"></a><span class="w">            </span>}<span class="nt">&lt;/set-body&gt;</span>
+</span><span id="__span-6-47"><a href="#__codelineno-6-47" id="__codelineno-6-47" name="__codelineno-6-47"></a><span class="w">        </span><span class="nt">&lt;/return-response&gt;</span>
+</span><span id="__span-6-48"><a href="#__codelineno-6-48" id="__codelineno-6-48" name="__codelineno-6-48"></a><span class="w">    </span><span class="nt">&lt;/on-error&gt;</span>
+</span><span id="__span-6-49"><a href="#__codelineno-6-49" id="__codelineno-6-49" name="__codelineno-6-49"></a><span class="nt">&lt;/policies&gt;</span>
+</span></code></pre></div>
+<h3 id="ip-filtering">IP filtering</h3>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-7-1"><a href="#__codelineno-7-1" id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="cm">&lt;!-- Whitelist IPs corporativas --&gt;</span>
+</span><span id="__span-7-2"><a href="#__codelineno-7-2" id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="nt">&lt;policies&gt;</span>
+</span><span id="__span-7-3"><a href="#__codelineno-7-3" id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="w">    </span><span class="nt">&lt;inbound&gt;</span>
+</span><span id="__span-7-4"><a href="#__codelineno-7-4" id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="w">        </span><span class="nt">&lt;ip-filter</span><span class="w"> </span><span class="na">action=</span><span class="s">"allow"</span><span class="nt">&gt;</span>
+</span><span id="__span-7-5"><a href="#__codelineno-7-5" id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="w">            </span><span class="nt">&lt;address&gt;</span>203.0.113.0<span class="nt">&lt;/address&gt;</span>
+</span><span id="__span-7-6"><a href="#__codelineno-7-6" id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="w">            </span><span class="nt">&lt;address-range</span><span class="w"> </span><span class="na">from=</span><span class="s">"198.51.100.0"</span><span class="w"> </span><span class="na">to=</span><span class="s">"198.51.100.255"</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-7-7"><a href="#__codelineno-7-7" id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="w">        </span><span class="nt">&lt;/ip-filter&gt;</span>
+</span><span id="__span-7-8"><a href="#__codelineno-7-8" id="__codelineno-7-8" name="__codelineno-7-8"></a><span class="w">        </span><span class="nt">&lt;base</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-7-9"><a href="#__codelineno-7-9" id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="w">    </span><span class="nt">&lt;/inbound&gt;</span>
+</span><span id="__span-7-10"><a href="#__codelineno-7-10" id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="nt">&lt;/policies&gt;</span>
+</span></code></pre></div>
+<h3 id="quota-limite-mensual">Quota (límite mensual)</h3>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-8-1"><a href="#__codelineno-8-1" id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="cm">&lt;!-- Quota: 10,000 calls/mes por subscription --&gt;</span>
+</span><span id="__span-8-2"><a href="#__codelineno-8-2" id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="nt">&lt;policies&gt;</span>
+</span><span id="__span-8-3"><a href="#__codelineno-8-3" id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="w">    </span><span class="nt">&lt;inbound&gt;</span>
+</span><span id="__span-8-4"><a href="#__codelineno-8-4" id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="w">        </span><span class="nt">&lt;quota</span><span class="w"> </span><span class="na">calls=</span><span class="s">"10000"</span><span class="w"> </span><span class="na">bandwidth=</span><span class="s">"102400"</span><span class="w"> </span><span class="na">renewal-period=</span><span class="s">"2592000"</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-8-5"><a href="#__codelineno-8-5" id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="w">        </span><span class="nt">&lt;base</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-8-6"><a href="#__codelineno-8-6" id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="w">    </span><span class="nt">&lt;/inbound&gt;</span>
+</span><span id="__span-8-7"><a href="#__codelineno-8-7" id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="nt">&lt;/policies&gt;</span>
+</span></code></pre></div>
+<h3 id="mock-responses-testing">Mock responses (testing)</h3>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-9-1"><a href="#__codelineno-9-1" id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="cm">&lt;!-- Mock response sin llamar backend --&gt;</span>
+</span><span id="__span-9-2"><a href="#__codelineno-9-2" id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="nt">&lt;policies&gt;</span>
+</span><span id="__span-9-3"><a href="#__codelineno-9-3" id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="w">    </span><span class="nt">&lt;inbound&gt;</span>
+</span><span id="__span-9-4"><a href="#__codelineno-9-4" id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="w">        </span><span class="nt">&lt;mock-response</span><span class="w"> </span><span class="na">status-code=</span><span class="s">"200"</span><span class="w"> </span><span class="na">content-type=</span><span class="s">"application/json"</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-9-5"><a href="#__codelineno-9-5" id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="w">        </span><span class="nt">&lt;base</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-9-6"><a href="#__codelineno-9-6" id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="w">    </span><span class="nt">&lt;/inbound&gt;</span>
+</span><span id="__span-9-7"><a href="#__codelineno-9-7" id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="nt">&lt;/policies&gt;</span>
+</span></code></pre></div>
+<hr>
+<h2 id="autenticacion-oauth-20-entra-id">Autenticación: OAuth 2.0 / Entra ID</h2>
+<h3 id="validar-jwt-tokens">Validar JWT tokens</h3>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-10-1"><a href="#__codelineno-10-1" id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="nt">&lt;policies&gt;</span>
+</span><span id="__span-10-2"><a href="#__codelineno-10-2" id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="w">    </span><span class="nt">&lt;inbound&gt;</span>
+</span><span id="__span-10-3"><a href="#__codelineno-10-3" id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="w">        </span><span class="nt">&lt;validate-jwt</span><span class="w"> </span><span class="na">header-name=</span><span class="s">"Authorization"</span><span class="w"> </span><span class="na">failed-validation-httpcode=</span><span class="s">"401"</span><span class="w"> </span><span class="na">failed-validation-error-message=</span><span class="s">"Unauthorized"</span><span class="nt">&gt;</span>
+</span><span id="__span-10-4"><a href="#__codelineno-10-4" id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="w">            </span><span class="nt">&lt;openid-config</span><span class="w"> </span><span class="na">url=</span><span class="s">"https://login.microsoftonline.com/{tenant-id}/.well-known/openid-configuration"</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-10-5"><a href="#__codelineno-10-5" id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="w">            </span><span class="nt">&lt;audiences&gt;</span>
+</span><span id="__span-10-6"><a href="#__codelineno-10-6" id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="w">                </span><span class="nt">&lt;audience&gt;</span>api://myapp-api<span class="nt">&lt;/audience&gt;</span>
+</span><span id="__span-10-7"><a href="#__codelineno-10-7" id="__codelineno-10-7" name="__codelineno-10-7"></a><span class="w">            </span><span class="nt">&lt;/audiences&gt;</span>
+</span><span id="__span-10-8"><a href="#__codelineno-10-8" id="__codelineno-10-8" name="__codelineno-10-8"></a><span class="w">            </span><span class="nt">&lt;issuers&gt;</span>
+</span><span id="__span-10-9"><a href="#__codelineno-10-9" id="__codelineno-10-9" name="__codelineno-10-9"></a><span class="w">                </span><span class="nt">&lt;issuer&gt;</span>https://sts.windows.net/{tenant-id}/<span class="nt">&lt;/issuer&gt;</span>
+</span><span id="__span-10-10"><a href="#__codelineno-10-10" id="__codelineno-10-10" name="__codelineno-10-10"></a><span class="w">            </span><span class="nt">&lt;/issuers&gt;</span>
+</span><span id="__span-10-11"><a href="#__codelineno-10-11" id="__codelineno-10-11" name="__codelineno-10-11"></a><span class="w">            </span><span class="nt">&lt;required-claims&gt;</span>
+</span><span id="__span-10-12"><a href="#__codelineno-10-12" id="__codelineno-10-12" name="__codelineno-10-12"></a><span class="w">                </span><span class="nt">&lt;claim</span><span class="w"> </span><span class="na">name=</span><span class="s">"roles"</span><span class="w"> </span><span class="na">match=</span><span class="s">"any"</span><span class="nt">&gt;</span>
+</span><span id="__span-10-13"><a href="#__codelineno-10-13" id="__codelineno-10-13" name="__codelineno-10-13"></a><span class="w">                    </span><span class="nt">&lt;value&gt;</span>API.Read<span class="nt">&lt;/value&gt;</span>
+</span><span id="__span-10-14"><a href="#__codelineno-10-14" id="__codelineno-10-14" name="__codelineno-10-14"></a><span class="w">                    </span><span class="nt">&lt;value&gt;</span>API.Write<span class="nt">&lt;/value&gt;</span>
+</span><span id="__span-10-15"><a href="#__codelineno-10-15" id="__codelineno-10-15" name="__codelineno-10-15"></a><span class="w">                </span><span class="nt">&lt;/claim&gt;</span>
+</span><span id="__span-10-16"><a href="#__codelineno-10-16" id="__codelineno-10-16" name="__codelineno-10-16"></a><span class="w">            </span><span class="nt">&lt;/required-claims&gt;</span>
+</span><span id="__span-10-17"><a href="#__codelineno-10-17" id="__codelineno-10-17" name="__codelineno-10-17"></a><span class="w">        </span><span class="nt">&lt;/validate-jwt&gt;</span>
+</span><span id="__span-10-18"><a href="#__codelineno-10-18" id="__codelineno-10-18" name="__codelineno-10-18"></a><span class="w">        </span><span class="nt">&lt;base</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-10-19"><a href="#__codelineno-10-19" id="__codelineno-10-19" name="__codelineno-10-19"></a><span class="w">    </span><span class="nt">&lt;/inbound&gt;</span>
+</span><span id="__span-10-20"><a href="#__codelineno-10-20" id="__codelineno-10-20" name="__codelineno-10-20"></a><span class="nt">&lt;/policies&gt;</span>
+</span></code></pre></div>
+<h3 id="oauth-authorization-server">OAuth authorization server</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a href="#__codelineno-11-1" id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="c1"># Configurar authorization server (Entra ID)</span>
+</span><span id="__span-11-2"><a href="#__codelineno-11-2" id="__codelineno-11-2" name="__codelineno-11-2"></a>az<span class="w"> </span>apim<span class="w"> </span>api<span class="w"> </span>authorization-server<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-3"><a href="#__codelineno-11-3" id="__codelineno-11-3" name="__codelineno-11-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-4"><a href="#__codelineno-11-4" id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="w">  </span>--service-name<span class="w"> </span><span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-5"><a href="#__codelineno-11-5" id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="w">  </span>--server-id<span class="w"> </span>entra-oauth<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-6"><a href="#__codelineno-11-6" id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="w">  </span>--display-name<span class="w"> </span><span class="s2">"Entra ID OAuth"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-7"><a href="#__codelineno-11-7" id="__codelineno-11-7" name="__codelineno-11-7"></a><span class="w">  </span>--client-registration-endpoint<span class="w"> </span><span class="s2">"https://login.microsoftonline.com/{tenant}/oauth2/v2.0/authorize"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-8"><a href="#__codelineno-11-8" id="__codelineno-11-8" name="__codelineno-11-8"></a><span class="w">  </span>--authorization-endpoint<span class="w"> </span><span class="s2">"https://login.microsoftonline.com/{tenant}/oauth2/v2.0/authorize"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-9"><a href="#__codelineno-11-9" id="__codelineno-11-9" name="__codelineno-11-9"></a><span class="w">  </span>--token-endpoint<span class="w"> </span><span class="s2">"https://login.microsoftonline.com/{tenant}/oauth2/v2.0/token"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-10"><a href="#__codelineno-11-10" id="__codelineno-11-10" name="__codelineno-11-10"></a><span class="w">  </span>--client-id<span class="w"> </span><span class="nv">$CLIENT_ID</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-11"><a href="#__codelineno-11-11" id="__codelineno-11-11" name="__codelineno-11-11"></a><span class="w">  </span>--client-secret<span class="w"> </span><span class="nv">$CLIENT_SECRET</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-12"><a href="#__codelineno-11-12" id="__codelineno-11-12" name="__codelineno-11-12"></a><span class="w">  </span>--grant-types<span class="w"> </span>authorizationCode<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-13"><a href="#__codelineno-11-13" id="__codelineno-11-13" name="__codelineno-11-13"></a><span class="w">  </span>--default-scope<span class="w"> </span><span class="s2">"api://myapp-api/.default"</span>
+</span></code></pre></div>
+<p><strong>Flujo OAuth en Developer Portal:</strong></p>
+<ol>
+<li>User click "Try It" en operation</li>
+<li>APIM redirige a Entra ID login</li>
+<li>User aprueba scopes</li>
+<li>APIM recibe token y llama backend</li>
+<li>Response mostrado en portal</li>
+</ol>
+<hr>
+<h2 id="backends-multiples-servicios">Backends: múltiples servicios</h2>
+<h3 id="named-values-variables">Named values (variables)</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a href="#__codelineno-12-1" id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="c1"># Crear named value para backend URL</span>
+</span><span id="__span-12-2"><a href="#__codelineno-12-2" id="__codelineno-12-2" name="__codelineno-12-2"></a>az<span class="w"> </span>apim<span class="w"> </span>nv<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-3"><a href="#__codelineno-12-3" id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-4"><a href="#__codelineno-12-4" id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="w">  </span>--service-name<span class="w"> </span><span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-5"><a href="#__codelineno-12-5" id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="w">  </span>--named-value-id<span class="w"> </span>backend-url-prod<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-6"><a href="#__codelineno-12-6" id="__codelineno-12-6" name="__codelineno-12-6"></a><span class="w">  </span>--display-name<span class="w"> </span><span class="s2">"Backend URL Production"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-7"><a href="#__codelineno-12-7" id="__codelineno-12-7" name="__codelineno-12-7"></a><span class="w">  </span>--value<span class="w"> </span><span class="s2">"https://backend-prod.azurewebsites.net"</span>
+</span><span id="__span-12-8"><a href="#__codelineno-12-8" id="__codelineno-12-8" name="__codelineno-12-8"></a>
+</span><span id="__span-12-9"><a href="#__codelineno-12-9" id="__codelineno-12-9" name="__codelineno-12-9"></a><span class="c1"># Named value secreto (API key)</span>
+</span><span id="__span-12-10"><a href="#__codelineno-12-10" id="__codelineno-12-10" name="__codelineno-12-10"></a>az<span class="w"> </span>apim<span class="w"> </span>nv<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-11"><a href="#__codelineno-12-11" id="__codelineno-12-11" name="__codelineno-12-11"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-12"><a href="#__codelineno-12-12" id="__codelineno-12-12" name="__codelineno-12-12"></a><span class="w">  </span>--service-name<span class="w"> </span><span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-13"><a href="#__codelineno-12-13" id="__codelineno-12-13" name="__codelineno-12-13"></a><span class="w">  </span>--named-value-id<span class="w"> </span>backend-api-key<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-14"><a href="#__codelineno-12-14" id="__codelineno-12-14" name="__codelineno-12-14"></a><span class="w">  </span>--display-name<span class="w"> </span><span class="s2">"Backend API Key"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-15"><a href="#__codelineno-12-15" id="__codelineno-12-15" name="__codelineno-12-15"></a><span class="w">  </span>--value<span class="w"> </span><span class="s2">"secret-key-12345"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-16"><a href="#__codelineno-12-16" id="__codelineno-12-16" name="__codelineno-12-16"></a><span class="w">  </span>--secret<span class="w"> </span><span class="nb">true</span>
+</span></code></pre></div>
+<p><strong>Usar en policy:</strong></p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-13-1"><a href="#__codelineno-13-1" id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="nt">&lt;set-backend-service</span><span class="w"> </span><span class="na">base-url=</span><span class="s">"{{backend-url-prod}}"</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-13-2"><a href="#__codelineno-13-2" id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="nt">&lt;set-header</span><span class="w"> </span><span class="na">name=</span><span class="s">"X-API-Key"</span><span class="w"> </span><span class="na">exists-action=</span><span class="s">"override"</span><span class="nt">&gt;</span>
+</span><span id="__span-13-3"><a href="#__codelineno-13-3" id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="w">    </span><span class="nt">&lt;value&gt;</span>{{backend-api-key}}<span class="nt">&lt;/value&gt;</span>
+</span><span id="__span-13-4"><a href="#__codelineno-13-4" id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="nt">&lt;/set-header&gt;</span>
+</span></code></pre></div>
+<h3 id="backend-entity">Backend entity</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a href="#__codelineno-14-1" id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="c1"># Crear backend</span>
+</span><span id="__span-14-2"><a href="#__codelineno-14-2" id="__codelineno-14-2" name="__codelineno-14-2"></a>az<span class="w"> </span>apim<span class="w"> </span>backend<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-3"><a href="#__codelineno-14-3" id="__codelineno-14-3" name="__codelineno-14-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-4"><a href="#__codelineno-14-4" id="__codelineno-14-4" name="__codelineno-14-4"></a><span class="w">  </span>--service-name<span class="w"> </span><span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-5"><a href="#__codelineno-14-5" id="__codelineno-14-5" name="__codelineno-14-5"></a><span class="w">  </span>--backend-id<span class="w"> </span>backend-orders<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-6"><a href="#__codelineno-14-6" id="__codelineno-14-6" name="__codelineno-14-6"></a><span class="w">  </span>--title<span class="w"> </span><span class="s2">"Orders Backend"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-7"><a href="#__codelineno-14-7" id="__codelineno-14-7" name="__codelineno-14-7"></a><span class="w">  </span>--url<span class="w"> </span>https://orders-api.azurewebsites.net<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-8"><a href="#__codelineno-14-8" id="__codelineno-14-8" name="__codelineno-14-8"></a><span class="w">  </span>--protocol<span class="w"> </span>http
+</span><span id="__span-14-9"><a href="#__codelineno-14-9" id="__codelineno-14-9" name="__codelineno-14-9"></a>
+</span><span id="__span-14-10"><a href="#__codelineno-14-10" id="__codelineno-14-10" name="__codelineno-14-10"></a><span class="c1"># Backend con circuit breaker</span>
+</span><span id="__span-14-11"><a href="#__codelineno-14-11" id="__codelineno-14-11" name="__codelineno-14-11"></a>az<span class="w"> </span>apim<span class="w"> </span>backend<span class="w"> </span>update<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-12"><a href="#__codelineno-14-12" id="__codelineno-14-12" name="__codelineno-14-12"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-13"><a href="#__codelineno-14-13" id="__codelineno-14-13" name="__codelineno-14-13"></a><span class="w">  </span>--service-name<span class="w"> </span><span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-14"><a href="#__codelineno-14-14" id="__codelineno-14-14" name="__codelineno-14-14"></a><span class="w">  </span>--backend-id<span class="w"> </span>backend-orders<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-15"><a href="#__codelineno-14-15" id="__codelineno-14-15" name="__codelineno-14-15"></a><span class="w">  </span>--set<span class="w"> </span><span class="s2">"circuitBreaker.rules[0].failureCondition.count=5"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-16"><a href="#__codelineno-14-16" id="__codelineno-14-16" name="__codelineno-14-16"></a><span class="w">  </span>--set<span class="w"> </span><span class="s2">"circuitBreaker.rules[0].failureCondition.interval=PT1M"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-17"><a href="#__codelineno-14-17" id="__codelineno-14-17" name="__codelineno-14-17"></a><span class="w">  </span>--set<span class="w"> </span><span class="s2">"circuitBreaker.rules[0].tripDuration=PT1M"</span>
+</span></code></pre></div>
+<p><strong>Policy con backend:</strong></p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-15-1"><a href="#__codelineno-15-1" id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="nt">&lt;set-backend-service</span><span class="w"> </span><span class="na">backend-id=</span><span class="s">"backend-orders"</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span></code></pre></div>
+<hr>
+<h2 id="products-y-subscriptions">Products y Subscriptions</h2>
+<h3 id="crear-product">Crear product</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a href="#__codelineno-16-1" id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="c1"># Product: Starter (gratis, rate limited)</span>
+</span><span id="__span-16-2"><a href="#__codelineno-16-2" id="__codelineno-16-2" name="__codelineno-16-2"></a>az<span class="w"> </span>apim<span class="w"> </span>product<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-3"><a href="#__codelineno-16-3" id="__codelineno-16-3" name="__codelineno-16-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-4"><a href="#__codelineno-16-4" id="__codelineno-16-4" name="__codelineno-16-4"></a><span class="w">  </span>--service-name<span class="w"> </span><span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-5"><a href="#__codelineno-16-5" id="__codelineno-16-5" name="__codelineno-16-5"></a><span class="w">  </span>--product-id<span class="w"> </span>starter<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-6"><a href="#__codelineno-16-6" id="__codelineno-16-6" name="__codelineno-16-6"></a><span class="w">  </span>--product-name<span class="w"> </span><span class="s2">"Starter Plan"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-7"><a href="#__codelineno-16-7" id="__codelineno-16-7" name="__codelineno-16-7"></a><span class="w">  </span>--description<span class="w"> </span><span class="s2">"Free tier with rate limits"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-8"><a href="#__codelineno-16-8" id="__codelineno-16-8" name="__codelineno-16-8"></a><span class="w">  </span>--subscription-required<span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-9"><a href="#__codelineno-16-9" id="__codelineno-16-9" name="__codelineno-16-9"></a><span class="w">  </span>--approval-required<span class="w"> </span><span class="nb">false</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-10"><a href="#__codelineno-16-10" id="__codelineno-16-10" name="__codelineno-16-10"></a><span class="w">  </span>--subscriptions-limit<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-11"><a href="#__codelineno-16-11" id="__codelineno-16-11" name="__codelineno-16-11"></a><span class="w">  </span>--state<span class="w"> </span>published
+</span><span id="__span-16-12"><a href="#__codelineno-16-12" id="__codelineno-16-12" name="__codelineno-16-12"></a>
+</span><span id="__span-16-13"><a href="#__codelineno-16-13" id="__codelineno-16-13" name="__codelineno-16-13"></a><span class="c1"># Agregar API al product</span>
+</span><span id="__span-16-14"><a href="#__codelineno-16-14" id="__codelineno-16-14" name="__codelineno-16-14"></a>az<span class="w"> </span>apim<span class="w"> </span>product<span class="w"> </span>api<span class="w"> </span>add<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-15"><a href="#__codelineno-16-15" id="__codelineno-16-15" name="__codelineno-16-15"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-16"><a href="#__codelineno-16-16" id="__codelineno-16-16" name="__codelineno-16-16"></a><span class="w">  </span>--service-name<span class="w"> </span><span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-17"><a href="#__codelineno-16-17" id="__codelineno-16-17" name="__codelineno-16-17"></a><span class="w">  </span>--product-id<span class="w"> </span>starter<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-18"><a href="#__codelineno-16-18" id="__codelineno-16-18" name="__codelineno-16-18"></a><span class="w">  </span>--api-id<span class="w"> </span>products-api
+</span><span id="__span-16-19"><a href="#__codelineno-16-19" id="__codelineno-16-19" name="__codelineno-16-19"></a>
+</span><span id="__span-16-20"><a href="#__codelineno-16-20" id="__codelineno-16-20" name="__codelineno-16-20"></a><span class="c1"># Policy del product (rate limit)</span>
+</span><span id="__span-16-21"><a href="#__codelineno-16-21" id="__codelineno-16-21" name="__codelineno-16-21"></a>az<span class="w"> </span>apim<span class="w"> </span>product<span class="w"> </span>policy<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-22"><a href="#__codelineno-16-22" id="__codelineno-16-22" name="__codelineno-16-22"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-23"><a href="#__codelineno-16-23" id="__codelineno-16-23" name="__codelineno-16-23"></a><span class="w">  </span>--service-name<span class="w"> </span><span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-24"><a href="#__codelineno-16-24" id="__codelineno-16-24" name="__codelineno-16-24"></a><span class="w">  </span>--product-id<span class="w"> </span>starter<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-25"><a href="#__codelineno-16-25" id="__codelineno-16-25" name="__codelineno-16-25"></a><span class="w">  </span>--xml-policy<span class="w"> </span><span class="s1">'&lt;policies&gt;</span>
+</span><span id="__span-16-26"><a href="#__codelineno-16-26" id="__codelineno-16-26" name="__codelineno-16-26"></a><span class="s1">    &lt;inbound&gt;</span>
+</span><span id="__span-16-27"><a href="#__codelineno-16-27" id="__codelineno-16-27" name="__codelineno-16-27"></a><span class="s1">        &lt;rate-limit calls="10" renewal-period="60" /&gt;</span>
+</span><span id="__span-16-28"><a href="#__codelineno-16-28" id="__codelineno-16-28" name="__codelineno-16-28"></a><span class="s1">        &lt;quota calls="1000" renewal-period="86400" /&gt;</span>
+</span><span id="__span-16-29"><a href="#__codelineno-16-29" id="__codelineno-16-29" name="__codelineno-16-29"></a><span class="s1">        &lt;base /&gt;</span>
+</span><span id="__span-16-30"><a href="#__codelineno-16-30" id="__codelineno-16-30" name="__codelineno-16-30"></a><span class="s1">    &lt;/inbound&gt;</span>
+</span><span id="__span-16-31"><a href="#__codelineno-16-31" id="__codelineno-16-31" name="__codelineno-16-31"></a><span class="s1">&lt;/policies&gt;'</span>
+</span></code></pre></div>
+<h3 id="crear-subscription">Crear subscription</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a href="#__codelineno-17-1" id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="c1"># Subscription para usuario</span>
+</span><span id="__span-17-2"><a href="#__codelineno-17-2" id="__codelineno-17-2" name="__codelineno-17-2"></a>az<span class="w"> </span>apim<span class="w"> </span>subscription<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-3"><a href="#__codelineno-17-3" id="__codelineno-17-3" name="__codelineno-17-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-4"><a href="#__codelineno-17-4" id="__codelineno-17-4" name="__codelineno-17-4"></a><span class="w">  </span>--service-name<span class="w"> </span><span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-5"><a href="#__codelineno-17-5" id="__codelineno-17-5" name="__codelineno-17-5"></a><span class="w">  </span>--subscription-id<span class="w"> </span>sub-user-123<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-6"><a href="#__codelineno-17-6" id="__codelineno-17-6" name="__codelineno-17-6"></a><span class="w">  </span>--name<span class="w"> </span><span class="s2">"User 123 Subscription"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-7"><a href="#__codelineno-17-7" id="__codelineno-17-7" name="__codelineno-17-7"></a><span class="w">  </span>--scope<span class="w"> </span>/products/starter<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-8"><a href="#__codelineno-17-8" id="__codelineno-17-8" name="__codelineno-17-8"></a><span class="w">  </span>--state<span class="w"> </span>active
+</span><span id="__span-17-9"><a href="#__codelineno-17-9" id="__codelineno-17-9" name="__codelineno-17-9"></a>
+</span><span id="__span-17-10"><a href="#__codelineno-17-10" id="__codelineno-17-10" name="__codelineno-17-10"></a><span class="c1"># Obtener subscription keys</span>
+</span><span id="__span-17-11"><a href="#__codelineno-17-11" id="__codelineno-17-11" name="__codelineno-17-11"></a>az<span class="w"> </span>apim<span class="w"> </span>subscription<span class="w"> </span>show<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-12"><a href="#__codelineno-17-12" id="__codelineno-17-12" name="__codelineno-17-12"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-13"><a href="#__codelineno-17-13" id="__codelineno-17-13" name="__codelineno-17-13"></a><span class="w">  </span>--service-name<span class="w"> </span><span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-14"><a href="#__codelineno-17-14" id="__codelineno-17-14" name="__codelineno-17-14"></a><span class="w">  </span>--subscription-id<span class="w"> </span>sub-user-123<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-15"><a href="#__codelineno-17-15" id="__codelineno-17-15" name="__codelineno-17-15"></a><span class="w">  </span>--query<span class="w"> </span><span class="s2">"{primary:primaryKey, secondary:secondaryKey}"</span>
+</span></code></pre></div>
+<p><strong>Llamar API con subscription key:</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a href="#__codelineno-18-1" id="__codelineno-18-1" name="__codelineno-18-1"></a>curl<span class="w"> </span>-H<span class="w"> </span><span class="s2">"Ocp-Apim-Subscription-Key: &lt;PRIMARY_KEY&gt;"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-2"><a href="#__codelineno-18-2" id="__codelineno-18-2" name="__codelineno-18-2"></a><span class="w">  </span>https://apim-prod-xxx.azure-api.net/products
+</span></code></pre></div>
+<hr>
+<h2 id="versioning-y-revisions">Versioning y Revisions</h2>
+<h3 id="api-versions">API versions</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a href="#__codelineno-19-1" id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="c1"># Version 1 (original)</span>
+</span><span id="__span-19-2"><a href="#__codelineno-19-2" id="__codelineno-19-2" name="__codelineno-19-2"></a>az<span class="w"> </span>apim<span class="w"> </span>api<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-3"><a href="#__codelineno-19-3" id="__codelineno-19-3" name="__codelineno-19-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-4"><a href="#__codelineno-19-4" id="__codelineno-19-4" name="__codelineno-19-4"></a><span class="w">  </span>--service-name<span class="w"> </span><span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-5"><a href="#__codelineno-19-5" id="__codelineno-19-5" name="__codelineno-19-5"></a><span class="w">  </span>--api-id<span class="w"> </span>products-api-v1<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-6"><a href="#__codelineno-19-6" id="__codelineno-19-6" name="__codelineno-19-6"></a><span class="w">  </span>--path<span class="w"> </span>/v1/products<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-7"><a href="#__codelineno-19-7" id="__codelineno-19-7" name="__codelineno-19-7"></a><span class="w">  </span>--display-name<span class="w"> </span><span class="s2">"Products API v1"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-8"><a href="#__codelineno-19-8" id="__codelineno-19-8" name="__codelineno-19-8"></a><span class="w">  </span>--service-url<span class="w"> </span>https://backend-v1.azurewebsites.net<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-9"><a href="#__codelineno-19-9" id="__codelineno-19-9" name="__codelineno-19-9"></a><span class="w">  </span>--api-version<span class="w"> </span>v1<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-10"><a href="#__codelineno-19-10" id="__codelineno-19-10" name="__codelineno-19-10"></a><span class="w">  </span>--api-version-set-id<span class="w"> </span>products-versions
+</span><span id="__span-19-11"><a href="#__codelineno-19-11" id="__codelineno-19-11" name="__codelineno-19-11"></a>
+</span><span id="__span-19-12"><a href="#__codelineno-19-12" id="__codelineno-19-12" name="__codelineno-19-12"></a><span class="c1"># Version 2 (breaking changes)</span>
+</span><span id="__span-19-13"><a href="#__codelineno-19-13" id="__codelineno-19-13" name="__codelineno-19-13"></a>az<span class="w"> </span>apim<span class="w"> </span>api<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-14"><a href="#__codelineno-19-14" id="__codelineno-19-14" name="__codelineno-19-14"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-15"><a href="#__codelineno-19-15" id="__codelineno-19-15" name="__codelineno-19-15"></a><span class="w">  </span>--service-name<span class="w"> </span><span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-16"><a href="#__codelineno-19-16" id="__codelineno-19-16" name="__codelineno-19-16"></a><span class="w">  </span>--api-id<span class="w"> </span>products-api-v2<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-17"><a href="#__codelineno-19-17" id="__codelineno-19-17" name="__codelineno-19-17"></a><span class="w">  </span>--path<span class="w"> </span>/v2/products<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-18"><a href="#__codelineno-19-18" id="__codelineno-19-18" name="__codelineno-19-18"></a><span class="w">  </span>--display-name<span class="w"> </span><span class="s2">"Products API v2"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-19"><a href="#__codelineno-19-19" id="__codelineno-19-19" name="__codelineno-19-19"></a><span class="w">  </span>--service-url<span class="w"> </span>https://backend-v2.azurewebsites.net<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-20"><a href="#__codelineno-19-20" id="__codelineno-19-20" name="__codelineno-19-20"></a><span class="w">  </span>--api-version<span class="w"> </span>v2<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-21"><a href="#__codelineno-19-21" id="__codelineno-19-21" name="__codelineno-19-21"></a><span class="w">  </span>--api-version-set-id<span class="w"> </span>products-versions
+</span></code></pre></div>
+<p><strong>Acceso:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a href="#__codelineno-20-1" id="__codelineno-20-1" name="__codelineno-20-1"></a>GET https://apim-prod.azure-api.net/v1/products  → Backend v1
+</span><span id="__span-20-2"><a href="#__codelineno-20-2" id="__codelineno-20-2" name="__codelineno-20-2"></a>GET https://apim-prod.azure-api.net/v2/products  → Backend v2
+</span></code></pre></div>
+<h3 id="revisions-sin-breaking-changes">Revisions (sin breaking changes)</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a href="#__codelineno-21-1" id="__codelineno-21-1" name="__codelineno-21-1"></a><span class="c1"># Crear revision</span>
+</span><span id="__span-21-2"><a href="#__codelineno-21-2" id="__codelineno-21-2" name="__codelineno-21-2"></a>az<span class="w"> </span>apim<span class="w"> </span>api<span class="w"> </span>revision<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-3"><a href="#__codelineno-21-3" id="__codelineno-21-3" name="__codelineno-21-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-4"><a href="#__codelineno-21-4" id="__codelineno-21-4" name="__codelineno-21-4"></a><span class="w">  </span>--service-name<span class="w"> </span><span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-5"><a href="#__codelineno-21-5" id="__codelineno-21-5" name="__codelineno-21-5"></a><span class="w">  </span>--api-id<span class="w"> </span>products-api<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-6"><a href="#__codelineno-21-6" id="__codelineno-21-6" name="__codelineno-21-6"></a><span class="w">  </span>--api-revision<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-7"><a href="#__codelineno-21-7" id="__codelineno-21-7" name="__codelineno-21-7"></a><span class="w">  </span>--api-revision-description<span class="w"> </span><span class="s2">"Added caching policy"</span>
+</span><span id="__span-21-8"><a href="#__codelineno-21-8" id="__codelineno-21-8" name="__codelineno-21-8"></a>
+</span><span id="__span-21-9"><a href="#__codelineno-21-9" id="__codelineno-21-9" name="__codelineno-21-9"></a><span class="c1"># Editar revision 2 (no afecta prod)</span>
+</span><span id="__span-21-10"><a href="#__codelineno-21-10" id="__codelineno-21-10" name="__codelineno-21-10"></a>az<span class="w"> </span>apim<span class="w"> </span>api<span class="w"> </span>policy<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-11"><a href="#__codelineno-21-11" id="__codelineno-21-11" name="__codelineno-21-11"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-12"><a href="#__codelineno-21-12" id="__codelineno-21-12" name="__codelineno-21-12"></a><span class="w">  </span>--service-name<span class="w"> </span><span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-13"><a href="#__codelineno-21-13" id="__codelineno-21-13" name="__codelineno-21-13"></a><span class="w">  </span>--api-id<span class="w"> </span>products-api<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-14"><a href="#__codelineno-21-14" id="__codelineno-21-14" name="__codelineno-21-14"></a><span class="w">  </span>--api-revision<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-15"><a href="#__codelineno-21-15" id="__codelineno-21-15" name="__codelineno-21-15"></a><span class="w">  </span>--xml-policy<span class="w"> </span><span class="s1">'&lt;policies&gt;</span>
+</span><span id="__span-21-16"><a href="#__codelineno-21-16" id="__codelineno-21-16" name="__codelineno-21-16"></a><span class="s1">    &lt;inbound&gt;</span>
+</span><span id="__span-21-17"><a href="#__codelineno-21-17" id="__codelineno-21-17" name="__codelineno-21-17"></a><span class="s1">        &lt;cache-lookup vary-by-developer="false" /&gt;</span>
+</span><span id="__span-21-18"><a href="#__codelineno-21-18" id="__codelineno-21-18" name="__codelineno-21-18"></a><span class="s1">        &lt;base /&gt;</span>
+</span><span id="__span-21-19"><a href="#__codelineno-21-19" id="__codelineno-21-19" name="__codelineno-21-19"></a><span class="s1">    &lt;/inbound&gt;</span>
+</span><span id="__span-21-20"><a href="#__codelineno-21-20" id="__codelineno-21-20" name="__codelineno-21-20"></a><span class="s1">    &lt;outbound&gt;</span>
+</span><span id="__span-21-21"><a href="#__codelineno-21-21" id="__codelineno-21-21" name="__codelineno-21-21"></a><span class="s1">        &lt;cache-store duration="3600" /&gt;</span>
+</span><span id="__span-21-22"><a href="#__codelineno-21-22" id="__codelineno-21-22" name="__codelineno-21-22"></a><span class="s1">        &lt;base /&gt;</span>
+</span><span id="__span-21-23"><a href="#__codelineno-21-23" id="__codelineno-21-23" name="__codelineno-21-23"></a><span class="s1">    &lt;/outbound&gt;</span>
+</span><span id="__span-21-24"><a href="#__codelineno-21-24" id="__codelineno-21-24" name="__codelineno-21-24"></a><span class="s1">&lt;/policies&gt;'</span>
+</span><span id="__span-21-25"><a href="#__codelineno-21-25" id="__codelineno-21-25" name="__codelineno-21-25"></a>
+</span><span id="__span-21-26"><a href="#__codelineno-21-26" id="__codelineno-21-26" name="__codelineno-21-26"></a><span class="c1"># Hacer current (promover a producción)</span>
+</span><span id="__span-21-27"><a href="#__codelineno-21-27" id="__codelineno-21-27" name="__codelineno-21-27"></a>az<span class="w"> </span>apim<span class="w"> </span>api<span class="w"> </span>release<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-28"><a href="#__codelineno-21-28" id="__codelineno-21-28" name="__codelineno-21-28"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-29"><a href="#__codelineno-21-29" id="__codelineno-21-29" name="__codelineno-21-29"></a><span class="w">  </span>--service-name<span class="w"> </span><span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-30"><a href="#__codelineno-21-30" id="__codelineno-21-30" name="__codelineno-21-30"></a><span class="w">  </span>--api-id<span class="w"> </span>products-api<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-31"><a href="#__codelineno-21-31" id="__codelineno-21-31" name="__codelineno-21-31"></a><span class="w">  </span>--api-revision<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-32"><a href="#__codelineno-21-32" id="__codelineno-21-32" name="__codelineno-21-32"></a><span class="w">  </span>--release-id<span class="w"> </span>release-2<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-33"><a href="#__codelineno-21-33" id="__codelineno-21-33" name="__codelineno-21-33"></a><span class="w">  </span>--notes<span class="w"> </span><span class="s2">"Enabled caching"</span>
+</span></code></pre></div>
+<hr>
+<h2 id="developer-portal-customization">Developer Portal customization</h2>
+<h3 id="habilitar-developer-portal">Habilitar Developer Portal</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a href="#__codelineno-22-1" id="__codelineno-22-1" name="__codelineno-22-1"></a><span class="c1"># El portal está habilitado por defecto en:</span>
+</span><span id="__span-22-2"><a href="#__codelineno-22-2" id="__codelineno-22-2" name="__codelineno-22-2"></a><span class="c1"># https://{apim-name}.developer.azure-api.net</span>
+</span><span id="__span-22-3"><a href="#__codelineno-22-3" id="__codelineno-22-3" name="__codelineno-22-3"></a>
+</span><span id="__span-22-4"><a href="#__codelineno-22-4" id="__codelineno-22-4" name="__codelineno-22-4"></a><span class="c1"># Publicar cambios en portal</span>
+</span><span id="__span-22-5"><a href="#__codelineno-22-5" id="__codelineno-22-5" name="__codelineno-22-5"></a>az<span class="w"> </span>apim<span class="w"> </span>publish<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-22-6"><a href="#__codelineno-22-6" id="__codelineno-22-6" name="__codelineno-22-6"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-22-7"><a href="#__codelineno-22-7" id="__codelineno-22-7" name="__codelineno-22-7"></a><span class="w">  </span>--name<span class="w"> </span><span class="nv">$APIM_NAME</span>
+</span></code></pre></div>
+<p><strong>Customización (Portal Admin):</strong></p>
+<ol>
+<li>Login: <code>https://{apim-name}.management.azure-api.net</code></li>
+<li>Developer Portal → Design</li>
+<li>Cambiar colores, logo, CSS custom</li>
+<li>Agregar páginas custom</li>
+<li>Publish changes</li>
+</ol>
+<hr>
+<h2 id="monitoring-y-analytics">Monitoring y analytics</h2>
+<h3 id="application-insights-integration">Application Insights integration</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a href="#__codelineno-23-1" id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="c1"># Crear App Insights</span>
+</span><span id="__span-23-2"><a href="#__codelineno-23-2" id="__codelineno-23-2" name="__codelineno-23-2"></a>az<span class="w"> </span>monitor<span class="w"> </span>app-insights<span class="w"> </span>component<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-3"><a href="#__codelineno-23-3" id="__codelineno-23-3" name="__codelineno-23-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-4"><a href="#__codelineno-23-4" id="__codelineno-23-4" name="__codelineno-23-4"></a><span class="w">  </span>--app<span class="w"> </span>apim-insights<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-5"><a href="#__codelineno-23-5" id="__codelineno-23-5" name="__codelineno-23-5"></a><span class="w">  </span>--location<span class="w"> </span><span class="nv">$LOCATION</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-6"><a href="#__codelineno-23-6" id="__codelineno-23-6" name="__codelineno-23-6"></a><span class="w">  </span>--workspace<span class="w"> </span><span class="nv">$LOG_ANALYTICS_ID</span>
+</span><span id="__span-23-7"><a href="#__codelineno-23-7" id="__codelineno-23-7" name="__codelineno-23-7"></a>
+</span><span id="__span-23-8"><a href="#__codelineno-23-8" id="__codelineno-23-8" name="__codelineno-23-8"></a><span class="nv">INSTRUMENTATION_KEY</span><span class="o">=</span><span class="k">$(</span>az<span class="w"> </span>monitor<span class="w"> </span>app-insights<span class="w"> </span>component<span class="w"> </span>show<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-9"><a href="#__codelineno-23-9" id="__codelineno-23-9" name="__codelineno-23-9"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-10"><a href="#__codelineno-23-10" id="__codelineno-23-10" name="__codelineno-23-10"></a><span class="w">  </span>--app<span class="w"> </span>apim-insights<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-11"><a href="#__codelineno-23-11" id="__codelineno-23-11" name="__codelineno-23-11"></a><span class="w">  </span>--query<span class="w"> </span>instrumentationKey<span class="w"> </span>-o<span class="w"> </span>tsv<span class="k">)</span>
+</span><span id="__span-23-12"><a href="#__codelineno-23-12" id="__codelineno-23-12" name="__codelineno-23-12"></a>
+</span><span id="__span-23-13"><a href="#__codelineno-23-13" id="__codelineno-23-13" name="__codelineno-23-13"></a><span class="c1"># Configurar logger en APIM</span>
+</span><span id="__span-23-14"><a href="#__codelineno-23-14" id="__codelineno-23-14" name="__codelineno-23-14"></a>az<span class="w"> </span>apim<span class="w"> </span>logger<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-15"><a href="#__codelineno-23-15" id="__codelineno-23-15" name="__codelineno-23-15"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-16"><a href="#__codelineno-23-16" id="__codelineno-23-16" name="__codelineno-23-16"></a><span class="w">  </span>--service-name<span class="w"> </span><span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-17"><a href="#__codelineno-23-17" id="__codelineno-23-17" name="__codelineno-23-17"></a><span class="w">  </span>--logger-id<span class="w"> </span>appinsights-logger<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-18"><a href="#__codelineno-23-18" id="__codelineno-23-18" name="__codelineno-23-18"></a><span class="w">  </span>--logger-type<span class="w"> </span>applicationInsights<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-19"><a href="#__codelineno-23-19" id="__codelineno-23-19" name="__codelineno-23-19"></a><span class="w">  </span>--credentials<span class="w"> </span><span class="nv">instrumentationKey</span><span class="o">=</span><span class="nv">$INSTRUMENTATION_KEY</span>
+</span><span id="__span-23-20"><a href="#__codelineno-23-20" id="__codelineno-23-20" name="__codelineno-23-20"></a>
+</span><span id="__span-23-21"><a href="#__codelineno-23-21" id="__codelineno-23-21" name="__codelineno-23-21"></a><span class="c1"># Habilitar diagnostic API</span>
+</span><span id="__span-23-22"><a href="#__codelineno-23-22" id="__codelineno-23-22" name="__codelineno-23-22"></a>az<span class="w"> </span>apim<span class="w"> </span>diagnostic<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-23"><a href="#__codelineno-23-23" id="__codelineno-23-23" name="__codelineno-23-23"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-24"><a href="#__codelineno-23-24" id="__codelineno-23-24" name="__codelineno-23-24"></a><span class="w">  </span>--service-name<span class="w"> </span><span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-25"><a href="#__codelineno-23-25" id="__codelineno-23-25" name="__codelineno-23-25"></a><span class="w">  </span>--diagnostic-id<span class="w"> </span>applicationinsights<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-26"><a href="#__codelineno-23-26" id="__codelineno-23-26" name="__codelineno-23-26"></a><span class="w">  </span>--logger-id<span class="w"> </span>appinsights-logger<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-27"><a href="#__codelineno-23-27" id="__codelineno-23-27" name="__codelineno-23-27"></a><span class="w">  </span>--always-log<span class="w"> </span>allErrors<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-28"><a href="#__codelineno-23-28" id="__codelineno-23-28" name="__codelineno-23-28"></a><span class="w">  </span>--sampling-percentage<span class="w"> </span><span class="m">100</span>
+</span></code></pre></div>
+<h3 id="queries-kql-utiles">Queries KQL útiles</h3>
+<div class="language-kusto highlight"><pre><span></span><code><span id="__span-24-1"><a href="#__codelineno-24-1" id="__codelineno-24-1" name="__codelineno-24-1"></a><span class="c">// Top 10 APIs por requests</span>
+</span><span id="__span-24-2"><a href="#__codelineno-24-2" id="__codelineno-24-2" name="__codelineno-24-2"></a><span class="n">requests</span>
+</span><span id="__span-24-3"><a href="#__codelineno-24-3" id="__codelineno-24-3" name="__codelineno-24-3"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">cloud_RoleName</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="s">"apim-prod"</span>
+</span><span id="__span-24-4"><a href="#__codelineno-24-4" id="__codelineno-24-4" name="__codelineno-24-4"></a><span class="p">|</span><span class="w"> </span><span class="k">summarize</span><span class="w"> </span><span class="n">Count</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">count</span><span class="p">()</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">operation_Name</span>
+</span><span id="__span-24-5"><a href="#__codelineno-24-5" id="__codelineno-24-5" name="__codelineno-24-5"></a><span class="p">|</span><span class="w"> </span><span class="k">top</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Count</span><span class="w"> </span><span class="n">desc</span>
+</span><span id="__span-24-6"><a href="#__codelineno-24-6" id="__codelineno-24-6" name="__codelineno-24-6"></a>
+</span><span id="__span-24-7"><a href="#__codelineno-24-7" id="__codelineno-24-7" name="__codelineno-24-7"></a><span class="c">// Latency por operation</span>
+</span><span id="__span-24-8"><a href="#__codelineno-24-8" id="__codelineno-24-8" name="__codelineno-24-8"></a><span class="n">requests</span>
+</span><span id="__span-24-9"><a href="#__codelineno-24-9" id="__codelineno-24-9" name="__codelineno-24-9"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">cloud_RoleName</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="s">"apim-prod"</span>
+</span><span id="__span-24-10"><a href="#__codelineno-24-10" id="__codelineno-24-10" name="__codelineno-24-10"></a><span class="p">|</span><span class="w"> </span><span class="k">summarize</span><span class="w"> </span><span class="n">AvgDuration</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">avg</span><span class="p">(</span><span class="n">duration</span><span class="p">),</span><span class="w"> </span><span class="n">P95</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">percentile</span><span class="p">(</span><span class="n">duration</span><span class="p">,</span><span class="w"> </span><span class="mi">95</span><span class="p">)</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">operation_Name</span>
+</span><span id="__span-24-11"><a href="#__codelineno-24-11" id="__codelineno-24-11" name="__codelineno-24-11"></a><span class="p">|</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">AvgDuration</span><span class="w"> </span><span class="n">desc</span>
+</span><span id="__span-24-12"><a href="#__codelineno-24-12" id="__codelineno-24-12" name="__codelineno-24-12"></a>
+</span><span id="__span-24-13"><a href="#__codelineno-24-13" id="__codelineno-24-13" name="__codelineno-24-13"></a><span class="c">// Errores HTTP 5xx</span>
+</span><span id="__span-24-14"><a href="#__codelineno-24-14" id="__codelineno-24-14" name="__codelineno-24-14"></a><span class="n">requests</span>
+</span><span id="__span-24-15"><a href="#__codelineno-24-15" id="__codelineno-24-15" name="__codelineno-24-15"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">cloud_RoleName</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="s">"apim-prod"</span>
+</span><span id="__span-24-16"><a href="#__codelineno-24-16" id="__codelineno-24-16" name="__codelineno-24-16"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">resultCode</span><span class="w"> </span><span class="p">&gt;=</span><span class="w"> </span><span class="mi">500</span>
+</span><span id="__span-24-17"><a href="#__codelineno-24-17" id="__codelineno-24-17" name="__codelineno-24-17"></a><span class="p">|</span><span class="w"> </span><span class="k">project</span><span class="w"> </span><span class="n">timestamp</span><span class="p">,</span><span class="w"> </span><span class="n">operation_Name</span><span class="p">,</span><span class="w"> </span><span class="n">resultCode</span><span class="p">,</span><span class="w"> </span><span class="n">duration</span><span class="p">,</span><span class="w"> </span><span class="n">client_IP</span>
+</span><span id="__span-24-18"><a href="#__codelineno-24-18" id="__codelineno-24-18" name="__codelineno-24-18"></a><span class="p">|</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">timestamp</span><span class="w"> </span><span class="n">desc</span>
+</span><span id="__span-24-19"><a href="#__codelineno-24-19" id="__codelineno-24-19" name="__codelineno-24-19"></a>
+</span><span id="__span-24-20"><a href="#__codelineno-24-20" id="__codelineno-24-20" name="__codelineno-24-20"></a><span class="c">// Rate limit violations</span>
+</span><span id="__span-24-21"><a href="#__codelineno-24-21" id="__codelineno-24-21" name="__codelineno-24-21"></a><span class="n">traces</span>
+</span><span id="__span-24-22"><a href="#__codelineno-24-22" id="__codelineno-24-22" name="__codelineno-24-22"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="k">contains</span><span class="w"> </span><span class="s">"rate limit"</span>
+</span><span id="__span-24-23"><a href="#__codelineno-24-23" id="__codelineno-24-23" name="__codelineno-24-23"></a><span class="p">|</span><span class="w"> </span><span class="k">project</span><span class="w"> </span><span class="n">timestamp</span><span class="p">,</span><span class="w"> </span><span class="n">message</span><span class="p">,</span><span class="w"> </span><span class="n">customDimensions</span><span class="err">.</span><span class="n">SubscriptionId</span>
+</span></code></pre></div>
+<h3 id="alertas">Alertas</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a href="#__codelineno-25-1" id="__codelineno-25-1" name="__codelineno-25-1"></a><span class="c1"># Alerta: latency &gt; 2s</span>
+</span><span id="__span-25-2"><a href="#__codelineno-25-2" id="__codelineno-25-2" name="__codelineno-25-2"></a>az<span class="w"> </span>monitor<span class="w"> </span>metrics<span class="w"> </span>alert<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-25-3"><a href="#__codelineno-25-3" id="__codelineno-25-3" name="__codelineno-25-3"></a><span class="w">  </span>--name<span class="w"> </span>alert-apim-latency<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-25-4"><a href="#__codelineno-25-4" id="__codelineno-25-4" name="__codelineno-25-4"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-25-5"><a href="#__codelineno-25-5" id="__codelineno-25-5" name="__codelineno-25-5"></a><span class="w">  </span>--scopes<span class="w"> </span>/subscriptions/<span class="nv">$SUB_ID</span>/resourceGroups/<span class="nv">$RESOURCE_GROUP</span>/providers/Microsoft.ApiManagement/service/<span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-25-6"><a href="#__codelineno-25-6" id="__codelineno-25-6" name="__codelineno-25-6"></a><span class="w">  </span>--condition<span class="w"> </span><span class="s2">"avg Duration &gt; 2000"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-25-7"><a href="#__codelineno-25-7" id="__codelineno-25-7" name="__codelineno-25-7"></a><span class="w">  </span>--window-size<span class="w"> </span>5m<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-25-8"><a href="#__codelineno-25-8" id="__codelineno-25-8" name="__codelineno-25-8"></a><span class="w">  </span>--action<span class="w"> </span><span class="nv">$ACTION_GROUP_ID</span>
+</span><span id="__span-25-9"><a href="#__codelineno-25-9" id="__codelineno-25-9" name="__codelineno-25-9"></a>
+</span><span id="__span-25-10"><a href="#__codelineno-25-10" id="__codelineno-25-10" name="__codelineno-25-10"></a><span class="c1"># Alerta: error rate &gt; 5%</span>
+</span><span id="__span-25-11"><a href="#__codelineno-25-11" id="__codelineno-25-11" name="__codelineno-25-11"></a>az<span class="w"> </span>monitor<span class="w"> </span>metrics<span class="w"> </span>alert<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-25-12"><a href="#__codelineno-25-12" id="__codelineno-25-12" name="__codelineno-25-12"></a><span class="w">  </span>--name<span class="w"> </span>alert-apim-errors<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-25-13"><a href="#__codelineno-25-13" id="__codelineno-25-13" name="__codelineno-25-13"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-25-14"><a href="#__codelineno-25-14" id="__codelineno-25-14" name="__codelineno-25-14"></a><span class="w">  </span>--scopes<span class="w"> </span>/subscriptions/<span class="nv">$SUB_ID</span>/resourceGroups/<span class="nv">$RESOURCE_GROUP</span>/providers/Microsoft.ApiManagement/service/<span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-25-15"><a href="#__codelineno-25-15" id="__codelineno-25-15" name="__codelineno-25-15"></a><span class="w">  </span>--condition<span class="w"> </span><span class="s2">"total FailedRequests / total TotalRequests &gt; 0.05"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-25-16"><a href="#__codelineno-25-16" id="__codelineno-25-16" name="__codelineno-25-16"></a><span class="w">  </span>--window-size<span class="w"> </span>5m<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-25-17"><a href="#__codelineno-25-17" id="__codelineno-25-17" name="__codelineno-25-17"></a><span class="w">  </span>--action<span class="w"> </span><span class="nv">$ACTION_GROUP_ID</span>
+</span></code></pre></div>
+<hr>
+<h2 id="self-hosted-gateway-hybridon-premises">Self-hosted Gateway (hybrid/on-premises)</h2>
+<h3 id="deploy-self-hosted-gateway">Deploy self-hosted gateway</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a href="#__codelineno-26-1" id="__codelineno-26-1" name="__codelineno-26-1"></a><span class="c1"># Crear gateway</span>
+</span><span id="__span-26-2"><a href="#__codelineno-26-2" id="__codelineno-26-2" name="__codelineno-26-2"></a>az<span class="w"> </span>apim<span class="w"> </span>gateway<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-26-3"><a href="#__codelineno-26-3" id="__codelineno-26-3" name="__codelineno-26-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-26-4"><a href="#__codelineno-26-4" id="__codelineno-26-4" name="__codelineno-26-4"></a><span class="w">  </span>--service-name<span class="w"> </span><span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-26-5"><a href="#__codelineno-26-5" id="__codelineno-26-5" name="__codelineno-26-5"></a><span class="w">  </span>--gateway-id<span class="w"> </span>gateway-onprem<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-26-6"><a href="#__codelineno-26-6" id="__codelineno-26-6" name="__codelineno-26-6"></a><span class="w">  </span>--location-data<span class="w"> </span><span class="nv">name</span><span class="o">=</span><span class="s2">"On-Premises Datacenter"</span>
+</span><span id="__span-26-7"><a href="#__codelineno-26-7" id="__codelineno-26-7" name="__codelineno-26-7"></a>
+</span><span id="__span-26-8"><a href="#__codelineno-26-8" id="__codelineno-26-8" name="__codelineno-26-8"></a><span class="c1"># Obtener token</span>
+</span><span id="__span-26-9"><a href="#__codelineno-26-9" id="__codelineno-26-9" name="__codelineno-26-9"></a><span class="nv">TOKEN</span><span class="o">=</span><span class="k">$(</span>az<span class="w"> </span>apim<span class="w"> </span>gateway<span class="w"> </span>token<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-26-10"><a href="#__codelineno-26-10" id="__codelineno-26-10" name="__codelineno-26-10"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-26-11"><a href="#__codelineno-26-11" id="__codelineno-26-11" name="__codelineno-26-11"></a><span class="w">  </span>--service-name<span class="w"> </span><span class="nv">$APIM_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-26-12"><a href="#__codelineno-26-12" id="__codelineno-26-12" name="__codelineno-26-12"></a><span class="w">  </span>--gateway-id<span class="w"> </span>gateway-onprem<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-26-13"><a href="#__codelineno-26-13" id="__codelineno-26-13" name="__codelineno-26-13"></a><span class="w">  </span>--key-type<span class="w"> </span>primary<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-26-14"><a href="#__codelineno-26-14" id="__codelineno-26-14" name="__codelineno-26-14"></a><span class="w">  </span>--expiry<span class="w"> </span><span class="s2">"2025-12-31T23:59:59Z"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-26-15"><a href="#__codelineno-26-15" id="__codelineno-26-15" name="__codelineno-26-15"></a><span class="w">  </span>--query<span class="w"> </span>value<span class="w"> </span>-o<span class="w"> </span>tsv<span class="k">)</span>
+</span></code></pre></div>
+<p><strong>Deploy en Kubernetes:</strong></p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-27-1"><a href="#__codelineno-27-1" id="__codelineno-27-1" name="__codelineno-27-1"></a><span class="c1"># gateway-deployment.yaml</span>
+</span><span id="__span-27-2"><a href="#__codelineno-27-2" id="__codelineno-27-2" name="__codelineno-27-2"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
+</span><span id="__span-27-3"><a href="#__codelineno-27-3" id="__codelineno-27-3" name="__codelineno-27-3"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deployment</span>
+</span><span id="__span-27-4"><a href="#__codelineno-27-4" id="__codelineno-27-4" name="__codelineno-27-4"></a><span class="nt">metadata</span><span class="p">:</span>
+</span><span id="__span-27-5"><a href="#__codelineno-27-5" id="__codelineno-27-5" name="__codelineno-27-5"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apim-gateway</span>
+</span><span id="__span-27-6"><a href="#__codelineno-27-6" id="__codelineno-27-6" name="__codelineno-27-6"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apim</span>
+</span><span id="__span-27-7"><a href="#__codelineno-27-7" id="__codelineno-27-7" name="__codelineno-27-7"></a><span class="nt">spec</span><span class="p">:</span>
+</span><span id="__span-27-8"><a href="#__codelineno-27-8" id="__codelineno-27-8" name="__codelineno-27-8"></a><span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+</span><span id="__span-27-9"><a href="#__codelineno-27-9" id="__codelineno-27-9" name="__codelineno-27-9"></a><span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
+</span><span id="__span-27-10"><a href="#__codelineno-27-10" id="__codelineno-27-10" name="__codelineno-27-10"></a><span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span>
+</span><span id="__span-27-11"><a href="#__codelineno-27-11" id="__codelineno-27-11" name="__codelineno-27-11"></a><span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apim-gateway</span>
+</span><span id="__span-27-12"><a href="#__codelineno-27-12" id="__codelineno-27-12" name="__codelineno-27-12"></a><span class="w">  </span><span class="nt">template</span><span class="p">:</span>
+</span><span id="__span-27-13"><a href="#__codelineno-27-13" id="__codelineno-27-13" name="__codelineno-27-13"></a><span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+</span><span id="__span-27-14"><a href="#__codelineno-27-14" id="__codelineno-27-14" name="__codelineno-27-14"></a><span class="w">      </span><span class="nt">labels</span><span class="p">:</span>
+</span><span id="__span-27-15"><a href="#__codelineno-27-15" id="__codelineno-27-15" name="__codelineno-27-15"></a><span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apim-gateway</span>
+</span><span id="__span-27-16"><a href="#__codelineno-27-16" id="__codelineno-27-16" name="__codelineno-27-16"></a><span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
+</span><span id="__span-27-17"><a href="#__codelineno-27-17" id="__codelineno-27-17" name="__codelineno-27-17"></a><span class="w">      </span><span class="nt">containers</span><span class="p">:</span>
+</span><span id="__span-27-18"><a href="#__codelineno-27-18" id="__codelineno-27-18" name="__codelineno-27-18"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gateway</span>
+</span><span id="__span-27-19"><a href="#__codelineno-27-19" id="__codelineno-27-19" name="__codelineno-27-19"></a><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mcr.microsoft.com/azure-api-management/gateway:2.3</span>
+</span><span id="__span-27-20"><a href="#__codelineno-27-20" id="__codelineno-27-20" name="__codelineno-27-20"></a><span class="w">        </span><span class="nt">env</span><span class="p">:</span>
+</span><span id="__span-27-21"><a href="#__codelineno-27-21" id="__codelineno-27-21" name="__codelineno-27-21"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">config.service.endpoint</span>
+</span><span id="__span-27-22"><a href="#__codelineno-27-22" id="__codelineno-27-22" name="__codelineno-27-22"></a><span class="w">          </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">"https://apim-prod.management.azure-api.net/subscriptions/{sub}/resourceGroups/{rg}/providers/Microsoft.ApiManagement/service/apim-prod"</span>
+</span><span id="__span-27-23"><a href="#__codelineno-27-23" id="__codelineno-27-23" name="__codelineno-27-23"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">config.service.auth</span>
+</span><span id="__span-27-24"><a href="#__codelineno-27-24" id="__codelineno-27-24" name="__codelineno-27-24"></a><span class="w">          </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">"GatewayKey</span><span class="nv"> </span><span class="s">&lt;TOKEN&gt;"</span>
+</span><span id="__span-27-25"><a href="#__codelineno-27-25" id="__codelineno-27-25" name="__codelineno-27-25"></a><span class="w">        </span><span class="nt">ports</span><span class="p">:</span>
+</span><span id="__span-27-26"><a href="#__codelineno-27-26" id="__codelineno-27-26" name="__codelineno-27-26"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8080</span>
+</span><span id="__span-27-27"><a href="#__codelineno-27-27" id="__codelineno-27-27" name="__codelineno-27-27"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8081</span>
+</span><span id="__span-27-28"><a href="#__codelineno-27-28" id="__codelineno-27-28" name="__codelineno-27-28"></a><span class="nn">---</span>
+</span><span id="__span-27-29"><a href="#__codelineno-27-29" id="__codelineno-27-29" name="__codelineno-27-29"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+</span><span id="__span-27-30"><a href="#__codelineno-27-30" id="__codelineno-27-30" name="__codelineno-27-30"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Service</span>
+</span><span id="__span-27-31"><a href="#__codelineno-27-31" id="__codelineno-27-31" name="__codelineno-27-31"></a><span class="nt">metadata</span><span class="p">:</span>
+</span><span id="__span-27-32"><a href="#__codelineno-27-32" id="__codelineno-27-32" name="__codelineno-27-32"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apim-gateway</span>
+</span><span id="__span-27-33"><a href="#__codelineno-27-33" id="__codelineno-27-33" name="__codelineno-27-33"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apim</span>
+</span><span id="__span-27-34"><a href="#__codelineno-27-34" id="__codelineno-27-34" name="__codelineno-27-34"></a><span class="nt">spec</span><span class="p">:</span>
+</span><span id="__span-27-35"><a href="#__codelineno-27-35" id="__codelineno-27-35" name="__codelineno-27-35"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LoadBalancer</span>
+</span><span id="__span-27-36"><a href="#__codelineno-27-36" id="__codelineno-27-36" name="__codelineno-27-36"></a><span class="w">  </span><span class="nt">ports</span><span class="p">:</span>
+</span><span id="__span-27-37"><a href="#__codelineno-27-37" id="__codelineno-27-37" name="__codelineno-27-37"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http</span>
+</span><span id="__span-27-38"><a href="#__codelineno-27-38" id="__codelineno-27-38" name="__codelineno-27-38"></a><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
+</span><span id="__span-27-39"><a href="#__codelineno-27-39" id="__codelineno-27-39" name="__codelineno-27-39"></a><span class="w">    </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8080</span>
+</span><span id="__span-27-40"><a href="#__codelineno-27-40" id="__codelineno-27-40" name="__codelineno-27-40"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https</span>
+</span><span id="__span-27-41"><a href="#__codelineno-27-41" id="__codelineno-27-41" name="__codelineno-27-41"></a><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">443</span>
+</span><span id="__span-27-42"><a href="#__codelineno-27-42" id="__codelineno-27-42" name="__codelineno-27-42"></a><span class="w">    </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8081</span>
+</span><span id="__span-27-43"><a href="#__codelineno-27-43" id="__codelineno-27-43" name="__codelineno-27-43"></a><span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
+</span><span id="__span-27-44"><a href="#__codelineno-27-44" id="__codelineno-27-44" name="__codelineno-27-44"></a><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apim-gateway</span>
+</span></code></pre></div>
+<hr>
+<h2 id="buenas-practicas">Buenas prácticas</h2>
+<p><strong>Design:</strong></p>
+<ul>
+<li>✅ Usar Products para agrupar APIs por plan (Free, Basic, Premium)</li>
+<li>✅ Versioning para breaking changes (<code>/v1/</code>, <code>/v2/</code>)</li>
+<li>✅ Revisions para non-breaking changes</li>
+<li>✅ Named values para configuraciones por entorno</li>
+</ul>
+<p><strong>Security:</strong></p>
+<ul>
+<li>✅ Validate JWT tokens en inbound policy</li>
+<li>✅ IP filtering para admin APIs</li>
+<li>✅ Rate limiting + quota por product</li>
+<li>✅ Remove internal headers en outbound</li>
+</ul>
+<p><strong>Performance:</strong></p>
+<ul>
+<li>✅ Cache responses estáticas (GET requests)</li>
+<li>✅ Mock responses para testing (sin backend)</li>
+<li>✅ Backend circuit breaker (evitar cascade failures)</li>
+</ul>
+<p><strong>Monitoring:</strong></p>
+<ul>
+<li>✅ Application Insights integration</li>
+<li>✅ Alertas en latency y error rate</li>
+<li>✅ Custom logging con trace policies</li>
+</ul>
+<hr>
+<h2 id="costes">Costes</h2>
+<p><strong>Estimación Premium tier:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a href="#__codelineno-28-1" id="__codelineno-28-1" name="__codelineno-28-1"></a>Premium tier:
+</span><span id="__span-28-2"><a href="#__codelineno-28-2" id="__codelineno-28-2" name="__codelineno-28-2"></a>- Gateway: $2,800/mes (1 unit)
+</span><span id="__span-28-3"><a href="#__codelineno-28-3" id="__codelineno-28-3" name="__codelineno-28-3"></a>- Bandwidth: $0.09/GB outbound
+</span><span id="__span-28-4"><a href="#__codelineno-28-4" id="__codelineno-28-4" name="__codelineno-28-4"></a>- Calls: GRATIS (incluidos)
+</span><span id="__span-28-5"><a href="#__codelineno-28-5" id="__codelineno-28-5" name="__codelineno-28-5"></a>
+</span><span id="__span-28-6"><a href="#__codelineno-28-6" id="__codelineno-28-6" name="__codelineno-28-6"></a>Ejemplo producción:
+</span><span id="__span-28-7"><a href="#__codelineno-28-7" id="__codelineno-28-7" name="__codelineno-28-7"></a>- Gateway: $2,800/mes
+</span><span id="__span-28-8"><a href="#__codelineno-28-8" id="__codelineno-28-8" name="__codelineno-28-8"></a>- 10 TB bandwidth: $900/mes
+</span><span id="__span-28-9"><a href="#__codelineno-28-9" id="__codelineno-28-9" name="__codelineno-28-9"></a>- Total: ~$3,700/mes
+</span><span id="__span-28-10"><a href="#__codelineno-28-10" id="__codelineno-28-10" name="__codelineno-28-10"></a>
+</span><span id="__span-28-11"><a href="#__codelineno-28-11" id="__codelineno-28-11" name="__codelineno-28-11"></a>Developer tier (non-production):
+</span><span id="__span-28-12"><a href="#__codelineno-28-12" id="__codelineno-28-12" name="__codelineno-28-12"></a>- Gateway: $50/mes
+</span><span id="__span-28-13"><a href="#__codelineno-28-13" id="__codelineno-28-13" name="__codelineno-28-13"></a>- Sin SLA, límite 500 req/s
+</span></code></pre></div>
+<hr>
+<h2 id="referencias">Referencias</h2>
+<ul>
+<li><a href="https://learn.microsoft.com/azure/api-management/">APIM Documentation</a></li>
+<li><a href="https://learn.microsoft.com/azure/api-management/api-management-policies">Policy Reference</a></li>
+<li><a href="https://learn.microsoft.com/azure/api-management/api-management-howto-oauth2">OAuth 2.0 Authorization</a></li>
+<li><a href="https://learn.microsoft.com/azure/api-management/self-hosted-gateway-overview">Self-hosted Gateway</a></li>
+</ul>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2023-now Rafael Fernández
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://www.linkedin.com/in/rafaelfernandezd/" rel="noopener" target="_blank" title="LinkedIn">
+<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"></path></svg>
+</a>
+<a class="md-social__link" href="https://github.com/rfernandezdo" rel="noopener" target="_blank" title="GitHub">
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="https://rfernandezdo.github.io/feed_rss_created.xml" rel="noopener" target="_blank" title="RSS feed">
+<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M64 32C28.7 32 0 60.7 0 96v320c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64zm32 104c0-13.3 10.7-24 24-24 137 0 248 111 248 248 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-110.5-89.5-200-200-200-13.3 0-24-10.7-24-24m0 96c0-13.3 10.7-24 24-24 83.9 0 152 68.1 152 152 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-57.4-46.6-104-104-104-13.3 0-24-10.7-24-24m0 120a32 32 0 1 1 64 0 32 32 0 1 1-64 0"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tabs", "navigation.tabs.sticky", "navigation.expand", "navigation.sections", "navigation.top", "navigation.tracking", "toc.integrate", "toc.nested", "toc.smoothscroll", "footer", "content.code.copy", "content.code.select", "content.code.annotate", "content.tooltips"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../../../javascripts/tablesort.js"></script>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.mermaidConfig = {default: {
+    startOnLoad: false
+}};</script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

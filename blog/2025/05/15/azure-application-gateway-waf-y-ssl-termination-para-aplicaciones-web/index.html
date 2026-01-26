@@ -1,0 +1,2766 @@
+<!DOCTYPE html><html class="no-js" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width,initial-scale=1" name="viewport">
+<meta content="A blog about Azure, DevOps and other stuff" name="description">
+<meta content="Rafael Fernández" name="author">
+<link href="https://rfernandezdo.github.io/blog/2025/05/15/azure-application-gateway-waf-y-ssl-termination-para-aplicaciones-web/" rel="canonical">
+<link href="../../01/azure-kubernetes-service-aks-mejores-pr%C3%A1cticas-para-producci%C3%B3n/" rel="prev">
+<link href="../../29/azure-virtual-network-manager-illustrative-relationship-between-components/" rel="next">
+<link href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=es&amp;_x_tr_hl=es&amp;_x_tr_pto=wapp" hreflang="en" rel="alternate">
+<link href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=en&amp;_x_tr_hl=en&amp;_x_tr_pto=wapp" hreflang="es" rel="alternate">
+<link href="../../../../../feed_rss_created.xml" rel="alternate" title="RSS feed" type="application/rss+xml">
+<link href="../../../../../feed_rss_updated.xml" rel="alternate" title="RSS feed of updated content" type="application/rss+xml">
+<link href="../../../../../assets/images/favicon.png" rel="icon">
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.1" name="generator">
+<title>Azure Application Gateway: WAF y SSL termination para aplicaciones web - Un Rinconcito donde contar lo que quiera</title>
+<link href="../../../../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet">
+<link href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet">
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<meta content="website" property="og:type">
+<meta content="Azure Application Gateway: WAF y SSL termination para aplicaciones web - Un Rinconcito donde contar lo que quiera" property="og:title">
+<meta content="A blog about Azure, DevOps and other stuff" property="og:description">
+<meta content="https://rfernandezdo.github.io/assets/images/social/blog/2025/05/15/azure-application-gateway-waf-y-ssl-termination-para-aplicaciones-web.png" property="og:image">
+<meta content="image/png" property="og:image:type">
+<meta content="1200" property="og:image:width">
+<meta content="630" property="og:image:height">
+<meta content="https://rfernandezdo.github.io/blog/2025/05/15/azure-application-gateway-waf-y-ssl-termination-para-aplicaciones-web/" property="og:url">
+<meta content="summary_large_image" property="twitter:card">
+<meta content="Azure Application Gateway: WAF y SSL termination para aplicaciones web - Un Rinconcito donde contar lo que quiera" property="twitter:title">
+<meta content="A blog about Azure, DevOps and other stuff" property="twitter:description">
+<meta content="https://rfernandezdo.github.io/assets/images/social/blog/2025/05/15/azure-application-gateway-waf-y-ssl-termination-para-aplicaciones-web.png" property="twitter:image">
+<link href="../../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+<body data-md-color-accent="blue" data-md-color-primary="blue" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox">
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox">
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#azure-application-gateway-waf-y-ssl-termination-para-aplicaciones-web">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Un Rinconcito donde contar lo que quiera" class="md-header__button md-logo" data-md-component="logo" href="../../../../.." title="Un Rinconcito donde contar lo que quiera">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Un Rinconcito donde contar lo que quiera
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Azure Application Gateway: WAF y SSL termination para aplicaciones web
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="blue" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio">
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="black" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio">
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="Select language" class="md-header__button md-icon">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=es&amp;_x_tr_hl=es&amp;_x_tr_pto=wapp" hreflang="en">
+              English
+            </a>
+</li>
+<li class="md-select__item">
+<a class="md-select__link" href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=en&amp;_x_tr_hl=en&amp;_x_tr_pto=wapp" hreflang="es">
+              Spanish
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text">
+<label class="md-search__icon md-icon" for="__search">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../../../">
+          
+  
+  
+  Blog
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../..">
+        
+  
+  
+    
+  
+  About
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../../contributions/">
+        
+  
+  
+    
+  
+  Contributions
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../../Azure/Security/MCSB/Readme/">
+          
+  
+  
+  Azure
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../../Tools/Federated_Identity_Credentials_Report/README-federated-identity-credentials/">
+          
+  
+  
+  Tools
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden="">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Un Rinconcito donde contar lo que quiera" class="md-nav__button md-logo" data-md-component="logo" href="../../../../.." title="Un Rinconcito donde contar lo que quiera">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    Un Rinconcito donde contar lo que quiera
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_1" type="checkbox">
+<label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_1_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Blog
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active">
+<a class="md-nav__link" href="../../../../">
+<span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../tags/">
+<span class="md-ellipsis">
+    
+  
+    Posts by Tags
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_1_3" type="checkbox">
+<label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Archive
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Archive
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../12/">
+<span class="md-ellipsis">
+    
+  
+    2025/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../11/">
+<span class="md-ellipsis">
+    
+  
+    2025/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../10/">
+<span class="md-ellipsis">
+    
+  
+    2025/10
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../09/">
+<span class="md-ellipsis">
+    
+  
+    2025/09
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../08/">
+<span class="md-ellipsis">
+    
+  
+    2025/08
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../07/">
+<span class="md-ellipsis">
+    
+  
+    2025/07
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../06/">
+<span class="md-ellipsis">
+    
+  
+    2025/06
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    2025/05
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../04/">
+<span class="md-ellipsis">
+    
+  
+    2025/04
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../03/">
+<span class="md-ellipsis">
+    
+  
+    2025/03
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../02/">
+<span class="md-ellipsis">
+    
+  
+    2025/02
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../01/">
+<span class="md-ellipsis">
+    
+  
+    2025/01
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/12/">
+<span class="md-ellipsis">
+    
+  
+    2024/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/11/">
+<span class="md-ellipsis">
+    
+  
+    2024/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/10/">
+<span class="md-ellipsis">
+    
+  
+    2024/10
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/09/">
+<span class="md-ellipsis">
+    
+  
+    2024/09
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/06/">
+<span class="md-ellipsis">
+    
+  
+    2024/06
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/05/">
+<span class="md-ellipsis">
+    
+  
+    2024/05
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/04/">
+<span class="md-ellipsis">
+    
+  
+    2024/04
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/03/">
+<span class="md-ellipsis">
+    
+  
+    2024/03
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/02/">
+<span class="md-ellipsis">
+    
+  
+    2024/02
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2023/12/">
+<span class="md-ellipsis">
+    
+  
+    2023/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2023/11/">
+<span class="md-ellipsis">
+    
+  
+    2023/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2023/10/">
+<span class="md-ellipsis">
+    
+  
+    2023/10
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_1_4" type="checkbox">
+<label class="md-nav__link" for="__nav_1_4" id="__nav_1_4_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Categories
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Categories
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure/">
+<span class="md-ellipsis">
+    
+  
+    Azure
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-ad/">
+<span class="md-ellipsis">
+    
+  
+    Azure AD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-automation/">
+<span class="md-ellipsis">
+    
+  
+    Azure Automation
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-devops/">
+<span class="md-ellipsis">
+    
+  
+    Azure DevOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-frameworks/">
+<span class="md-ellipsis">
+    
+  
+    Azure Frameworks
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-governance/">
+<span class="md-ellipsis">
+    
+  
+    Azure Governance
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-networking/">
+<span class="md-ellipsis">
+    
+  
+    Azure Networking
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-security/">
+<span class="md-ellipsis">
+    
+  
+    Azure Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-services/">
+<span class="md-ellipsis">
+    
+  
+    Azure Services
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-updates/">
+<span class="md-ellipsis">
+    
+  
+    Azure Updates
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/caf/">
+<span class="md-ellipsis">
+    
+  
+    CAF
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/cicd/">
+<span class="md-ellipsis">
+    
+  
+    CI/CD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/devops/">
+<span class="md-ellipsis">
+    
+  
+    DevOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/development/">
+<span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/drift-detection/">
+<span class="md-ellipsis">
+    
+  
+    Drift Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/english/">
+<span class="md-ellipsis">
+    
+  
+    English
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/enterprise-policy-as-code/">
+<span class="md-ellipsis">
+    
+  
+    Enterprise Policy as Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/finops/">
+<span class="md-ellipsis">
+    
+  
+    FinOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/firewall/">
+<span class="md-ellipsis">
+    
+  
+    Firewall
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/gtd/">
+<span class="md-ellipsis">
+    
+  
+    GTD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/git/">
+<span class="md-ellipsis">
+    
+  
+    Git
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/github-actions/">
+<span class="md-ellipsis">
+    
+  
+    GitHub Actions
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/hashicorp/">
+<span class="md-ellipsis">
+    
+  
+    HashiCorp
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/hello_world/">
+<span class="md-ellipsis">
+    
+  
+    Hello_World
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/infrastructure-as-code/">
+<span class="md-ellipsis">
+    
+  
+    Infrastructure as Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/learning/">
+<span class="md-ellipsis">
+    
+  
+    Learning
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/m365/">
+<span class="md-ellipsis">
+    
+  
+    M365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/microsoft-365/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft 365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/microsoft-entra/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/microsoft-entra-external-id/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra External ID
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/microsoft-entra-id/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra ID
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/networking/">
+<span class="md-ellipsis">
+    
+  
+    Networking
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/outlook/">
+<span class="md-ellipsis">
+    
+  
+    Outlook
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/pim/">
+<span class="md-ellipsis">
+    
+  
+    PIM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/power-automate/">
+<span class="md-ellipsis">
+    
+  
+    Power Automate
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/power-bi/">
+<span class="md-ellipsis">
+    
+  
+    Power BI
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/productividad/">
+<span class="md-ellipsis">
+    
+  
+    Productividad
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/productividad--microsoft-365/">
+<span class="md-ellipsis">
+    
+  
+    Productividad / Microsoft 365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/security/">
+<span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/seguridad/">
+<span class="md-ellipsis">
+    
+  
+    Seguridad
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/snowflake/">
+<span class="md-ellipsis">
+    
+  
+    Snowflake
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/terraform/">
+<span class="md-ellipsis">
+    
+  
+    Terraform
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/threat-intelligence/">
+<span class="md-ellipsis">
+    
+  
+    Threat Intelligence
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/tools/">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/troubleshooting/">
+<span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/visual-studio-code/">
+<span class="md-ellipsis">
+    
+  
+    Visual Studio Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/viva-insights/">
+<span class="md-ellipsis">
+    
+  
+    Viva Insights
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/windows/">
+<span class="md-ellipsis">
+    
+  
+    Windows
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../..">
+<span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../contributions/">
+<span class="md-ellipsis">
+    
+  
+    Contributions
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4" type="checkbox">
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Azure
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Azure
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Security
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1_1" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1_1" id="__nav_4_1_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    MCSB v1
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_4_1_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    MCSB v1
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Readme/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Readme
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Asset%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Asset Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Backup%20and%20Recovery/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Backup and Recovery
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Data%20Protection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Data Protection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/DevOps%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - DevOps Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Endpoint%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Endpoint Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Governance%20and%20Strategy/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Governance and Strategy
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Identity%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Identity Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Incident%20Response/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Incident Response
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Logging%20and%20Threat%20Detection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Logging and Threat Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Network%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Network Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Posture%20and%20Vulnerability%20Mgmt/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Posture and Vulnerability Mgmt
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Privileged%20Access/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Privileged Access
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1_2" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1_2" id="__nav_4_1_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_4_1_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    MCSB v2
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Index/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Cloud Security Benchmark v2
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Network%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Network Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Identity%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Identity Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Privileged%20Access/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Privileged Access
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Data%20Protection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Data Protection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Asset%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Asset Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Logging%20and%20Threat%20Detection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Logging and Threat Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Incident%20Response/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Incident Response
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Posture%20and%20Vulnerability%20Manag/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Posture and Vulnerability Manag
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Endpoint%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Endpoint Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Backup%20and%20Recovery/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Backup and Recovery
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Artificial%20Intelligence%20Securit/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Artificial Intelligence Securit
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5" type="checkbox">
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Tools
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5_1" type="checkbox">
+<label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Federated Identity Credentials Report
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_1_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Federated Identity Credentials Report
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Tools/Federated_Identity_Credentials_Report/README-federated-identity-credentials/">
+<span class="md-ellipsis">
+    
+  
+    Script de Reporte para Federated Identity Credentials
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5_2" type="checkbox">
+<label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Analyze Virtual Network Flows
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Analyze Virtual Network Flows
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Tools/Analyze_Virtual_Network_Flows/">
+<span class="md-ellipsis">
+    
+  
+    Analyze-VNETFlowLogs
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content md-content--post" data-md-component="content">
+<div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner md-post">
+<nav class="md-nav md-nav--primary">
+<div class="md-post__back">
+<div class="md-nav__title md-nav__container">
+<a class="md-nav__link" href="../../../../">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+<span class="md-ellipsis">
+                    Back to index
+                  </span>
+</a>
+</div>
+</div>
+<div class="md-post__authors md-typeset">
+<div class="md-profile md-post__profile">
+<span class="md-author md-author--long">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+<span class="md-profile__description">
+<strong>
+                        
+                          Rafael Fernández
+                        
+                      </strong>
+<br>
+                      Creator
+                    </span>
+</div>
+</div>
+<ul class="md-post__meta md-nav__list">
+<li class="md-nav__item md-nav__item--section">
+<div class="md-post__title">
+<span class="md-ellipsis">
+                    Metadata
+                  </span>
+</div>
+<nav class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<div class="md-nav__link">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"></path></svg>
+<time class="md-ellipsis" datetime="2025-05-15 00:00:00+00:00">May 15, 2025</time>
+</div>
+</li>
+<li class="md-nav__item">
+<div class="md-nav__link">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"></path></svg>
+<span class="md-ellipsis">
+                            in
+                            
+                              <a href="../../../../category/azure-services/">Azure Services</a></span>
+</div>
+</li>
+<li class="md-nav__item">
+<div class="md-nav__link">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"></path></svg>
+<span class="md-ellipsis">
+                            
+                              9 min read
+                            
+                          </span>
+</div>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#resumen">
+<span class="md-ellipsis">
+      
+        Resumen
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#que-es-application-gateway">
+<span class="md-ellipsis">
+      
+        ¿Qué es Application Gateway?
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#setup-basico-application-gateway">
+<span class="md-ellipsis">
+      
+        Setup básico Application Gateway
+      
+    </span>
+</a>
+<nav aria-label="Setup básico Application Gateway" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#variables-y-recursos-previos">
+<span class="md-ellipsis">
+      
+        Variables y recursos previos
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#crear-application-gateway-con-waf">
+<span class="md-ellipsis">
+      
+        Crear Application Gateway con WAF
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#waf-configuration">
+<span class="md-ellipsis">
+      
+        WAF configuration
+      
+    </span>
+</a>
+<nav aria-label="WAF configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#waf-policy-con-owasp-32">
+<span class="md-ellipsis">
+      
+        WAF policy con OWASP 3.2
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#custom-waf-rules">
+<span class="md-ellipsis">
+      
+        Custom WAF rules
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exclusions-false-positives">
+<span class="md-ellipsis">
+      
+        Exclusions (false positives)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ssltls-configuration">
+<span class="md-ellipsis">
+      
+        SSL/TLS configuration
+      
+    </span>
+</a>
+<nav aria-label="SSL/TLS configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#upload-ssl-certificate">
+<span class="md-ellipsis">
+      
+        Upload SSL certificate
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#https-listener">
+<span class="md-ellipsis">
+      
+        HTTPS listener
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ssl-policy-tls-12-only">
+<span class="md-ellipsis">
+      
+        SSL policy (TLS 1.2+ only)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#http-https-redirect">
+<span class="md-ellipsis">
+      
+        HTTP → HTTPS redirect
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#url-based-routing">
+<span class="md-ellipsis">
+      
+        URL-based routing
+      
+    </span>
+</a>
+<nav aria-label="URL-based routing" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#backend-pools">
+<span class="md-ellipsis">
+      
+        Backend pools
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#http-settings">
+<span class="md-ellipsis">
+      
+        HTTP settings
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#url-path-map">
+<span class="md-ellipsis">
+      
+        URL path map
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#health-probes">
+<span class="md-ellipsis">
+      
+        Health probes
+      
+    </span>
+</a>
+<nav aria-label="Health probes" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#custom-health-probe">
+<span class="md-ellipsis">
+      
+        Custom health probe
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#integration-con-aks-agic">
+<span class="md-ellipsis">
+      
+        Integration con AKS (AGIC)
+      
+    </span>
+</a>
+<nav aria-label="Integration con AKS (AGIC)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#application-gateway-ingress-controller">
+<span class="md-ellipsis">
+      
+        Application Gateway Ingress Controller
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#monitoring-y-logs">
+<span class="md-ellipsis">
+      
+        Monitoring y logs
+      
+    </span>
+</a>
+<nav aria-label="Monitoring y logs" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#diagnostic-settings">
+<span class="md-ellipsis">
+      
+        Diagnostic settings
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#kql-queries-utiles">
+<span class="md-ellipsis">
+      
+        KQL queries útiles
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#alertas">
+<span class="md-ellipsis">
+      
+        Alertas
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#buenas-practicas">
+<span class="md-ellipsis">
+      
+        Buenas prácticas
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#troubleshooting">
+<span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+</a>
+<nav aria-label="Troubleshooting" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problema-502-bad-gateway">
+<span class="md-ellipsis">
+      
+        Problema: 502 Bad Gateway
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problema-waf-bloqueando-trafico-legitimo">
+<span class="md-ellipsis">
+      
+        Problema: WAF bloqueando tráfico legítimo
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#costes">
+<span class="md-ellipsis">
+      
+        Costes
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#referencias">
+<span class="md-ellipsis">
+      
+        Referencias
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag" href="../../../../tags/#tag:application-gateway">Application Gateway</a>
+<a class="md-tag" href="../../../../tags/#tag:ingress">Ingress</a>
+<a class="md-tag" href="../../../../tags/#tag:load-balancing">Load Balancing</a>
+<a class="md-tag" href="../../../../tags/#tag:ssl">SSL</a>
+<a class="md-tag" href="../../../../tags/#tag:waf">WAF</a>
+</nav>
+<h1 id="azure-application-gateway-waf-y-ssl-termination-para-aplicaciones-web">Azure Application Gateway: WAF y SSL termination para aplicaciones web</h1>
+<h2 id="resumen">Resumen</h2>
+<p><strong>Application Gateway</strong> es un load balancer L7 con WAF integrado, SSL offloading, y routing basado en URLs. Perfecto para proteger aplicaciones web con reglas OWASP, certificados SSL centralizados, y multi-site hosting. En este post verás configuración de WAF, custom rules, SSL policies, y integration con AKS.</p>
+<!-- more -->
+<h2 id="que-es-application-gateway">¿Qué es Application Gateway?</h2>
+<p><strong>Layer 7 load balancer:</strong></p>
+<pre class="mermaid"><code>flowchart LR
+    Users[Users] --&gt; AppGW[Application Gateway<br>+ WAF]
+
+    AppGW --&gt;|/api/*| Backend1[Backend Pool 1<br>API Servers]
+    AppGW --&gt;|/app/*| Backend2[Backend Pool 2<br>Web Servers]
+    AppGW --&gt;|/admin/*| Backend3[Backend Pool 3<br>Admin Portal]
+
+    Backend1 --&gt; DB[(Database)]
+    Backend2 --&gt; Storage[Azure Storage]
+    Backend3 --&gt; AD[Entra ID]
+</code></pre>
+<p><strong>Características clave:</strong>
+- <strong>WAF:</strong> OWASP Top 10 protection, bot mitigation, custom rules
+- <strong>SSL offloading:</strong> Certificados centralizados, políticas TLS
+- <strong>URL-based routing:</strong> Diferentes backends por path
+- <strong>Multi-site hosting:</strong> 100+ sites en mismo gateway
+- <strong>Autoscaling:</strong> Scale de 0 a 125 instancias
+- <strong>Private Link:</strong> Conectar a backends privados</p>
+<hr>
+<h2 id="setup-basico-application-gateway">Setup básico Application Gateway</h2>
+<h3 id="variables-y-recursos-previos">Variables y recursos previos</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1"># Variables</span>
+</span><span id="__span-0-2"><a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="nv">RESOURCE_GROUP</span><span class="o">=</span><span class="s2">"rg-appgw-prod"</span>
+</span><span id="__span-0-3"><a href="#__codelineno-0-3" id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="nv">LOCATION</span><span class="o">=</span><span class="s2">"westeurope"</span>
+</span><span id="__span-0-4"><a href="#__codelineno-0-4" id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="nv">VNET_NAME</span><span class="o">=</span><span class="s2">"vnet-prod"</span>
+</span><span id="__span-0-5"><a href="#__codelineno-0-5" id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="nv">SUBNET_APPGW</span><span class="o">=</span><span class="s2">"subnet-appgw"</span>
+</span><span id="__span-0-6"><a href="#__codelineno-0-6" id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="nv">APPGW_NAME</span><span class="o">=</span><span class="s2">"appgw-prod"</span>
+</span><span id="__span-0-7"><a href="#__codelineno-0-7" id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="nv">PUBLIC_IP_NAME</span><span class="o">=</span><span class="s2">"pip-appgw"</span>
+</span><span id="__span-0-8"><a href="#__codelineno-0-8" id="__codelineno-0-8" name="__codelineno-0-8"></a>
+</span><span id="__span-0-9"><a href="#__codelineno-0-9" id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="c1"># Crear VNet</span>
+</span><span id="__span-0-10"><a href="#__codelineno-0-10" id="__codelineno-0-10" name="__codelineno-0-10"></a>az<span class="w"> </span>network<span class="w"> </span>vnet<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-11"><a href="#__codelineno-0-11" id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-12"><a href="#__codelineno-0-12" id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="w">  </span>--name<span class="w"> </span><span class="nv">$VNET_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-13"><a href="#__codelineno-0-13" id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="w">  </span>--address-prefix<span class="w"> </span><span class="m">10</span>.0.0.0/16<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-14"><a href="#__codelineno-0-14" id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="w">  </span>--subnet-name<span class="w"> </span><span class="nv">$SUBNET_APPGW</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-15"><a href="#__codelineno-0-15" id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="w">  </span>--subnet-prefix<span class="w"> </span><span class="m">10</span>.0.1.0/24
+</span><span id="__span-0-16"><a href="#__codelineno-0-16" id="__codelineno-0-16" name="__codelineno-0-16"></a>
+</span><span id="__span-0-17"><a href="#__codelineno-0-17" id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="c1"># Public IP (Standard SKU requerido)</span>
+</span><span id="__span-0-18"><a href="#__codelineno-0-18" id="__codelineno-0-18" name="__codelineno-0-18"></a>az<span class="w"> </span>network<span class="w"> </span>public-ip<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-19"><a href="#__codelineno-0-19" id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-20"><a href="#__codelineno-0-20" id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="w">  </span>--name<span class="w"> </span><span class="nv">$PUBLIC_IP_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-21"><a href="#__codelineno-0-21" id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="w">  </span>--sku<span class="w"> </span>Standard<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-22"><a href="#__codelineno-0-22" id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="w">  </span>--allocation-method<span class="w"> </span>Static
+</span></code></pre></div>
+<h3 id="crear-application-gateway-con-waf">Crear Application Gateway con WAF</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="c1"># Application Gateway v2 con WAF</span>
+</span><span id="__span-1-2"><a href="#__codelineno-1-2" id="__codelineno-1-2" name="__codelineno-1-2"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-3"><a href="#__codelineno-1-3" id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-4"><a href="#__codelineno-1-4" id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="w">  </span>--name<span class="w"> </span><span class="nv">$APPGW_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-5"><a href="#__codelineno-1-5" id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="w">  </span>--location<span class="w"> </span><span class="nv">$LOCATION</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-6"><a href="#__codelineno-1-6" id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="w">  </span>--sku<span class="w"> </span>WAF_v2<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-7"><a href="#__codelineno-1-7" id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="w">  </span>--capacity<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\ </span><span class="w"> </span><span class="c1"># Instancias mínimas</span>
+</span><span id="__span-1-8"><a href="#__codelineno-1-8" id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="w">  </span>--vnet-name<span class="w"> </span><span class="nv">$VNET_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-9"><a href="#__codelineno-1-9" id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="w">  </span>--subnet<span class="w"> </span><span class="nv">$SUBNET_APPGW</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-10"><a href="#__codelineno-1-10" id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="w">  </span>--public-ip-address<span class="w"> </span><span class="nv">$PUBLIC_IP_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-11"><a href="#__codelineno-1-11" id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="w">  </span>--http-settings-cookie-based-affinity<span class="w"> </span>Disabled<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-12"><a href="#__codelineno-1-12" id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="w">  </span>--frontend-port<span class="w"> </span><span class="m">80</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-13"><a href="#__codelineno-1-13" id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="w">  </span>--http-settings-port<span class="w"> </span><span class="m">80</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-14"><a href="#__codelineno-1-14" id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="w">  </span>--http-settings-protocol<span class="w"> </span>Http<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-15"><a href="#__codelineno-1-15" id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="w">  </span>--priority<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-16"><a href="#__codelineno-1-16" id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="w">  </span>--servers<span class="w"> </span>webapp1.azurewebsites.net<span class="w"> </span>webapp2.azurewebsites.net<span class="w">  </span><span class="c1"># Backend pool</span>
+</span><span id="__span-1-17"><a href="#__codelineno-1-17" id="__codelineno-1-17" name="__codelineno-1-17"></a>
+</span><span id="__span-1-18"><a href="#__codelineno-1-18" id="__codelineno-1-18" name="__codelineno-1-18"></a><span class="c1"># Habilitar autoscaling</span>
+</span><span id="__span-1-19"><a href="#__codelineno-1-19" id="__codelineno-1-19" name="__codelineno-1-19"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>update<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-20"><a href="#__codelineno-1-20" id="__codelineno-1-20" name="__codelineno-1-20"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-21"><a href="#__codelineno-1-21" id="__codelineno-1-21" name="__codelineno-1-21"></a><span class="w">  </span>--name<span class="w"> </span><span class="nv">$APPGW_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-22"><a href="#__codelineno-1-22" id="__codelineno-1-22" name="__codelineno-1-22"></a><span class="w">  </span>--set<span class="w"> </span>autoscaleConfiguration.minCapacity<span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-23"><a href="#__codelineno-1-23" id="__codelineno-1-23" name="__codelineno-1-23"></a><span class="w">  </span>--set<span class="w"> </span>autoscaleConfiguration.maxCapacity<span class="o">=</span><span class="m">10</span>
+</span></code></pre></div>
+<hr>
+<h2 id="waf-configuration">WAF configuration</h2>
+<h3 id="waf-policy-con-owasp-32">WAF policy con OWASP 3.2</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1"># Crear WAF policy</span>
+</span><span id="__span-2-2"><a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>waf-policy<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-3"><a href="#__codelineno-2-3" id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-4"><a href="#__codelineno-2-4" id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="w">  </span>--name<span class="w"> </span>waf-policy-prod<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-5"><a href="#__codelineno-2-5" id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="w">  </span>--location<span class="w"> </span><span class="nv">$LOCATION</span>
+</span><span id="__span-2-6"><a href="#__codelineno-2-6" id="__codelineno-2-6" name="__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a href="#__codelineno-2-7" id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="c1"># Configurar managed rules (OWASP 3.2)</span>
+</span><span id="__span-2-8"><a href="#__codelineno-2-8" id="__codelineno-2-8" name="__codelineno-2-8"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>waf-policy<span class="w"> </span>managed-rule<span class="w"> </span>rule-set<span class="w"> </span>add<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-9"><a href="#__codelineno-2-9" id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="w">  </span>--policy-name<span class="w"> </span>waf-policy-prod<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-10"><a href="#__codelineno-2-10" id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-11"><a href="#__codelineno-2-11" id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="w">  </span>--type<span class="w"> </span>OWASP<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-12"><a href="#__codelineno-2-12" id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="w">  </span>--version<span class="w"> </span><span class="m">3</span>.2
+</span><span id="__span-2-13"><a href="#__codelineno-2-13" id="__codelineno-2-13" name="__codelineno-2-13"></a>
+</span><span id="__span-2-14"><a href="#__codelineno-2-14" id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="c1"># Bot protection rules</span>
+</span><span id="__span-2-15"><a href="#__codelineno-2-15" id="__codelineno-2-15" name="__codelineno-2-15"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>waf-policy<span class="w"> </span>managed-rule<span class="w"> </span>rule-set<span class="w"> </span>add<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-16"><a href="#__codelineno-2-16" id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="w">  </span>--policy-name<span class="w"> </span>waf-policy-prod<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-17"><a href="#__codelineno-2-17" id="__codelineno-2-17" name="__codelineno-2-17"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-18"><a href="#__codelineno-2-18" id="__codelineno-2-18" name="__codelineno-2-18"></a><span class="w">  </span>--type<span class="w"> </span>Microsoft_BotManagerRuleSet<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-19"><a href="#__codelineno-2-19" id="__codelineno-2-19" name="__codelineno-2-19"></a><span class="w">  </span>--version<span class="w"> </span><span class="m">1</span>.0
+</span><span id="__span-2-20"><a href="#__codelineno-2-20" id="__codelineno-2-20" name="__codelineno-2-20"></a>
+</span><span id="__span-2-21"><a href="#__codelineno-2-21" id="__codelineno-2-21" name="__codelineno-2-21"></a><span class="c1"># Asociar policy a Application Gateway</span>
+</span><span id="__span-2-22"><a href="#__codelineno-2-22" id="__codelineno-2-22" name="__codelineno-2-22"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>waf-policy<span class="w"> </span>update<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-23"><a href="#__codelineno-2-23" id="__codelineno-2-23" name="__codelineno-2-23"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-24"><a href="#__codelineno-2-24" id="__codelineno-2-24" name="__codelineno-2-24"></a><span class="w">  </span>--name<span class="w"> </span>waf-policy-prod<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-25"><a href="#__codelineno-2-25" id="__codelineno-2-25" name="__codelineno-2-25"></a><span class="w">  </span>--set<span class="w"> </span>policySettings.mode<span class="o">=</span>Prevention<span class="w"> </span><span class="se">\ </span><span class="w"> </span><span class="c1"># Detection solo monitorea</span>
+</span><span id="__span-2-26"><a href="#__codelineno-2-26" id="__codelineno-2-26" name="__codelineno-2-26"></a><span class="w">  </span>--set<span class="w"> </span>policySettings.state<span class="o">=</span>Enabled<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-27"><a href="#__codelineno-2-27" id="__codelineno-2-27" name="__codelineno-2-27"></a><span class="w">  </span>--set<span class="w"> </span>policySettings.maxRequestBodySizeInKb<span class="o">=</span><span class="m">128</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-28"><a href="#__codelineno-2-28" id="__codelineno-2-28" name="__codelineno-2-28"></a><span class="w">  </span>--set<span class="w"> </span>policySettings.fileUploadLimitInMb<span class="o">=</span><span class="m">100</span>
+</span><span id="__span-2-29"><a href="#__codelineno-2-29" id="__codelineno-2-29" name="__codelineno-2-29"></a>
+</span><span id="__span-2-30"><a href="#__codelineno-2-30" id="__codelineno-2-30" name="__codelineno-2-30"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>update<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-31"><a href="#__codelineno-2-31" id="__codelineno-2-31" name="__codelineno-2-31"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-32"><a href="#__codelineno-2-32" id="__codelineno-2-32" name="__codelineno-2-32"></a><span class="w">  </span>--name<span class="w"> </span><span class="nv">$APPGW_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-33"><a href="#__codelineno-2-33" id="__codelineno-2-33" name="__codelineno-2-33"></a><span class="w">  </span>--set<span class="w"> </span>firewallPolicy.id<span class="o">=</span>/subscriptions/<span class="nv">$SUB_ID</span>/resourceGroups/<span class="nv">$RESOURCE_GROUP</span>/providers/Microsoft.Network/ApplicationGatewayWebApplicationFirewallPolicies/waf-policy-prod
+</span></code></pre></div>
+<h3 id="custom-waf-rules">Custom WAF rules</h3>
+<p><strong>Rule 1: Rate limiting (max 100 requests/min por IP)</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>waf-policy<span class="w"> </span>custom-rule<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-2"><a href="#__codelineno-3-2" id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="w">  </span>--policy-name<span class="w"> </span>waf-policy-prod<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-3"><a href="#__codelineno-3-3" id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-4"><a href="#__codelineno-3-4" id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="w">  </span>--name<span class="w"> </span>RateLimitRule<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-5"><a href="#__codelineno-3-5" id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="w">  </span>--priority<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-6"><a href="#__codelineno-3-6" id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="w">  </span>--rule-type<span class="w"> </span>RateLimitRule<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-7"><a href="#__codelineno-3-7" id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="w">  </span>--action<span class="w"> </span>Block<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-8"><a href="#__codelineno-3-8" id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="w">  </span>--rate-limit-threshold<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-9"><a href="#__codelineno-3-9" id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="w">  </span>--rate-limit-duration<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-10"><a href="#__codelineno-3-10" id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="w">  </span>--match-conditions<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-11"><a href="#__codelineno-3-11" id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="w">    </span><span class="nv">MatchVariable</span><span class="o">=</span>RequestUri<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-12"><a href="#__codelineno-3-12" id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="w">    </span><span class="nv">Operator</span><span class="o">=</span>Contains<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-13"><a href="#__codelineno-3-13" id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="w">    </span><span class="nv">MatchValue</span><span class="o">=</span><span class="s2">"/api/"</span>
+</span></code></pre></div>
+<p><strong>Rule 2: Geo-blocking (bloquear países específicos)</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>waf-policy<span class="w"> </span>custom-rule<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-2"><a href="#__codelineno-4-2" id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="w">  </span>--policy-name<span class="w"> </span>waf-policy-prod<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-3"><a href="#__codelineno-4-3" id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-4"><a href="#__codelineno-4-4" id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="w">  </span>--name<span class="w"> </span>GeoBlockRule<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-5"><a href="#__codelineno-4-5" id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">  </span>--priority<span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-6"><a href="#__codelineno-4-6" id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">  </span>--rule-type<span class="w"> </span>MatchRule<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-7"><a href="#__codelineno-4-7" id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="w">  </span>--action<span class="w"> </span>Block<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-8"><a href="#__codelineno-4-8" id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="w">  </span>--match-conditions<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-9"><a href="#__codelineno-4-9" id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="w">    </span><span class="nv">MatchVariable</span><span class="o">=</span>RemoteAddr<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-10"><a href="#__codelineno-4-10" id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="w">    </span><span class="nv">Operator</span><span class="o">=</span>GeoMatch<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-11"><a href="#__codelineno-4-11" id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="w">    </span><span class="nv">MatchValue</span><span class="o">=</span><span class="s2">"CN,RU,KP"</span><span class="w">  </span><span class="c1"># China, Rusia, Corea del Norte</span>
+</span></code></pre></div>
+<p><strong>Rule 3: Whitelist IPs corporativas</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a href="#__codelineno-5-1" id="__codelineno-5-1" name="__codelineno-5-1"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>waf-policy<span class="w"> </span>custom-rule<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-2"><a href="#__codelineno-5-2" id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="w">  </span>--policy-name<span class="w"> </span>waf-policy-prod<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-3"><a href="#__codelineno-5-3" id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-4"><a href="#__codelineno-5-4" id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="w">  </span>--name<span class="w"> </span>AllowCorporateIPs<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-5"><a href="#__codelineno-5-5" id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="w">  </span>--priority<span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="se">\ </span><span class="w"> </span><span class="c1"># Mayor priority = se evalúa primero</span>
+</span><span id="__span-5-6"><a href="#__codelineno-5-6" id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="w">  </span>--rule-type<span class="w"> </span>MatchRule<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-7"><a href="#__codelineno-5-7" id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="w">  </span>--action<span class="w"> </span>Allow<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-8"><a href="#__codelineno-5-8" id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="w">  </span>--match-conditions<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-9"><a href="#__codelineno-5-9" id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="w">    </span><span class="nv">MatchVariable</span><span class="o">=</span>RemoteAddr<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-10"><a href="#__codelineno-5-10" id="__codelineno-5-10" name="__codelineno-5-10"></a><span class="w">    </span><span class="nv">Operator</span><span class="o">=</span>IPMatch<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-11"><a href="#__codelineno-5-11" id="__codelineno-5-11" name="__codelineno-5-11"></a><span class="w">    </span><span class="nv">MatchValue</span><span class="o">=</span><span class="s2">"203.0.113.0/24,198.51.100.0/24"</span><span class="w">  </span><span class="c1"># IPs oficina</span>
+</span></code></pre></div>
+<p><strong>Rule 4: Bloquear User-Agents sospechosos</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a href="#__codelineno-6-1" id="__codelineno-6-1" name="__codelineno-6-1"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>waf-policy<span class="w"> </span>custom-rule<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-2"><a href="#__codelineno-6-2" id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="w">  </span>--policy-name<span class="w"> </span>waf-policy-prod<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-3"><a href="#__codelineno-6-3" id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-4"><a href="#__codelineno-6-4" id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="w">  </span>--name<span class="w"> </span>BlockBadUserAgents<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-5"><a href="#__codelineno-6-5" id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="w">  </span>--priority<span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-6"><a href="#__codelineno-6-6" id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="w">  </span>--rule-type<span class="w"> </span>MatchRule<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-7"><a href="#__codelineno-6-7" id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="w">  </span>--action<span class="w"> </span>Block<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-8"><a href="#__codelineno-6-8" id="__codelineno-6-8" name="__codelineno-6-8"></a><span class="w">  </span>--match-conditions<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-9"><a href="#__codelineno-6-9" id="__codelineno-6-9" name="__codelineno-6-9"></a><span class="w">    </span><span class="nv">MatchVariable</span><span class="o">=</span>RequestHeaders<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-10"><a href="#__codelineno-6-10" id="__codelineno-6-10" name="__codelineno-6-10"></a><span class="w">    </span><span class="nv">Selector</span><span class="o">=</span>User-Agent<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-11"><a href="#__codelineno-6-11" id="__codelineno-6-11" name="__codelineno-6-11"></a><span class="w">    </span><span class="nv">Operator</span><span class="o">=</span>Contains<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-12"><a href="#__codelineno-6-12" id="__codelineno-6-12" name="__codelineno-6-12"></a><span class="w">    </span><span class="nv">MatchValue</span><span class="o">=</span><span class="s2">"sqlmap,nikto,nmap,metasploit"</span>
+</span></code></pre></div>
+<h3 id="exclusions-false-positives">Exclusions (false positives)</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a href="#__codelineno-7-1" id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="c1"># Excluir campo específico de WAF rules</span>
+</span><span id="__span-7-2"><a href="#__codelineno-7-2" id="__codelineno-7-2" name="__codelineno-7-2"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>waf-policy<span class="w"> </span>managed-rule<span class="w"> </span>exclusion<span class="w"> </span>add<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-3"><a href="#__codelineno-7-3" id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="w">  </span>--policy-name<span class="w"> </span>waf-policy-prod<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-4"><a href="#__codelineno-7-4" id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-5"><a href="#__codelineno-7-5" id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="w">  </span>--match-variable<span class="w"> </span>RequestHeaderNames<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-6"><a href="#__codelineno-7-6" id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="w">  </span>--selector-match-operator<span class="w"> </span>Equals<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-7"><a href="#__codelineno-7-7" id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="w">  </span>--selector<span class="w"> </span><span class="s2">"X-Custom-Header"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-8"><a href="#__codelineno-7-8" id="__codelineno-7-8" name="__codelineno-7-8"></a><span class="w">  </span>--rule-set-type<span class="w"> </span>OWASP<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-9"><a href="#__codelineno-7-9" id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="w">  </span>--rule-set-version<span class="w"> </span><span class="m">3</span>.2
+</span></code></pre></div>
+<hr>
+<h2 id="ssltls-configuration">SSL/TLS configuration</h2>
+<h3 id="upload-ssl-certificate">Upload SSL certificate</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a href="#__codelineno-8-1" id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="c1"># Crear certificado self-signed (testing)</span>
+</span><span id="__span-8-2"><a href="#__codelineno-8-2" id="__codelineno-8-2" name="__codelineno-8-2"></a>openssl<span class="w"> </span>req<span class="w"> </span>-x509<span class="w"> </span>-newkey<span class="w"> </span>rsa:4096<span class="w"> </span>-keyout<span class="w"> </span>appgw-key.pem<span class="w"> </span>-out<span class="w"> </span>appgw-cert.pem<span class="w"> </span>-days<span class="w"> </span><span class="m">365</span><span class="w"> </span>-nodes<span class="w"> </span>-subj<span class="w"> </span><span class="s2">"/CN=www.example.com"</span>
+</span><span id="__span-8-3"><a href="#__codelineno-8-3" id="__codelineno-8-3" name="__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a href="#__codelineno-8-4" id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="c1"># Convertir a PFX</span>
+</span><span id="__span-8-5"><a href="#__codelineno-8-5" id="__codelineno-8-5" name="__codelineno-8-5"></a>openssl<span class="w"> </span>pkcs12<span class="w"> </span>-export<span class="w"> </span>-out<span class="w"> </span>appgw-cert.pfx<span class="w"> </span>-inkey<span class="w"> </span>appgw-key.pem<span class="w"> </span>-in<span class="w"> </span>appgw-cert.pem<span class="w"> </span>-passout<span class="w"> </span>pass:P@ssw0rd123
+</span><span id="__span-8-6"><a href="#__codelineno-8-6" id="__codelineno-8-6" name="__codelineno-8-6"></a>
+</span><span id="__span-8-7"><a href="#__codelineno-8-7" id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="c1"># Upload certificado a Application Gateway</span>
+</span><span id="__span-8-8"><a href="#__codelineno-8-8" id="__codelineno-8-8" name="__codelineno-8-8"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>ssl-cert<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-9"><a href="#__codelineno-8-9" id="__codelineno-8-9" name="__codelineno-8-9"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-10"><a href="#__codelineno-8-10" id="__codelineno-8-10" name="__codelineno-8-10"></a><span class="w">  </span>--gateway-name<span class="w"> </span><span class="nv">$APPGW_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-11"><a href="#__codelineno-8-11" id="__codelineno-8-11" name="__codelineno-8-11"></a><span class="w">  </span>--name<span class="w"> </span>ssl-cert-example<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-12"><a href="#__codelineno-8-12" id="__codelineno-8-12" name="__codelineno-8-12"></a><span class="w">  </span>--cert-file<span class="w"> </span>appgw-cert.pfx<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-13"><a href="#__codelineno-8-13" id="__codelineno-8-13" name="__codelineno-8-13"></a><span class="w">  </span>--cert-password<span class="w"> </span><span class="s2">"P@ssw0rd123"</span>
+</span></code></pre></div>
+<p><strong>Producción: usar Key Vault</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a href="#__codelineno-9-1" id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="c1"># Importar cert a Key Vault</span>
+</span><span id="__span-9-2"><a href="#__codelineno-9-2" id="__codelineno-9-2" name="__codelineno-9-2"></a>az<span class="w"> </span>keyvault<span class="w"> </span>certificate<span class="w"> </span>import<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-3"><a href="#__codelineno-9-3" id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="w">  </span>--vault-name<span class="w"> </span>kv-prod<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-4"><a href="#__codelineno-9-4" id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="w">  </span>--name<span class="w"> </span>appgw-cert<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-5"><a href="#__codelineno-9-5" id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="w">  </span>--file<span class="w"> </span>appgw-cert.pfx<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-6"><a href="#__codelineno-9-6" id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="w">  </span>--password<span class="w"> </span><span class="s2">"P@ssw0rd123"</span>
+</span><span id="__span-9-7"><a href="#__codelineno-9-7" id="__codelineno-9-7" name="__codelineno-9-7"></a>
+</span><span id="__span-9-8"><a href="#__codelineno-9-8" id="__codelineno-9-8" name="__codelineno-9-8"></a><span class="c1"># Asignar Managed Identity a Application Gateway</span>
+</span><span id="__span-9-9"><a href="#__codelineno-9-9" id="__codelineno-9-9" name="__codelineno-9-9"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>identity<span class="w"> </span>assign<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-10"><a href="#__codelineno-9-10" id="__codelineno-9-10" name="__codelineno-9-10"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-11"><a href="#__codelineno-9-11" id="__codelineno-9-11" name="__codelineno-9-11"></a><span class="w">  </span>--gateway-name<span class="w"> </span><span class="nv">$APPGW_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-12"><a href="#__codelineno-9-12" id="__codelineno-9-12" name="__codelineno-9-12"></a><span class="w">  </span>--identity<span class="w"> </span>/subscriptions/<span class="nv">$SUB_ID</span>/resourceGroups/<span class="nv">$RESOURCE_GROUP</span>/providers/Microsoft.ManagedIdentity/userAssignedIdentities/mi-appgw
+</span><span id="__span-9-13"><a href="#__codelineno-9-13" id="__codelineno-9-13" name="__codelineno-9-13"></a>
+</span><span id="__span-9-14"><a href="#__codelineno-9-14" id="__codelineno-9-14" name="__codelineno-9-14"></a><span class="c1"># Dar permisos a Key Vault</span>
+</span><span id="__span-9-15"><a href="#__codelineno-9-15" id="__codelineno-9-15" name="__codelineno-9-15"></a>az<span class="w"> </span>keyvault<span class="w"> </span>set-policy<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-16"><a href="#__codelineno-9-16" id="__codelineno-9-16" name="__codelineno-9-16"></a><span class="w">  </span>--name<span class="w"> </span>kv-prod<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-17"><a href="#__codelineno-9-17" id="__codelineno-9-17" name="__codelineno-9-17"></a><span class="w">  </span>--object-id<span class="w"> </span><span class="k">$(</span>az<span class="w"> </span>identity<span class="w"> </span>show<span class="w"> </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span>--name<span class="w"> </span>mi-appgw<span class="w"> </span>--query<span class="w"> </span>principalId<span class="w"> </span>-o<span class="w"> </span>tsv<span class="k">)</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-18"><a href="#__codelineno-9-18" id="__codelineno-9-18" name="__codelineno-9-18"></a><span class="w">  </span>--secret-permissions<span class="w"> </span>get<span class="w"> </span>list<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-19"><a href="#__codelineno-9-19" id="__codelineno-9-19" name="__codelineno-9-19"></a><span class="w">  </span>--certificate-permissions<span class="w"> </span>get<span class="w"> </span>list
+</span><span id="__span-9-20"><a href="#__codelineno-9-20" id="__codelineno-9-20" name="__codelineno-9-20"></a>
+</span><span id="__span-9-21"><a href="#__codelineno-9-21" id="__codelineno-9-21" name="__codelineno-9-21"></a><span class="c1"># Referenciar cert desde Key Vault</span>
+</span><span id="__span-9-22"><a href="#__codelineno-9-22" id="__codelineno-9-22" name="__codelineno-9-22"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>ssl-cert<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-23"><a href="#__codelineno-9-23" id="__codelineno-9-23" name="__codelineno-9-23"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-24"><a href="#__codelineno-9-24" id="__codelineno-9-24" name="__codelineno-9-24"></a><span class="w">  </span>--gateway-name<span class="w"> </span><span class="nv">$APPGW_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-25"><a href="#__codelineno-9-25" id="__codelineno-9-25" name="__codelineno-9-25"></a><span class="w">  </span>--name<span class="w"> </span>ssl-cert-kv<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-26"><a href="#__codelineno-9-26" id="__codelineno-9-26" name="__codelineno-9-26"></a><span class="w">  </span>--key-vault-secret-id<span class="w"> </span>https://kv-prod.vault.azure.net/secrets/appgw-cert
+</span></code></pre></div>
+<h3 id="https-listener">HTTPS listener</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a href="#__codelineno-10-1" id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="c1"># Frontend port 443</span>
+</span><span id="__span-10-2"><a href="#__codelineno-10-2" id="__codelineno-10-2" name="__codelineno-10-2"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>frontend-port<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-3"><a href="#__codelineno-10-3" id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-4"><a href="#__codelineno-10-4" id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="w">  </span>--gateway-name<span class="w"> </span><span class="nv">$APPGW_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-5"><a href="#__codelineno-10-5" id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="w">  </span>--name<span class="w"> </span>port443<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-6"><a href="#__codelineno-10-6" id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="w">  </span>--port<span class="w"> </span><span class="m">443</span>
+</span><span id="__span-10-7"><a href="#__codelineno-10-7" id="__codelineno-10-7" name="__codelineno-10-7"></a>
+</span><span id="__span-10-8"><a href="#__codelineno-10-8" id="__codelineno-10-8" name="__codelineno-10-8"></a><span class="c1"># HTTPS listener</span>
+</span><span id="__span-10-9"><a href="#__codelineno-10-9" id="__codelineno-10-9" name="__codelineno-10-9"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>http-listener<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-10"><a href="#__codelineno-10-10" id="__codelineno-10-10" name="__codelineno-10-10"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-11"><a href="#__codelineno-10-11" id="__codelineno-10-11" name="__codelineno-10-11"></a><span class="w">  </span>--gateway-name<span class="w"> </span><span class="nv">$APPGW_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-12"><a href="#__codelineno-10-12" id="__codelineno-10-12" name="__codelineno-10-12"></a><span class="w">  </span>--name<span class="w"> </span>listener-https<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-13"><a href="#__codelineno-10-13" id="__codelineno-10-13" name="__codelineno-10-13"></a><span class="w">  </span>--frontend-port<span class="w"> </span>port443<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-14"><a href="#__codelineno-10-14" id="__codelineno-10-14" name="__codelineno-10-14"></a><span class="w">  </span>--ssl-cert<span class="w"> </span>ssl-cert-example<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-15"><a href="#__codelineno-10-15" id="__codelineno-10-15" name="__codelineno-10-15"></a><span class="w">  </span>--host-name<span class="w"> </span>www.example.com<span class="w">  </span><span class="c1"># SNI</span>
+</span></code></pre></div>
+<h3 id="ssl-policy-tls-12-only">SSL policy (TLS 1.2+ only)</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a href="#__codelineno-11-1" id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="c1"># Predefined policy (Modern)</span>
+</span><span id="__span-11-2"><a href="#__codelineno-11-2" id="__codelineno-11-2" name="__codelineno-11-2"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>ssl-policy<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-3"><a href="#__codelineno-11-3" id="__codelineno-11-3" name="__codelineno-11-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-4"><a href="#__codelineno-11-4" id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="w">  </span>--gateway-name<span class="w"> </span><span class="nv">$APPGW_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-5"><a href="#__codelineno-11-5" id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="w">  </span>--policy-type<span class="w"> </span>Predefined<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-6"><a href="#__codelineno-11-6" id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="w">  </span>--policy-name<span class="w"> </span>AppGwSslPolicy20220101<span class="w">  </span><span class="c1"># Solo TLS 1.2+</span>
+</span><span id="__span-11-7"><a href="#__codelineno-11-7" id="__codelineno-11-7" name="__codelineno-11-7"></a>
+</span><span id="__span-11-8"><a href="#__codelineno-11-8" id="__codelineno-11-8" name="__codelineno-11-8"></a><span class="c1"># Custom policy</span>
+</span><span id="__span-11-9"><a href="#__codelineno-11-9" id="__codelineno-11-9" name="__codelineno-11-9"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>ssl-policy<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-10"><a href="#__codelineno-11-10" id="__codelineno-11-10" name="__codelineno-11-10"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-11"><a href="#__codelineno-11-11" id="__codelineno-11-11" name="__codelineno-11-11"></a><span class="w">  </span>--gateway-name<span class="w"> </span><span class="nv">$APPGW_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-12"><a href="#__codelineno-11-12" id="__codelineno-11-12" name="__codelineno-11-12"></a><span class="w">  </span>--policy-type<span class="w"> </span>Custom<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-13"><a href="#__codelineno-11-13" id="__codelineno-11-13" name="__codelineno-11-13"></a><span class="w">  </span>--min-protocol-version<span class="w"> </span>TLSv1_2<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-14"><a href="#__codelineno-11-14" id="__codelineno-11-14" name="__codelineno-11-14"></a><span class="w">  </span>--cipher-suites<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-15"><a href="#__codelineno-11-15" id="__codelineno-11-15" name="__codelineno-11-15"></a><span class="w">    </span>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-16"><a href="#__codelineno-11-16" id="__codelineno-11-16" name="__codelineno-11-16"></a><span class="w">    </span>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-17"><a href="#__codelineno-11-17" id="__codelineno-11-17" name="__codelineno-11-17"></a><span class="w">    </span>TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
+</span></code></pre></div>
+<h3 id="http-https-redirect">HTTP → HTTPS redirect</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a href="#__codelineno-12-1" id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="c1"># Redirect configuration</span>
+</span><span id="__span-12-2"><a href="#__codelineno-12-2" id="__codelineno-12-2" name="__codelineno-12-2"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>redirect-config<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-3"><a href="#__codelineno-12-3" id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-4"><a href="#__codelineno-12-4" id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="w">  </span>--gateway-name<span class="w"> </span><span class="nv">$APPGW_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-5"><a href="#__codelineno-12-5" id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="w">  </span>--name<span class="w"> </span>redirect-http-to-https<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-6"><a href="#__codelineno-12-6" id="__codelineno-12-6" name="__codelineno-12-6"></a><span class="w">  </span>--type<span class="w"> </span>Permanent<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-7"><a href="#__codelineno-12-7" id="__codelineno-12-7" name="__codelineno-12-7"></a><span class="w">  </span>--target-listener<span class="w"> </span>listener-https<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-8"><a href="#__codelineno-12-8" id="__codelineno-12-8" name="__codelineno-12-8"></a><span class="w">  </span>--include-path<span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-9"><a href="#__codelineno-12-9" id="__codelineno-12-9" name="__codelineno-12-9"></a><span class="w">  </span>--include-query-string<span class="w"> </span><span class="nb">true</span>
+</span><span id="__span-12-10"><a href="#__codelineno-12-10" id="__codelineno-12-10" name="__codelineno-12-10"></a>
+</span><span id="__span-12-11"><a href="#__codelineno-12-11" id="__codelineno-12-11" name="__codelineno-12-11"></a><span class="c1"># Routing rule HTTP → redirect</span>
+</span><span id="__span-12-12"><a href="#__codelineno-12-12" id="__codelineno-12-12" name="__codelineno-12-12"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>rule<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-13"><a href="#__codelineno-12-13" id="__codelineno-12-13" name="__codelineno-12-13"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-14"><a href="#__codelineno-12-14" id="__codelineno-12-14" name="__codelineno-12-14"></a><span class="w">  </span>--gateway-name<span class="w"> </span><span class="nv">$APPGW_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-15"><a href="#__codelineno-12-15" id="__codelineno-12-15" name="__codelineno-12-15"></a><span class="w">  </span>--name<span class="w"> </span>rule-http-redirect<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-16"><a href="#__codelineno-12-16" id="__codelineno-12-16" name="__codelineno-12-16"></a><span class="w">  </span>--http-listener<span class="w"> </span>listener-http<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-17"><a href="#__codelineno-12-17" id="__codelineno-12-17" name="__codelineno-12-17"></a><span class="w">  </span>--rule-type<span class="w"> </span>Basic<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-18"><a href="#__codelineno-12-18" id="__codelineno-12-18" name="__codelineno-12-18"></a><span class="w">  </span>--redirect-config<span class="w"> </span>redirect-http-to-https<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-19"><a href="#__codelineno-12-19" id="__codelineno-12-19" name="__codelineno-12-19"></a><span class="w">  </span>--priority<span class="w"> </span><span class="m">200</span>
+</span></code></pre></div>
+<hr>
+<h2 id="url-based-routing">URL-based routing</h2>
+<h3 id="backend-pools">Backend pools</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a href="#__codelineno-13-1" id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="c1"># Backend pool: API servers</span>
+</span><span id="__span-13-2"><a href="#__codelineno-13-2" id="__codelineno-13-2" name="__codelineno-13-2"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>address-pool<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-3"><a href="#__codelineno-13-3" id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-4"><a href="#__codelineno-13-4" id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="w">  </span>--gateway-name<span class="w"> </span><span class="nv">$APPGW_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-5"><a href="#__codelineno-13-5" id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="w">  </span>--name<span class="w"> </span>pool-api<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-6"><a href="#__codelineno-13-6" id="__codelineno-13-6" name="__codelineno-13-6"></a><span class="w">  </span>--servers<span class="w"> </span>api1.example.com<span class="w"> </span>api2.example.com
+</span><span id="__span-13-7"><a href="#__codelineno-13-7" id="__codelineno-13-7" name="__codelineno-13-7"></a>
+</span><span id="__span-13-8"><a href="#__codelineno-13-8" id="__codelineno-13-8" name="__codelineno-13-8"></a><span class="c1"># Backend pool: Web servers</span>
+</span><span id="__span-13-9"><a href="#__codelineno-13-9" id="__codelineno-13-9" name="__codelineno-13-9"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>address-pool<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-10"><a href="#__codelineno-13-10" id="__codelineno-13-10" name="__codelineno-13-10"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-11"><a href="#__codelineno-13-11" id="__codelineno-13-11" name="__codelineno-13-11"></a><span class="w">  </span>--gateway-name<span class="w"> </span><span class="nv">$APPGW_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-12"><a href="#__codelineno-13-12" id="__codelineno-13-12" name="__codelineno-13-12"></a><span class="w">  </span>--name<span class="w"> </span>pool-web<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-13"><a href="#__codelineno-13-13" id="__codelineno-13-13" name="__codelineno-13-13"></a><span class="w">  </span>--servers<span class="w"> </span>web1.example.com<span class="w"> </span>web2.example.com
+</span><span id="__span-13-14"><a href="#__codelineno-13-14" id="__codelineno-13-14" name="__codelineno-13-14"></a>
+</span><span id="__span-13-15"><a href="#__codelineno-13-15" id="__codelineno-13-15" name="__codelineno-13-15"></a><span class="c1"># Backend pool: Admin portal</span>
+</span><span id="__span-13-16"><a href="#__codelineno-13-16" id="__codelineno-13-16" name="__codelineno-13-16"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>address-pool<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-17"><a href="#__codelineno-13-17" id="__codelineno-13-17" name="__codelineno-13-17"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-18"><a href="#__codelineno-13-18" id="__codelineno-13-18" name="__codelineno-13-18"></a><span class="w">  </span>--gateway-name<span class="w"> </span><span class="nv">$APPGW_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-19"><a href="#__codelineno-13-19" id="__codelineno-13-19" name="__codelineno-13-19"></a><span class="w">  </span>--name<span class="w"> </span>pool-admin<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-20"><a href="#__codelineno-13-20" id="__codelineno-13-20" name="__codelineno-13-20"></a><span class="w">  </span>--servers<span class="w"> </span>admin.example.com
+</span></code></pre></div>
+<h3 id="http-settings">HTTP settings</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a href="#__codelineno-14-1" id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="c1"># HTTP settings para API (timeout 60s)</span>
+</span><span id="__span-14-2"><a href="#__codelineno-14-2" id="__codelineno-14-2" name="__codelineno-14-2"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>http-settings<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-3"><a href="#__codelineno-14-3" id="__codelineno-14-3" name="__codelineno-14-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-4"><a href="#__codelineno-14-4" id="__codelineno-14-4" name="__codelineno-14-4"></a><span class="w">  </span>--gateway-name<span class="w"> </span><span class="nv">$APPGW_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-5"><a href="#__codelineno-14-5" id="__codelineno-14-5" name="__codelineno-14-5"></a><span class="w">  </span>--name<span class="w"> </span>http-settings-api<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-6"><a href="#__codelineno-14-6" id="__codelineno-14-6" name="__codelineno-14-6"></a><span class="w">  </span>--port<span class="w"> </span><span class="m">443</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-7"><a href="#__codelineno-14-7" id="__codelineno-14-7" name="__codelineno-14-7"></a><span class="w">  </span>--protocol<span class="w"> </span>Https<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-8"><a href="#__codelineno-14-8" id="__codelineno-14-8" name="__codelineno-14-8"></a><span class="w">  </span>--cookie-based-affinity<span class="w"> </span>Disabled<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-9"><a href="#__codelineno-14-9" id="__codelineno-14-9" name="__codelineno-14-9"></a><span class="w">  </span>--timeout<span class="w"> </span><span class="m">60</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-10"><a href="#__codelineno-14-10" id="__codelineno-14-10" name="__codelineno-14-10"></a><span class="w">  </span>--probe<span class="w"> </span>probe-api
+</span><span id="__span-14-11"><a href="#__codelineno-14-11" id="__codelineno-14-11" name="__codelineno-14-11"></a>
+</span><span id="__span-14-12"><a href="#__codelineno-14-12" id="__codelineno-14-12" name="__codelineno-14-12"></a><span class="c1"># HTTP settings para Web (timeout 30s, session affinity)</span>
+</span><span id="__span-14-13"><a href="#__codelineno-14-13" id="__codelineno-14-13" name="__codelineno-14-13"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>http-settings<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-14"><a href="#__codelineno-14-14" id="__codelineno-14-14" name="__codelineno-14-14"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-15"><a href="#__codelineno-14-15" id="__codelineno-14-15" name="__codelineno-14-15"></a><span class="w">  </span>--gateway-name<span class="w"> </span><span class="nv">$APPGW_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-16"><a href="#__codelineno-14-16" id="__codelineno-14-16" name="__codelineno-14-16"></a><span class="w">  </span>--name<span class="w"> </span>http-settings-web<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-17"><a href="#__codelineno-14-17" id="__codelineno-14-17" name="__codelineno-14-17"></a><span class="w">  </span>--port<span class="w"> </span><span class="m">443</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-18"><a href="#__codelineno-14-18" id="__codelineno-14-18" name="__codelineno-14-18"></a><span class="w">  </span>--protocol<span class="w"> </span>Https<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-19"><a href="#__codelineno-14-19" id="__codelineno-14-19" name="__codelineno-14-19"></a><span class="w">  </span>--cookie-based-affinity<span class="w"> </span>Enabled<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-20"><a href="#__codelineno-14-20" id="__codelineno-14-20" name="__codelineno-14-20"></a><span class="w">  </span>--timeout<span class="w"> </span><span class="m">30</span>
+</span></code></pre></div>
+<h3 id="url-path-map">URL path map</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a href="#__codelineno-15-1" id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="c1"># Path-based rule</span>
+</span><span id="__span-15-2"><a href="#__codelineno-15-2" id="__codelineno-15-2" name="__codelineno-15-2"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>url-path-map<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-3"><a href="#__codelineno-15-3" id="__codelineno-15-3" name="__codelineno-15-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-4"><a href="#__codelineno-15-4" id="__codelineno-15-4" name="__codelineno-15-4"></a><span class="w">  </span>--gateway-name<span class="w"> </span><span class="nv">$APPGW_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-5"><a href="#__codelineno-15-5" id="__codelineno-15-5" name="__codelineno-15-5"></a><span class="w">  </span>--name<span class="w"> </span>url-path-map<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-6"><a href="#__codelineno-15-6" id="__codelineno-15-6" name="__codelineno-15-6"></a><span class="w">  </span>--paths<span class="w"> </span>/api/*<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-7"><a href="#__codelineno-15-7" id="__codelineno-15-7" name="__codelineno-15-7"></a><span class="w">  </span>--address-pool<span class="w"> </span>pool-api<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-8"><a href="#__codelineno-15-8" id="__codelineno-15-8" name="__codelineno-15-8"></a><span class="w">  </span>--http-settings<span class="w"> </span>http-settings-api<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-9"><a href="#__codelineno-15-9" id="__codelineno-15-9" name="__codelineno-15-9"></a><span class="w">  </span>--default-address-pool<span class="w"> </span>pool-web<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-10"><a href="#__codelineno-15-10" id="__codelineno-15-10" name="__codelineno-15-10"></a><span class="w">  </span>--default-http-settings<span class="w"> </span>http-settings-web
+</span><span id="__span-15-11"><a href="#__codelineno-15-11" id="__codelineno-15-11" name="__codelineno-15-11"></a>
+</span><span id="__span-15-12"><a href="#__codelineno-15-12" id="__codelineno-15-12" name="__codelineno-15-12"></a><span class="c1"># Agregar otro path</span>
+</span><span id="__span-15-13"><a href="#__codelineno-15-13" id="__codelineno-15-13" name="__codelineno-15-13"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>url-path-map<span class="w"> </span>rule<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-14"><a href="#__codelineno-15-14" id="__codelineno-15-14" name="__codelineno-15-14"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-15"><a href="#__codelineno-15-15" id="__codelineno-15-15" name="__codelineno-15-15"></a><span class="w">  </span>--gateway-name<span class="w"> </span><span class="nv">$APPGW_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-16"><a href="#__codelineno-15-16" id="__codelineno-15-16" name="__codelineno-15-16"></a><span class="w">  </span>--path-map-name<span class="w"> </span>url-path-map<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-17"><a href="#__codelineno-15-17" id="__codelineno-15-17" name="__codelineno-15-17"></a><span class="w">  </span>--name<span class="w"> </span>rule-admin<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-18"><a href="#__codelineno-15-18" id="__codelineno-15-18" name="__codelineno-15-18"></a><span class="w">  </span>--paths<span class="w"> </span>/admin/*<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-19"><a href="#__codelineno-15-19" id="__codelineno-15-19" name="__codelineno-15-19"></a><span class="w">  </span>--address-pool<span class="w"> </span>pool-admin<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-20"><a href="#__codelineno-15-20" id="__codelineno-15-20" name="__codelineno-15-20"></a><span class="w">  </span>--http-settings<span class="w"> </span>http-settings-web
+</span><span id="__span-15-21"><a href="#__codelineno-15-21" id="__codelineno-15-21" name="__codelineno-15-21"></a>
+</span><span id="__span-15-22"><a href="#__codelineno-15-22" id="__codelineno-15-22" name="__codelineno-15-22"></a><span class="c1"># Routing rule con path-based</span>
+</span><span id="__span-15-23"><a href="#__codelineno-15-23" id="__codelineno-15-23" name="__codelineno-15-23"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>rule<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-24"><a href="#__codelineno-15-24" id="__codelineno-15-24" name="__codelineno-15-24"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-25"><a href="#__codelineno-15-25" id="__codelineno-15-25" name="__codelineno-15-25"></a><span class="w">  </span>--gateway-name<span class="w"> </span><span class="nv">$APPGW_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-26"><a href="#__codelineno-15-26" id="__codelineno-15-26" name="__codelineno-15-26"></a><span class="w">  </span>--name<span class="w"> </span>rule-path-based<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-27"><a href="#__codelineno-15-27" id="__codelineno-15-27" name="__codelineno-15-27"></a><span class="w">  </span>--http-listener<span class="w"> </span>listener-https<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-28"><a href="#__codelineno-15-28" id="__codelineno-15-28" name="__codelineno-15-28"></a><span class="w">  </span>--rule-type<span class="w"> </span>PathBasedRouting<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-29"><a href="#__codelineno-15-29" id="__codelineno-15-29" name="__codelineno-15-29"></a><span class="w">  </span>--url-path-map<span class="w"> </span>url-path-map<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-30"><a href="#__codelineno-15-30" id="__codelineno-15-30" name="__codelineno-15-30"></a><span class="w">  </span>--priority<span class="w"> </span><span class="m">100</span>
+</span></code></pre></div>
+<hr>
+<h2 id="health-probes">Health probes</h2>
+<h3 id="custom-health-probe">Custom health probe</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a href="#__codelineno-16-1" id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="c1"># Probe para API</span>
+</span><span id="__span-16-2"><a href="#__codelineno-16-2" id="__codelineno-16-2" name="__codelineno-16-2"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>probe<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-3"><a href="#__codelineno-16-3" id="__codelineno-16-3" name="__codelineno-16-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-4"><a href="#__codelineno-16-4" id="__codelineno-16-4" name="__codelineno-16-4"></a><span class="w">  </span>--gateway-name<span class="w"> </span><span class="nv">$APPGW_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-5"><a href="#__codelineno-16-5" id="__codelineno-16-5" name="__codelineno-16-5"></a><span class="w">  </span>--name<span class="w"> </span>probe-api<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-6"><a href="#__codelineno-16-6" id="__codelineno-16-6" name="__codelineno-16-6"></a><span class="w">  </span>--protocol<span class="w"> </span>Https<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-7"><a href="#__codelineno-16-7" id="__codelineno-16-7" name="__codelineno-16-7"></a><span class="w">  </span>--host<span class="w"> </span>api.example.com<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-8"><a href="#__codelineno-16-8" id="__codelineno-16-8" name="__codelineno-16-8"></a><span class="w">  </span>--path<span class="w"> </span>/health<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-9"><a href="#__codelineno-16-9" id="__codelineno-16-9" name="__codelineno-16-9"></a><span class="w">  </span>--interval<span class="w"> </span><span class="m">30</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-10"><a href="#__codelineno-16-10" id="__codelineno-16-10" name="__codelineno-16-10"></a><span class="w">  </span>--timeout<span class="w"> </span><span class="m">30</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-11"><a href="#__codelineno-16-11" id="__codelineno-16-11" name="__codelineno-16-11"></a><span class="w">  </span>--threshold<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="se">\ </span><span class="w"> </span><span class="c1"># 3 fallos consecutivos = unhealthy</span>
+</span><span id="__span-16-12"><a href="#__codelineno-16-12" id="__codelineno-16-12" name="__codelineno-16-12"></a><span class="w">  </span>--match-status-codes<span class="w"> </span><span class="m">200</span>-399
+</span><span id="__span-16-13"><a href="#__codelineno-16-13" id="__codelineno-16-13" name="__codelineno-16-13"></a>
+</span><span id="__span-16-14"><a href="#__codelineno-16-14" id="__codelineno-16-14" name="__codelineno-16-14"></a><span class="c1"># Probe con body match</span>
+</span><span id="__span-16-15"><a href="#__codelineno-16-15" id="__codelineno-16-15" name="__codelineno-16-15"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>probe<span class="w"> </span>update<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-16"><a href="#__codelineno-16-16" id="__codelineno-16-16" name="__codelineno-16-16"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-17"><a href="#__codelineno-16-17" id="__codelineno-16-17" name="__codelineno-16-17"></a><span class="w">  </span>--gateway-name<span class="w"> </span><span class="nv">$APPGW_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-18"><a href="#__codelineno-16-18" id="__codelineno-16-18" name="__codelineno-16-18"></a><span class="w">  </span>--name<span class="w"> </span>probe-api<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-19"><a href="#__codelineno-16-19" id="__codelineno-16-19" name="__codelineno-16-19"></a><span class="w">  </span>--match-body<span class="w"> </span><span class="s2">"healthy"</span><span class="w">  </span><span class="c1"># Response debe contener "healthy"</span>
+</span></code></pre></div>
+<p><strong>Health endpoint en backend:</strong></p>
+<div class="language-csharp highlight"><pre><span></span><code><span id="__span-17-1"><a href="#__codelineno-17-1" id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="c1">// ASP.NET Core</span>
+</span><span id="__span-17-2"><a href="#__codelineno-17-2" id="__codelineno-17-2" name="__codelineno-17-2"></a><span class="n">app</span><span class="p">.</span><span class="n">MapGet</span><span class="p">(</span><span class="s">"/health"</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span>
+</span><span id="__span-17-3"><a href="#__codelineno-17-3" id="__codelineno-17-3" name="__codelineno-17-3"></a><span class="p">{</span>
+</span><span id="__span-17-4"><a href="#__codelineno-17-4" id="__codelineno-17-4" name="__codelineno-17-4"></a><span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">dbHealthy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CheckDatabase</span><span class="p">();</span>
+</span><span id="__span-17-5"><a href="#__codelineno-17-5" id="__codelineno-17-5" name="__codelineno-17-5"></a><span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">cacheHealthy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CheckRedis</span><span class="p">();</span>
+</span><span id="__span-17-6"><a href="#__codelineno-17-6" id="__codelineno-17-6" name="__codelineno-17-6"></a>
+</span><span id="__span-17-7"><a href="#__codelineno-17-7" id="__codelineno-17-7" name="__codelineno-17-7"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">dbHealthy</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">cacheHealthy</span><span class="p">)</span>
+</span><span id="__span-17-8"><a href="#__codelineno-17-8" id="__codelineno-17-8" name="__codelineno-17-8"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Results</span><span class="p">.</span><span class="n">StatusCode</span><span class="p">(</span><span class="mi">503</span><span class="p">);</span>
+</span><span id="__span-17-9"><a href="#__codelineno-17-9" id="__codelineno-17-9" name="__codelineno-17-9"></a>
+</span><span id="__span-17-10"><a href="#__codelineno-17-10" id="__codelineno-17-10" name="__codelineno-17-10"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Results</span><span class="p">.</span><span class="n">Ok</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"healthy"</span><span class="p">,</span><span class="w"> </span><span class="n">timestamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DateTime</span><span class="p">.</span><span class="n">UtcNow</span><span class="w"> </span><span class="p">});</span>
+</span><span id="__span-17-11"><a href="#__codelineno-17-11" id="__codelineno-17-11" name="__codelineno-17-11"></a><span class="p">});</span>
+</span></code></pre></div>
+<hr>
+<h2 id="integration-con-aks-agic">Integration con AKS (AGIC)</h2>
+<h3 id="application-gateway-ingress-controller">Application Gateway Ingress Controller</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a href="#__codelineno-18-1" id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="c1"># Habilitar AGIC addon en AKS</span>
+</span><span id="__span-18-2"><a href="#__codelineno-18-2" id="__codelineno-18-2" name="__codelineno-18-2"></a>az<span class="w"> </span>aks<span class="w"> </span>enable-addons<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-3"><a href="#__codelineno-18-3" id="__codelineno-18-3" name="__codelineno-18-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-4"><a href="#__codelineno-18-4" id="__codelineno-18-4" name="__codelineno-18-4"></a><span class="w">  </span>--name<span class="w"> </span>aks-prod<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-5"><a href="#__codelineno-18-5" id="__codelineno-18-5" name="__codelineno-18-5"></a><span class="w">  </span>--addon<span class="w"> </span>ingress-appgw<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-6"><a href="#__codelineno-18-6" id="__codelineno-18-6" name="__codelineno-18-6"></a><span class="w">  </span>--appgw-id<span class="w"> </span>/subscriptions/<span class="nv">$SUB_ID</span>/resourceGroups/<span class="nv">$RESOURCE_GROUP</span>/providers/Microsoft.Network/applicationGateways/<span class="nv">$APPGW_NAME</span>
+</span><span id="__span-18-7"><a href="#__codelineno-18-7" id="__codelineno-18-7" name="__codelineno-18-7"></a>
+</span><span id="__span-18-8"><a href="#__codelineno-18-8" id="__codelineno-18-8" name="__codelineno-18-8"></a><span class="c1"># Verificar instalación</span>
+</span><span id="__span-18-9"><a href="#__codelineno-18-9" id="__codelineno-18-9" name="__codelineno-18-9"></a>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>ingress-appgw
+</span></code></pre></div>
+<p><strong>Ingress resource con AGIC:</strong></p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-19-1"><a href="#__codelineno-19-1" id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="c1"># ingress-api.yaml</span>
+</span><span id="__span-19-2"><a href="#__codelineno-19-2" id="__codelineno-19-2" name="__codelineno-19-2"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">networking.k8s.io/v1</span>
+</span><span id="__span-19-3"><a href="#__codelineno-19-3" id="__codelineno-19-3" name="__codelineno-19-3"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ingress</span>
+</span><span id="__span-19-4"><a href="#__codelineno-19-4" id="__codelineno-19-4" name="__codelineno-19-4"></a><span class="nt">metadata</span><span class="p">:</span>
+</span><span id="__span-19-5"><a href="#__codelineno-19-5" id="__codelineno-19-5" name="__codelineno-19-5"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api-ingress</span>
+</span><span id="__span-19-6"><a href="#__codelineno-19-6" id="__codelineno-19-6" name="__codelineno-19-6"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod</span>
+</span><span id="__span-19-7"><a href="#__codelineno-19-7" id="__codelineno-19-7" name="__codelineno-19-7"></a><span class="w">  </span><span class="nt">annotations</span><span class="p">:</span>
+</span><span id="__span-19-8"><a href="#__codelineno-19-8" id="__codelineno-19-8" name="__codelineno-19-8"></a><span class="w">    </span><span class="nt">kubernetes.io/ingress.class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure/application-gateway</span>
+</span><span id="__span-19-9"><a href="#__codelineno-19-9" id="__codelineno-19-9" name="__codelineno-19-9"></a><span class="w">    </span><span class="nt">appgw.ingress.kubernetes.io/ssl-redirect</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
+</span><span id="__span-19-10"><a href="#__codelineno-19-10" id="__codelineno-19-10" name="__codelineno-19-10"></a><span class="w">    </span><span class="nt">appgw.ingress.kubernetes.io/backend-protocol</span><span class="p">:</span><span class="w"> </span><span class="s">"https"</span>
+</span><span id="__span-19-11"><a href="#__codelineno-19-11" id="__codelineno-19-11" name="__codelineno-19-11"></a><span class="w">    </span><span class="nt">appgw.ingress.kubernetes.io/health-probe-path</span><span class="p">:</span><span class="w"> </span><span class="s">"/health"</span>
+</span><span id="__span-19-12"><a href="#__codelineno-19-12" id="__codelineno-19-12" name="__codelineno-19-12"></a><span class="w">    </span><span class="nt">appgw.ingress.kubernetes.io/request-timeout</span><span class="p">:</span><span class="w"> </span><span class="s">"60"</span>
+</span><span id="__span-19-13"><a href="#__codelineno-19-13" id="__codelineno-19-13" name="__codelineno-19-13"></a><span class="nt">spec</span><span class="p">:</span>
+</span><span id="__span-19-14"><a href="#__codelineno-19-14" id="__codelineno-19-14" name="__codelineno-19-14"></a><span class="w">  </span><span class="nt">tls</span><span class="p">:</span>
+</span><span id="__span-19-15"><a href="#__codelineno-19-15" id="__codelineno-19-15" name="__codelineno-19-15"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hosts</span><span class="p">:</span>
+</span><span id="__span-19-16"><a href="#__codelineno-19-16" id="__codelineno-19-16" name="__codelineno-19-16"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api.example.com</span>
+</span><span id="__span-19-17"><a href="#__codelineno-19-17" id="__codelineno-19-17" name="__codelineno-19-17"></a><span class="w">    </span><span class="nt">secretName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tls-secret</span><span class="w">  </span><span class="c1"># K8s secret con certificado</span>
+</span><span id="__span-19-18"><a href="#__codelineno-19-18" id="__codelineno-19-18" name="__codelineno-19-18"></a><span class="w">  </span><span class="nt">rules</span><span class="p">:</span>
+</span><span id="__span-19-19"><a href="#__codelineno-19-19" id="__codelineno-19-19" name="__codelineno-19-19"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api.example.com</span>
+</span><span id="__span-19-20"><a href="#__codelineno-19-20" id="__codelineno-19-20" name="__codelineno-19-20"></a><span class="w">    </span><span class="nt">http</span><span class="p">:</span>
+</span><span id="__span-19-21"><a href="#__codelineno-19-21" id="__codelineno-19-21" name="__codelineno-19-21"></a><span class="w">      </span><span class="nt">paths</span><span class="p">:</span>
+</span><span id="__span-19-22"><a href="#__codelineno-19-22" id="__codelineno-19-22" name="__codelineno-19-22"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/api/*</span>
+</span><span id="__span-19-23"><a href="#__codelineno-19-23" id="__codelineno-19-23" name="__codelineno-19-23"></a><span class="w">        </span><span class="nt">pathType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Prefix</span>
+</span><span id="__span-19-24"><a href="#__codelineno-19-24" id="__codelineno-19-24" name="__codelineno-19-24"></a><span class="w">        </span><span class="nt">backend</span><span class="p">:</span>
+</span><span id="__span-19-25"><a href="#__codelineno-19-25" id="__codelineno-19-25" name="__codelineno-19-25"></a><span class="w">          </span><span class="nt">service</span><span class="p">:</span>
+</span><span id="__span-19-26"><a href="#__codelineno-19-26" id="__codelineno-19-26" name="__codelineno-19-26"></a><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api-service</span>
+</span><span id="__span-19-27"><a href="#__codelineno-19-27" id="__codelineno-19-27" name="__codelineno-19-27"></a><span class="w">            </span><span class="nt">port</span><span class="p">:</span>
+</span><span id="__span-19-28"><a href="#__codelineno-19-28" id="__codelineno-19-28" name="__codelineno-19-28"></a><span class="w">              </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">443</span>
+</span></code></pre></div>
+<p><strong>Annotations útiles:</strong></p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-20-1"><a href="#__codelineno-20-1" id="__codelineno-20-1" name="__codelineno-20-1"></a><span class="nt">annotations</span><span class="p">:</span>
+</span><span id="__span-20-2"><a href="#__codelineno-20-2" id="__codelineno-20-2" name="__codelineno-20-2"></a><span class="w">  </span><span class="c1"># WAF</span>
+</span><span id="__span-20-3"><a href="#__codelineno-20-3" id="__codelineno-20-3" name="__codelineno-20-3"></a><span class="w">  </span><span class="nt">appgw.ingress.kubernetes.io/waf-policy-for-path</span><span class="p">:</span><span class="w"> </span><span class="s">"/subscriptions/.../waf-policy-prod"</span>
+</span><span id="__span-20-4"><a href="#__codelineno-20-4" id="__codelineno-20-4" name="__codelineno-20-4"></a>
+</span><span id="__span-20-5"><a href="#__codelineno-20-5" id="__codelineno-20-5" name="__codelineno-20-5"></a><span class="w">  </span><span class="c1"># Connection draining</span>
+</span><span id="__span-20-6"><a href="#__codelineno-20-6" id="__codelineno-20-6" name="__codelineno-20-6"></a><span class="w">  </span><span class="nt">appgw.ingress.kubernetes.io/connection-draining</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
+</span><span id="__span-20-7"><a href="#__codelineno-20-7" id="__codelineno-20-7" name="__codelineno-20-7"></a><span class="w">  </span><span class="nt">appgw.ingress.kubernetes.io/connection-draining-timeout</span><span class="p">:</span><span class="w"> </span><span class="s">"30"</span>
+</span><span id="__span-20-8"><a href="#__codelineno-20-8" id="__codelineno-20-8" name="__codelineno-20-8"></a>
+</span><span id="__span-20-9"><a href="#__codelineno-20-9" id="__codelineno-20-9" name="__codelineno-20-9"></a><span class="w">  </span><span class="c1"># Cookie affinity</span>
+</span><span id="__span-20-10"><a href="#__codelineno-20-10" id="__codelineno-20-10" name="__codelineno-20-10"></a><span class="w">  </span><span class="nt">appgw.ingress.kubernetes.io/cookie-based-affinity</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
+</span><span id="__span-20-11"><a href="#__codelineno-20-11" id="__codelineno-20-11" name="__codelineno-20-11"></a>
+</span><span id="__span-20-12"><a href="#__codelineno-20-12" id="__codelineno-20-12" name="__codelineno-20-12"></a><span class="w">  </span><span class="c1"># Custom health probe</span>
+</span><span id="__span-20-13"><a href="#__codelineno-20-13" id="__codelineno-20-13" name="__codelineno-20-13"></a><span class="w">  </span><span class="nt">appgw.ingress.kubernetes.io/health-probe-status-codes</span><span class="p">:</span><span class="w"> </span><span class="s">"200-399"</span>
+</span><span id="__span-20-14"><a href="#__codelineno-20-14" id="__codelineno-20-14" name="__codelineno-20-14"></a><span class="w">  </span><span class="nt">appgw.ingress.kubernetes.io/health-probe-interval</span><span class="p">:</span><span class="w"> </span><span class="s">"30"</span>
+</span><span id="__span-20-15"><a href="#__codelineno-20-15" id="__codelineno-20-15" name="__codelineno-20-15"></a>
+</span><span id="__span-20-16"><a href="#__codelineno-20-16" id="__codelineno-20-16" name="__codelineno-20-16"></a><span class="w">  </span><span class="c1"># Private IP (internal load balancer)</span>
+</span><span id="__span-20-17"><a href="#__codelineno-20-17" id="__codelineno-20-17" name="__codelineno-20-17"></a><span class="w">  </span><span class="nt">appgw.ingress.kubernetes.io/use-private-ip</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
+</span></code></pre></div>
+<hr>
+<h2 id="monitoring-y-logs">Monitoring y logs</h2>
+<h3 id="diagnostic-settings">Diagnostic settings</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a href="#__codelineno-21-1" id="__codelineno-21-1" name="__codelineno-21-1"></a><span class="c1"># Habilitar logs</span>
+</span><span id="__span-21-2"><a href="#__codelineno-21-2" id="__codelineno-21-2" name="__codelineno-21-2"></a>az<span class="w"> </span>monitor<span class="w"> </span>diagnostic-settings<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-3"><a href="#__codelineno-21-3" id="__codelineno-21-3" name="__codelineno-21-3"></a><span class="w">  </span>--name<span class="w"> </span>appgw-diagnostics<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-4"><a href="#__codelineno-21-4" id="__codelineno-21-4" name="__codelineno-21-4"></a><span class="w">  </span>--resource<span class="w"> </span>/subscriptions/<span class="nv">$SUB_ID</span>/resourceGroups/<span class="nv">$RESOURCE_GROUP</span>/providers/Microsoft.Network/applicationGateways/<span class="nv">$APPGW_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-5"><a href="#__codelineno-21-5" id="__codelineno-21-5" name="__codelineno-21-5"></a><span class="w">  </span>--logs<span class="w"> </span><span class="s1">'[</span>
+</span><span id="__span-21-6"><a href="#__codelineno-21-6" id="__codelineno-21-6" name="__codelineno-21-6"></a><span class="s1">    {"category":"ApplicationGatewayAccessLog","enabled":true},</span>
+</span><span id="__span-21-7"><a href="#__codelineno-21-7" id="__codelineno-21-7" name="__codelineno-21-7"></a><span class="s1">    {"category":"ApplicationGatewayPerformanceLog","enabled":true},</span>
+</span><span id="__span-21-8"><a href="#__codelineno-21-8" id="__codelineno-21-8" name="__codelineno-21-8"></a><span class="s1">    {"category":"ApplicationGatewayFirewallLog","enabled":true}</span>
+</span><span id="__span-21-9"><a href="#__codelineno-21-9" id="__codelineno-21-9" name="__codelineno-21-9"></a><span class="s1">  ]'</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-10"><a href="#__codelineno-21-10" id="__codelineno-21-10" name="__codelineno-21-10"></a><span class="w">  </span>--metrics<span class="w"> </span><span class="s1">'[{"category":"AllMetrics","enabled":true}]'</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-11"><a href="#__codelineno-21-11" id="__codelineno-21-11" name="__codelineno-21-11"></a><span class="w">  </span>--workspace<span class="w"> </span>/subscriptions/<span class="nv">$SUB_ID</span>/resourceGroups/<span class="nv">$RESOURCE_GROUP</span>/providers/Microsoft.OperationalInsights/workspaces/law-prod
+</span></code></pre></div>
+<h3 id="kql-queries-utiles">KQL queries útiles</h3>
+<div class="language-kusto highlight"><pre><span></span><code><span id="__span-22-1"><a href="#__codelineno-22-1" id="__codelineno-22-1" name="__codelineno-22-1"></a><span class="c">// Top 10 URLs más lentas</span>
+</span><span id="__span-22-2"><a href="#__codelineno-22-2" id="__codelineno-22-2" name="__codelineno-22-2"></a><span class="n">AzureDiagnostics</span>
+</span><span id="__span-22-3"><a href="#__codelineno-22-3" id="__codelineno-22-3" name="__codelineno-22-3"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">ResourceType</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="s">"APPLICATIONGATEWAYS"</span>
+</span><span id="__span-22-4"><a href="#__codelineno-22-4" id="__codelineno-22-4" name="__codelineno-22-4"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="s">"ApplicationGatewayAccessLog"</span>
+</span><span id="__span-22-5"><a href="#__codelineno-22-5" id="__codelineno-22-5" name="__codelineno-22-5"></a><span class="p">|</span><span class="w"> </span><span class="k">summarize</span><span class="w"> </span><span class="n">AvgResponseTime</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">avg</span><span class="p">(</span><span class="n">timeTaken_d</span><span class="p">)</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">requestUri_s</span>
+</span><span id="__span-22-6"><a href="#__codelineno-22-6" id="__codelineno-22-6" name="__codelineno-22-6"></a><span class="p">|</span><span class="w"> </span><span class="k">top</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">AvgResponseTime</span><span class="w"> </span><span class="n">desc</span>
+</span><span id="__span-22-7"><a href="#__codelineno-22-7" id="__codelineno-22-7" name="__codelineno-22-7"></a>
+</span><span id="__span-22-8"><a href="#__codelineno-22-8" id="__codelineno-22-8" name="__codelineno-22-8"></a><span class="c">// WAF blocked requests</span>
+</span><span id="__span-22-9"><a href="#__codelineno-22-9" id="__codelineno-22-9" name="__codelineno-22-9"></a><span class="n">AzureDiagnostics</span>
+</span><span id="__span-22-10"><a href="#__codelineno-22-10" id="__codelineno-22-10" name="__codelineno-22-10"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">ResourceType</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="s">"APPLICATIONGATEWAYS"</span>
+</span><span id="__span-22-11"><a href="#__codelineno-22-11" id="__codelineno-22-11" name="__codelineno-22-11"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="s">"ApplicationGatewayFirewallLog"</span>
+</span><span id="__span-22-12"><a href="#__codelineno-22-12" id="__codelineno-22-12" name="__codelineno-22-12"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">action_s</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="s">"Blocked"</span>
+</span><span id="__span-22-13"><a href="#__codelineno-22-13" id="__codelineno-22-13" name="__codelineno-22-13"></a><span class="p">|</span><span class="w"> </span><span class="k">summarize</span><span class="w"> </span><span class="n">Count</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">count</span><span class="p">()</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">ruleId_s</span><span class="p">,</span><span class="w"> </span><span class="n">clientIp_s</span><span class="p">,</span><span class="w"> </span><span class="n">requestUri_s</span>
+</span><span id="__span-22-14"><a href="#__codelineno-22-14" id="__codelineno-22-14" name="__codelineno-22-14"></a><span class="p">|</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Count</span><span class="w"> </span><span class="n">desc</span>
+</span><span id="__span-22-15"><a href="#__codelineno-22-15" id="__codelineno-22-15" name="__codelineno-22-15"></a>
+</span><span id="__span-22-16"><a href="#__codelineno-22-16" id="__codelineno-22-16" name="__codelineno-22-16"></a><span class="c">// HTTP 5xx errors</span>
+</span><span id="__span-22-17"><a href="#__codelineno-22-17" id="__codelineno-22-17" name="__codelineno-22-17"></a><span class="n">AzureDiagnostics</span>
+</span><span id="__span-22-18"><a href="#__codelineno-22-18" id="__codelineno-22-18" name="__codelineno-22-18"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="s">"ApplicationGatewayAccessLog"</span>
+</span><span id="__span-22-19"><a href="#__codelineno-22-19" id="__codelineno-22-19" name="__codelineno-22-19"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">httpStatus_d</span><span class="w"> </span><span class="p">&gt;=</span><span class="w"> </span><span class="mi">500</span>
+</span><span id="__span-22-20"><a href="#__codelineno-22-20" id="__codelineno-22-20" name="__codelineno-22-20"></a><span class="p">|</span><span class="w"> </span><span class="k">project</span><span class="w"> </span><span class="n">TimeGenerated</span><span class="p">,</span><span class="w"> </span><span class="n">httpStatus_d</span><span class="p">,</span><span class="w"> </span><span class="n">requestUri_s</span><span class="p">,</span><span class="w"> </span><span class="n">backendSettingName_s</span><span class="p">,</span><span class="w"> </span><span class="n">clientIp_s</span>
+</span><span id="__span-22-21"><a href="#__codelineno-22-21" id="__codelineno-22-21" name="__codelineno-22-21"></a><span class="p">|</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">TimeGenerated</span><span class="w"> </span><span class="n">desc</span>
+</span></code></pre></div>
+<h3 id="alertas">Alertas</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a href="#__codelineno-23-1" id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="c1"># Alerta: unhealthy backend</span>
+</span><span id="__span-23-2"><a href="#__codelineno-23-2" id="__codelineno-23-2" name="__codelineno-23-2"></a>az<span class="w"> </span>monitor<span class="w"> </span>metrics<span class="w"> </span>alert<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-3"><a href="#__codelineno-23-3" id="__codelineno-23-3" name="__codelineno-23-3"></a><span class="w">  </span>--name<span class="w"> </span>alert-appgw-unhealthy-backend<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-4"><a href="#__codelineno-23-4" id="__codelineno-23-4" name="__codelineno-23-4"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-5"><a href="#__codelineno-23-5" id="__codelineno-23-5" name="__codelineno-23-5"></a><span class="w">  </span>--scopes<span class="w"> </span>/subscriptions/<span class="nv">$SUB_ID</span>/resourceGroups/<span class="nv">$RESOURCE_GROUP</span>/providers/Microsoft.Network/applicationGateways/<span class="nv">$APPGW_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-6"><a href="#__codelineno-23-6" id="__codelineno-23-6" name="__codelineno-23-6"></a><span class="w">  </span>--condition<span class="w"> </span><span class="s2">"avg UnhealthyHostCount &gt; 0"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-7"><a href="#__codelineno-23-7" id="__codelineno-23-7" name="__codelineno-23-7"></a><span class="w">  </span>--window-size<span class="w"> </span>5m<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-8"><a href="#__codelineno-23-8" id="__codelineno-23-8" name="__codelineno-23-8"></a><span class="w">  </span>--evaluation-frequency<span class="w"> </span>1m<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-9"><a href="#__codelineno-23-9" id="__codelineno-23-9" name="__codelineno-23-9"></a><span class="w">  </span>--action<span class="w"> </span><span class="nv">$ACTION_GROUP_ID</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-10"><a href="#__codelineno-23-10" id="__codelineno-23-10" name="__codelineno-23-10"></a><span class="w">  </span>--severity<span class="w"> </span><span class="m">1</span>
+</span><span id="__span-23-11"><a href="#__codelineno-23-11" id="__codelineno-23-11" name="__codelineno-23-11"></a>
+</span><span id="__span-23-12"><a href="#__codelineno-23-12" id="__codelineno-23-12" name="__codelineno-23-12"></a><span class="c1"># Alerta: WAF blocking spike</span>
+</span><span id="__span-23-13"><a href="#__codelineno-23-13" id="__codelineno-23-13" name="__codelineno-23-13"></a>az<span class="w"> </span>monitor<span class="w"> </span>metrics<span class="w"> </span>alert<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-14"><a href="#__codelineno-23-14" id="__codelineno-23-14" name="__codelineno-23-14"></a><span class="w">  </span>--name<span class="w"> </span>alert-appgw-waf-blocks<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-15"><a href="#__codelineno-23-15" id="__codelineno-23-15" name="__codelineno-23-15"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-16"><a href="#__codelineno-23-16" id="__codelineno-23-16" name="__codelineno-23-16"></a><span class="w">  </span>--scopes<span class="w"> </span>/subscriptions/<span class="nv">$SUB_ID</span>/resourceGroups/<span class="nv">$RESOURCE_GROUP</span>/providers/Microsoft.Network/applicationGateways/<span class="nv">$APPGW_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-17"><a href="#__codelineno-23-17" id="__codelineno-23-17" name="__codelineno-23-17"></a><span class="w">  </span>--condition<span class="w"> </span><span class="s2">"total BlockedCount &gt; 100"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-18"><a href="#__codelineno-23-18" id="__codelineno-23-18" name="__codelineno-23-18"></a><span class="w">  </span>--window-size<span class="w"> </span>5m<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-19"><a href="#__codelineno-23-19" id="__codelineno-23-19" name="__codelineno-23-19"></a><span class="w">  </span>--action<span class="w"> </span><span class="nv">$ACTION_GROUP_ID</span>
+</span></code></pre></div>
+<hr>
+<h2 id="buenas-practicas">Buenas prácticas</h2>
+<p><strong>Security:</strong>
+- ✅ WAF en Prevention mode (no solo Detection)
+- ✅ Rate limiting custom rules (proteger APIs)
+- ✅ Geo-blocking si app es regional
+- ✅ SSL certificates en Key Vault (auto-renewal)
+- ✅ TLS 1.2+ only (disable TLS 1.0/1.1)</p>
+<p><strong>Performance:</strong>
+- ✅ Autoscaling habilitado (min 2, max 10+)
+- ✅ Connection draining (evitar 502 en deployments)
+- ✅ Custom health probes (no default)
+- ✅ HTTP/2 enabled</p>
+<p><strong>Resiliency:</strong>
+- ✅ Multiple backend pools (redundancia)
+- ✅ Health probes con threshold 3
+- ✅ Timeout adecuado por backend (API: 60s, Web: 30s)</p>
+<p><strong>Cost optimization:</strong>
+- ✅ WAF_v2 vs Standard_v2 (solo si necesitas WAF)
+- ✅ Autoscaling scale-to-zero en dev/test
+- ✅ Reservations para producción (30-40% descuento)</p>
+<hr>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="problema-502-bad-gateway">Problema: 502 Bad Gateway</h3>
+<p><strong>Causas comunes:</strong>
+1. Backend unhealthy (health probe failing)
+2. NSG bloqueando tráfico
+3. Backend timeout</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a href="#__codelineno-24-1" id="__codelineno-24-1" name="__codelineno-24-1"></a><span class="c1"># Verificar backend health</span>
+</span><span id="__span-24-2"><a href="#__codelineno-24-2" id="__codelineno-24-2" name="__codelineno-24-2"></a>az<span class="w"> </span>network<span class="w"> </span>application-gateway<span class="w"> </span>show-backend-health<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-24-3"><a href="#__codelineno-24-3" id="__codelineno-24-3" name="__codelineno-24-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-24-4"><a href="#__codelineno-24-4" id="__codelineno-24-4" name="__codelineno-24-4"></a><span class="w">  </span>--name<span class="w"> </span><span class="nv">$APPGW_NAME</span>
+</span><span id="__span-24-5"><a href="#__codelineno-24-5" id="__codelineno-24-5" name="__codelineno-24-5"></a>
+</span><span id="__span-24-6"><a href="#__codelineno-24-6" id="__codelineno-24-6" name="__codelineno-24-6"></a><span class="c1"># Ver logs</span>
+</span><span id="__span-24-7"><a href="#__codelineno-24-7" id="__codelineno-24-7" name="__codelineno-24-7"></a>az<span class="w"> </span>monitor<span class="w"> </span>activity-log<span class="w"> </span>list<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-24-8"><a href="#__codelineno-24-8" id="__codelineno-24-8" name="__codelineno-24-8"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-24-9"><a href="#__codelineno-24-9" id="__codelineno-24-9" name="__codelineno-24-9"></a><span class="w">  </span>--resource-id<span class="w"> </span>/subscriptions/<span class="nv">$SUB_ID</span>/resourceGroups/<span class="nv">$RESOURCE_GROUP</span>/providers/Microsoft.Network/applicationGateways/<span class="nv">$APPGW_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-24-10"><a href="#__codelineno-24-10" id="__codelineno-24-10" name="__codelineno-24-10"></a><span class="w">  </span>--start-time<span class="w"> </span><span class="m">2025</span>-05-15T00:00:00Z
+</span></code></pre></div>
+<h3 id="problema-waf-bloqueando-trafico-legitimo">Problema: WAF bloqueando tráfico legítimo</h3>
+<div class="language-kusto highlight"><pre><span></span><code><span id="__span-25-1"><a href="#__codelineno-25-1" id="__codelineno-25-1" name="__codelineno-25-1"></a><span class="c">// Identificar regla problemática</span>
+</span><span id="__span-25-2"><a href="#__codelineno-25-2" id="__codelineno-25-2" name="__codelineno-25-2"></a><span class="n">AzureDiagnostics</span>
+</span><span id="__span-25-3"><a href="#__codelineno-25-3" id="__codelineno-25-3" name="__codelineno-25-3"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="s">"ApplicationGatewayFirewallLog"</span>
+</span><span id="__span-25-4"><a href="#__codelineno-25-4" id="__codelineno-25-4" name="__codelineno-25-4"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">action_s</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="s">"Blocked"</span>
+</span><span id="__span-25-5"><a href="#__codelineno-25-5" id="__codelineno-25-5" name="__codelineno-25-5"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">clientIp_s</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="s">"&lt;IP-legitima&gt;"</span>
+</span><span id="__span-25-6"><a href="#__codelineno-25-6" id="__codelineno-25-6" name="__codelineno-25-6"></a><span class="p">|</span><span class="w"> </span><span class="k">summarize</span><span class="w"> </span><span class="n">Count</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">count</span><span class="p">()</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">ruleId_s</span><span class="p">,</span><span class="w"> </span><span class="n">message_s</span>
+</span></code></pre></div>
+<p><strong>Fix:</strong> Agregar exclusion o deshabilitar regla específica</p>
+<hr>
+<h2 id="costes">Costes</h2>
+<p><strong>Pricing Application Gateway:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a href="#__codelineno-26-1" id="__codelineno-26-1" name="__codelineno-26-1"></a>WAF_v2:
+</span><span id="__span-26-2"><a href="#__codelineno-26-2" id="__codelineno-26-2" name="__codelineno-26-2"></a>- Gateway: $0.443/hora (~$320/mes)
+</span><span id="__span-26-3"><a href="#__codelineno-26-3" id="__codelineno-26-3" name="__codelineno-26-3"></a>- Capacity Unit (CU): $0.008/hora por CU
+</span><span id="__span-26-4"><a href="#__codelineno-26-4" id="__codelineno-26-4" name="__codelineno-26-4"></a>- Data processed: $0.008/GB
+</span><span id="__span-26-5"><a href="#__codelineno-26-5" id="__codelineno-26-5" name="__codelineno-26-5"></a>
+</span><span id="__span-26-6"><a href="#__codelineno-26-6" id="__codelineno-26-6" name="__codelineno-26-6"></a>Ejemplo producción:
+</span><span id="__span-26-7"><a href="#__codelineno-26-7" id="__codelineno-26-7" name="__codelineno-26-7"></a>- Gateway base: $320/mes
+</span><span id="__span-26-8"><a href="#__codelineno-26-8" id="__codelineno-26-8" name="__codelineno-26-8"></a>- 5 CUs promedio: $288/mes (5 × 0.008 × 720h)
+</span><span id="__span-26-9"><a href="#__codelineno-26-9" id="__codelineno-26-9" name="__codelineno-26-9"></a>- 1 TB data: $8/mes
+</span><span id="__span-26-10"><a href="#__codelineno-26-10" id="__codelineno-26-10" name="__codelineno-26-10"></a>Total: ~$616/mes
+</span><span id="__span-26-11"><a href="#__codelineno-26-11" id="__codelineno-26-11" name="__codelineno-26-11"></a>
+</span><span id="__span-26-12"><a href="#__codelineno-26-12" id="__codelineno-26-12" name="__codelineno-26-12"></a>Con autoscaling (2-10 instances):
+</span><span id="__span-26-13"><a href="#__codelineno-26-13" id="__codelineno-26-13" name="__codelineno-26-13"></a>- Min (2 CUs): ~$435/mes
+</span><span id="__span-26-14"><a href="#__codelineno-26-14" id="__codelineno-26-14" name="__codelineno-26-14"></a>- Max (20 CUs): ~$1,476/mes
+</span><span id="__span-26-15"><a href="#__codelineno-26-15" id="__codelineno-26-15" name="__codelineno-26-15"></a>- Promedio: ~$750/mes
+</span></code></pre></div>
+<hr>
+<h2 id="referencias">Referencias</h2>
+<ul>
+<li><a href="https://learn.microsoft.com/azure/application-gateway/">Application Gateway Documentation</a></li>
+<li><a href="https://learn.microsoft.com/azure/web-application-firewall/ag/ag-overview">WAF on Application Gateway</a></li>
+<li><a href="https://learn.microsoft.com/azure/application-gateway/ingress-controller-overview">AGIC Documentation</a></li>
+<li><a href="https://learn.microsoft.com/azure/application-gateway/application-gateway-ssl-policy-overview">SSL Policy</a></li>
+</ul>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2023-now Rafael Fernández
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://www.linkedin.com/in/rafaelfernandezd/" rel="noopener" target="_blank" title="LinkedIn">
+<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"></path></svg>
+</a>
+<a class="md-social__link" href="https://github.com/rfernandezdo" rel="noopener" target="_blank" title="GitHub">
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="https://rfernandezdo.github.io/feed_rss_created.xml" rel="noopener" target="_blank" title="RSS feed">
+<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M64 32C28.7 32 0 60.7 0 96v320c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64zm32 104c0-13.3 10.7-24 24-24 137 0 248 111 248 248 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-110.5-89.5-200-200-200-13.3 0-24-10.7-24-24m0 96c0-13.3 10.7-24 24-24 83.9 0 152 68.1 152 152 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-57.4-46.6-104-104-104-13.3 0-24-10.7-24-24m0 120a32 32 0 1 1 64 0 32 32 0 1 1-64 0"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tabs", "navigation.tabs.sticky", "navigation.expand", "navigation.sections", "navigation.top", "navigation.tracking", "toc.integrate", "toc.nested", "toc.smoothscroll", "footer", "content.code.copy", "content.code.select", "content.code.annotate", "content.tooltips"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../../../javascripts/tablesort.js"></script>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.mermaidConfig = {default: {
+    startOnLoad: false
+}};</script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

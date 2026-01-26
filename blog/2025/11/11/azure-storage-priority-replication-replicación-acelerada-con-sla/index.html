@@ -1,0 +1,2887 @@
+<!DOCTYPE html><html class="no-js" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width,initial-scale=1" name="viewport">
+<meta content="A blog about Azure, DevOps and other stuff" name="description">
+<meta content="Rafael Fernández" name="author">
+<link href="https://rfernandezdo.github.io/blog/2025/11/11/azure-storage-priority-replication-replicaci%C3%B3n-acelerada-con-sla/" rel="canonical">
+<link href="../../07/configurar-vscode-con-github-copilot-gu%C3%ADa-pr%C3%A1ctica/" rel="prev">
+<link href="../../16/clonar-un-repositorio-de-github-de-una-organizaci%C3%B3n-a-otra-gu%C3%ADa-paso-a-paso/" rel="next">
+<link href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=es&amp;_x_tr_hl=es&amp;_x_tr_pto=wapp" hreflang="en" rel="alternate">
+<link href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=en&amp;_x_tr_hl=en&amp;_x_tr_pto=wapp" hreflang="es" rel="alternate">
+<link href="../../../../../feed_rss_created.xml" rel="alternate" title="RSS feed" type="application/rss+xml">
+<link href="../../../../../feed_rss_updated.xml" rel="alternate" title="RSS feed of updated content" type="application/rss+xml">
+<link href="../../../../../assets/images/favicon.png" rel="icon">
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.1" name="generator">
+<title>Azure Storage Priority Replication: Replicación acelerada con SLA - Un Rinconcito donde contar lo que quiera</title>
+<link href="../../../../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet">
+<link href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet">
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<meta content="website" property="og:type">
+<meta content="Azure Storage Priority Replication: Replicación acelerada con SLA - Un Rinconcito donde contar lo que quiera" property="og:title">
+<meta content="A blog about Azure, DevOps and other stuff" property="og:description">
+<meta content="https://rfernandezdo.github.io/assets/images/social/blog/2025/11/11/azure-storage-priority-replication-replicaci%C3%B3n-acelerada-con-sla.png" property="og:image">
+<meta content="image/png" property="og:image:type">
+<meta content="1200" property="og:image:width">
+<meta content="630" property="og:image:height">
+<meta content="https://rfernandezdo.github.io/blog/2025/11/11/azure-storage-priority-replication-replicaci%C3%B3n-acelerada-con-sla/" property="og:url">
+<meta content="summary_large_image" property="twitter:card">
+<meta content="Azure Storage Priority Replication: Replicación acelerada con SLA - Un Rinconcito donde contar lo que quiera" property="twitter:title">
+<meta content="A blog about Azure, DevOps and other stuff" property="twitter:description">
+<meta content="https://rfernandezdo.github.io/assets/images/social/blog/2025/11/11/azure-storage-priority-replication-replicaci%C3%B3n-acelerada-con-sla.png" property="twitter:image">
+<link href="../../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+<body data-md-color-accent="blue" data-md-color-primary="blue" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox">
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox">
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#azure-storage-priority-replication-replicacion-acelerada-con-sla">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Un Rinconcito donde contar lo que quiera" class="md-header__button md-logo" data-md-component="logo" href="../../../../.." title="Un Rinconcito donde contar lo que quiera">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Un Rinconcito donde contar lo que quiera
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Azure Storage Priority Replication: Replicación acelerada con SLA
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="blue" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio">
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="black" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio">
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="Select language" class="md-header__button md-icon">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=es&amp;_x_tr_hl=es&amp;_x_tr_pto=wapp" hreflang="en">
+              English
+            </a>
+</li>
+<li class="md-select__item">
+<a class="md-select__link" href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=en&amp;_x_tr_hl=en&amp;_x_tr_pto=wapp" hreflang="es">
+              Spanish
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text">
+<label class="md-search__icon md-icon" for="__search">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../../../">
+          
+  
+  
+  Blog
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../..">
+        
+  
+  
+    
+  
+  About
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../../contributions/">
+        
+  
+  
+    
+  
+  Contributions
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../../Azure/Security/MCSB/Readme/">
+          
+  
+  
+  Azure
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../../Tools/Federated_Identity_Credentials_Report/README-federated-identity-credentials/">
+          
+  
+  
+  Tools
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden="">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Un Rinconcito donde contar lo que quiera" class="md-nav__button md-logo" data-md-component="logo" href="../../../../.." title="Un Rinconcito donde contar lo que quiera">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    Un Rinconcito donde contar lo que quiera
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_1" type="checkbox">
+<label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_1_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Blog
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active">
+<a class="md-nav__link" href="../../../../">
+<span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../tags/">
+<span class="md-ellipsis">
+    
+  
+    Posts by Tags
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_1_3" type="checkbox">
+<label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Archive
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Archive
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../12/">
+<span class="md-ellipsis">
+    
+  
+    2025/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    2025/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../10/">
+<span class="md-ellipsis">
+    
+  
+    2025/10
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../09/">
+<span class="md-ellipsis">
+    
+  
+    2025/09
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../08/">
+<span class="md-ellipsis">
+    
+  
+    2025/08
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../07/">
+<span class="md-ellipsis">
+    
+  
+    2025/07
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../06/">
+<span class="md-ellipsis">
+    
+  
+    2025/06
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../05/">
+<span class="md-ellipsis">
+    
+  
+    2025/05
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../04/">
+<span class="md-ellipsis">
+    
+  
+    2025/04
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../03/">
+<span class="md-ellipsis">
+    
+  
+    2025/03
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../02/">
+<span class="md-ellipsis">
+    
+  
+    2025/02
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../01/">
+<span class="md-ellipsis">
+    
+  
+    2025/01
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/12/">
+<span class="md-ellipsis">
+    
+  
+    2024/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/11/">
+<span class="md-ellipsis">
+    
+  
+    2024/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/10/">
+<span class="md-ellipsis">
+    
+  
+    2024/10
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/09/">
+<span class="md-ellipsis">
+    
+  
+    2024/09
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/06/">
+<span class="md-ellipsis">
+    
+  
+    2024/06
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/05/">
+<span class="md-ellipsis">
+    
+  
+    2024/05
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/04/">
+<span class="md-ellipsis">
+    
+  
+    2024/04
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/03/">
+<span class="md-ellipsis">
+    
+  
+    2024/03
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/02/">
+<span class="md-ellipsis">
+    
+  
+    2024/02
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2023/12/">
+<span class="md-ellipsis">
+    
+  
+    2023/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2023/11/">
+<span class="md-ellipsis">
+    
+  
+    2023/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2023/10/">
+<span class="md-ellipsis">
+    
+  
+    2023/10
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_1_4" type="checkbox">
+<label class="md-nav__link" for="__nav_1_4" id="__nav_1_4_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Categories
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Categories
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure/">
+<span class="md-ellipsis">
+    
+  
+    Azure
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-ad/">
+<span class="md-ellipsis">
+    
+  
+    Azure AD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-automation/">
+<span class="md-ellipsis">
+    
+  
+    Azure Automation
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-devops/">
+<span class="md-ellipsis">
+    
+  
+    Azure DevOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-frameworks/">
+<span class="md-ellipsis">
+    
+  
+    Azure Frameworks
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-governance/">
+<span class="md-ellipsis">
+    
+  
+    Azure Governance
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-networking/">
+<span class="md-ellipsis">
+    
+  
+    Azure Networking
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-security/">
+<span class="md-ellipsis">
+    
+  
+    Azure Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-services/">
+<span class="md-ellipsis">
+    
+  
+    Azure Services
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-updates/">
+<span class="md-ellipsis">
+    
+  
+    Azure Updates
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/caf/">
+<span class="md-ellipsis">
+    
+  
+    CAF
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/cicd/">
+<span class="md-ellipsis">
+    
+  
+    CI/CD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/devops/">
+<span class="md-ellipsis">
+    
+  
+    DevOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/development/">
+<span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/drift-detection/">
+<span class="md-ellipsis">
+    
+  
+    Drift Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/english/">
+<span class="md-ellipsis">
+    
+  
+    English
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/enterprise-policy-as-code/">
+<span class="md-ellipsis">
+    
+  
+    Enterprise Policy as Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/finops/">
+<span class="md-ellipsis">
+    
+  
+    FinOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/firewall/">
+<span class="md-ellipsis">
+    
+  
+    Firewall
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/gtd/">
+<span class="md-ellipsis">
+    
+  
+    GTD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/git/">
+<span class="md-ellipsis">
+    
+  
+    Git
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/github-actions/">
+<span class="md-ellipsis">
+    
+  
+    GitHub Actions
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/hashicorp/">
+<span class="md-ellipsis">
+    
+  
+    HashiCorp
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/hello_world/">
+<span class="md-ellipsis">
+    
+  
+    Hello_World
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/infrastructure-as-code/">
+<span class="md-ellipsis">
+    
+  
+    Infrastructure as Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/learning/">
+<span class="md-ellipsis">
+    
+  
+    Learning
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/m365/">
+<span class="md-ellipsis">
+    
+  
+    M365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/microsoft-365/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft 365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/microsoft-entra/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/microsoft-entra-external-id/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra External ID
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/microsoft-entra-id/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra ID
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/networking/">
+<span class="md-ellipsis">
+    
+  
+    Networking
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/outlook/">
+<span class="md-ellipsis">
+    
+  
+    Outlook
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/pim/">
+<span class="md-ellipsis">
+    
+  
+    PIM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/power-automate/">
+<span class="md-ellipsis">
+    
+  
+    Power Automate
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/power-bi/">
+<span class="md-ellipsis">
+    
+  
+    Power BI
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/productividad/">
+<span class="md-ellipsis">
+    
+  
+    Productividad
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/productividad--microsoft-365/">
+<span class="md-ellipsis">
+    
+  
+    Productividad / Microsoft 365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/security/">
+<span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/seguridad/">
+<span class="md-ellipsis">
+    
+  
+    Seguridad
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/snowflake/">
+<span class="md-ellipsis">
+    
+  
+    Snowflake
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/terraform/">
+<span class="md-ellipsis">
+    
+  
+    Terraform
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/threat-intelligence/">
+<span class="md-ellipsis">
+    
+  
+    Threat Intelligence
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/tools/">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/troubleshooting/">
+<span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/visual-studio-code/">
+<span class="md-ellipsis">
+    
+  
+    Visual Studio Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/viva-insights/">
+<span class="md-ellipsis">
+    
+  
+    Viva Insights
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/windows/">
+<span class="md-ellipsis">
+    
+  
+    Windows
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../..">
+<span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../contributions/">
+<span class="md-ellipsis">
+    
+  
+    Contributions
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4" type="checkbox">
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Azure
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Azure
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Security
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1_1" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1_1" id="__nav_4_1_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    MCSB v1
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_4_1_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    MCSB v1
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Readme/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Readme
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Asset%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Asset Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Backup%20and%20Recovery/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Backup and Recovery
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Data%20Protection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Data Protection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/DevOps%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - DevOps Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Endpoint%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Endpoint Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Governance%20and%20Strategy/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Governance and Strategy
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Identity%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Identity Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Incident%20Response/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Incident Response
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Logging%20and%20Threat%20Detection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Logging and Threat Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Network%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Network Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Posture%20and%20Vulnerability%20Mgmt/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Posture and Vulnerability Mgmt
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Privileged%20Access/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Privileged Access
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1_2" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1_2" id="__nav_4_1_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_4_1_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    MCSB v2
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Index/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Cloud Security Benchmark v2
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Network%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Network Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Identity%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Identity Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Privileged%20Access/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Privileged Access
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Data%20Protection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Data Protection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Asset%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Asset Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Logging%20and%20Threat%20Detection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Logging and Threat Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Incident%20Response/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Incident Response
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Posture%20and%20Vulnerability%20Manag/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Posture and Vulnerability Manag
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Endpoint%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Endpoint Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Backup%20and%20Recovery/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Backup and Recovery
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Artificial%20Intelligence%20Securit/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Artificial Intelligence Securit
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5" type="checkbox">
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Tools
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5_1" type="checkbox">
+<label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Federated Identity Credentials Report
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_1_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Federated Identity Credentials Report
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Tools/Federated_Identity_Credentials_Report/README-federated-identity-credentials/">
+<span class="md-ellipsis">
+    
+  
+    Script de Reporte para Federated Identity Credentials
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5_2" type="checkbox">
+<label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Analyze Virtual Network Flows
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Analyze Virtual Network Flows
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Tools/Analyze_Virtual_Network_Flows/">
+<span class="md-ellipsis">
+    
+  
+    Analyze-VNETFlowLogs
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content md-content--post" data-md-component="content">
+<div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner md-post">
+<nav class="md-nav md-nav--primary">
+<div class="md-post__back">
+<div class="md-nav__title md-nav__container">
+<a class="md-nav__link" href="../../../../">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+<span class="md-ellipsis">
+                    Back to index
+                  </span>
+</a>
+</div>
+</div>
+<div class="md-post__authors md-typeset">
+<div class="md-profile md-post__profile">
+<span class="md-author md-author--long">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+<span class="md-profile__description">
+<strong>
+                        
+                          Rafael Fernández
+                        
+                      </strong>
+<br>
+                      Creator
+                    </span>
+</div>
+</div>
+<ul class="md-post__meta md-nav__list">
+<li class="md-nav__item md-nav__item--section">
+<div class="md-post__title">
+<span class="md-ellipsis">
+                    Metadata
+                  </span>
+</div>
+<nav class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<div class="md-nav__link">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"></path></svg>
+<time class="md-ellipsis" datetime="2025-11-11 00:00:00+00:00">November 11, 2025</time>
+</div>
+</li>
+<li class="md-nav__item">
+<div class="md-nav__link">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"></path></svg>
+<span class="md-ellipsis">
+                            in
+                            
+                              <a href="../../../../category/azure-services/">Azure Services</a></span>
+</div>
+</li>
+<li class="md-nav__item">
+<div class="md-nav__link">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"></path></svg>
+<span class="md-ellipsis">
+                            
+                              9 min read
+                            
+                          </span>
+</div>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#resumen">
+<span class="md-ellipsis">
+      
+        Resumen
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#que-es-priority-replication">
+<span class="md-ellipsis">
+      
+        ¿Qué es Priority Replication?
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#geo-priority-replication">
+<span class="md-ellipsis">
+      
+        Geo Priority Replication
+      
+    </span>
+</a>
+<nav aria-label="Geo Priority Replication" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#disponibilidad-y-limitaciones">
+<span class="md-ellipsis">
+      
+        Disponibilidad y limitaciones
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#beneficios-principales">
+<span class="md-ellipsis">
+      
+        Beneficios principales
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exclusiones-del-sla">
+<span class="md-ellipsis">
+      
+        Exclusiones del SLA
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#habilitar-geo-priority-replication">
+<span class="md-ellipsis">
+      
+        Habilitar Geo Priority Replication
+      
+    </span>
+</a>
+<nav aria-label="Habilitar Geo Priority Replication" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#durante-creacion-de-cuenta-nueva">
+<span class="md-ellipsis">
+      
+        Durante creación de cuenta nueva
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#en-cuentas-existentes">
+<span class="md-ellipsis">
+      
+        En cuentas existentes
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#monitorear-cumplimiento-con-geo-blob-lag">
+<span class="md-ellipsis">
+      
+        Monitorear cumplimiento con Geo Blob Lag
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#object-replication-priority">
+<span class="md-ellipsis">
+      
+        Object Replication Priority
+      
+    </span>
+</a>
+<nav aria-label="Object Replication Priority" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#disponibilidad">
+<span class="md-ellipsis">
+      
+        Disponibilidad
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#beneficios-principales_1">
+<span class="md-ellipsis">
+      
+        Beneficios principales
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exclusiones-del-sla_1">
+<span class="md-ellipsis">
+      
+        Exclusiones del SLA
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#habilitar-object-replication-priority">
+<span class="md-ellipsis">
+      
+        Habilitar Object Replication Priority
+      
+    </span>
+</a>
+<nav aria-label="Habilitar Object Replication Priority" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#durante-creacion-de-nueva-policy">
+<span class="md-ellipsis">
+      
+        Durante creación de nueva policy
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#en-policies-existentes">
+<span class="md-ellipsis">
+      
+        En policies existentes
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#monitorear-sla-de-object-replication">
+<span class="md-ellipsis">
+      
+        Monitorear SLA de Object Replication
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#precios">
+<span class="md-ellipsis">
+      
+        Precios
+      
+    </span>
+</a>
+<nav aria-label="Precios" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#geo-priority-replication_1">
+<span class="md-ellipsis">
+      
+        Geo Priority Replication
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#object-replication-priority_1">
+<span class="md-ellipsis">
+      
+        Object Replication Priority
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#casos-de-uso">
+<span class="md-ellipsis">
+      
+        Casos de uso
+      
+    </span>
+</a>
+<nav aria-label="Casos de uso" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cumplimiento-normativo-estricto">
+<span class="md-ellipsis">
+      
+        Cumplimiento normativo estricto
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#disaster-recovery-con-rtorpo-garantizados">
+<span class="md-ellipsis">
+      
+        Disaster Recovery con RTO/RPO garantizados
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#arquitectura-multi-region-con-ha">
+<span class="md-ellipsis">
+      
+        Arquitectura multi-región con HA
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#sincronizacion-de-entornos-devtest">
+<span class="md-ellipsis">
+      
+        Sincronización de entornos Dev/Test
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#arquitectura-recomendada">
+<span class="md-ellipsis">
+      
+        Arquitectura recomendada
+      
+    </span>
+</a>
+<nav aria-label="Arquitectura recomendada" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#patron-geo-redundant-object-replication">
+<span class="md-ellipsis">
+      
+        Patrón Geo-Redundant + Object Replication
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#buenas-practicas">
+<span class="md-ellipsis">
+      
+        Buenas prácticas
+      
+    </span>
+</a>
+<nav aria-label="Buenas prácticas" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#diseno-de-cuenta">
+<span class="md-ellipsis">
+      
+        Diseño de cuenta
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#monitoreo-proactivo">
+<span class="md-ellipsis">
+      
+        Monitoreo proactivo
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#optimizacion-de-costes">
+<span class="md-ellipsis">
+      
+        Optimización de costes
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#seguridad">
+<span class="md-ellipsis">
+      
+        Seguridad
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#troubleshooting">
+<span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+</a>
+<nav aria-label="Troubleshooting" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#geo-blob-lag-15-minutos">
+<span class="md-ellipsis">
+      
+        Geo Blob Lag &gt; 15 minutos
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#or-metrics-no-aparecen">
+<span class="md-ellipsis">
+      
+        OR metrics no aparecen
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#sla-no-se-cumple">
+<span class="md-ellipsis">
+      
+        SLA no se cumple
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#referencias">
+<span class="md-ellipsis">
+      
+        Referencias
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag" href="../../../../tags/#tag:azure-storage">Azure Storage</a>
+<a class="md-tag" href="../../../../tags/#tag:business-continuity">Business Continuity</a>
+<a class="md-tag" href="../../../../tags/#tag:disaster-recovery">Disaster Recovery</a>
+<a class="md-tag" href="../../../../tags/#tag:geo-redundancy">Geo-Redundancy</a>
+<a class="md-tag" href="../../../../tags/#tag:object-replication">Object Replication</a>
+</nav>
+<h1 id="azure-storage-priority-replication-replicacion-acelerada-con-sla">Azure Storage Priority Replication: Replicación acelerada con SLA</h1>
+<h2 id="resumen">Resumen</h2>
+<p>Priority Replication acelera la replicación de datos en Azure Storage con SLA de 15 minutos para cumplir requisitos estrictos de RPO (Recovery Point Objective). Disponible para geo-redundancia (GRS/GZRS) y Object Replication entre cuentas.</p>
+<h2 id="que-es-priority-replication">¿Qué es Priority Replication?</h2>
+<p>Priority Replication es una capacidad de Azure Storage que <strong>prioriza el tráfico de replicación</strong> y proporciona <strong>garantías SLA</strong> para sincronización de datos entre regiones. Diseñada para escenarios donde el tiempo de replicación es crítico para cumplimiento y continuidad de negocio.</p>
+<p><strong>Dos variantes disponibles</strong>:</p>
+<ol>
+<li><strong>Geo Priority Replication</strong>: Para cuentas con GRS/GZRS (redundancia entre regiones)</li>
+<li><strong>Object Replication Priority</strong>: Para políticas de Object Replication entre cuentas</li>
+</ol>
+<p><strong>SLA clave</strong>: 99.0% del mes de facturación con Last Sync Time (LST) ≤ 15 minutos</p>
+<h2 id="geo-priority-replication">Geo Priority Replication</h2>
+<p>Acelera la replicación entre región primaria y secundaria para cuentas con GRS (Geo-Redundant Storage) o GZRS (Geo-Zone-Redundant Storage).</p>
+<h3 id="disponibilidad-y-limitaciones">Disponibilidad y limitaciones</h3>
+<p><strong>Regiones soportadas</strong>: Todas las regiones públicas con GRS/GZRS <strong>excepto</strong>:</p>
+<ul>
+<li>West India</li>
+<li>Switzerland West</li>
+</ul>
+<p><strong>Requisitos para GZRS</strong>:</p>
+<ul>
+<li>Región debe soportar Availability Zones</li>
+<li>Región debe tener paired region</li>
+</ul>
+<h3 id="beneficios-principales">Beneficios principales</h3>
+<ol>
+<li><strong>RPO garantizado</strong>: Confianza en tiempo de sincronización para cumplimiento</li>
+<li><strong>Failover sin sorpresas</strong>: LST predecible si ocurre failover no planificado</li>
+<li><strong>Monitoreo mejorado</strong>: Telemetría detallada vía Azure Monitor</li>
+<li><strong>SLA respaldado</strong>: Garantía de 99.0% del mes con lag ≤ 15 minutos</li>
+</ol>
+<h3 id="exclusiones-del-sla">Exclusiones del SLA</h3>
+<p>El SLA <strong>NO aplica</strong> en estos casos:</p>
+<p><strong>Por tipo de blob</strong>:</p>
+<ul>
+<li>Page blobs y append blobs (SLA solo para Block Blobs)</li>
+<li>Cuentas con llamadas API de Page/Append Blob en últimos 30 días</li>
+<li>Cuentas con features que crean estos blobs (Change Feed, Object Replication, logs en Azure Monitor)</li>
+</ul>
+<p><strong>Por condición de cuenta</strong>:</p>
+<ul>
+<li>LST &gt; 15 minutos durante habilitación de la feature</li>
+<li>Transfer rate &gt; 1 Gbps con backlog pendiente</li>
+<li>
+<blockquote>
+<p>100 CopyBlob requests/segundo con backlog pendiente</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>Por eventos operacionales</strong>:</p>
+<ul>
+<li>Unplanned failover (desactiva automáticamente la feature)</li>
+<li>Durante conversión GRS ↔ GZRS (no afecta si se mantiene dentro de guardrails)</li>
+</ul>
+<h3 id="habilitar-geo-priority-replication">Habilitar Geo Priority Replication</h3>
+<h4 id="durante-creacion-de-cuenta-nueva">Durante creación de cuenta nueva</h4>
+<p><strong>Azure CLI</strong>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1"># Variables</span>
+</span><span id="__span-0-2"><a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="nv">RESOURCE_GROUP</span><span class="o">=</span><span class="s2">"rg-storage-prod"</span>
+</span><span id="__span-0-3"><a href="#__codelineno-0-3" id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="nv">STORAGE_ACCOUNT</span><span class="o">=</span><span class="s2">"stgeopriorityprod"</span>
+</span><span id="__span-0-4"><a href="#__codelineno-0-4" id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="nv">LOCATION</span><span class="o">=</span><span class="s2">"westeurope"</span>
+</span><span id="__span-0-5"><a href="#__codelineno-0-5" id="__codelineno-0-5" name="__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a href="#__codelineno-0-6" id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="c1"># Crear cuenta con Geo Priority Replication</span>
+</span><span id="__span-0-7"><a href="#__codelineno-0-7" id="__codelineno-0-7" name="__codelineno-0-7"></a>az<span class="w"> </span>storage<span class="w"> </span>account<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-8"><a href="#__codelineno-0-8" id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="w">  </span>--name<span class="w"> </span><span class="nv">$STORAGE_ACCOUNT</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-9"><a href="#__codelineno-0-9" id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-10"><a href="#__codelineno-0-10" id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="w">  </span>--location<span class="w"> </span><span class="nv">$LOCATION</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-11"><a href="#__codelineno-0-11" id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="w">  </span>--sku<span class="w"> </span>Standard_GRS<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-12"><a href="#__codelineno-0-12" id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="w">  </span>--enable-blob-geo-priority-replication<span class="w"> </span><span class="nb">true</span>
+</span></code></pre></div>
+<p><strong>Azure PowerShell</strong>:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-1-1"><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="c"># Variables</span>
+</span><span id="__span-1-2"><a href="#__codelineno-1-2" id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="nv">$rgName</span> <span class="p">=</span> <span class="s2">"rg-storage-prod"</span>
+</span><span id="__span-1-3"><a href="#__codelineno-1-3" id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="nv">$storageAccountName</span> <span class="p">=</span> <span class="s2">"stgeopriorityprod"</span>
+</span><span id="__span-1-4"><a href="#__codelineno-1-4" id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="nv">$location</span> <span class="p">=</span> <span class="s2">"westeurope"</span>
+</span><span id="__span-1-5"><a href="#__codelineno-1-5" id="__codelineno-1-5" name="__codelineno-1-5"></a>
+</span><span id="__span-1-6"><a href="#__codelineno-1-6" id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="c"># Crear cuenta con Geo Priority Replication</span>
+</span><span id="__span-1-7"><a href="#__codelineno-1-7" id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="nv">$account</span> <span class="p">=</span> <span class="nb">New-AzStorageAccount</span> <span class="p">`</span>
+</span><span id="__span-1-8"><a href="#__codelineno-1-8" id="__codelineno-1-8" name="__codelineno-1-8"></a>  <span class="n">-ResourceGroupName</span> <span class="nv">$rgName</span> <span class="p">`</span>
+</span><span id="__span-1-9"><a href="#__codelineno-1-9" id="__codelineno-1-9" name="__codelineno-1-9"></a>  <span class="n">-StorageAccountName</span> <span class="nv">$storageAccountName</span> <span class="p">`</span>
+</span><span id="__span-1-10"><a href="#__codelineno-1-10" id="__codelineno-1-10" name="__codelineno-1-10"></a>  <span class="n">-SkuName</span> <span class="n">Standard_GRS</span> <span class="p">`</span>
+</span><span id="__span-1-11"><a href="#__codelineno-1-11" id="__codelineno-1-11" name="__codelineno-1-11"></a>  <span class="n">-Location</span> <span class="nv">$location</span> <span class="p">`</span>
+</span><span id="__span-1-12"><a href="#__codelineno-1-12" id="__codelineno-1-12" name="__codelineno-1-12"></a>  <span class="n">-EnableBlobGeoPriorityReplication</span> <span class="nv">$true</span>
+</span></code></pre></div>
+<h4 id="en-cuentas-existentes">En cuentas existentes</h4>
+<p><strong>Habilitar</strong>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1"># Azure CLI</span>
+</span><span id="__span-2-2"><a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a>az<span class="w"> </span>storage<span class="w"> </span>account<span class="w"> </span>update<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-3"><a href="#__codelineno-2-3" id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="w">  </span>--name<span class="w"> </span><span class="nv">$STORAGE_ACCOUNT</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-4"><a href="#__codelineno-2-4" id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-5"><a href="#__codelineno-2-5" id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="w">  </span>--enable-blob-geo-priority-replication<span class="w"> </span><span class="nb">true</span>
+</span></code></pre></div>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-3-1"><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="c"># PowerShell</span>
+</span><span id="__span-3-2"><a href="#__codelineno-3-2" id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="nb">Set-AzStorageAccount</span> <span class="p">`</span>
+</span><span id="__span-3-3"><a href="#__codelineno-3-3" id="__codelineno-3-3" name="__codelineno-3-3"></a>  <span class="n">-ResourceGroupName</span> <span class="nv">$rgName</span> <span class="p">`</span>
+</span><span id="__span-3-4"><a href="#__codelineno-3-4" id="__codelineno-3-4" name="__codelineno-3-4"></a>  <span class="n">-StorageAccountName</span> <span class="nv">$storageAccountName</span> <span class="p">`</span>
+</span><span id="__span-3-5"><a href="#__codelineno-3-5" id="__codelineno-3-5" name="__codelineno-3-5"></a>  <span class="n">-EnableBlobGeoPriorityReplication</span> <span class="nv">$true</span>
+</span></code></pre></div>
+<p><strong>Deshabilitar</strong>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="c1"># Azure CLI</span>
+</span><span id="__span-4-2"><a href="#__codelineno-4-2" id="__codelineno-4-2" name="__codelineno-4-2"></a>az<span class="w"> </span>storage<span class="w"> </span>account<span class="w"> </span>update<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-3"><a href="#__codelineno-4-3" id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="w">  </span>--name<span class="w"> </span><span class="nv">$STORAGE_ACCOUNT</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-4"><a href="#__codelineno-4-4" id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-5"><a href="#__codelineno-4-5" id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">  </span>--enable-blob-geo-priority-replication<span class="w"> </span><span class="nb">false</span>
+</span></code></pre></div>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-5-1"><a href="#__codelineno-5-1" id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="c"># PowerShell</span>
+</span><span id="__span-5-2"><a href="#__codelineno-5-2" id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="nb">Set-AzStorageAccount</span> <span class="p">`</span>
+</span><span id="__span-5-3"><a href="#__codelineno-5-3" id="__codelineno-5-3" name="__codelineno-5-3"></a>  <span class="n">-ResourceGroupName</span> <span class="nv">$rgName</span> <span class="p">`</span>
+</span><span id="__span-5-4"><a href="#__codelineno-5-4" id="__codelineno-5-4" name="__codelineno-5-4"></a>  <span class="n">-StorageAccountName</span> <span class="nv">$storageAccountName</span> <span class="p">`</span>
+</span><span id="__span-5-5"><a href="#__codelineno-5-5" id="__codelineno-5-5" name="__codelineno-5-5"></a>  <span class="n">-EnableBlobGeoPriorityReplication</span> <span class="nv">$false</span>
+</span></code></pre></div>
+<h3 id="monitorear-cumplimiento-con-geo-blob-lag">Monitorear cumplimiento con Geo Blob Lag</h3>
+<p><strong>Métrica nueva (Preview)</strong>: <code>Geo Blob Lag</code> - segundos desde última copia completa entre regiones.</p>
+<p><strong>Habilitar preview</strong>:</p>
+<ol>
+<li>Azure Portal → Subscriptions → Preview features</li>
+<li>Feature: <code>AllowGeoPriorityReplicationMetricsInPortal</code></li>
+<li>Provider: <code>Microsoft.Storage</code></li>
+</ol>
+<p><strong>Acceder a métricas</strong>:</p>
+<ul>
+<li>Portal: Storage Account → <strong>Redundancy</strong> o <strong>Metrics</strong></li>
+<li>Métrica: <strong>Geo Blob Lag metric (preview)</strong></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Tiempo de activación</p>
+<p>Las métricas pueden tardar hasta <strong>24 horas</strong> en aparecer tras registrar la feature.</p>
+</div>
+<p><strong>Uso para validar SLA</strong>:</p>
+<p>Monitorear que el lag se mantiene ≤ 15 minutos durante el 99% del mes. Si excede, ese período se excluye del SLA.</p>
+<h2 id="object-replication-priority">Object Replication Priority</h2>
+<p>Acelera la replicación entre cuentas de storage usando Object Replication policies. Garantiza que 99.0% de objetos se replican en <strong>≤ 15 minutos</strong> cuando origen y destino están en el <strong>mismo continente</strong>.</p>
+<h3 id="disponibilidad">Disponibilidad</h3>
+<p><strong>Regiones soportadas</strong>: Todas las regiones públicas <strong>excepto</strong>:</p>
+<ul>
+<li>West India</li>
+<li>Switzerland West</li>
+</ul>
+<p><strong>Portal experience</strong> (Preview):</p>
+<ul>
+<li>Feature: <code>AllowPriorityObjectReplicationInPortal</code></li>
+<li>Provider: <code>Microsoft.Storage</code></li>
+</ul>
+<h3 id="beneficios-principales_1">Beneficios principales</h3>
+<ol>
+<li><strong>SLA de rendimiento</strong>: 99% de objetos en ≤ 15 minutos (mismo continente)</li>
+<li><strong>Métricas automáticas</strong>: Activación automática de OR metrics</li>
+<li><strong>Visibilidad mejorada</strong>: Time buckets (0-5 min, 5-10 min, &gt;24h)</li>
+<li><strong>DR garantizado</strong>: Confianza en tiempos para disaster recovery</li>
+</ol>
+<h3 id="exclusiones-del-sla_1">Exclusiones del SLA</h3>
+<p>El SLA <strong>NO aplica</strong> a:</p>
+<p><strong>Por características del objeto</strong>:</p>
+<ul>
+<li>Objetos &gt; 5 GB</li>
+<li>Objetos modificados &gt; 10 veces/segundo</li>
+</ul>
+<p><strong>Por geografía</strong>:</p>
+<ul>
+<li>Origen y destino en continentes diferentes</li>
+</ul>
+<p><strong>Por tamaño de cuenta</strong>:</p>
+<ul>
+<li>Cuentas &gt; 5 PB</li>
+<li>Cuentas con &gt; 10 mil millones de blobs</li>
+</ul>
+<p><strong>Por condiciones operativas</strong>:</p>
+<ul>
+<li>Transfer rate &gt; 1 Gbps con backlog pendiente</li>
+<li>
+<blockquote>
+<p>1,000 PUT/DELETE ops/segundo con backlog pendiente</p>
+</blockquote>
+</li>
+<li>Durante replicación de blobs existentes tras crear/actualizar policy</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Limitación de políticas</p>
+<p>Solo <strong>1 policy</strong> por cuenta origen puede tener Priority Replication habilitado (aunque la cuenta soporte hasta 2 policies).</p>
+</div>
+<h3 id="habilitar-object-replication-priority">Habilitar Object Replication Priority</h3>
+<h4 id="durante-creacion-de-nueva-policy">Durante creación de nueva policy</h4>
+<p><strong>Azure CLI</strong>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a href="#__codelineno-6-1" id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="c1"># Variables</span>
+</span><span id="__span-6-2"><a href="#__codelineno-6-2" id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="nv">SRC_ACCOUNT</span><span class="o">=</span><span class="s2">"stgsourceprod"</span>
+</span><span id="__span-6-3"><a href="#__codelineno-6-3" id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="nv">DST_ACCOUNT</span><span class="o">=</span><span class="s2">"stgdestinationdr"</span>
+</span><span id="__span-6-4"><a href="#__codelineno-6-4" id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="nv">SRC_CONTAINER</span><span class="o">=</span><span class="s2">"data"</span>
+</span><span id="__span-6-5"><a href="#__codelineno-6-5" id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="nv">DST_CONTAINER</span><span class="o">=</span><span class="s2">"data-replica"</span>
+</span><span id="__span-6-6"><a href="#__codelineno-6-6" id="__codelineno-6-6" name="__codelineno-6-6"></a>
+</span><span id="__span-6-7"><a href="#__codelineno-6-7" id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="c1"># Crear policy con Priority Replication</span>
+</span><span id="__span-6-8"><a href="#__codelineno-6-8" id="__codelineno-6-8" name="__codelineno-6-8"></a>az<span class="w"> </span>storage<span class="w"> </span>account<span class="w"> </span>or-policy<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-9"><a href="#__codelineno-6-9" id="__codelineno-6-9" name="__codelineno-6-9"></a><span class="w">  </span>--account-name<span class="w"> </span><span class="nv">$DST_ACCOUNT</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-10"><a href="#__codelineno-6-10" id="__codelineno-6-10" name="__codelineno-6-10"></a><span class="w">  </span>--source-account<span class="w"> </span><span class="nv">$SRC_ACCOUNT</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-11"><a href="#__codelineno-6-11" id="__codelineno-6-11" name="__codelineno-6-11"></a><span class="w">  </span>--destination-container<span class="w"> </span><span class="nv">$DST_CONTAINER</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-12"><a href="#__codelineno-6-12" id="__codelineno-6-12" name="__codelineno-6-12"></a><span class="w">  </span>--source-container<span class="w"> </span><span class="nv">$SRC_CONTAINER</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-13"><a href="#__codelineno-6-13" id="__codelineno-6-13" name="__codelineno-6-13"></a><span class="w">  </span>--min-creation-time<span class="w"> </span><span class="s2">"2025-11-11T00:00:00Z"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-14"><a href="#__codelineno-6-14" id="__codelineno-6-14" name="__codelineno-6-14"></a><span class="w">  </span>--enable-metrics<span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-15"><a href="#__codelineno-6-15" id="__codelineno-6-15" name="__codelineno-6-15"></a><span class="w">  </span>--priority-replication<span class="w"> </span><span class="nb">true</span>
+</span></code></pre></div>
+<p><strong>Azure PowerShell</strong>:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-7-1"><a href="#__codelineno-7-1" id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="c"># Variables</span>
+</span><span id="__span-7-2"><a href="#__codelineno-7-2" id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="nv">$rgName</span> <span class="p">=</span> <span class="s2">"rg-storage-prod"</span>
+</span><span id="__span-7-3"><a href="#__codelineno-7-3" id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="nv">$srcAccountName</span> <span class="p">=</span> <span class="s2">"stgsourceprod"</span>
+</span><span id="__span-7-4"><a href="#__codelineno-7-4" id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="nv">$dstAccountName</span> <span class="p">=</span> <span class="s2">"stgdestinationdr"</span>
+</span><span id="__span-7-5"><a href="#__codelineno-7-5" id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="nv">$srcAccountResourceID</span> <span class="p">=</span> <span class="s2">"/subscriptions/{sub-id}/resourceGroups/{rg}/providers/Microsoft.Storage/storageAccounts/$srcAccountName"</span>
+</span><span id="__span-7-6"><a href="#__codelineno-7-6" id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="nv">$srcContainer</span> <span class="p">=</span> <span class="s2">"data"</span>
+</span><span id="__span-7-7"><a href="#__codelineno-7-7" id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="nv">$dstContainer</span> <span class="p">=</span> <span class="s2">"data-replica"</span>
+</span><span id="__span-7-8"><a href="#__codelineno-7-8" id="__codelineno-7-8" name="__codelineno-7-8"></a>
+</span><span id="__span-7-9"><a href="#__codelineno-7-9" id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="c"># Crear regla y policy con Priority Replication</span>
+</span><span id="__span-7-10"><a href="#__codelineno-7-10" id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="nv">$rule</span> <span class="p">=</span> <span class="nb">New-AzStorageObjectReplicationPolicyRule</span> <span class="p">`</span>
+</span><span id="__span-7-11"><a href="#__codelineno-7-11" id="__codelineno-7-11" name="__codelineno-7-11"></a>  <span class="n">-SourceContainer</span> <span class="nv">$srcContainer</span> <span class="p">`</span>
+</span><span id="__span-7-12"><a href="#__codelineno-7-12" id="__codelineno-7-12" name="__codelineno-7-12"></a>  <span class="n">-DestinationContainer</span> <span class="nv">$dstContainer</span>
+</span><span id="__span-7-13"><a href="#__codelineno-7-13" id="__codelineno-7-13" name="__codelineno-7-13"></a>
+</span><span id="__span-7-14"><a href="#__codelineno-7-14" id="__codelineno-7-14" name="__codelineno-7-14"></a><span class="nv">$dstPolicy</span> <span class="p">=</span> <span class="nb">Set-AzStorageObjectReplicationPolicy</span> <span class="p">`</span>
+</span><span id="__span-7-15"><a href="#__codelineno-7-15" id="__codelineno-7-15" name="__codelineno-7-15"></a>  <span class="n">-ResourceGroupName</span> <span class="nv">$rgName</span> <span class="p">`</span>
+</span><span id="__span-7-16"><a href="#__codelineno-7-16" id="__codelineno-7-16" name="__codelineno-7-16"></a>  <span class="n">-StorageAccountName</span> <span class="nv">$dstAccountName</span> <span class="p">`</span>
+</span><span id="__span-7-17"><a href="#__codelineno-7-17" id="__codelineno-7-17" name="__codelineno-7-17"></a>  <span class="n">-PolicyId</span> <span class="k">default</span> <span class="p">`</span>
+</span><span id="__span-7-18"><a href="#__codelineno-7-18" id="__codelineno-7-18" name="__codelineno-7-18"></a>  <span class="n">-SourceAccount</span> <span class="nv">$srcAccountResourceID</span> <span class="p">`</span>
+</span><span id="__span-7-19"><a href="#__codelineno-7-19" id="__codelineno-7-19" name="__codelineno-7-19"></a>  <span class="n">-Rule</span> <span class="nv">$rule</span> <span class="p">`</span>
+</span><span id="__span-7-20"><a href="#__codelineno-7-20" id="__codelineno-7-20" name="__codelineno-7-20"></a>  <span class="n">-EnableMetric</span> <span class="nv">$true</span> <span class="p">`</span>
+</span><span id="__span-7-21"><a href="#__codelineno-7-21" id="__codelineno-7-21" name="__codelineno-7-21"></a>  <span class="n">-EnablePriorityReplication</span> <span class="nv">$true</span>
+</span><span id="__span-7-22"><a href="#__codelineno-7-22" id="__codelineno-7-22" name="__codelineno-7-22"></a>
+</span><span id="__span-7-23"><a href="#__codelineno-7-23" id="__codelineno-7-23" name="__codelineno-7-23"></a><span class="c"># Aplicar policy en cuenta origen</span>
+</span><span id="__span-7-24"><a href="#__codelineno-7-24" id="__codelineno-7-24" name="__codelineno-7-24"></a><span class="nv">$srcPolicy</span> <span class="p">=</span> <span class="nb">Set-AzStorageObjectReplicationPolicy</span> <span class="p">`</span>
+</span><span id="__span-7-25"><a href="#__codelineno-7-25" id="__codelineno-7-25" name="__codelineno-7-25"></a>  <span class="n">-ResourceGroupName</span> <span class="nv">$rgName</span> <span class="p">`</span>
+</span><span id="__span-7-26"><a href="#__codelineno-7-26" id="__codelineno-7-26" name="__codelineno-7-26"></a>  <span class="n">-StorageAccountName</span> <span class="nv">$srcAccountName</span> <span class="p">`</span>
+</span><span id="__span-7-27"><a href="#__codelineno-7-27" id="__codelineno-7-27" name="__codelineno-7-27"></a>  <span class="n">-InputObject</span> <span class="nv">$dstPolicy</span>
+</span><span id="__span-7-28"><a href="#__codelineno-7-28" id="__codelineno-7-28" name="__codelineno-7-28"></a>
+</span><span id="__span-7-29"><a href="#__codelineno-7-29" id="__codelineno-7-29" name="__codelineno-7-29"></a><span class="c"># Verificar habilitación</span>
+</span><span id="__span-7-30"><a href="#__codelineno-7-30" id="__codelineno-7-30" name="__codelineno-7-30"></a><span class="nv">$srcPolicy</span><span class="p">.</span><span class="n">PriorityReplication</span><span class="p">.</span><span class="n">Enabled</span>
+</span></code></pre></div>
+<h4 id="en-policies-existentes">En policies existentes</h4>
+<p><strong>Habilitar</strong>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a href="#__codelineno-8-1" id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="c1"># Azure CLI</span>
+</span><span id="__span-8-2"><a href="#__codelineno-8-2" id="__codelineno-8-2" name="__codelineno-8-2"></a>az<span class="w"> </span>storage<span class="w"> </span>account<span class="w"> </span>or-policy<span class="w"> </span>update<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-3"><a href="#__codelineno-8-3" id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="w">  </span>--account-name<span class="w"> </span><span class="nv">$DST_ACCOUNT</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-4"><a href="#__codelineno-8-4" id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="w">  </span>--source-account<span class="w"> </span><span class="nv">$SRC_ACCOUNT</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-5"><a href="#__codelineno-8-5" id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="w">  </span>--destination-container<span class="w"> </span><span class="nv">$DST_CONTAINER</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-6"><a href="#__codelineno-8-6" id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="w">  </span>--source-container<span class="w"> </span><span class="nv">$SRC_CONTAINER</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-7"><a href="#__codelineno-8-7" id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="w">  </span>--min-creation-time<span class="w"> </span><span class="s2">"2025-11-11T00:00:00Z"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-8"><a href="#__codelineno-8-8" id="__codelineno-8-8" name="__codelineno-8-8"></a><span class="w">  </span>--enable-metrics<span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-9"><a href="#__codelineno-8-9" id="__codelineno-8-9" name="__codelineno-8-9"></a><span class="w">  </span>--priority-replication<span class="w"> </span><span class="nb">true</span>
+</span></code></pre></div>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-9-1"><a href="#__codelineno-9-1" id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="c"># PowerShell</span>
+</span><span id="__span-9-2"><a href="#__codelineno-9-2" id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="nv">$dstPolicy</span> <span class="p">=</span> <span class="nb">Set-AzStorageObjectReplicationPolicy</span> <span class="p">`</span>
+</span><span id="__span-9-3"><a href="#__codelineno-9-3" id="__codelineno-9-3" name="__codelineno-9-3"></a>  <span class="n">-ResourceGroupName</span> <span class="nv">$rgName</span> <span class="p">`</span>
+</span><span id="__span-9-4"><a href="#__codelineno-9-4" id="__codelineno-9-4" name="__codelineno-9-4"></a>  <span class="n">-StorageAccountName</span> <span class="nv">$dstAccountName</span> <span class="p">`</span>
+</span><span id="__span-9-5"><a href="#__codelineno-9-5" id="__codelineno-9-5" name="__codelineno-9-5"></a>  <span class="n">-PolicyId</span> <span class="k">default</span> <span class="p">`</span>
+</span><span id="__span-9-6"><a href="#__codelineno-9-6" id="__codelineno-9-6" name="__codelineno-9-6"></a>  <span class="n">-SourceAccount</span> <span class="nv">$srcAccountResourceID</span> <span class="p">`</span>
+</span><span id="__span-9-7"><a href="#__codelineno-9-7" id="__codelineno-9-7" name="__codelineno-9-7"></a>  <span class="n">-Rule</span> <span class="nv">$rule</span> <span class="p">`</span>
+</span><span id="__span-9-8"><a href="#__codelineno-9-8" id="__codelineno-9-8" name="__codelineno-9-8"></a>  <span class="n">-EnableMetric</span> <span class="nv">$true</span> <span class="p">`</span>
+</span><span id="__span-9-9"><a href="#__codelineno-9-9" id="__codelineno-9-9" name="__codelineno-9-9"></a>  <span class="n">-EnablePriorityReplication</span> <span class="nv">$true</span>
+</span><span id="__span-9-10"><a href="#__codelineno-9-10" id="__codelineno-9-10" name="__codelineno-9-10"></a>
+</span><span id="__span-9-11"><a href="#__codelineno-9-11" id="__codelineno-9-11" name="__codelineno-9-11"></a><span class="nv">$srcPolicy</span> <span class="p">=</span> <span class="nb">Set-AzStorageObjectReplicationPolicy</span> <span class="p">`</span>
+</span><span id="__span-9-12"><a href="#__codelineno-9-12" id="__codelineno-9-12" name="__codelineno-9-12"></a>  <span class="n">-ResourceGroupName</span> <span class="nv">$rgName</span> <span class="p">`</span>
+</span><span id="__span-9-13"><a href="#__codelineno-9-13" id="__codelineno-9-13" name="__codelineno-9-13"></a>  <span class="n">-StorageAccountName</span> <span class="nv">$srcAccountName</span> <span class="p">`</span>
+</span><span id="__span-9-14"><a href="#__codelineno-9-14" id="__codelineno-9-14" name="__codelineno-9-14"></a>  <span class="n">-InputObject</span> <span class="nv">$dstPolicy</span>
+</span><span id="__span-9-15"><a href="#__codelineno-9-15" id="__codelineno-9-15" name="__codelineno-9-15"></a>
+</span><span id="__span-9-16"><a href="#__codelineno-9-16" id="__codelineno-9-16" name="__codelineno-9-16"></a><span class="c"># Confirmar</span>
+</span><span id="__span-9-17"><a href="#__codelineno-9-17" id="__codelineno-9-17" name="__codelineno-9-17"></a><span class="nv">$srcPolicy</span><span class="p">.</span><span class="n">PriorityReplication</span><span class="p">.</span><span class="n">Enabled</span>
+</span></code></pre></div>
+<p><strong>Deshabilitar</strong>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a href="#__codelineno-10-1" id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="c1"># Azure CLI</span>
+</span><span id="__span-10-2"><a href="#__codelineno-10-2" id="__codelineno-10-2" name="__codelineno-10-2"></a>az<span class="w"> </span>storage<span class="w"> </span>account<span class="w"> </span>or-policy<span class="w"> </span>update<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-3"><a href="#__codelineno-10-3" id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="w">  </span>--account-name<span class="w"> </span><span class="nv">$DST_ACCOUNT</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-4"><a href="#__codelineno-10-4" id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="w">  </span>--source-account<span class="w"> </span><span class="nv">$SRC_ACCOUNT</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-5"><a href="#__codelineno-10-5" id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="w">  </span>--destination-container<span class="w"> </span><span class="nv">$DST_CONTAINER</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-6"><a href="#__codelineno-10-6" id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="w">  </span>--source-container<span class="w"> </span><span class="nv">$SRC_CONTAINER</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-7"><a href="#__codelineno-10-7" id="__codelineno-10-7" name="__codelineno-10-7"></a><span class="w">  </span>--min-creation-time<span class="w"> </span><span class="s2">"2025-11-11T00:00:00Z"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-8"><a href="#__codelineno-10-8" id="__codelineno-10-8" name="__codelineno-10-8"></a><span class="w">  </span>--enable-metrics<span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-9"><a href="#__codelineno-10-9" id="__codelineno-10-9" name="__codelineno-10-9"></a><span class="w">  </span>--priority-replication<span class="w"> </span><span class="nb">false</span>
+</span></code></pre></div>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-11-1"><a href="#__codelineno-11-1" id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="c"># PowerShell - cambiar a $false</span>
+</span><span id="__span-11-2"><a href="#__codelineno-11-2" id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="nv">$dstPolicy</span> <span class="p">=</span> <span class="nb">Set-AzStorageObjectReplicationPolicy</span> <span class="p">`</span>
+</span><span id="__span-11-3"><a href="#__codelineno-11-3" id="__codelineno-11-3" name="__codelineno-11-3"></a>  <span class="n">-ResourceGroupName</span> <span class="nv">$rgName</span> <span class="p">`</span>
+</span><span id="__span-11-4"><a href="#__codelineno-11-4" id="__codelineno-11-4" name="__codelineno-11-4"></a>  <span class="n">-StorageAccountName</span> <span class="nv">$dstAccountName</span> <span class="p">`</span>
+</span><span id="__span-11-5"><a href="#__codelineno-11-5" id="__codelineno-11-5" name="__codelineno-11-5"></a>  <span class="n">-PolicyId</span> <span class="k">default</span> <span class="p">`</span>
+</span><span id="__span-11-6"><a href="#__codelineno-11-6" id="__codelineno-11-6" name="__codelineno-11-6"></a>  <span class="n">-SourceAccount</span> <span class="nv">$srcAccountResourceID</span> <span class="p">`</span>
+</span><span id="__span-11-7"><a href="#__codelineno-11-7" id="__codelineno-11-7" name="__codelineno-11-7"></a>  <span class="n">-Rule</span> <span class="nv">$rule</span> <span class="p">`</span>
+</span><span id="__span-11-8"><a href="#__codelineno-11-8" id="__codelineno-11-8" name="__codelineno-11-8"></a>  <span class="n">-EnableMetric</span> <span class="nv">$true</span> <span class="p">`</span>
+</span><span id="__span-11-9"><a href="#__codelineno-11-9" id="__codelineno-11-9" name="__codelineno-11-9"></a>  <span class="n">-EnablePriorityReplication</span> <span class="nv">$false</span>
+</span></code></pre></div>
+<h3 id="monitorear-sla-de-object-replication">Monitorear SLA de Object Replication</h3>
+<p>Cuando OR Priority Replication está habilitada, <strong>OR metrics se activan automáticamente</strong>.</p>
+<p><strong>Métricas disponibles</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Métrica</th>
+<th>Descripción</th>
+<th>Dimensiones</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Operations pending for replication</code></td>
+<td>Total de operaciones pendientes</td>
+<td>Time buckets</td>
+</tr>
+<tr>
+<td><code>Bytes pending for replication</code></td>
+<td>Bytes pendientes de replicar</td>
+<td>Time buckets</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Time buckets</strong>:</p>
+<ul>
+<li>0-5 minutos</li>
+<li>5-10 minutos</li>
+<li>10-15 minutos</li>
+<li>15-30 minutos</li>
+<li>30 minutos - 2 horas</li>
+<li>2-8 horas</li>
+<li>8-24 horas</li>
+<li>
+<blockquote>
+<p>24 horas</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>Validar SLA</strong>:</p>
+<p>Monitorear que buckets grandes (&gt;15 min) estén en <strong>cero o cerca de cero</strong> durante el mes.</p>
+<p><strong>Verificar replicación de blob individual</strong>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a href="#__codelineno-12-1" id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="c1"># Comprobar estado de replicación</span>
+</span><span id="__span-12-2"><a href="#__codelineno-12-2" id="__codelineno-12-2" name="__codelineno-12-2"></a>az<span class="w"> </span>storage<span class="w"> </span>blob<span class="w"> </span>show<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-3"><a href="#__codelineno-12-3" id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="w">  </span>--account-name<span class="w"> </span><span class="nv">$SRC_ACCOUNT</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-4"><a href="#__codelineno-12-4" id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="w">  </span>--container-name<span class="w"> </span><span class="nv">$SRC_CONTAINER</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-5"><a href="#__codelineno-12-5" id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="w">  </span>--name<span class="w"> </span>myblob.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-6"><a href="#__codelineno-12-6" id="__codelineno-12-6" name="__codelineno-12-6"></a><span class="w">  </span>--query<span class="w"> </span><span class="s1">'objectReplicationSourceProperties[].rules[].status'</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-7"><a href="#__codelineno-12-7" id="__codelineno-12-7" name="__codelineno-12-7"></a><span class="w">  </span>--output<span class="w"> </span>tsv<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-8"><a href="#__codelineno-12-8" id="__codelineno-12-8" name="__codelineno-12-8"></a><span class="w">  </span>--auth-mode<span class="w"> </span>login
+</span></code></pre></div>
+<p>Estado <code>Completed</code> = blob disponible en destino garantizado.</p>
+<h2 id="precios">Precios</h2>
+<h3 id="geo-priority-replication_1">Geo Priority Replication</h3>
+<p><strong>Inicio de facturación</strong>: 1 de enero de 2026</p>
+<ul>
+<li>Cuentas existentes con feature habilitada</li>
+<li>Cuentas nuevas que habiliten la feature</li>
+</ul>
+<p><strong>Coste</strong>: Por GB (consultar <a href="https://azure.microsoft.com/pricing/details/storage/">Azure Storage Pricing</a>)</p>
+<h3 id="object-replication-priority_1">Object Replication Priority</h3>
+<p><strong>Coste</strong>: Por GB de nuevo ingress</p>
+<p><strong>Costes adicionales estándar</strong> (igual que OR normal):</p>
+<ul>
+<li>Transacciones de lectura (origen)</li>
+<li>Transacciones de escritura (destino)</li>
+<li>Network egress</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Facturación post-desactivación</p>
+<p>Ambas features facturan durante <strong>30 días</strong> adicionales tras deshabilitarlas.</p>
+</div>
+<h2 id="casos-de-uso">Casos de uso</h2>
+<h3 id="cumplimiento-normativo-estricto">Cumplimiento normativo estricto</h3>
+<p><strong>Escenario</strong>: Sector financiero/salud con regulaciones de RPO &lt; 15 minutos.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a href="#__codelineno-13-1" id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="c1"># Storage account para datos regulados</span>
+</span><span id="__span-13-2"><a href="#__codelineno-13-2" id="__codelineno-13-2" name="__codelineno-13-2"></a>az<span class="w"> </span>storage<span class="w"> </span>account<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-3"><a href="#__codelineno-13-3" id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="w">  </span>--name<span class="w"> </span>stgcomplianceprod<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-4"><a href="#__codelineno-13-4" id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="w">  </span>--resource-group<span class="w"> </span>rg-compliance<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-5"><a href="#__codelineno-13-5" id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="w">  </span>--location<span class="w"> </span>westeurope<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-6"><a href="#__codelineno-13-6" id="__codelineno-13-6" name="__codelineno-13-6"></a><span class="w">  </span>--sku<span class="w"> </span>Standard_GZRS<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-7"><a href="#__codelineno-13-7" id="__codelineno-13-7" name="__codelineno-13-7"></a><span class="w">  </span>--enable-blob-geo-priority-replication<span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-8"><a href="#__codelineno-13-8" id="__codelineno-13-8" name="__codelineno-13-8"></a><span class="w">  </span>--tags<span class="w"> </span><span class="s2">"Compliance=Financial"</span><span class="w"> </span><span class="s2">"RPO=15min"</span>
+</span></code></pre></div>
+<p><strong>Validación</strong>:</p>
+<ul>
+<li>Monitorear Geo Blob Lag diariamente</li>
+<li>Alertas si lag &gt; 10 minutos</li>
+<li>Reportes mensuales de LST para auditorías</li>
+</ul>
+<h3 id="disaster-recovery-con-rtorpo-garantizados">Disaster Recovery con RTO/RPO garantizados</h3>
+<p><strong>Escenario</strong>: Aplicación crítica con SLA de DR &lt; 1 hora.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a href="#__codelineno-14-1" id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="c1"># Source: Producción (North Europe)</span>
+</span><span id="__span-14-2"><a href="#__codelineno-14-2" id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="nv">SRC_ACCOUNT</span><span class="o">=</span><span class="s2">"stgappprodneu"</span>
+</span><span id="__span-14-3"><a href="#__codelineno-14-3" id="__codelineno-14-3" name="__codelineno-14-3"></a><span class="c1"># Destination: DR (West Europe)</span>
+</span><span id="__span-14-4"><a href="#__codelineno-14-4" id="__codelineno-14-4" name="__codelineno-14-4"></a><span class="nv">DST_ACCOUNT</span><span class="o">=</span><span class="s2">"stgappdrweu"</span>
+</span><span id="__span-14-5"><a href="#__codelineno-14-5" id="__codelineno-14-5" name="__codelineno-14-5"></a>
+</span><span id="__span-14-6"><a href="#__codelineno-14-6" id="__codelineno-14-6" name="__codelineno-14-6"></a><span class="c1"># Policy OR con Priority Replication</span>
+</span><span id="__span-14-7"><a href="#__codelineno-14-7" id="__codelineno-14-7" name="__codelineno-14-7"></a>az<span class="w"> </span>storage<span class="w"> </span>account<span class="w"> </span>or-policy<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-8"><a href="#__codelineno-14-8" id="__codelineno-14-8" name="__codelineno-14-8"></a><span class="w">  </span>--account-name<span class="w"> </span><span class="nv">$DST_ACCOUNT</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-9"><a href="#__codelineno-14-9" id="__codelineno-14-9" name="__codelineno-14-9"></a><span class="w">  </span>--source-account<span class="w"> </span><span class="nv">$SRC_ACCOUNT</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-10"><a href="#__codelineno-14-10" id="__codelineno-14-10" name="__codelineno-14-10"></a><span class="w">  </span>--destination-container<span class="w"> </span>app-data<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-11"><a href="#__codelineno-14-11" id="__codelineno-14-11" name="__codelineno-14-11"></a><span class="w">  </span>--source-container<span class="w"> </span>app-data<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-12"><a href="#__codelineno-14-12" id="__codelineno-14-12" name="__codelineno-14-12"></a><span class="w">  </span>--min-creation-time<span class="w"> </span><span class="s2">"2025-11-11T00:00:00Z"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-13"><a href="#__codelineno-14-13" id="__codelineno-14-13" name="__codelineno-14-13"></a><span class="w">  </span>--enable-metrics<span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-14"><a href="#__codelineno-14-14" id="__codelineno-14-14" name="__codelineno-14-14"></a><span class="w">  </span>--priority-replication<span class="w"> </span><span class="nb">true</span>
+</span></code></pre></div>
+<p><strong>Beneficio</strong>: Confianza en que datos están en DR site en ≤ 15 minutos.</p>
+<h3 id="arquitectura-multi-region-con-ha">Arquitectura multi-región con HA</h3>
+<p><strong>Escenario</strong>: Servicio global con réplicas en múltiples continentes.</p>
+<pre class="mermaid"><code>graph LR
+    A[Primary<br>West Europe<br>GRS+Priority] --&gt; B[Secondary<br>North Europe<br>Paired region]
+    A --&gt; C[OR Priority<br>East US<br>Read replica]
+    A --&gt; D[OR Priority<br>Southeast Asia<br>Read replica]
+
+    style A fill:#0078d4,color:#fff
+    style B fill:#50e6ff,color:#000
+    style C fill:#50e6ff,color:#000
+    style D fill:#50e6ff,color:#000
+</code></pre>
+<p><strong>Configuración</strong>:</p>
+<ol>
+<li><strong>Primary (West Europe)</strong>: GRS + Geo Priority Replication</li>
+<li><strong>Secondary paired (North Europe)</strong>: Automático con GRS</li>
+<li><strong>US replica</strong>: Object Replication Priority (mismo continente que origen - garantiza SLA)</li>
+<li><strong>Asia replica</strong>: Object Replication normal (diferente continente - sin SLA)</li>
+</ol>
+<h3 id="sincronizacion-de-entornos-devtest">Sincronización de entornos Dev/Test</h3>
+<p><strong>Escenario</strong>: Copiar producción a staging con datos frescos.</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-15-1"><a href="#__codelineno-15-1" id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="c"># Policy OR Priority: Prod → Staging</span>
+</span><span id="__span-15-2"><a href="#__codelineno-15-2" id="__codelineno-15-2" name="__codelineno-15-2"></a><span class="nv">$rule</span> <span class="p">=</span> <span class="nb">New-AzStorageObjectReplicationPolicyRule</span> <span class="p">`</span>
+</span><span id="__span-15-3"><a href="#__codelineno-15-3" id="__codelineno-15-3" name="__codelineno-15-3"></a>  <span class="n">-SourceContainer</span> <span class="s2">"production-data"</span> <span class="p">`</span>
+</span><span id="__span-15-4"><a href="#__codelineno-15-4" id="__codelineno-15-4" name="__codelineno-15-4"></a>  <span class="n">-DestinationContainer</span> <span class="s2">"staging-data"</span>
+</span><span id="__span-15-5"><a href="#__codelineno-15-5" id="__codelineno-15-5" name="__codelineno-15-5"></a>
+</span><span id="__span-15-6"><a href="#__codelineno-15-6" id="__codelineno-15-6" name="__codelineno-15-6"></a><span class="nv">$policy</span> <span class="p">=</span> <span class="nb">Set-AzStorageObjectReplicationPolicy</span> <span class="p">`</span>
+</span><span id="__span-15-7"><a href="#__codelineno-15-7" id="__codelineno-15-7" name="__codelineno-15-7"></a>  <span class="n">-ResourceGroupName</span> <span class="s2">"rg-prod"</span> <span class="p">`</span>
+</span><span id="__span-15-8"><a href="#__codelineno-15-8" id="__codelineno-15-8" name="__codelineno-15-8"></a>  <span class="n">-StorageAccountName</span> <span class="s2">"stgstaging"</span> <span class="p">`</span>
+</span><span id="__span-15-9"><a href="#__codelineno-15-9" id="__codelineno-15-9" name="__codelineno-15-9"></a>  <span class="n">-PolicyId</span> <span class="k">default</span> <span class="p">`</span>
+</span><span id="__span-15-10"><a href="#__codelineno-15-10" id="__codelineno-15-10" name="__codelineno-15-10"></a>  <span class="n">-SourceAccount</span> <span class="s2">"/subscriptions/{id}/resourceGroups/rg-prod/providers/Microsoft.Storage/storageAccounts/stgprod"</span> <span class="p">`</span>
+</span><span id="__span-15-11"><a href="#__codelineno-15-11" id="__codelineno-15-11" name="__codelineno-15-11"></a>  <span class="n">-Rule</span> <span class="nv">$rule</span> <span class="p">`</span>
+</span><span id="__span-15-12"><a href="#__codelineno-15-12" id="__codelineno-15-12" name="__codelineno-15-12"></a>  <span class="n">-EnableMetric</span> <span class="nv">$true</span> <span class="p">`</span>
+</span><span id="__span-15-13"><a href="#__codelineno-15-13" id="__codelineno-15-13" name="__codelineno-15-13"></a>  <span class="n">-EnablePriorityReplication</span> <span class="nv">$true</span>
+</span></code></pre></div>
+<p><strong>Beneficio</strong>: Staging siempre con datos &lt; 15 minutos antiguos.</p>
+<h2 id="arquitectura-recomendada">Arquitectura recomendada</h2>
+<h3 id="patron-geo-redundant-object-replication">Patrón Geo-Redundant + Object Replication</h3>
+<pre class="mermaid"><code>graph TB
+    subgraph "Región Primaria: West Europe"
+        A[Storage Account<br>GRS + Geo Priority]
+        A1[Block Blobs<br>Producción]
+        A --&gt; A1
+    end
+
+    subgraph "Paired Region: North Europe"
+        B[Secondary Storage<br>Automático GRS]
+        B1[Block Blobs<br>Replica GRS]
+        B --&gt; B1
+    end
+
+    subgraph "Región DR: East US"
+        C[Storage Account<br>OR Destination]
+        C1[Replica<br>OR Priority]
+        C --&gt; C1
+    end
+
+    subgraph "Región Analítica: West US"
+        D[Storage Account<br>OR Destination]
+        D1[Replica<br>OR Normal]
+        D --&gt; D1
+    end
+
+    A1 --&gt;|Geo Replication<br>LST ≤ 15min SLA| B1
+    A1 --&gt;|OR Priority<br>99% ≤ 15min| C1
+    A1 --&gt;|OR Standard<br>Async| D1
+
+    style A fill:#0078d4,color:#fff
+    style B fill:#50e6ff,color:#000
+    style C fill:#50e6ff,color:#000
+    style D fill:#e6e6e6,color:#000
+</code></pre>
+<p><strong>Capas de protección</strong>:</p>
+<ol>
+<li><strong>Local redundancy</strong>: ZRS/LRS en región primaria</li>
+<li><strong>Geo redundancy con SLA</strong>: Geo Priority Replication a paired region</li>
+<li><strong>DR cross-region con SLA</strong>: OR Priority a región DR (mismo continente)</li>
+<li><strong>Analítica/archive</strong>: OR estándar a región de análisis</li>
+</ol>
+<h2 id="buenas-practicas">Buenas prácticas</h2>
+<h3 id="diseno-de-cuenta">Diseño de cuenta</h3>
+<ol>
+<li><strong>Segregar por SLA</strong>:</li>
+<li>Cuentas con Priority Replication: Solo Block Blobs</li>
+<li>
+<p>Cuentas con Page/Append Blobs: Sin Priority Replication</p>
+</li>
+<li>
+<p><strong>Evitar exclusiones del SLA</strong>:</p>
+</li>
+<li>No habilitar Change Feed si no es necesario</li>
+<li>No activar diagnostic logs a storage en cuenta con Priority Replication</li>
+<li>
+<p>Usar cuentas dedicadas para logs (sin Priority)</p>
+</li>
+<li>
+<p><strong>Tagging para governance</strong>:</p>
+</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a href="#__codelineno-16-1" id="__codelineno-16-1" name="__codelineno-16-1"></a>az<span class="w"> </span>storage<span class="w"> </span>account<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-2"><a href="#__codelineno-16-2" id="__codelineno-16-2" name="__codelineno-16-2"></a><span class="w">  </span>--name<span class="w"> </span><span class="nv">$STORAGE_ACCOUNT</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-3"><a href="#__codelineno-16-3" id="__codelineno-16-3" name="__codelineno-16-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-4"><a href="#__codelineno-16-4" id="__codelineno-16-4" name="__codelineno-16-4"></a><span class="w">  </span>--tags<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-5"><a href="#__codelineno-16-5" id="__codelineno-16-5" name="__codelineno-16-5"></a><span class="w">    </span><span class="s2">"PriorityReplication=Enabled"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-6"><a href="#__codelineno-16-6" id="__codelineno-16-6" name="__codelineno-16-6"></a><span class="w">    </span><span class="s2">"SLA-RPO=15min"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-7"><a href="#__codelineno-16-7" id="__codelineno-16-7" name="__codelineno-16-7"></a><span class="w">    </span><span class="s2">"CostCenter=IT-Production"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-8"><a href="#__codelineno-16-8" id="__codelineno-16-8" name="__codelineno-16-8"></a><span class="w">    </span><span class="s2">"Compliance=Required"</span>
+</span></code></pre></div>
+<h3 id="monitoreo-proactivo">Monitoreo proactivo</h3>
+<p><strong>Alertas recomendadas</strong>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a href="#__codelineno-17-1" id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="c1"># Alert si Geo Blob Lag &gt; 10 minutos (margen de seguridad)</span>
+</span><span id="__span-17-2"><a href="#__codelineno-17-2" id="__codelineno-17-2" name="__codelineno-17-2"></a>az<span class="w"> </span>monitor<span class="w"> </span>metrics<span class="w"> </span>alert<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-3"><a href="#__codelineno-17-3" id="__codelineno-17-3" name="__codelineno-17-3"></a><span class="w">  </span>--name<span class="w"> </span><span class="s2">"High-Geo-Lag-Alert"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-4"><a href="#__codelineno-17-4" id="__codelineno-17-4" name="__codelineno-17-4"></a><span class="w">  </span>--resource<span class="w"> </span><span class="nv">$STORAGE_ACCOUNT_ID</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-5"><a href="#__codelineno-17-5" id="__codelineno-17-5" name="__codelineno-17-5"></a><span class="w">  </span>--condition<span class="w"> </span><span class="s2">"avg GeoBlobLag &gt; 600"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-6"><a href="#__codelineno-17-6" id="__codelineno-17-6" name="__codelineno-17-6"></a><span class="w">  </span>--window-size<span class="w"> </span>5m<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-7"><a href="#__codelineno-17-7" id="__codelineno-17-7" name="__codelineno-17-7"></a><span class="w">  </span>--evaluation-frequency<span class="w"> </span>1m<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-8"><a href="#__codelineno-17-8" id="__codelineno-17-8" name="__codelineno-17-8"></a><span class="w">  </span>--action-group-id<span class="w"> </span><span class="nv">$ACTION_GROUP_ID</span>
+</span></code></pre></div>
+<p><strong>Dashboard de cumplimiento</strong>:</p>
+<ul>
+<li>Geo Blob Lag (hourly average)</li>
+<li>OR pending operations por time bucket</li>
+<li>Throughput vs 1 Gbps threshold</li>
+<li>CopyBlob operations vs 100 ops/sec threshold</li>
+</ul>
+<h3 id="optimizacion-de-costes">Optimización de costes</h3>
+<ol>
+<li><strong>Evaluar necesidad real de SLA</strong>:</li>
+<li>Priority Replication: Workloads críticos con RPO estricto</li>
+<li>
+<p>GRS/OR estándar: Workloads tolerantes a lag &gt; 15 min</p>
+</li>
+<li>
+<p><strong>Lifecycle management</strong>:</p>
+</li>
+</ol>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-18-1"><a href="#__codelineno-18-1" id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="p">{</span>
+</span><span id="__span-18-2"><a href="#__codelineno-18-2" id="__codelineno-18-2" name="__codelineno-18-2"></a><span class="w">  </span><span class="nt">"rules"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-18-3"><a href="#__codelineno-18-3" id="__codelineno-18-3" name="__codelineno-18-3"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-18-4"><a href="#__codelineno-18-4" id="__codelineno-18-4" name="__codelineno-18-4"></a><span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tierToCool"</span><span class="p">,</span>
+</span><span id="__span-18-5"><a href="#__codelineno-18-5" id="__codelineno-18-5" name="__codelineno-18-5"></a><span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lifecycle"</span><span class="p">,</span>
+</span><span id="__span-18-6"><a href="#__codelineno-18-6" id="__codelineno-18-6" name="__codelineno-18-6"></a><span class="w">      </span><span class="nt">"definition"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-18-7"><a href="#__codelineno-18-7" id="__codelineno-18-7" name="__codelineno-18-7"></a><span class="w">        </span><span class="nt">"filters"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-18-8"><a href="#__codelineno-18-8" id="__codelineno-18-8" name="__codelineno-18-8"></a><span class="w">          </span><span class="nt">"blobTypes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"blockBlob"</span><span class="p">]</span>
+</span><span id="__span-18-9"><a href="#__codelineno-18-9" id="__codelineno-18-9" name="__codelineno-18-9"></a><span class="w">        </span><span class="p">},</span>
+</span><span id="__span-18-10"><a href="#__codelineno-18-10" id="__codelineno-18-10" name="__codelineno-18-10"></a><span class="w">        </span><span class="nt">"actions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-18-11"><a href="#__codelineno-18-11" id="__codelineno-18-11" name="__codelineno-18-11"></a><span class="w">          </span><span class="nt">"baseBlob"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-18-12"><a href="#__codelineno-18-12" id="__codelineno-18-12" name="__codelineno-18-12"></a><span class="w">            </span><span class="nt">"tierToCool"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-18-13"><a href="#__codelineno-18-13" id="__codelineno-18-13" name="__codelineno-18-13"></a><span class="w">              </span><span class="nt">"daysAfterModificationGreaterThan"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span>
+</span><span id="__span-18-14"><a href="#__codelineno-18-14" id="__codelineno-18-14" name="__codelineno-18-14"></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-18-15"><a href="#__codelineno-18-15" id="__codelineno-18-15" name="__codelineno-18-15"></a><span class="w">          </span><span class="p">}</span>
+</span><span id="__span-18-16"><a href="#__codelineno-18-16" id="__codelineno-18-16" name="__codelineno-18-16"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-18-17"><a href="#__codelineno-18-17" id="__codelineno-18-17" name="__codelineno-18-17"></a><span class="w">      </span><span class="p">}</span>
+</span><span id="__span-18-18"><a href="#__codelineno-18-18" id="__codelineno-18-18" name="__codelineno-18-18"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-18-19"><a href="#__codelineno-18-19" id="__codelineno-18-19" name="__codelineno-18-19"></a><span class="w">  </span><span class="p">]</span>
+</span><span id="__span-18-20"><a href="#__codelineno-18-20" id="__codelineno-18-20" name="__codelineno-18-20"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Datos en Cool tier siguen replicándose con Priority pero con menor coste de storage.</p>
+<ol>
+<li><strong>Revisar policies OR</strong>:</li>
+<li>Una sola policy con Priority Replication por cuenta origen</li>
+<li>Otras policies: OR estándar</li>
+</ol>
+<h3 id="seguridad">Seguridad</h3>
+<ol>
+<li><strong>Network security</strong>:</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a href="#__codelineno-19-1" id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="c1"># Restringir acceso a VNETs</span>
+</span><span id="__span-19-2"><a href="#__codelineno-19-2" id="__codelineno-19-2" name="__codelineno-19-2"></a>az<span class="w"> </span>storage<span class="w"> </span>account<span class="w"> </span>update<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-3"><a href="#__codelineno-19-3" id="__codelineno-19-3" name="__codelineno-19-3"></a><span class="w">  </span>--name<span class="w"> </span><span class="nv">$STORAGE_ACCOUNT</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-4"><a href="#__codelineno-19-4" id="__codelineno-19-4" name="__codelineno-19-4"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-5"><a href="#__codelineno-19-5" id="__codelineno-19-5" name="__codelineno-19-5"></a><span class="w">  </span>--default-action<span class="w"> </span>Deny
+</span><span id="__span-19-6"><a href="#__codelineno-19-6" id="__codelineno-19-6" name="__codelineno-19-6"></a>
+</span><span id="__span-19-7"><a href="#__codelineno-19-7" id="__codelineno-19-7" name="__codelineno-19-7"></a>az<span class="w"> </span>storage<span class="w"> </span>account<span class="w"> </span>network-rule<span class="w"> </span>add<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-8"><a href="#__codelineno-19-8" id="__codelineno-19-8" name="__codelineno-19-8"></a><span class="w">  </span>--account-name<span class="w"> </span><span class="nv">$STORAGE_ACCOUNT</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-9"><a href="#__codelineno-19-9" id="__codelineno-19-9" name="__codelineno-19-9"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-10"><a href="#__codelineno-19-10" id="__codelineno-19-10" name="__codelineno-19-10"></a><span class="w">  </span>--vnet-name<span class="w"> </span>my-vnet<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-11"><a href="#__codelineno-19-11" id="__codelineno-19-11" name="__codelineno-19-11"></a><span class="w">  </span>--subnet<span class="w"> </span>app-subnet
+</span></code></pre></div>
+<ol>
+<li><strong>Encryption</strong>:</li>
+<li>Customer-managed keys (CMK) para datos en reposo</li>
+<li>
+<p>HTTPS obligatorio para datos en tránsito</p>
+</li>
+<li>
+<p><strong>RBAC granular</strong>:</p>
+</li>
+<li>Storage Blob Data Contributor: Apps que escriben</li>
+<li>Storage Blob Data Reader: Apps DR que solo leen</li>
+<li>Storage Account Contributor: Operadores que gestionan replicación</li>
+</ol>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="geo-blob-lag-15-minutos">Geo Blob Lag &gt; 15 minutos</h3>
+<p><strong>Diagnóstico</strong>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a href="#__codelineno-20-1" id="__codelineno-20-1" name="__codelineno-20-1"></a><span class="c1"># Ver LST actual</span>
+</span><span id="__span-20-2"><a href="#__codelineno-20-2" id="__codelineno-20-2" name="__codelineno-20-2"></a>az<span class="w"> </span>storage<span class="w"> </span>account<span class="w"> </span>show<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-3"><a href="#__codelineno-20-3" id="__codelineno-20-3" name="__codelineno-20-3"></a><span class="w">  </span>--name<span class="w"> </span><span class="nv">$STORAGE_ACCOUNT</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-4"><a href="#__codelineno-20-4" id="__codelineno-20-4" name="__codelineno-20-4"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-5"><a href="#__codelineno-20-5" id="__codelineno-20-5" name="__codelineno-20-5"></a><span class="w">  </span>--query<span class="w"> </span><span class="s2">"geoReplicationStats.lastSyncTime"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-6"><a href="#__codelineno-20-6" id="__codelineno-20-6" name="__codelineno-20-6"></a><span class="w">  </span>--output<span class="w"> </span>tsv
+</span><span id="__span-20-7"><a href="#__codelineno-20-7" id="__codelineno-20-7" name="__codelineno-20-7"></a>
+</span><span id="__span-20-8"><a href="#__codelineno-20-8" id="__codelineno-20-8" name="__codelineno-20-8"></a><span class="c1"># Comprobar throughput</span>
+</span><span id="__span-20-9"><a href="#__codelineno-20-9" id="__codelineno-20-9" name="__codelineno-20-9"></a>az<span class="w"> </span>monitor<span class="w"> </span>metrics<span class="w"> </span>list<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-10"><a href="#__codelineno-20-10" id="__codelineno-20-10" name="__codelineno-20-10"></a><span class="w">  </span>--resource<span class="w"> </span><span class="nv">$STORAGE_ACCOUNT_ID</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-11"><a href="#__codelineno-20-11" id="__codelineno-20-11" name="__codelineno-20-11"></a><span class="w">  </span>--metric<span class="w"> </span><span class="s2">"Egress"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-12"><a href="#__codelineno-20-12" id="__codelineno-20-12" name="__codelineno-20-12"></a><span class="w">  </span>--start-time<span class="w"> </span><span class="k">$(</span>date<span class="w"> </span>-u<span class="w"> </span>-d<span class="w"> </span><span class="s1">'1 hour ago'</span><span class="w"> </span>+%Y-%m-%dT%H:%M:%SZ<span class="k">)</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-13"><a href="#__codelineno-20-13" id="__codelineno-20-13" name="__codelineno-20-13"></a><span class="w">  </span>--interval<span class="w"> </span>PT5M<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-14"><a href="#__codelineno-20-14" id="__codelineno-20-14" name="__codelineno-20-14"></a><span class="w">  </span>--aggregation<span class="w"> </span>Average
+</span></code></pre></div>
+<p><strong>Causas comunes</strong>:</p>
+<ol>
+<li><strong>Throughput &gt; 1 Gbps</strong>: Reducir ingress o escalar a múltiples cuentas</li>
+<li><strong>CopyBlob &gt; 100 ops/sec</strong>: Distribuir copies en el tiempo</li>
+<li><strong>Page/Append blobs</strong>: Revisar si hay features creando estos blobs inadvertidamente</li>
+</ol>
+<h3 id="or-metrics-no-aparecen">OR metrics no aparecen</h3>
+<p><strong>Validaciones</strong>:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-21-1"><a href="#__codelineno-21-1" id="__codelineno-21-1" name="__codelineno-21-1"></a><span class="c"># Comprobar que metrics están habilitadas</span>
+</span><span id="__span-21-2"><a href="#__codelineno-21-2" id="__codelineno-21-2" name="__codelineno-21-2"></a><span class="nv">$policy</span> <span class="p">=</span> <span class="nb">Get-AzStorageObjectReplicationPolicy</span> <span class="p">`</span>
+</span><span id="__span-21-3"><a href="#__codelineno-21-3" id="__codelineno-21-3" name="__codelineno-21-3"></a>  <span class="n">-ResourceGroupName</span> <span class="nv">$rgName</span> <span class="p">`</span>
+</span><span id="__span-21-4"><a href="#__codelineno-21-4" id="__codelineno-21-4" name="__codelineno-21-4"></a>  <span class="n">-StorageAccountName</span> <span class="nv">$srcAccountName</span> <span class="p">`</span>
+</span><span id="__span-21-5"><a href="#__codelineno-21-5" id="__codelineno-21-5" name="__codelineno-21-5"></a>  <span class="n">-PolicyId</span> <span class="nv">$policyId</span>
+</span><span id="__span-21-6"><a href="#__codelineno-21-6" id="__codelineno-21-6" name="__codelineno-21-6"></a>
+</span><span id="__span-21-7"><a href="#__codelineno-21-7" id="__codelineno-21-7" name="__codelineno-21-7"></a><span class="nv">$policy</span><span class="p">.</span><span class="n">EnableMetrics</span>
+</span><span id="__span-21-8"><a href="#__codelineno-21-8" id="__codelineno-21-8" name="__codelineno-21-8"></a><span class="nv">$policy</span><span class="p">.</span><span class="n">PriorityReplication</span><span class="p">.</span><span class="n">Enabled</span>
+</span></code></pre></div>
+<p><strong>Solución</strong>:</p>
+<ul>
+<li>Esperar 24 horas tras habilitar</li>
+<li>Verificar que hay tráfico de replicación activo</li>
+<li>Comprobar que policy está en estado <code>Enabled</code></li>
+</ul>
+<h3 id="sla-no-se-cumple">SLA no se cumple</h3>
+<p><strong>Checklist de elegibilidad</strong>:</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"><span class="task-list-indicator"></span></label> Solo Block Blobs (no Page/Append)</li>
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"><span class="task-list-indicator"></span></label> Sin llamadas API Page/Append en últimos 30 días</li>
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"><span class="task-list-indicator"></span></label> Throughput &lt; 1 Gbps</li>
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"><span class="task-list-indicator"></span></label> CopyBlob &lt; 100 ops/sec</li>
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"><span class="task-list-indicator"></span></label> LST ≤ 15 min al habilitar feature</li>
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"><span class="task-list-indicator"></span></label> OR: Origen y destino en mismo continente</li>
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"><span class="task-list-indicator"></span></label> OR: Objetos &lt; 5 GB</li>
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"><span class="task-list-indicator"></span></label> OR: No más de 10 modificaciones/segundo por objeto</li>
+</ul>
+<p><strong>Validar con Azure Support</strong>:</p>
+<p>Abrir caso incluyendo:</p>
+<ul>
+<li>Storage Account ID</li>
+<li>Período de incumplimiento (fechas/horas)</li>
+<li>Métricas de Geo Blob Lag o OR pending operations</li>
+<li>Confirmación de elegibilidad (checklist anterior)</li>
+</ul>
+<h2 id="referencias">Referencias</h2>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/azure/storage/common/storage-redundancy-priority-replication">Geo Priority Replication - Official Docs</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/storage/blobs/object-replication-priority-replication">Object Replication Priority - Official Docs</a></li>
+<li><a href="https://www.microsoft.com/licensing/docs/view/Service-Level-Agreements-SLA-for-Online-Services">Azure Storage SLA Terms</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/storage/blobs/object-replication-overview">Object Replication Overview</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/storage/common/last-sync-time-get">Monitor Last Sync Time</a></li>
+<li><a href="https://azure.microsoft.com/pricing/details/storage/">Azure Storage Pricing</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/reliability/regions-list">Azure Regions List</a></li>
+</ul>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2023-now Rafael Fernández
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://www.linkedin.com/in/rafaelfernandezd/" rel="noopener" target="_blank" title="LinkedIn">
+<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"></path></svg>
+</a>
+<a class="md-social__link" href="https://github.com/rfernandezdo" rel="noopener" target="_blank" title="GitHub">
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="https://rfernandezdo.github.io/feed_rss_created.xml" rel="noopener" target="_blank" title="RSS feed">
+<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M64 32C28.7 32 0 60.7 0 96v320c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64zm32 104c0-13.3 10.7-24 24-24 137 0 248 111 248 248 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-110.5-89.5-200-200-200-13.3 0-24-10.7-24-24m0 96c0-13.3 10.7-24 24-24 83.9 0 152 68.1 152 152 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-57.4-46.6-104-104-104-13.3 0-24-10.7-24-24m0 120a32 32 0 1 1 64 0 32 32 0 1 1-64 0"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tabs", "navigation.tabs.sticky", "navigation.expand", "navigation.sections", "navigation.top", "navigation.tracking", "toc.integrate", "toc.nested", "toc.smoothscroll", "footer", "content.code.copy", "content.code.select", "content.code.annotate", "content.tooltips"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../../../javascripts/tablesort.js"></script>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.mermaidConfig = {default: {
+    startOnLoad: false
+}};</script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

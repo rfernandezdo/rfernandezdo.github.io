@@ -1,0 +1,2573 @@
+<!DOCTYPE html><html class="no-js" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width,initial-scale=1" name="viewport">
+<meta content="A blog about Azure, DevOps and other stuff" name="description">
+<meta content="Rafael Fernández" name="author">
+<link href="https://rfernandezdo.github.io/blog/category/devops/page/3/" rel="canonical">
+<link href="../../../cicd/" rel="prev">
+<link href="../../../development/" rel="next">
+<link href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=es&amp;_x_tr_hl=es&amp;_x_tr_pto=wapp" hreflang="en" rel="alternate">
+<link href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=en&amp;_x_tr_hl=en&amp;_x_tr_pto=wapp" hreflang="es" rel="alternate">
+<link href="../../../../../feed_rss_created.xml" rel="alternate" title="RSS feed" type="application/rss+xml">
+<link href="../../../../../feed_rss_updated.xml" rel="alternate" title="RSS feed of updated content" type="application/rss+xml">
+<link href="../../../../../assets/images/favicon.png" rel="icon">
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.1" name="generator">
+<title>DevOps - Un Rinconcito donde contar lo que quiera</title>
+<link href="../../../../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet">
+<link href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet">
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<meta content="website" property="og:type">
+<meta content="DevOps - Un Rinconcito donde contar lo que quiera" property="og:title">
+<meta content="A blog about Azure, DevOps and other stuff" property="og:description">
+<meta content="https://rfernandezdo.github.io/assets/images/social/blog/category/devops/page/3.png" property="og:image">
+<meta content="image/png" property="og:image:type">
+<meta content="1200" property="og:image:width">
+<meta content="630" property="og:image:height">
+<meta content="https://rfernandezdo.github.io/blog/category/devops/page/3/" property="og:url">
+<meta content="summary_large_image" property="twitter:card">
+<meta content="DevOps - Un Rinconcito donde contar lo que quiera" property="twitter:title">
+<meta content="A blog about Azure, DevOps and other stuff" property="twitter:description">
+<meta content="https://rfernandezdo.github.io/assets/images/social/blog/category/devops/page/3.png" property="twitter:image">
+<link href="../../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+<body data-md-color-accent="blue" data-md-color-primary="blue" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox">
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox">
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#devops">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Un Rinconcito donde contar lo que quiera" class="md-header__button md-logo" data-md-component="logo" href="../../../../.." title="Un Rinconcito donde contar lo que quiera">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Un Rinconcito donde contar lo que quiera
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              DevOps
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="blue" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio">
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="black" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio">
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="Select language" class="md-header__button md-icon">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=es&amp;_x_tr_hl=es&amp;_x_tr_pto=wapp" hreflang="en">
+              English
+            </a>
+</li>
+<li class="md-select__item">
+<a class="md-select__link" href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=en&amp;_x_tr_hl=en&amp;_x_tr_pto=wapp" hreflang="es">
+              Spanish
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text">
+<label class="md-search__icon md-icon" for="__search">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../../../">
+          
+  
+  
+  Blog
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../..">
+        
+  
+  
+    
+  
+  About
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../../contributions/">
+        
+  
+  
+    
+  
+  Contributions
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../../Azure/Security/MCSB/Readme/">
+          
+  
+  
+  Azure
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../../Tools/Federated_Identity_Credentials_Report/README-federated-identity-credentials/">
+          
+  
+  
+  Tools
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Un Rinconcito donde contar lo que quiera" class="md-nav__button md-logo" data-md-component="logo" href="../../../../.." title="Un Rinconcito donde contar lo que quiera">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    Un Rinconcito donde contar lo que quiera
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_1" type="checkbox">
+<label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_1_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Blog
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../">
+<span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../tags/">
+<span class="md-ellipsis">
+    
+  
+    Posts by Tags
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_1_3" type="checkbox">
+<label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Archive
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Archive
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2025/12/">
+<span class="md-ellipsis">
+    
+  
+    2025/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2025/11/">
+<span class="md-ellipsis">
+    
+  
+    2025/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2025/10/">
+<span class="md-ellipsis">
+    
+  
+    2025/10
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2025/09/">
+<span class="md-ellipsis">
+    
+  
+    2025/09
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2025/08/">
+<span class="md-ellipsis">
+    
+  
+    2025/08
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2025/07/">
+<span class="md-ellipsis">
+    
+  
+    2025/07
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2025/06/">
+<span class="md-ellipsis">
+    
+  
+    2025/06
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2025/05/">
+<span class="md-ellipsis">
+    
+  
+    2025/05
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2025/04/">
+<span class="md-ellipsis">
+    
+  
+    2025/04
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2025/03/">
+<span class="md-ellipsis">
+    
+  
+    2025/03
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2025/02/">
+<span class="md-ellipsis">
+    
+  
+    2025/02
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2025/01/">
+<span class="md-ellipsis">
+    
+  
+    2025/01
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/12/">
+<span class="md-ellipsis">
+    
+  
+    2024/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/11/">
+<span class="md-ellipsis">
+    
+  
+    2024/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/10/">
+<span class="md-ellipsis">
+    
+  
+    2024/10
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/09/">
+<span class="md-ellipsis">
+    
+  
+    2024/09
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/06/">
+<span class="md-ellipsis">
+    
+  
+    2024/06
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/05/">
+<span class="md-ellipsis">
+    
+  
+    2024/05
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/04/">
+<span class="md-ellipsis">
+    
+  
+    2024/04
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/03/">
+<span class="md-ellipsis">
+    
+  
+    2024/03
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/02/">
+<span class="md-ellipsis">
+    
+  
+    2024/02
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2023/12/">
+<span class="md-ellipsis">
+    
+  
+    2023/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2023/11/">
+<span class="md-ellipsis">
+    
+  
+    2023/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2023/10/">
+<span class="md-ellipsis">
+    
+  
+    2023/10
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_1_4" type="checkbox">
+<label class="md-nav__link" for="__nav_1_4" id="__nav_1_4_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Categories
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_1_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Categories
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../azure/">
+<span class="md-ellipsis">
+    
+  
+    Azure
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../azure-ad/">
+<span class="md-ellipsis">
+    
+  
+    Azure AD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../azure-automation/">
+<span class="md-ellipsis">
+    
+  
+    Azure Automation
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../azure-devops/">
+<span class="md-ellipsis">
+    
+  
+    Azure DevOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../azure-frameworks/">
+<span class="md-ellipsis">
+    
+  
+    Azure Frameworks
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../azure-governance/">
+<span class="md-ellipsis">
+    
+  
+    Azure Governance
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../azure-networking/">
+<span class="md-ellipsis">
+    
+  
+    Azure Networking
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../azure-security/">
+<span class="md-ellipsis">
+    
+  
+    Azure Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../azure-services/">
+<span class="md-ellipsis">
+    
+  
+    Azure Services
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../azure-updates/">
+<span class="md-ellipsis">
+    
+  
+    Azure Updates
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../caf/">
+<span class="md-ellipsis">
+    
+  
+    CAF
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../cicd/">
+<span class="md-ellipsis">
+    
+  
+    CI/CD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox">
+<a class="md-nav__link md-nav__link--active" href="../../">
+<span class="md-ellipsis">
+    
+  
+    DevOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../development/">
+<span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../drift-detection/">
+<span class="md-ellipsis">
+    
+  
+    Drift Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../english/">
+<span class="md-ellipsis">
+    
+  
+    English
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../enterprise-policy-as-code/">
+<span class="md-ellipsis">
+    
+  
+    Enterprise Policy as Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../finops/">
+<span class="md-ellipsis">
+    
+  
+    FinOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../firewall/">
+<span class="md-ellipsis">
+    
+  
+    Firewall
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../gtd/">
+<span class="md-ellipsis">
+    
+  
+    GTD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../git/">
+<span class="md-ellipsis">
+    
+  
+    Git
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../github-actions/">
+<span class="md-ellipsis">
+    
+  
+    GitHub Actions
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../hashicorp/">
+<span class="md-ellipsis">
+    
+  
+    HashiCorp
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../hello_world/">
+<span class="md-ellipsis">
+    
+  
+    Hello_World
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../infrastructure-as-code/">
+<span class="md-ellipsis">
+    
+  
+    Infrastructure as Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../learning/">
+<span class="md-ellipsis">
+    
+  
+    Learning
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../m365/">
+<span class="md-ellipsis">
+    
+  
+    M365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microsoft-365/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft 365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microsoft-entra/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microsoft-entra-external-id/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra External ID
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microsoft-entra-id/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra ID
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../networking/">
+<span class="md-ellipsis">
+    
+  
+    Networking
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../outlook/">
+<span class="md-ellipsis">
+    
+  
+    Outlook
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pim/">
+<span class="md-ellipsis">
+    
+  
+    PIM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../power-automate/">
+<span class="md-ellipsis">
+    
+  
+    Power Automate
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../power-bi/">
+<span class="md-ellipsis">
+    
+  
+    Power BI
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../productividad/">
+<span class="md-ellipsis">
+    
+  
+    Productividad
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../productividad--microsoft-365/">
+<span class="md-ellipsis">
+    
+  
+    Productividad / Microsoft 365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/">
+<span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../seguridad/">
+<span class="md-ellipsis">
+    
+  
+    Seguridad
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../snowflake/">
+<span class="md-ellipsis">
+    
+  
+    Snowflake
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../terraform/">
+<span class="md-ellipsis">
+    
+  
+    Terraform
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../threat-intelligence/">
+<span class="md-ellipsis">
+    
+  
+    Threat Intelligence
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../tools/">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../troubleshooting/">
+<span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../visual-studio-code/">
+<span class="md-ellipsis">
+    
+  
+    Visual Studio Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../viva-insights/">
+<span class="md-ellipsis">
+    
+  
+    Viva Insights
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../windows/">
+<span class="md-ellipsis">
+    
+  
+    Windows
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../..">
+<span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../contributions/">
+<span class="md-ellipsis">
+    
+  
+    Contributions
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4" type="checkbox">
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Azure
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Azure
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Security
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1_1" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1_1" id="__nav_4_1_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    MCSB v1
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_4_1_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    MCSB v1
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Readme/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Readme
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Asset%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Asset Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Backup%20and%20Recovery/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Backup and Recovery
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Data%20Protection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Data Protection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/DevOps%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - DevOps Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Endpoint%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Endpoint Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Governance%20and%20Strategy/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Governance and Strategy
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Identity%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Identity Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Incident%20Response/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Incident Response
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Logging%20and%20Threat%20Detection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Logging and Threat Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Network%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Network Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Posture%20and%20Vulnerability%20Mgmt/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Posture and Vulnerability Mgmt
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Privileged%20Access/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Privileged Access
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1_2" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1_2" id="__nav_4_1_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_4_1_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    MCSB v2
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Index/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Cloud Security Benchmark v2
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Network%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Network Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Identity%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Identity Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Privileged%20Access/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Privileged Access
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Data%20Protection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Data Protection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Asset%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Asset Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Logging%20and%20Threat%20Detection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Logging and Threat Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Incident%20Response/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Incident Response
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Posture%20and%20Vulnerability%20Manag/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Posture and Vulnerability Manag
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Endpoint%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Endpoint Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Backup%20and%20Recovery/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Backup and Recovery
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Artificial%20Intelligence%20Securit/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Artificial Intelligence Securit
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5" type="checkbox">
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Tools
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5_1" type="checkbox">
+<label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Federated Identity Credentials Report
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_1_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Federated Identity Credentials Report
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Tools/Federated_Identity_Credentials_Report/README-federated-identity-credentials/">
+<span class="md-ellipsis">
+    
+  
+    Script de Reporte para Federated Identity Credentials
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5_2" type="checkbox">
+<label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Analyze Virtual Network Flows
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Analyze Virtual Network Flows
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Tools/Analyze_Virtual_Network_Flows/">
+<span class="md-ellipsis">
+    
+  
+    Analyze-VNETFlowLogs
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<div class="md-content__inner">
+<header class="md-typeset">
+<h1 id="devops">DevOps</h1>
+</header>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-04-27 00:00:00+00:00">April 27, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../">DevOps</a></li>
+<li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="starting-my-iac-project-with-terraform"><a class="toclink" href="../../../../2024/04/27/starting-my-iac-project-with-terraform/">Starting my IaC project with terraform</a></h2>
+<p>This is not my first IaC project but I want to share with you some key considerations that I have in mind to start a personal IaC project with Terraform based on post <a href="../../../../2024/04/26/what-you-need-to-think-about-when-starting-an-iac-project-/">What you need to think about when starting an IaC project ?</a></p>
+<h3 id="1-define-your-goals"><a class="toclink" href="../../../../2024/04/27/starting-my-iac-project-with-terraform/#1-define-your-goals">1. <strong>Define Your Goals</strong></a></h3>
+<p>These are my goals:</p>
+<ul>
+<li>Automate the provisioning of infrastructure</li>
+<li>Improve consistency and repeatability</li>
+<li>Reduce manual effort</li>
+<li>Enable faster deployments</li>
+</ul>
+<h3 id="2-select-the-right-tools"><a class="toclink" href="../../../../2024/04/27/starting-my-iac-project-with-terraform/#2-select-the-right-tools">2. <strong>Select the Right Tools</strong></a></h3>
+<p>For my project I will use Terraform because I am familiar with it and I like its declarative configuration language.</p>
+<h3 id="3-design-your-infrastructure"><a class="toclink" href="../../../../2024/04/27/starting-my-iac-project-with-terraform/#3-design-your-infrastructure">3. <strong>Design Your Infrastructure</strong></a></h3>
+<p>In my project, I will use a modular design that separates my infrastructure into different modules, such as networking, compute, and storage. This will allow me to reuse code across different projects and make my infrastructure more maintainable.</p>
+<h3 id="4-version-control-your-code"><a class="toclink" href="../../../../2024/04/27/starting-my-iac-project-with-terraform/#4-version-control-your-code">4. <strong>Version Control Your Code</strong></a></h3>
+<p>I will use Git for version control and follow best practices for version control, such as using descriptive commit messages and branching strategies.</p>
+<h3 id="5-automate-testing"><a class="toclink" href="../../../../2024/04/27/starting-my-iac-project-with-terraform/#5-automate-testing">5. <strong>Automate Testing</strong></a></h3>
+<p>Like appear in <a href="https://learn.microsoft.com/en-us/azure/developer/terraform/best-practices-compliance-testing">Implement compliance testing with Terraform and Azure</a>, I'd  like to implement: </p>
+<ul>
+<li>Compliance testing</li>
+<li>End-to-end testing</li>
+<li>Integration testing</li>
+</ul>
+<h3 id="6-implement-continuous-integrationcontinuous-deployment-cicd"><a class="toclink" href="../../../../2024/04/27/starting-my-iac-project-with-terraform/#6-implement-continuous-integrationcontinuous-deployment-cicd">6. <strong>Implement Continuous Integration/Continuous Deployment (CI/CD)</strong></a></h3>
+<p>I set up my  CI/CD pipelines with Github Actions.</p>
+<h3 id="7-monitor-and-maintain-your-infrastructure"><a class="toclink" href="../../../../2024/04/27/starting-my-iac-project-with-terraform/#7-monitor-and-maintain-your-infrastructure">7. <strong>Monitor and Maintain Your Infrastructure</strong></a></h3>
+<p>I will use Azure Monitor to monitor my infrastructure and set up alerts to notify me of any issues. I will also regularly review and update my infrastructure code to ensure that it remains up to date and secure.</p>
+<p>Of course I don't have all the answers yet, but I will keep you updated on my progress and share my learnings along the way. Stay tuned for more updates on my IaC project with Terraform!</p>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-04-26 00:00:00+00:00">April 26, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../">DevOps</a></li>
+<li class="md-meta__item">
+            
+              4 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="what-you-need-to-think-about-when-starting-an-iac-project"><a class="toclink" href="../../../../2024/04/26/what-you-need-to-think-about-when-starting-an-iac-project-/">What you need to think about when starting an IaC project ?</a></h2>
+<p>Infrastructure as Code (IaC) is a key practice in modern software development that allows you to manage your infrastructure in a declarative manner. With IaC, you can define your infrastructure using code, which can be version-controlled, tested, and deployed automatically. This approach brings several benefits, such as increased consistency, repeatability, and scalability.</p>
+<p>When starting an IaC project, there are several key considerations you need to keep in mind to ensure its success. In this article, we will discuss some of the key things you should think about when embarking on an IaC project.</p>
+<h3 id="1-define-your-goals"><a class="toclink" href="../../../../2024/04/26/what-you-need-to-think-about-when-starting-an-iac-project-/#1-define-your-goals">1. <strong>Define Your Goals</strong></a></h3>
+<p>Before you start writing any code, it's essential to define your goals for the IaC project. What are you trying to achieve with IaC? Are you looking to automate the provisioning of infrastructure, improve consistency, or increase scalability? By clearly defining your goals, you can ensure that your IaC project is aligned with your organization's objectives.</p>
+<p>Some examples: </p>
+<ul>
+<li>Automate the provisioning of infrastructure</li>
+<li>Improve consistency and repeatability</li>
+<li>Increase scalability and reduce manual effort</li>
+<li>Enhance security and compliance</li>
+<li>Enable faster development and deployment cycles</li>
+</ul>
+<h3 id="2-select-the-right-tools"><a class="toclink" href="../../../../2024/04/26/what-you-need-to-think-about-when-starting-an-iac-project-/#2-select-the-right-tools">2. <strong>Select the Right Tools</strong></a></h3>
+<p>Choosing the right tools is crucial for the success of your IaC project. There are several IaC tools available, such as Terraform, Ansible, and AWS CloudFormation, each with its strengths and weaknesses. Consider factors such as ease of use, scalability, and integration with your existing tools when selecting an IaC tool.</p>
+<p>Some examples:</p>
+<ul>
+<li>Terraform: A popular IaC tool that allows you to define your infrastructure using a declarative configuration language.</li>
+<li>Ansible: A configuration management tool that can also be used for IaC.</li>
+<li>AWS CloudFormation: A service provided by AWS that allows you to define your infrastructure using JSON or YAML templates.</li>
+<li>Azure Resource Manager (ARM) templates: A service provided by Azure that allows you to define your infrastructure using JSON templates.</li>
+<li>Bicep: A domain-specific language for defining Azure resources that compiles to ARM templates.</li>
+<li>Pulumi: A tool that allows you to define your infrastructure using familiar programming languages such as Python, JavaScript, and Go.</li>
+<li>Chef: A configuration management tool that can also be used for IaC.</li>
+</ul>
+<h3 id="3-design-your-infrastructure"><a class="toclink" href="../../../../2024/04/26/what-you-need-to-think-about-when-starting-an-iac-project-/#3-design-your-infrastructure">3. <strong>Design Your Infrastructure</strong></a></h3>
+<p>When designing your infrastructure, think about how you want to structure your code. Consider using modular designs that allow you to reuse code across different projects. Define your infrastructure in a way that is easy to understand and maintain, and follow best practices for code organization.</p>
+<h3 id="4-version-control-your-code"><a class="toclink" href="../../../../2024/04/26/what-you-need-to-think-about-when-starting-an-iac-project-/#4-version-control-your-code">4. <strong>Version Control Your Code</strong></a></h3>
+<p>Version control is a fundamental practice in software development, and it is equally important for IaC projects. By using version control systems such as Git, you can track changes to your infrastructure code, collaborate with team members, and roll back changes if needed. Make sure to follow best practices for version control, such as using descriptive commit messages and branching strategies.</p>
+<p>Some examples:</p>
+<ul>
+<li>Use Git for version control</li>
+<li>Use branching strategies like Microsoft Flow or GitHub Flow to manage your codebase</li>
+<li>Use pull requests for code reviews</li>
+<li>Automate your CI/CD pipelines to run tests and deploy changes</li>
+<li>Use tags to mark releases or milestones</li>
+</ul>
+<h3 id="5-automate-testing"><a class="toclink" href="../../../../2024/04/26/what-you-need-to-think-about-when-starting-an-iac-project-/#5-automate-testing">5. <strong>Automate Testing</strong></a></h3>
+<p>Testing is an essential part of any software development project, and IaC is no exception. Automating your tests can help you catch errors early in the development process and ensure that your infrastructure code is working as expected. Consider using tools such as Terraform's built-in testing framework or third-party testing tools to automate your tests.</p>
+<p>Some examples:</p>
+<ul>
+<li>Use Terraform's built-in testing framework to write unit tests for your infrastructure code</li>
+<li>Use tools like Terratest or Kitchen-Terraform to write integration tests for your infrastructure code</li>
+<li>Use static code analysis tools to check for common errors and best practices in your infrastructure code, like Terraform's <code>terraform validate</code> command, or tools like <code>tfsec</code> or <code>checkov</code>.</li>
+<li>Use linting tools to enforce coding standards and style guidelines in your infrastructure code, like Terraform's <code>terraform fmt</code> command, or tools like <code>tflint</code> or <code>checkov</code>.</li>
+<li>Use security scanning tools to identify potential security vulnerabilities in your infrastructure code.</li>
+</ul>
+<h3 id="6-implement-continuous-integrationcontinuous-deployment-cicd"><a class="toclink" href="../../../../2024/04/26/what-you-need-to-think-about-when-starting-an-iac-project-/#6-implement-continuous-integrationcontinuous-deployment-cicd">6. <strong>Implement Continuous Integration/Continuous Deployment (CI/CD)</strong></a></h3>
+<p>CI/CD pipelines are a key component of modern software development practices, and they are equally important for IaC projects. By implementing CI/CD pipelines, you can automate the testing, building, and deployment of your infrastructure code, reducing the risk of errors and speeding up the development process. Consider using tools such as Github or Azure DevOps to set up your CI/CD pipelines.</p>
+<p>Use tools like Terraform Cloud, Azure DevOps, or Github Actions to automate your CI/CD pipelines.</p>
+<h3 id="7-monitor-and-maintain-your-infrastructure"><a class="toclink" href="../../../../2024/04/26/what-you-need-to-think-about-when-starting-an-iac-project-/#7-monitor-and-maintain-your-infrastructure">7. <strong>Monitor and Maintain Your Infrastructure</strong></a></h3>
+<p>Once your IaC project is up and running, it's essential to monitor and maintain your infrastructure. Implement monitoring solutions that allow you to track the health and performance of your infrastructure, and set up alerts to notify you of any issues. Regularly review and update your infrastructure code to ensure that it remains up-to-date and secure.</p>
+<p>By keeping these key considerations in mind when starting an IaC project, you can set yourself up for success and ensure that your infrastructure is managed efficiently and effectively. IaC is a powerful practice that can help you automate and scale your infrastructure, and by following best practices, you can maximize the benefits of this approach.</p>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2023-11-03 00:00:00+00:00">November 3, 2023</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../">DevOps</a>, 
+              <a class="md-meta__link" href="../../../english/">English</a></li>
+<li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="trunk"><a class="toclink" href="../../../../2023/11/03/trunk/">Trunk</a></h2>
+<h3 id="what-is-trunk"><a class="toclink" href="../../../../2023/11/03/trunk/#what-is-trunk">What is Trunk ?</a></h3>
+<p>Trunk is a tool that runs a suite of security and best practice checks against your code. It is designed to be used in CI/CD pipelines, but can also be used as a standalone tool.</p>
+<p>Support for the following languages is currently available:</p>
+<h3 id="installing-trunk"><a class="toclink" href="../../../../2023/11/03/trunk/#installing-trunk">Installing Trunk</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio"><input id="__tabbed_4_2" name="__tabbed_4" type="radio"><div class="tabbed-labels"><label for="__tabbed_4_1">Trunk cli</label><label for="__tabbed_4_2">Trunk VSCode extension</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a href="#__codelineno-15-1" id="__codelineno-15-1" name="__codelineno-15-1"></a>curl<span class="w"> </span>https://get.trunk.io<span class="w"> </span>-fsSL<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a href="#__codelineno-16-1" id="__codelineno-16-1" name="__codelineno-16-1"></a>code<span class="w"> </span>--install-extension<span class="w"> </span>Trunk.io<span class="w">  </span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<h3 id="trunk-checks"><a class="toclink" href="../../../../2023/11/03/trunk/#trunk-checks">Trunk checks</a></h3>
+<h4 id="trunk-checks-cli"><a class="toclink" href="../../../../2023/11/03/trunk/#trunk-checks-cli">Trunk checks cli</a></h4>
+<p>Trunk detects checks to enable in function of the files in the current directory, but you can also enable and disable checks manually.</p>
+<ul>
+<li>trunck check list: list all available checks</li>
+<li>trunck check enable checkname: enable a check</li>
+<li>trunck check disable checkname: disable a check</li>
+<li>trunck check: run all enabled checks</li>
+</ul>
+<p>For example, to enable the Terraform check:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a href="#__codelineno-17-1" id="__codelineno-17-1" name="__codelineno-17-1"></a>trunk<span class="w"> </span>check<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>terraform<span class="w"> </span>
+</span><span id="__span-17-2"><a href="#__codelineno-17-2" id="__codelineno-17-2" name="__codelineno-17-2"></a><span class="m">1</span><span class="w"> </span>linter<span class="w"> </span>was<span class="w"> </span>enabled:
+</span><span id="__span-17-3"><a href="#__codelineno-17-3" id="__codelineno-17-3" name="__codelineno-17-3"></a><span class="w">  </span>terraform<span class="w"> </span><span class="m">1</span>.1.0
+</span></code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>You can also enable checks by modifing .trunk.yml file in your repository. See the <a href="https://docs.trunk.io/actions/configuration">configuration page</a>  for more information.</p>
+</div>
+<p>Examples: </p>
+<div class="language-console highlight"><span class="filename">trunk commnad line check example</span><pre><span></span><code><span id="__span-18-1"><a href="#__codelineno-18-1" id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="go">trunk check   </span>
+</span><span id="__span-18-2"><a href="#__codelineno-18-2" id="__codelineno-18-2" name="__codelineno-18-2"></a>
+</span><span id="__span-18-3"><a href="#__codelineno-18-3" id="__codelineno-18-3" name="__codelineno-18-3"></a><span class="go">Checking 68% [====================================================================================================================================================================&gt;                                                                              ]  38/56  9.4s </span>
+</span><span id="__span-18-4"><a href="#__codelineno-18-4" id="__codelineno-18-4" name="__codelineno-18-4"></a><span class="go"> ↳ checkov                                                                                                                                                                                                                                                                      </span>
+</span><span id="__span-18-5"><a href="#__codelineno-18-5" id="__codelineno-18-5" name="__codelineno-18-5"></a><span class="go">   ↳ modules/webapps/linux_function_app/private_endpoint.tf [lint] ⠧                                                                                                                                                                                                            </span>
+</span><span id="__span-18-6"><a href="#__codelineno-18-6" id="__codelineno-18-6" name="__codelineno-18-6"></a><span class="go">   ↳ modules/webapps/linux_function_app/variables.tf [lint] ⠧                                                                                                                                                                                                                   </span>
+</span><span id="__span-18-7"><a href="#__codelineno-18-7" id="__codelineno-18-7" name="__codelineno-18-7"></a><span class="go"> ↳ terrascan                                                                                                                                                                                                                                                                    </span>
+</span><span id="__span-18-8"><a href="#__codelineno-18-8" id="__codelineno-18-8" name="__codelineno-18-8"></a><span class="go">   ↳ modules/webapps/linux_function_app/locals.tf [lint] ⠧                                                                                                                                                                                                                      </span>
+</span><span id="__span-18-9"><a href="#__codelineno-18-9" id="__codelineno-18-9" name="__codelineno-18-9"></a><span class="go">   ↳ modules/webapps/linux_function_app/main.tf [lint] ⠧                                                                              </span>
+</span></code></pre></div>
+<h4 id="trunk-checks-vscode"><a class="toclink" href="../../../../2023/11/03/trunk/#trunk-checks-vscode">Trunk checks vscode</a></h4>
+<p>In the case of the VSCode extension, you can review your checks in your IDE:</p>
+<p><img alt="Trunk checks vscode" src="../../../../2023/assets/2023-11-03-17-00-28.png"></p>
+<p>And you can disable checks from quick fix menu:</p>
+<p><img alt="Quick Fix" src="../../../../2023/assets/2023-11-03-17-04-36.png"></p>
+<h3 id="trunk-updates"><a class="toclink" href="../../../../2023/11/03/trunk/#trunk-updates">Trunk updates</a></h3>
+<h4 id="trunk-updates-cli"><a class="toclink" href="../../../../2023/11/03/trunk/#trunk-updates-cli">Trunk updates cli</a></h4>
+<p>Trunk is updated regularly with new checks and improvements. You can update Trunk by running the following command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a href="#__codelineno-19-1" id="__codelineno-19-1" name="__codelineno-19-1"></a>trunk<span class="w"> </span>update
+</span></code></pre></div>
+<h4 id="trunk-updates-vscode"><a class="toclink" href="../../../../2023/11/03/trunk/#trunk-updates-vscode">Trunk updates vscode</a></h4>
+<p>In the case of the VSCode extension, it will be updated automatically:</p>
+<p><img alt="Trunk updates" src="../../../../2023/assets/2023-10-18-23-52-48.png"></p>
+<h3 id="references"><a class="toclink" href="../../../../2023/11/03/trunk/#references">References</a></h3>
+<ul>
+<li><a href="https://docs.trunk.io/cli">Trunk</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=Trunk.io">Trunk VSCode extension</a></li>
+</ul>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2023-10-21 00:00:00+00:00">October 21, 2023</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../">DevOps</a>, 
+              <a class="md-meta__link" href="../../../english/">English</a></li>
+<li class="md-meta__item">
+            
+              5 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="enhance-your-mkdocksyml"><a class="toclink" href="../../../../2023/10/21/enhance-your-mkdocksyml/">Enhance your mkdocks.yml</a></h2>
+<p>In the previous post I explained how to <a href="../../../../2023/10/18/create-a-blog-with-mkdocsmkdocs-material-mkdocs-rss-plugin-and-github-pages/">create a blog with MkDocs</a> and mkdocs-material theme.</p>
+<p>mkdocs.yml is the configuration file for MkDocs. In this file we can configure the theme, the plugins, the pages, etc.</p>
+<p>In this post I am going to explain you how to create a blog with MkDocs and mkdocs-material theme, add some plugins and configure it.</p>
+<h3 id="minimal-configuration-for-mkdocsyml-with-mkdocs-material"><a class="toclink" href="../../../../2023/10/21/enhance-your-mkdocksyml/#minimal-configuration-for-mkdocsyml-with-mkdocs-material">Minimal configuration for mkdocs.yml with mkdocs-material</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-81-1"><a href="#__codelineno-81-1" id="__codelineno-81-1" name="__codelineno-81-1"></a>site_name: My Site
+</span><span id="__span-81-2"><a href="#__codelineno-81-2" id="__codelineno-81-2" name="__codelineno-81-2"></a>theme: 
+</span><span id="__span-81-3"><a href="#__codelineno-81-3" id="__codelineno-81-3" name="__codelineno-81-3"></a>  name: material
+</span><span id="__span-81-4"><a href="#__codelineno-81-4" id="__codelineno-81-4" name="__codelineno-81-4"></a>#plugins:
+</span><span id="__span-81-5"><a href="#__codelineno-81-5" id="__codelineno-81-5" name="__codelineno-81-5"></a>
+</span><span id="__span-81-6"><a href="#__codelineno-81-6" id="__codelineno-81-6" name="__codelineno-81-6"></a>#markdown_extensions:
+</span></code></pre></div>
+<h3 id="theme"><a class="toclink" href="../../../../2023/10/21/enhance-your-mkdocksyml/#theme">Theme</a></h3>
+<p>I only change the palette for now.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-82-1"><a href="#__codelineno-82-1" id="__codelineno-82-1" name="__codelineno-82-1"></a>theme: 
+</span><span id="__span-82-2"><a href="#__codelineno-82-2" id="__codelineno-82-2" name="__codelineno-82-2"></a>  name: material
+</span><span id="__span-82-3"><a href="#__codelineno-82-3" id="__codelineno-82-3" name="__codelineno-82-3"></a>  palette:
+</span><span id="__span-82-4"><a href="#__codelineno-82-4" id="__codelineno-82-4" name="__codelineno-82-4"></a>    primary: blue
+</span><span id="__span-82-5"><a href="#__codelineno-82-5" id="__codelineno-82-5" name="__codelineno-82-5"></a>    accent: white  
+</span></code></pre></div>
+<h3 id="plugins-for-mkdoc"><a class="toclink" href="../../../../2023/10/21/enhance-your-mkdocksyml/#plugins-for-mkdoc">Plugins for mkdoc</a></h3>
+<h4 id="glightbox"><a class="toclink" href="../../../../2023/10/21/enhance-your-mkdocksyml/#glightbox">glightbox</a></h4>
+<p>glightbox add image zoom functionality to your documentation.</p>
+<div class="language-text highlight"><span class="filename">requirements.txt</span><pre><span></span><code><span id="__span-83-1"><a href="#__codelineno-83-1" id="__codelineno-83-1" name="__codelineno-83-1"></a>mkdocs-glightbox
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">mkdocs.yml</span><pre><span></span><code><span id="__span-84-1"><a href="#__codelineno-84-1" id="__codelineno-84-1" name="__codelineno-84-1"></a>plugins:
+</span><span id="__span-84-2"><a href="#__codelineno-84-2" id="__codelineno-84-2" name="__codelineno-84-2"></a>  - glightbox
+</span></code></pre></div>
+<p>Example:</p>
+<figure>
+<p><img alt="Amigos de fiesta" src="../../../../2023/assets/siluetas-amigos-felices-saltando-al-atardecer.jpg"></p>
+</figure>
+<p><a href="https://www.freepik.es/foto-gratis/siluetas-amigos-felices-saltando-al-atardecer_13870656.htm#query=alegria&amp;position=7&amp;from_view=keyword&amp;track=sph">Imagen de marymarkevich</a> en Freepik</p>
+<h4 id="mkdocs-minify-plugin"><a class="toclink" href="../../../../2023/10/21/enhance-your-mkdocksyml/#mkdocs-minify-plugin">mkdocs-minify-plugin</a></h4>
+<p>An MkDocs plugin to minify HTML, JS or CSS files prior to being written to disk.</p>
+<div class="language-text highlight"><span class="filename">requiremets.txt</span><pre><span></span><code><span id="__span-85-1"><a href="#__codelineno-85-1" id="__codelineno-85-1" name="__codelineno-85-1"></a>mkdocs-minify-plugin
+</span></code></pre></div>
+<h3 id="extensions"><a class="toclink" href="../../../../2023/10/21/enhance-your-mkdocksyml/#extensions">Extensions</a></h3>
+<h4 id="material-for-mkdocs"><a class="toclink" href="../../../../2023/10/21/enhance-your-mkdocksyml/#material-for-mkdocs">Material for MkDocs</a></h4>
+<p>MkDocs supports a large number of Python Markdown extensions</p>
+<h4 id="mermaid"><a class="toclink" href="../../../../2023/10/21/enhance-your-mkdocksyml/#mermaid">mermaid</a></h4>
+<p>mermaid2 is a plugin for MkDocs that allows you to embed diagrams written in mermaid.js in your Markdown documentation.</p>
+<div class="language-text highlight"><span class="filename">mkdocs.yml</span><pre><span></span><code><span id="__span-86-1"><a href="#__codelineno-86-1" id="__codelineno-86-1" name="__codelineno-86-1"></a>  - pymdownx.superfences:
+</span><span id="__span-86-2"><a href="#__codelineno-86-2" id="__codelineno-86-2" name="__codelineno-86-2"></a>      custom_fences:
+</span><span id="__span-86-3"><a href="#__codelineno-86-3" id="__codelineno-86-3" name="__codelineno-86-3"></a>        - name: mermaid
+</span><span id="__span-86-4"><a href="#__codelineno-86-4" id="__codelineno-86-4" name="__codelineno-86-4"></a>          class: mermaid
+</span><span id="__span-86-5"><a href="#__codelineno-86-5" id="__codelineno-86-5" name="__codelineno-86-5"></a>          format: !!python/name:pymdownx.superfences.fence_code_format
+</span></code></pre></div>
+<div class="language-markdown highlight"><span class="filename">Example</span><pre><span></span><code><span id="__span-87-1"><a href="#__codelineno-87-1" id="__codelineno-87-1" name="__codelineno-87-1"></a><span class="sb">  ```mermaid</span>
+</span><span id="__span-87-2"><a href="#__codelineno-87-2" id="__codelineno-87-2" name="__codelineno-87-2"></a><span class="s">  graph LR</span>
+</span><span id="__span-87-3"><a href="#__codelineno-87-3" id="__codelineno-87-3" name="__codelineno-87-3"></a><span class="s">      A[Square Rect] -- Link text --&gt; B((Circle))</span>
+</span><span id="__span-87-4"><a href="#__codelineno-87-4" id="__codelineno-87-4" name="__codelineno-87-4"></a><span class="s">      A --&gt; C(Round Rect)</span>
+</span><span id="__span-87-5"><a href="#__codelineno-87-5" id="__codelineno-87-5" name="__codelineno-87-5"></a><span class="s">      B --&gt; D{Rhombus}</span>
+</span><span id="__span-87-6"><a href="#__codelineno-87-6" id="__codelineno-87-6" name="__codelineno-87-6"></a><span class="s">      C --&gt; D</span>
+</span><span id="__span-87-7"><a href="#__codelineno-87-7" id="__codelineno-87-7" name="__codelineno-87-7"></a><span class="sb">  ```</span>
+</span></code></pre></div>
+<pre class="mermaid"><code>graph LR
+    A[Square Rect] -- Link text --&gt; B((Circle))
+    A --&gt; C(Round Rect)
+    B --&gt; D{Rhombus}
+    C --&gt; D
+</code></pre>
+<p>You can find more information about mermaid.js in <a href="https://mermaid-js.github.io/mermaid/#/">https://mermaid-js.github.io/mermaid/#/</a></p>
+<h4 id="admonitions"><a class="toclink" href="../../../../2023/10/21/enhance-your-mkdocksyml/#admonitions">Admonitions</a></h4>
+<p>Admonitions is a markdown extension of materials for MkDocs that allows you to add admonition blocks to your Markdown documentation.</p>
+<div class="language-text highlight"><span class="filename">mkdocs.yml</span><pre><span></span><code><span id="__span-88-1"><a href="#__codelineno-88-1" id="__codelineno-88-1" name="__codelineno-88-1"></a>markdown_extensions:
+</span><span id="__span-88-2"><a href="#__codelineno-88-2" id="__codelineno-88-2" name="__codelineno-88-2"></a>  - admonition
+</span><span id="__span-88-3"><a href="#__codelineno-88-3" id="__codelineno-88-3" name="__codelineno-88-3"></a>  - pymdownx.details
+</span><span id="__span-88-4"><a href="#__codelineno-88-4" id="__codelineno-88-4" name="__codelineno-88-4"></a>  - pymdownx.superfences
+</span></code></pre></div>
+<p>Example:</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-89-1"><a href="#__codelineno-89-1" id="__codelineno-89-1" name="__codelineno-89-1"></a>!!! Example
+</span><span id="__span-89-2"><a href="#__codelineno-89-2" id="__codelineno-89-2" name="__codelineno-89-2"></a>    Example
+</span><span id="__span-89-3"><a href="#__codelineno-89-3" id="__codelineno-89-3" name="__codelineno-89-3"></a>!!! Error
+</span><span id="__span-89-4"><a href="#__codelineno-89-4" id="__codelineno-89-4" name="__codelineno-89-4"></a>    Error
+</span><span id="__span-89-5"><a href="#__codelineno-89-5" id="__codelineno-89-5" name="__codelineno-89-5"></a>!!! Warning
+</span><span id="__span-89-6"><a href="#__codelineno-89-6" id="__codelineno-89-6" name="__codelineno-89-6"></a>    Warning    
+</span><span id="__span-89-7"><a href="#__codelineno-89-7" id="__codelineno-89-7" name="__codelineno-89-7"></a>!!! Success
+</span><span id="__span-89-8"><a href="#__codelineno-89-8" id="__codelineno-89-8" name="__codelineno-89-8"></a>    Success
+</span><span id="__span-89-9"><a href="#__codelineno-89-9" id="__codelineno-89-9" name="__codelineno-89-9"></a>!!! Info
+</span><span id="__span-89-10"><a href="#__codelineno-89-10" id="__codelineno-89-10" name="__codelineno-89-10"></a>    Info    
+</span><span id="__span-89-11"><a href="#__codelineno-89-11" id="__codelineno-89-11" name="__codelineno-89-11"></a>!!! Tip
+</span><span id="__span-89-12"><a href="#__codelineno-89-12" id="__codelineno-89-12" name="__codelineno-89-12"></a>    Tip
+</span><span id="__span-89-13"><a href="#__codelineno-89-13" id="__codelineno-89-13" name="__codelineno-89-13"></a>!!! Question
+</span><span id="__span-89-14"><a href="#__codelineno-89-14" id="__codelineno-89-14" name="__codelineno-89-14"></a>    Question
+</span><span id="__span-89-15"><a href="#__codelineno-89-15" id="__codelineno-89-15" name="__codelineno-89-15"></a>!!! Quote
+</span><span id="__span-89-16"><a href="#__codelineno-89-16" id="__codelineno-89-16" name="__codelineno-89-16"></a>    Quote
+</span></code></pre></div>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>Example</p>
+</div>
+<div class="admonition error">
+<p class="admonition-title">Error</p>
+<p>Error</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Warning    </p>
+</div>
+<div class="admonition success">
+<p class="admonition-title">Success</p>
+<p>Success</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Info    </p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Tip</p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Question</p>
+</div>
+<div class="admonition quote">
+<p class="admonition-title">Quote</p>
+<p>Quote</p>
+</div>
+<h4 id="icons-emojis"><a class="toclink" href="../../../../2023/10/21/enhance-your-mkdocksyml/#icons-emojis">Icons, Emojis</a></h4>
+<p>With material you can use more than 10000 icons and thousand of emojis in your documentation.</p>
+<div class="language-text highlight"><span class="filename">mkdocs.yml</span><pre><span></span><code><span id="__span-90-1"><a href="#__codelineno-90-1" id="__codelineno-90-1" name="__codelineno-90-1"></a>markdown_extensions:  
+</span><span id="__span-90-2"><a href="#__codelineno-90-2" id="__codelineno-90-2" name="__codelineno-90-2"></a>  - attr_list
+</span><span id="__span-90-3"><a href="#__codelineno-90-3" id="__codelineno-90-3" name="__codelineno-90-3"></a>  - pymdownx.emoji:
+</span><span id="__span-90-4"><a href="#__codelineno-90-4" id="__codelineno-90-4" name="__codelineno-90-4"></a>      emoji_index: !!python/name:material.extensions.emoji.twemoji
+</span><span id="__span-90-5"><a href="#__codelineno-90-5" id="__codelineno-90-5" name="__codelineno-90-5"></a>      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+</span></code></pre></div>
+<p>Example:</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-91-1"><a href="#__codelineno-91-1" id="__codelineno-91-1" name="__codelineno-91-1"></a>:smile:
+</span><span id="__span-91-2"><a href="#__codelineno-91-2" id="__codelineno-91-2" name="__codelineno-91-2"></a>:man_head:
+</span><span id="__span-91-3"><a href="#__codelineno-91-3" id="__codelineno-91-3" name="__codelineno-91-3"></a>:face_with_monocle:
+</span><span id="__span-91-4"><a href="#__codelineno-91-4" id="__codelineno-91-4" name="__codelineno-91-4"></a>:jack_o_lantern:
+</span></code></pre></div>
+<p><img alt="😄" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f604.svg" title=":smile:">
+<img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:">
+<img alt="🧐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f9d0.svg" title=":face_with_monocle:">
+<img alt="🎃" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f383.svg" title=":jack_o_lantern:"></p>
+<h4 id="annotations"><a class="toclink" href="../../../../2023/10/21/enhance-your-mkdocksyml/#annotations">Annotations</a></h4>
+<p>One of the flagship features of Material for MkDocs is the ability to inject annotations – little markers that can be added almost anywhere in a document and expand a tooltip containing arbitrary Markdown on click or keyboard focus.</p>
+<div class="language-text highlight"><span class="filename">mkdocs.yml</span><pre><span></span><code><span id="__span-92-1"><a href="#__codelineno-92-1" id="__codelineno-92-1" name="__codelineno-92-1"></a>markdown_extensions:
+</span><span id="__span-92-2"><a href="#__codelineno-92-2" id="__codelineno-92-2" name="__codelineno-92-2"></a>  - attr_list
+</span><span id="__span-92-3"><a href="#__codelineno-92-3" id="__codelineno-92-3" name="__codelineno-92-3"></a>  - md_in_html
+</span><span id="__span-92-4"><a href="#__codelineno-92-4" id="__codelineno-92-4" name="__codelineno-92-4"></a>  - pymdownx.superfences
+</span></code></pre></div>
+<p>Examples:</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-93-1"><a href="#__codelineno-93-1" id="__codelineno-93-1" name="__codelineno-93-1"></a>This is a paragraph with a annotation(1).
+</span><span id="__span-93-2"><a href="#__codelineno-93-2" id="__codelineno-93-2" name="__codelineno-93-2"></a>{ .annotate }
+</span><span id="__span-93-3"><a href="#__codelineno-93-3" id="__codelineno-93-3" name="__codelineno-93-3"></a>
+</span><span id="__span-93-4"><a href="#__codelineno-93-4" id="__codelineno-93-4" name="__codelineno-93-4"></a><span class="k">1.</span>  :man_raising_hand: I'm an annotation! I can contain <span class="sb">`code`</span>, __formatted
+</span><span id="__span-93-5"><a href="#__codelineno-93-5" id="__codelineno-93-5" name="__codelineno-93-5"></a>    text__, images, ... basically anything that can be expressed in Markdown.
+</span></code></pre></div>
+<p class="annotate">This is a paragraph with a annotation(1).</p>
+<ol>
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:"> I'm an annotation! I can contain <code>code</code>, <strong>formatted
+    text</strong>, images, ... basically anything that can be expressed in Markdown.</li>
+</ol>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-94-1"><a href="#__codelineno-94-1" id="__codelineno-94-1" name="__codelineno-94-1"></a>This is a paragraph with a annotation(1).
+</span><span id="__span-94-2"><a href="#__codelineno-94-2" id="__codelineno-94-2" name="__codelineno-94-2"></a>{ .annotate }
+</span><span id="__span-94-3"><a href="#__codelineno-94-3" id="__codelineno-94-3" name="__codelineno-94-3"></a>
+</span><span id="__span-94-4"><a href="#__codelineno-94-4" id="__codelineno-94-4" name="__codelineno-94-4"></a><span class="k">1.</span>  :man_raising_hand: I'm an annotation! with a nested annotation(1)
+</span><span id="__span-94-5"><a href="#__codelineno-94-5" id="__codelineno-94-5" name="__codelineno-94-5"></a>    { .annotate }
+</span><span id="__span-94-6"><a href="#__codelineno-94-6" id="__codelineno-94-6" name="__codelineno-94-6"></a>
+</span><span id="__span-94-7"><a href="#__codelineno-94-7" id="__codelineno-94-7" name="__codelineno-94-7"></a><span class="w">    </span><span class="k">1.</span> I'm a nested annotation!
+</span></code></pre></div>
+<p class="annotate">This is a paragraph with a annotation(1).</p>
+<ol>
+<li>
+<p class="annotate"><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:"> I'm an annotation! with a nested annotation(1)</p>
+<ol>
+<li>I'm a nested annotation!</li>
+</ol>
+</li>
+</ol>
+<h4 id="buttons"><a class="toclink" href="../../../../2023/10/21/enhance-your-mkdocksyml/#buttons">Buttons</a></h4>
+<div class="language-text highlight"><span class="filename">mkdocs.yml</span><pre><span></span><code><span id="__span-95-1"><a href="#__codelineno-95-1" id="__codelineno-95-1" name="__codelineno-95-1"></a>markdown_extensions:
+</span><span id="__span-95-2"><a href="#__codelineno-95-2" id="__codelineno-95-2" name="__codelineno-95-2"></a>  - attr_list  
+</span></code></pre></div>
+<p>Examples:</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-96-1"><a href="#__codelineno-96-1" id="__codelineno-96-1" name="__codelineno-96-1"></a>[<span class="nt">This is a button</span>](<span class="na">#</span>)
+</span><span id="__span-96-2"><a href="#__codelineno-96-2" id="__codelineno-96-2" name="__codelineno-96-2"></a>{ .md-button }
+</span></code></pre></div>
+<p class="md-button"><a href="../../../../2023/10/21/enhance-your-mkdocksyml/#">This is a button</a></p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-97-1"><a href="#__codelineno-97-1" id="__codelineno-97-1" name="__codelineno-97-1"></a>[<span class="nt">This is a button</span>](<span class="na">#</span>)
+</span><span id="__span-97-2"><a href="#__codelineno-97-2" id="__codelineno-97-2" name="__codelineno-97-2"></a>{ .md-button .md-button--primary }
+</span></code></pre></div>
+<p class="md-button md-button--primary"><a href="../../../../2023/10/21/enhance-your-mkdocksyml/#">This is a button</a></p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-98-1"><a href="#__codelineno-98-1" id="__codelineno-98-1" name="__codelineno-98-1"></a>[<span class="nt">Send :fontawesome-regular-face-laugh-wink:</span>](<span class="na">#</span>){ .md-button }
+</span></code></pre></div>
+<p><a class="md-button" href="../../../../2023/10/21/enhance-your-mkdocksyml/#">Send <span class="twemoji"><svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M464 256a208 208 0 1 0-416 0 208 208 0 1 0 416 0M0 256a256 256 0 1 1 512 0 256 256 0 1 1-512 0m118.3 58.2c-4.2-13.7 7.1-26.2 21.4-26.2h232.6c14.3 0 25.6 12.5 21.4 26.2C375.7 373.1 320.8 416 256 416s-119.7-42.9-137.7-101.8M144 192a32 32 0 1 1 64 0 32 32 0 1 1-64 0m164 8c0 11-9 20-20 20s-20-9-20-20c0-33.1 26.9-60 60-60h16c33.1 0 60 26.9 60 60 0 11-9 20-20 20s-20-9-20-20-9-20-20-20h-16c-11 0-20 9-20 20"></path></svg></span></a></p>
+<h4 id="content-tabs"><a class="toclink" href="../../../../2023/10/21/enhance-your-mkdocksyml/#content-tabs">Content tabs</a></h4>
+<div class="language-text highlight"><span class="filename">mkdocs.yml</span><pre><span></span><code><span id="__span-99-1"><a href="#__codelineno-99-1" id="__codelineno-99-1" name="__codelineno-99-1"></a>markdown_extensions:
+</span><span id="__span-99-2"><a href="#__codelineno-99-2" id="__codelineno-99-2" name="__codelineno-99-2"></a>  - pymdownx.superfences
+</span><span id="__span-99-3"><a href="#__codelineno-99-3" id="__codelineno-99-3" name="__codelineno-99-3"></a>  - pymdownx.tabbed:
+</span><span id="__span-99-4"><a href="#__codelineno-99-4" id="__codelineno-99-4" name="__codelineno-99-4"></a>      alternate_style: true 
+</span></code></pre></div>
+<p>Example:</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-100-1"><a href="#__codelineno-100-1" id="__codelineno-100-1" name="__codelineno-100-1"></a>=== "azcli"
+</span><span id="__span-100-2"><a href="#__codelineno-100-2" id="__codelineno-100-2" name="__codelineno-100-2"></a>
+</span><span id="__span-100-3"><a href="#__codelineno-100-3" id="__codelineno-100-3" name="__codelineno-100-3"></a>    ``` azcli    
+</span><span id="__span-100-4"><a href="#__codelineno-100-4" id="__codelineno-100-4" name="__codelineno-100-4"></a>    az group create --name myResourceGroup --location westeurope
+</span><span id="__span-100-5"><a href="#__codelineno-100-5" id="__codelineno-100-5" name="__codelineno-100-5"></a><span class="sb">    ```</span>
+</span><span id="__span-100-6"><a href="#__codelineno-100-6" id="__codelineno-100-6" name="__codelineno-100-6"></a>
+</span><span id="__span-100-7"><a href="#__codelineno-100-7" id="__codelineno-100-7" name="__codelineno-100-7"></a><span class="sb">=== "pwsh"</span>
+</span><span id="__span-100-8"><a href="#__codelineno-100-8" id="__codelineno-100-8" name="__codelineno-100-8"></a>
+</span><span id="__span-100-9"><a href="#__codelineno-100-9" id="__codelineno-100-9" name="__codelineno-100-9"></a><span class="sb">    ``` pwsh    </span>
+</span><span id="__span-100-10"><a href="#__codelineno-100-10" id="__codelineno-100-10" name="__codelineno-100-10"></a><span class="sb">    New-AzResourceGroup -Name myResourceGroup -Location westeurope    </span>
+</span><span id="__span-100-11"><a href="#__codelineno-100-11" id="__codelineno-100-11" name="__codelineno-100-11"></a><span class="sb">    ```</span>
+</span></code></pre></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio"><input id="__tabbed_4_2" name="__tabbed_4" type="radio"><div class="tabbed-labels"><label for="__tabbed_4_1">azcli</label><label for="__tabbed_4_2">pwsh</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-text highlight"><span class="filename">bubble_sort.py</span><pre><span></span><code><span id="__span-101-1"><a href="#__codelineno-101-1" id="__codelineno-101-1" name="__codelineno-101-1"></a>az group create --name myResourceGroup --location westeurope
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-pwsh highlight"><pre><span></span><code><span id="__span-102-1"><a href="#__codelineno-102-1" id="__codelineno-102-1" name="__codelineno-102-1"></a><span class="nb">New-AzResourceGroup</span> <span class="n">-Name</span> <span class="n">myResourceGroup</span> <span class="n">-Location</span> <span class="n">westeurope</span>    
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<h4 id="footnotes"><a class="toclink" href="../../../../2023/10/21/enhance-your-mkdocksyml/#footnotes">Footnotes</a></h4>
+<div class="language-text highlight"><span class="filename">mkdocs.yml</span><pre><span></span><code><span id="__span-103-1"><a href="#__codelineno-103-1" id="__codelineno-103-1" name="__codelineno-103-1"></a>markdown_extensions:
+</span><span id="__span-103-2"><a href="#__codelineno-103-2" id="__codelineno-103-2" name="__codelineno-103-2"></a>  - footnotes
+</span></code></pre></div>
+<p>Example:</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-104-1"><a href="#__codelineno-104-1" id="__codelineno-104-1" name="__codelineno-104-1"></a>This is a paragraph with a footnote[^1].
+</span><span id="__span-104-2"><a href="#__codelineno-104-2" id="__codelineno-104-2" name="__codelineno-104-2"></a>
+</span><span id="__span-104-3"><a href="#__codelineno-104-3" id="__codelineno-104-3" name="__codelineno-104-3"></a>[<span class="nl">^1</span>]: <span class="na">And here is the definition.</span>
+</span></code></pre></div>
+<p>This is a paragraph with a footnote<sup id="fnref4:1"><a class="footnote-ref" href="../../../../2023/10/21/enhance-your-mkdocksyml/#fn:1">1</a></sup>.</p>
+<h4 id="formatting"><a class="toclink" href="../../../../2023/10/21/enhance-your-mkdocksyml/#formatting">Formatting</a></h4>
+<div class="language-text highlight"><span class="filename">mkdocs.yml</span><pre><span></span><code><span id="__span-105-1"><a href="#__codelineno-105-1" id="__codelineno-105-1" name="__codelineno-105-1"></a>markdown_extensions:
+</span><span id="__span-105-2"><a href="#__codelineno-105-2" id="__codelineno-105-2" name="__codelineno-105-2"></a>  - pymdownx.critic
+</span><span id="__span-105-3"><a href="#__codelineno-105-3" id="__codelineno-105-3" name="__codelineno-105-3"></a>  - pymdownx.caret
+</span><span id="__span-105-4"><a href="#__codelineno-105-4" id="__codelineno-105-4" name="__codelineno-105-4"></a>  - pymdownx.keys
+</span><span id="__span-105-5"><a href="#__codelineno-105-5" id="__codelineno-105-5" name="__codelineno-105-5"></a>  - pymdownx.mark
+</span><span id="__span-105-6"><a href="#__codelineno-105-6" id="__codelineno-105-6" name="__codelineno-105-6"></a>  - pymdownx.tilde
+</span></code></pre></div>
+<p>Example:</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-106-1"><a href="#__codelineno-106-1" id="__codelineno-106-1" name="__codelineno-106-1"></a><span class="k">-</span><span class="w"> </span><span class="gd">~~Mistaken text.~~</span>
+</span><span id="__span-106-2"><a href="#__codelineno-106-2" id="__codelineno-106-2" name="__codelineno-106-2"></a><span class="k">-</span><span class="w"> </span>^^Superscript^^
+</span><span id="__span-106-3"><a href="#__codelineno-106-3" id="__codelineno-106-3" name="__codelineno-106-3"></a><span class="k">-</span><span class="w"> </span>==Marked text.==
+</span></code></pre></div>
+<ul>
+<li><del>Mistaken text.</del></li>
+<li><ins>Superscript</ins></li>
+<li><mark>Marked text.</mark></li>
+</ul>
+<h4 id="mkdocsyml-complete"><a class="toclink" href="../../../../2023/10/21/enhance-your-mkdocksyml/#mkdocsyml-complete">mkdocs.yml complete</a></h4>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-107-1"><a href="#__codelineno-107-1" id="__codelineno-107-1" name="__codelineno-107-1"></a>site_name: My Site
+</span><span id="__span-107-2"><a href="#__codelineno-107-2" id="__codelineno-107-2" name="__codelineno-107-2"></a>site_description: A blog about Azure, DevOps and other stuff
+</span><span id="__span-107-3"><a href="#__codelineno-107-3" id="__codelineno-107-3" name="__codelineno-107-3"></a>site_author: Rafael Fernández
+</span><span id="__span-107-4"><a href="#__codelineno-107-4" id="__codelineno-107-4" name="__codelineno-107-4"></a>site_url: https://rfernandezdo.github.io
+</span><span id="__span-107-5"><a href="#__codelineno-107-5" id="__codelineno-107-5" name="__codelineno-107-5"></a>
+</span><span id="__span-107-6"><a href="#__codelineno-107-6" id="__codelineno-107-6" name="__codelineno-107-6"></a>theme: 
+</span><span id="__span-107-7"><a href="#__codelineno-107-7" id="__codelineno-107-7" name="__codelineno-107-7"></a>  name: material
+</span><span id="__span-107-8"><a href="#__codelineno-107-8" id="__codelineno-107-8" name="__codelineno-107-8"></a>  palette:
+</span><span id="__span-107-9"><a href="#__codelineno-107-9" id="__codelineno-107-9" name="__codelineno-107-9"></a>    primary: blue
+</span><span id="__span-107-10"><a href="#__codelineno-107-10" id="__codelineno-107-10" name="__codelineno-107-10"></a>    accent: white
+</span><span id="__span-107-11"><a href="#__codelineno-107-11" id="__codelineno-107-11" name="__codelineno-107-11"></a>  features:
+</span><span id="__span-107-12"><a href="#__codelineno-107-12" id="__codelineno-107-12" name="__codelineno-107-12"></a>    - navigation.tabs
+</span><span id="__span-107-13"><a href="#__codelineno-107-13" id="__codelineno-107-13" name="__codelineno-107-13"></a>    - navigation.expand
+</span><span id="__span-107-14"><a href="#__codelineno-107-14" id="__codelineno-107-14" name="__codelineno-107-14"></a>    - navigation.sections
+</span><span id="__span-107-15"><a href="#__codelineno-107-15" id="__codelineno-107-15" name="__codelineno-107-15"></a>    - toc.integrate
+</span><span id="__span-107-16"><a href="#__codelineno-107-16" id="__codelineno-107-16" name="__codelineno-107-16"></a>    - toc.nested
+</span><span id="__span-107-17"><a href="#__codelineno-107-17" id="__codelineno-107-17" name="__codelineno-107-17"></a>    - toc.smoothscroll
+</span><span id="__span-107-18"><a href="#__codelineno-107-18" id="__codelineno-107-18" name="__codelineno-107-18"></a>    - footer
+</span><span id="__span-107-19"><a href="#__codelineno-107-19" id="__codelineno-107-19" name="__codelineno-107-19"></a>    - content.code.copy
+</span><span id="__span-107-20"><a href="#__codelineno-107-20" id="__codelineno-107-20" name="__codelineno-107-20"></a>    - content.code.annotate
+</span><span id="__span-107-21"><a href="#__codelineno-107-21" id="__codelineno-107-21" name="__codelineno-107-21"></a>    - content.tooltips
+</span><span id="__span-107-22"><a href="#__codelineno-107-22" id="__codelineno-107-22" name="__codelineno-107-22"></a>extra:
+</span><span id="__span-107-23"><a href="#__codelineno-107-23" id="__codelineno-107-23" name="__codelineno-107-23"></a>  social:
+</span><span id="__span-107-24"><a href="#__codelineno-107-24" id="__codelineno-107-24" name="__codelineno-107-24"></a>    - icon: fontawesome/brands/linkedin
+</span><span id="__span-107-25"><a href="#__codelineno-107-25" id="__codelineno-107-25" name="__codelineno-107-25"></a>      link: https://www.linkedin.com/in/rafaelfernandezd/
+</span><span id="__span-107-26"><a href="#__codelineno-107-26" id="__codelineno-107-26" name="__codelineno-107-26"></a>      name: LinkedIn
+</span><span id="__span-107-27"><a href="#__codelineno-107-27" id="__codelineno-107-27" name="__codelineno-107-27"></a>    - icon: fontawesome/brands/github
+</span><span id="__span-107-28"><a href="#__codelineno-107-28" id="__codelineno-107-28" name="__codelineno-107-28"></a>      link: https://github.com/rfernandezdo
+</span><span id="__span-107-29"><a href="#__codelineno-107-29" id="__codelineno-107-29" name="__codelineno-107-29"></a>      name: GitHub
+</span><span id="__span-107-30"><a href="#__codelineno-107-30" id="__codelineno-107-30" name="__codelineno-107-30"></a>    - icon: fontawesome/solid/square-rss
+</span><span id="__span-107-31"><a href="#__codelineno-107-31" id="__codelineno-107-31" name="__codelineno-107-31"></a>      link: https://rfernandezdo.github.io/feed_rss_created.xml
+</span><span id="__span-107-32"><a href="#__codelineno-107-32" id="__codelineno-107-32" name="__codelineno-107-32"></a>      name: RSS feed
+</span><span id="__span-107-33"><a href="#__codelineno-107-33" id="__codelineno-107-33" name="__codelineno-107-33"></a>copyright: Copyright &amp;copy; 2023-now Rafael Fernández
+</span><span id="__span-107-34"><a href="#__codelineno-107-34" id="__codelineno-107-34" name="__codelineno-107-34"></a>
+</span><span id="__span-107-35"><a href="#__codelineno-107-35" id="__codelineno-107-35" name="__codelineno-107-35"></a>plugins:
+</span><span id="__span-107-36"><a href="#__codelineno-107-36" id="__codelineno-107-36" name="__codelineno-107-36"></a>  - search  
+</span><span id="__span-107-37"><a href="#__codelineno-107-37" id="__codelineno-107-37" name="__codelineno-107-37"></a>  - mermaid2
+</span><span id="__span-107-38"><a href="#__codelineno-107-38" id="__codelineno-107-38" name="__codelineno-107-38"></a>  - blog  
+</span><span id="__span-107-39"><a href="#__codelineno-107-39" id="__codelineno-107-39" name="__codelineno-107-39"></a>  - tags:
+</span><span id="__span-107-40"><a href="#__codelineno-107-40" id="__codelineno-107-40" name="__codelineno-107-40"></a>      tags_file: tags.md    
+</span><span id="__span-107-41"><a href="#__codelineno-107-41" id="__codelineno-107-41" name="__codelineno-107-41"></a>  - rss:
+</span><span id="__span-107-42"><a href="#__codelineno-107-42" id="__codelineno-107-42" name="__codelineno-107-42"></a>      match_path: blog/posts/.* 
+</span><span id="__span-107-43"><a href="#__codelineno-107-43" id="__codelineno-107-43" name="__codelineno-107-43"></a>      date_from_meta:
+</span><span id="__span-107-44"><a href="#__codelineno-107-44" id="__codelineno-107-44" name="__codelineno-107-44"></a>        as_creation: date
+</span><span id="__span-107-45"><a href="#__codelineno-107-45" id="__codelineno-107-45" name="__codelineno-107-45"></a>      categories:
+</span><span id="__span-107-46"><a href="#__codelineno-107-46" id="__codelineno-107-46" name="__codelineno-107-46"></a>        - categories
+</span><span id="__span-107-47"><a href="#__codelineno-107-47" id="__codelineno-107-47" name="__codelineno-107-47"></a>        - tags
+</span><span id="__span-107-48"><a href="#__codelineno-107-48" id="__codelineno-107-48" name="__codelineno-107-48"></a>  - minify:
+</span><span id="__span-107-49"><a href="#__codelineno-107-49" id="__codelineno-107-49" name="__codelineno-107-49"></a>      minify_html: true
+</span><span id="__span-107-50"><a href="#__codelineno-107-50" id="__codelineno-107-50" name="__codelineno-107-50"></a>      minify_js: true
+</span><span id="__span-107-51"><a href="#__codelineno-107-51" id="__codelineno-107-51" name="__codelineno-107-51"></a>      minify_css: true
+</span><span id="__span-107-52"><a href="#__codelineno-107-52" id="__codelineno-107-52" name="__codelineno-107-52"></a>      htmlmin_opts:
+</span><span id="__span-107-53"><a href="#__codelineno-107-53" id="__codelineno-107-53" name="__codelineno-107-53"></a>          remove_comments: true
+</span><span id="__span-107-54"><a href="#__codelineno-107-54" id="__codelineno-107-54" name="__codelineno-107-54"></a>      cache_safe: true
+</span><span id="__span-107-55"><a href="#__codelineno-107-55" id="__codelineno-107-55" name="__codelineno-107-55"></a>  - glightbox:
+</span><span id="__span-107-56"><a href="#__codelineno-107-56" id="__codelineno-107-56" name="__codelineno-107-56"></a>      zoomable: true
+</span><span id="__span-107-57"><a href="#__codelineno-107-57" id="__codelineno-107-57" name="__codelineno-107-57"></a>      draggable: true
+</span><span id="__span-107-58"><a href="#__codelineno-107-58" id="__codelineno-107-58" name="__codelineno-107-58"></a>      skip_classes:
+</span><span id="__span-107-59"><a href="#__codelineno-107-59" id="__codelineno-107-59" name="__codelineno-107-59"></a>        - skip-lightbox
+</span><span id="__span-107-60"><a href="#__codelineno-107-60" id="__codelineno-107-60" name="__codelineno-107-60"></a>    #- meta in insiders, review in next release
+</span><span id="__span-107-61"><a href="#__codelineno-107-61" id="__codelineno-107-61" name="__codelineno-107-61"></a>  - social
+</span><span id="__span-107-62"><a href="#__codelineno-107-62" id="__codelineno-107-62" name="__codelineno-107-62"></a>markdown_extensions:
+</span><span id="__span-107-63"><a href="#__codelineno-107-63" id="__codelineno-107-63" name="__codelineno-107-63"></a>  - admonition
+</span><span id="__span-107-64"><a href="#__codelineno-107-64" id="__codelineno-107-64" name="__codelineno-107-64"></a>  - pymdownx.details
+</span><span id="__span-107-65"><a href="#__codelineno-107-65" id="__codelineno-107-65" name="__codelineno-107-65"></a>  - pymdownx.superfences:
+</span><span id="__span-107-66"><a href="#__codelineno-107-66" id="__codelineno-107-66" name="__codelineno-107-66"></a>      custom_fences:
+</span><span id="__span-107-67"><a href="#__codelineno-107-67" id="__codelineno-107-67" name="__codelineno-107-67"></a>        - name: mermaid
+</span><span id="__span-107-68"><a href="#__codelineno-107-68" id="__codelineno-107-68" name="__codelineno-107-68"></a>          class: mermaid
+</span><span id="__span-107-69"><a href="#__codelineno-107-69" id="__codelineno-107-69" name="__codelineno-107-69"></a>          format: !!python/name:pymdownx.superfences.fence_code_format
+</span><span id="__span-107-70"><a href="#__codelineno-107-70" id="__codelineno-107-70" name="__codelineno-107-70"></a>  - md_in_html
+</span><span id="__span-107-71"><a href="#__codelineno-107-71" id="__codelineno-107-71" name="__codelineno-107-71"></a>  - attr_list
+</span><span id="__span-107-72"><a href="#__codelineno-107-72" id="__codelineno-107-72" name="__codelineno-107-72"></a>  - pymdownx.emoji:
+</span><span id="__span-107-73"><a href="#__codelineno-107-73" id="__codelineno-107-73" name="__codelineno-107-73"></a>      emoji_index: !!python/name:material.extensions.emoji.twemoji
+</span><span id="__span-107-74"><a href="#__codelineno-107-74" id="__codelineno-107-74" name="__codelineno-107-74"></a>      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+</span><span id="__span-107-75"><a href="#__codelineno-107-75" id="__codelineno-107-75" name="__codelineno-107-75"></a>  - pymdownx.tabbed:
+</span><span id="__span-107-76"><a href="#__codelineno-107-76" id="__codelineno-107-76" name="__codelineno-107-76"></a>      alternate_style: true
+</span><span id="__span-107-77"><a href="#__codelineno-107-77" id="__codelineno-107-77" name="__codelineno-107-77"></a>  - pymdownx.highlight:
+</span><span id="__span-107-78"><a href="#__codelineno-107-78" id="__codelineno-107-78" name="__codelineno-107-78"></a>      anchor_linenums: true
+</span><span id="__span-107-79"><a href="#__codelineno-107-79" id="__codelineno-107-79" name="__codelineno-107-79"></a>      line_spans: __span
+</span><span id="__span-107-80"><a href="#__codelineno-107-80" id="__codelineno-107-80" name="__codelineno-107-80"></a>      pygments_lang_class: true
+</span><span id="__span-107-81"><a href="#__codelineno-107-81" id="__codelineno-107-81" name="__codelineno-107-81"></a>  - pymdownx.inlinehilite
+</span><span id="__span-107-82"><a href="#__codelineno-107-82" id="__codelineno-107-82" name="__codelineno-107-82"></a>  - pymdownx.snippets
+</span><span id="__span-107-83"><a href="#__codelineno-107-83" id="__codelineno-107-83" name="__codelineno-107-83"></a>  - footnotes
+</span><span id="__span-107-84"><a href="#__codelineno-107-84" id="__codelineno-107-84" name="__codelineno-107-84"></a>  - pymdownx.critic
+</span><span id="__span-107-85"><a href="#__codelineno-107-85" id="__codelineno-107-85" name="__codelineno-107-85"></a>  - pymdownx.caret
+</span><span id="__span-107-86"><a href="#__codelineno-107-86" id="__codelineno-107-86" name="__codelineno-107-86"></a>  - pymdownx.keys
+</span><span id="__span-107-87"><a href="#__codelineno-107-87" id="__codelineno-107-87" name="__codelineno-107-87"></a>  - pymdownx.mark
+</span><span id="__span-107-88"><a href="#__codelineno-107-88" id="__codelineno-107-88" name="__codelineno-107-88"></a>  - pymdownx.tilde
+</span><span id="__span-107-89"><a href="#__codelineno-107-89" id="__codelineno-107-89" name="__codelineno-107-89"></a>  - def_list
+</span><span id="__span-107-90"><a href="#__codelineno-107-90" id="__codelineno-107-90" name="__codelineno-107-90"></a>  - pymdownx.tasklist:
+</span><span id="__span-107-91"><a href="#__codelineno-107-91" id="__codelineno-107-91" name="__codelineno-107-91"></a>      custom_checkbox: true
+</span></code></pre></div>
+<h4 id="urls-for-reference"><a class="toclink" href="../../../../2023/10/21/enhance-your-mkdocksyml/#urls-for-reference">urls for reference</a></h4>
+<ul>
+<li><a href="https://fontawesome.com/search">Font Awesome</a></li>
+<li><a href="https://emojipedia.org/">Emojis</a>
+...</li>
+</ul>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:1">
+<p>And here is the definition.&nbsp;<a class="footnote-backref" href="../../../../2023/10/21/enhance-your-mkdocksyml/#fnref:1" title="Jump back to footnote 1 in the text">↩</a><a class="footnote-backref" href="../../../../2023/10/21/enhance-your-mkdocksyml/#fnref2:1" title="Jump back to footnote 1 in the text">↩</a><a class="footnote-backref" href="../../../../2023/10/21/enhance-your-mkdocksyml/#fnref3:1" title="Jump back to footnote 1 in the text">↩</a><a class="footnote-backref" href="../../../../2023/10/21/enhance-your-mkdocksyml/#fnref4:1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2023-10-18 00:00:00+00:00">October 18, 2023</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../">DevOps</a>, 
+              <a class="md-meta__link" href="../../../english/">English</a></li>
+<li class="md-meta__item">
+            
+              4 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="create-a-blog-with-mkdocsmkdocs-material-mkdocs-rss-plugin-and-github-pages"><a class="toclink" href="../../../../2023/10/18/create-a-blog-with-mkdocsmkdocs-material-mkdocs-rss-plugin-and-github-pages/">Create a blog with MkDocs,mkdocs-material, mkdocs-rss-plugin and GitHub Pages</a></h2>
+<p>A few time ago I maintained a blog with Wordpress. I was happy with it, but I wanted to try something new. </p>
+<p>I tried Jekyll but it didn't convince me, I discovered mkdocs so I decided to use <a href="https://www.mkdocs.org/">MkDocs</a> and <a href="https://squidfunk.github.io/mkdocs-material/">mkdocs-material</a>. I was happy with the result, so I decided to write this post to explain how to create a blog with MkDocs, mkdocs-material and some plugins.</p>
+<p>These is the first post of a serie of posts to create a blog with MkDocs, mkdocs-material and GitHub Pages and some customization.</p>
+<p>Some knowledge:</p>
+<ul>
+<li>
+<p>MkDocs is a fast, simple and downright gorgeous static site generator that's geared towards building project documentation. Documentation source files are written in Markdown, and configured with a single YAML configuration file.</p>
+</li>
+<li>
+<p>Material for MkDocs is a theme for MkDocs, a static site generator geared towards (technical) project documentation. It is built using Google's Material Design guidelines. Material for MkDocs provides a polished and responsive experience out of the box, and it is as easy to use for the beginner as it is for the seasoned developer.</p>
+</li>
+<li>
+<p>GitHub Pages is a static site hosting service that takes HTML, CSS, and JavaScript files straight from a repository on GitHub, optionally runs the files through a build process, and publishes a website. You can see more information about GitHub Pages <a href="https://pages.github.com/">here</a>.</p>
+</li>
+<li>
+<p>This plugin generates an RSS feed for your MkDocs site. You can see more information about mkdocs-rss-plugin <a href="https://guts.github.io/mkdocs-rss-plugin/">here</a>.</p>
+</li>
+</ul>
+<h3 id="steps-to-deploy"><a class="toclink" href="../../../../2023/10/18/create-a-blog-with-mkdocsmkdocs-material-mkdocs-rss-plugin-and-github-pages/#steps-to-deploy">Steps to deploy</a></h3>
+<h4 id="create-a-new-repository"><a class="toclink" href="../../../../2023/10/18/create-a-blog-with-mkdocsmkdocs-material-mkdocs-rss-plugin-and-github-pages/#create-a-new-repository">Create a new repository</a></h4>
+<p>Create a new repository on GitHub named <code>username.github.io</code>, where <code>username</code> is your username (or organization name) on GitHub. If the first part of the repository doesn’t exactly match your username, it won’t work, so make sure to get it right.</p>
+<h4 id="enable-github-pages-on-your-repository"><a class="toclink" href="../../../../2023/10/18/create-a-blog-with-mkdocsmkdocs-material-mkdocs-rss-plugin-and-github-pages/#enable-github-pages-on-your-repository">Enable GitHub Pages on your repository</a></h4>
+<p>Go into the repository settings and, if you are not using GitHub Pages already, enable GitHub Pages on the <code>gh-pages</code> branch.</p>
+<h4 id="clone-the-repository"><a class="toclink" href="../../../../2023/10/18/create-a-blog-with-mkdocsmkdocs-material-mkdocs-rss-plugin-and-github-pages/#clone-the-repository">Clone the repository</a></h4>
+<p>Go to the folder where you want to store your project, and clone the new repository:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a href="#__codelineno-27-1" id="__codelineno-27-1" name="__codelineno-27-1"></a>git<span class="w"> </span>clone<span class="w"> </span>ssh://github.com/username/username.github.io
+</span><span id="__span-27-2"><a href="#__codelineno-27-2" id="__codelineno-27-2" name="__codelineno-27-2"></a><span class="nb">cd</span><span class="w"> </span>username.github.io
+</span></code></pre></div>
+<h4 id="create-requirementstxt-in-root-folder-for-mkdocs-mkdocs-material-and-plugins"><a class="toclink" href="../../../../2023/10/18/create-a-blog-with-mkdocsmkdocs-material-mkdocs-rss-plugin-and-github-pages/#create-requirementstxt-in-root-folder-for-mkdocs-mkdocs-material-and-plugins">Create requirements.txt in root folder for mkdocs, mkdocs-material and plugins</a></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a href="#__codelineno-28-1" id="__codelineno-28-1" name="__codelineno-28-1"></a><span class="nv">mkdocs</span><span class="o">==</span><span class="m">1</span>.5.3
+</span><span id="__span-28-2"><a href="#__codelineno-28-2" id="__codelineno-28-2" name="__codelineno-28-2"></a>mkdocs-material<span class="o">==</span><span class="m">9</span>.4.6
+</span><span id="__span-28-3"><a href="#__codelineno-28-3" id="__codelineno-28-3" name="__codelineno-28-3"></a>mkdocs-rss-plugin<span class="o">==</span><span class="m">1</span>.8.0
+</span></code></pre></div>
+<h4 id="create-a-python-virtual-environment-and-install-requirementstxt"><a class="toclink" href="../../../../2023/10/18/create-a-blog-with-mkdocsmkdocs-material-mkdocs-rss-plugin-and-github-pages/#create-a-python-virtual-environment-and-install-requirementstxt">Create a Python Virtual Environment and install requirements.txt</a></h4>
+<p>In username.github.io$ path:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a href="#__codelineno-29-1" id="__codelineno-29-1" name="__codelineno-29-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+</span><span id="__span-29-2"><a href="#__codelineno-29-2" id="__codelineno-29-2" name="__codelineno-29-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libcairo2
+</span><span id="__span-29-3"><a href="#__codelineno-29-3" id="__codelineno-29-3" name="__codelineno-29-3"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3.10-venv
+</span><span id="__span-29-4"><a href="#__codelineno-29-4" id="__codelineno-29-4" name="__codelineno-29-4"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>mysite
+</span><span id="__span-29-5"><a href="#__codelineno-29-5" id="__codelineno-29-5" name="__codelineno-29-5"></a><span class="nb">source</span><span class="w"> </span>mysite/bin/activate
+</span><span id="__span-29-6"><a href="#__codelineno-29-6" id="__codelineno-29-6" name="__codelineno-29-6"></a>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</span></code></pre></div>
+<h4 id="initialize-your-site"><a class="toclink" href="../../../../2023/10/18/create-a-blog-with-mkdocsmkdocs-material-mkdocs-rss-plugin-and-github-pages/#initialize-your-site">Initialize your site</a></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a href="#__codelineno-30-1" id="__codelineno-30-1" name="__codelineno-30-1"></a>mkdocs<span class="w"> </span>new<span class="w"> </span>.
+</span></code></pre></div>
+<h4 id="add-configuration-to-mkdocsyml-in-root-folder"><a class="toclink" href="../../../../2023/10/18/create-a-blog-with-mkdocsmkdocs-material-mkdocs-rss-plugin-and-github-pages/#add-configuration-to-mkdocsyml-in-root-folder">Add configuration to mkdocs.yml in root folder</a></h4>
+<p>For this post I am going to add the following configuration:</p>
+<ul>
+<li>basic configuration</li>
+<li>configuration for theme mkdocs-material</li>
+<li>some native plugins of mkdocs-material and some ones that I like</li>
+</ul>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-31-1"><a href="#__codelineno-31-1" id="__codelineno-31-1" name="__codelineno-31-1"></a><span class="nt">site_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My Site</span><span class="w"> </span>
+</span><span id="__span-31-2"><a href="#__codelineno-31-2" id="__codelineno-31-2" name="__codelineno-31-2"></a><span class="nt">site_description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A blog about Azure, DevOps and other stuff</span>
+</span><span id="__span-31-3"><a href="#__codelineno-31-3" id="__codelineno-31-3" name="__codelineno-31-3"></a><span class="nt">site_author</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Rafael Fernández</span>
+</span><span id="__span-31-4"><a href="#__codelineno-31-4" id="__codelineno-31-4" name="__codelineno-31-4"></a>
+</span><span id="__span-31-5"><a href="#__codelineno-31-5" id="__codelineno-31-5" name="__codelineno-31-5"></a><span class="nt">theme</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-31-6"><a href="#__codelineno-31-6" id="__codelineno-31-6" name="__codelineno-31-6"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material</span>
+</span><span id="__span-31-7"><a href="#__codelineno-31-7" id="__codelineno-31-7" name="__codelineno-31-7"></a><span class="w">  </span><span class="nt">features</span><span class="p">:</span>
+</span><span id="__span-31-8"><a href="#__codelineno-31-8" id="__codelineno-31-8" name="__codelineno-31-8"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">navigation.tabs</span>
+</span><span id="__span-31-9"><a href="#__codelineno-31-9" id="__codelineno-31-9" name="__codelineno-31-9"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">navigation.expand</span>
+</span><span id="__span-31-10"><a href="#__codelineno-31-10" id="__codelineno-31-10" name="__codelineno-31-10"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">navigation.sections</span>
+</span><span id="__span-31-11"><a href="#__codelineno-31-11" id="__codelineno-31-11" name="__codelineno-31-11"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">toc.integrate</span>
+</span><span id="__span-31-12"><a href="#__codelineno-31-12" id="__codelineno-31-12" name="__codelineno-31-12"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">toc.nested</span>
+</span><span id="__span-31-13"><a href="#__codelineno-31-13" id="__codelineno-31-13" name="__codelineno-31-13"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">toc.smoothscroll</span>
+</span><span id="__span-31-14"><a href="#__codelineno-31-14" id="__codelineno-31-14" name="__codelineno-31-14"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">footer</span>
+</span><span id="__span-31-15"><a href="#__codelineno-31-15" id="__codelineno-31-15" name="__codelineno-31-15"></a>
+</span><span id="__span-31-16"><a href="#__codelineno-31-16" id="__codelineno-31-16" name="__codelineno-31-16"></a><span class="nt">plugins</span><span class="p">:</span>
+</span><span id="__span-31-17"><a href="#__codelineno-31-17" id="__codelineno-31-17" name="__codelineno-31-17"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search</span><span class="w">  </span>
+</span><span id="__span-31-18"><a href="#__codelineno-31-18" id="__codelineno-31-18" name="__codelineno-31-18"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">blog</span>
+</span><span id="__span-31-19"><a href="#__codelineno-31-19" id="__codelineno-31-19" name="__codelineno-31-19"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">tags</span><span class="p">:</span>
+</span><span id="__span-31-20"><a href="#__codelineno-31-20" id="__codelineno-31-20" name="__codelineno-31-20"></a><span class="w">      </span><span class="nt">tags_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tags.md</span><span class="w">      </span>
+</span><span id="__span-31-21"><a href="#__codelineno-31-21" id="__codelineno-31-21" name="__codelineno-31-21"></a>
+</span><span id="__span-31-22"><a href="#__codelineno-31-22" id="__codelineno-31-22" name="__codelineno-31-22"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">rss</span><span class="p">:</span>
+</span><span id="__span-31-23"><a href="#__codelineno-31-23" id="__codelineno-31-23" name="__codelineno-31-23"></a><span class="w">      </span><span class="nt">match_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">blog/posts/.*</span><span class="w"> </span>
+</span><span id="__span-31-24"><a href="#__codelineno-31-24" id="__codelineno-31-24" name="__codelineno-31-24"></a><span class="w">      </span><span class="nt">date_from_meta</span><span class="p">:</span>
+</span><span id="__span-31-25"><a href="#__codelineno-31-25" id="__codelineno-31-25" name="__codelineno-31-25"></a><span class="w">        </span><span class="nt">as_creation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">date</span>
+</span><span id="__span-31-26"><a href="#__codelineno-31-26" id="__codelineno-31-26" name="__codelineno-31-26"></a><span class="w">      </span><span class="nt">categories</span><span class="p">:</span>
+</span><span id="__span-31-27"><a href="#__codelineno-31-27" id="__codelineno-31-27" name="__codelineno-31-27"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">categories</span>
+</span><span id="__span-31-28"><a href="#__codelineno-31-28" id="__codelineno-31-28" name="__codelineno-31-28"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tags</span>
+</span></code></pre></div>
+<h4 id="add-a-new-post"><a class="toclink" href="../../../../2023/10/18/create-a-blog-with-mkdocsmkdocs-material-mkdocs-rss-plugin-and-github-pages/#add-a-new-post">Add a new post</a></h4>
+<p>In blog/post folder create a new folder with the name of the post and create a new file with the name of the post and the extension .md. For example: <code>welcome.md</code> </p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-32-1"><a href="#__codelineno-32-1" id="__codelineno-32-1" name="__codelineno-32-1"></a>---
+</span><span id="__span-32-2"><a href="#__codelineno-32-2" id="__codelineno-32-2" name="__codelineno-32-2"></a>date: 2023-10-18
+</span><span id="__span-32-3"><a href="#__codelineno-32-3" id="__codelineno-32-3" name="__codelineno-32-3"></a>categories:
+</span><span id="__span-32-4"><a href="#__codelineno-32-4" id="__codelineno-32-4" name="__codelineno-32-4"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span>Hello
+</span><span id="__span-32-5"><a href="#__codelineno-32-5" id="__codelineno-32-5" name="__codelineno-32-5"></a><span class="gu">  - World</span>
+</span><span id="__span-32-6"><a href="#__codelineno-32-6" id="__codelineno-32-6" name="__codelineno-32-6"></a><span class="gu">---</span>
+</span><span id="__span-32-7"><a href="#__codelineno-32-7" id="__codelineno-32-7" name="__codelineno-32-7"></a>
+</span><span id="__span-32-8"><a href="#__codelineno-32-8" id="__codelineno-32-8" name="__codelineno-32-8"></a><span class="gh"># "Hello world!!!" from mkdocs-material</span>
+</span><span id="__span-32-9"><a href="#__codelineno-32-9" id="__codelineno-32-9" name="__codelineno-32-9"></a>
+</span><span id="__span-32-10"><a href="#__codelineno-32-10" id="__codelineno-32-10" name="__codelineno-32-10"></a>...
+</span></code></pre></div>
+<h4 id="check-your-site"><a class="toclink" href="../../../../2023/10/18/create-a-blog-with-mkdocsmkdocs-material-mkdocs-rss-plugin-and-github-pages/#check-your-site">Check your site</a></h4>
+<p>In username.github.io$ path:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a href="#__codelineno-33-1" id="__codelineno-33-1" name="__codelineno-33-1"></a>mkdocs<span class="w"> </span>serve
+</span></code></pre></div>
+<p>You can check your site in http://127.0.0.1:8000/ and make live changes in your site and see the results in your browser.</p>
+<h4 id="publish-your-site"><a class="toclink" href="../../../../2023/10/18/create-a-blog-with-mkdocsmkdocs-material-mkdocs-rss-plugin-and-github-pages/#publish-your-site">Publish your site</a></h4>
+<p>In username.github.io$ path:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a href="#__codelineno-34-1" id="__codelineno-34-1" name="__codelineno-34-1"></a>mkdocs<span class="w"> </span>gh-deploy
+</span></code></pre></div>
+<p>After a seconds, you can check your site in https://username.github.io/ </p>
+<h4 id="automate-deploy-with-github-actions"><a class="toclink" href="../../../../2023/10/18/create-a-blog-with-mkdocsmkdocs-material-mkdocs-rss-plugin-and-github-pages/#automate-deploy-with-github-actions">Automate deploy with GitHub Actions</a></h4>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-35-1"><a href="#__codelineno-35-1" id="__codelineno-35-1" name="__codelineno-35-1"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ci</span><span class="w"> </span><span class="c1"># (1)!</span>
+</span><span id="__span-35-2"><a href="#__codelineno-35-2" id="__codelineno-35-2" name="__codelineno-35-2"></a><span class="nt">on</span><span class="p">:</span>
+</span><span id="__span-35-3"><a href="#__codelineno-35-3" id="__codelineno-35-3" name="__codelineno-35-3"></a><span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+</span><span id="__span-35-4"><a href="#__codelineno-35-4" id="__codelineno-35-4" name="__codelineno-35-4"></a><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w">      </span>
+</span><span id="__span-35-5"><a href="#__codelineno-35-5" id="__codelineno-35-5" name="__codelineno-35-5"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span>
+</span><span id="__span-35-6"><a href="#__codelineno-35-6" id="__codelineno-35-6" name="__codelineno-35-6"></a><span class="nt">permissions</span><span class="p">:</span>
+</span><span id="__span-35-7"><a href="#__codelineno-35-7" id="__codelineno-35-7" name="__codelineno-35-7"></a><span class="w">  </span><span class="nt">contents</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">write</span>
+</span><span id="__span-35-8"><a href="#__codelineno-35-8" id="__codelineno-35-8" name="__codelineno-35-8"></a><span class="nt">jobs</span><span class="p">:</span>
+</span><span id="__span-35-9"><a href="#__codelineno-35-9" id="__codelineno-35-9" name="__codelineno-35-9"></a><span class="w">  </span><span class="nt">deploy</span><span class="p">:</span>
+</span><span id="__span-35-10"><a href="#__codelineno-35-10" id="__codelineno-35-10" name="__codelineno-35-10"></a><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+</span><span id="__span-35-11"><a href="#__codelineno-35-11" id="__codelineno-35-11" name="__codelineno-35-11"></a><span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+</span><span id="__span-35-12"><a href="#__codelineno-35-12" id="__codelineno-35-12" name="__codelineno-35-12"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v4</span>
+</span><span id="__span-35-13"><a href="#__codelineno-35-13" id="__codelineno-35-13" name="__codelineno-35-13"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v4</span>
+</span><span id="__span-35-14"><a href="#__codelineno-35-14" id="__codelineno-35-14" name="__codelineno-35-14"></a><span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+</span><span id="__span-35-15"><a href="#__codelineno-35-15" id="__codelineno-35-15" name="__codelineno-35-15"></a><span class="w">          </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.x</span>
+</span><span id="__span-35-16"><a href="#__codelineno-35-16" id="__codelineno-35-16" name="__codelineno-35-16"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo "cache_id=$(date --utc '+%V')" &gt;&gt; $GITHUB_ENV</span><span class="w"> </span><span class="c1"># (3)!</span>
+</span><span id="__span-35-17"><a href="#__codelineno-35-17" id="__codelineno-35-17" name="__codelineno-35-17"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/cache@v3</span>
+</span><span id="__span-35-18"><a href="#__codelineno-35-18" id="__codelineno-35-18" name="__codelineno-35-18"></a><span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+</span><span id="__span-35-19"><a href="#__codelineno-35-19" id="__codelineno-35-19" name="__codelineno-35-19"></a><span class="w">          </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mkdocs-material-${{ env.cache_id }}</span>
+</span><span id="__span-35-20"><a href="#__codelineno-35-20" id="__codelineno-35-20" name="__codelineno-35-20"></a><span class="w">          </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.cache</span>
+</span><span id="__span-35-21"><a href="#__codelineno-35-21" id="__codelineno-35-21" name="__codelineno-35-21"></a><span class="w">          </span><span class="nt">restore-keys</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+</span><span id="__span-35-22"><a href="#__codelineno-35-22" id="__codelineno-35-22" name="__codelineno-35-22"></a><span class="w">            </span><span class="no">mkdocs-material-</span>
+</span><span id="__span-35-23"><a href="#__codelineno-35-23" id="__codelineno-35-23" name="__codelineno-35-23"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install -r requirements.txt</span><span class="w"> </span><span class="c1"># (4)!</span>
+</span><span id="__span-35-24"><a href="#__codelineno-35-24" id="__codelineno-35-24" name="__codelineno-35-24"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mkdocs gh-deploy --force</span>
+</span></code></pre></div>
+<ol>
+<li>
+<p>You can change the name to your liking.</p>
+</li>
+<li>
+<p>At some point, GitHub renamed <code>master</code> to <code>main</code>. If your default branch
+    is named <code>master</code>, you can safely remove <code>main</code>, vice versa.</p>
+</li>
+<li>
+<p>Store the <code>cache_id</code> environmental variable to access it later during cache
+    <code>key</code> creation. The name is case-sensitive, so be sure to align it with <code>${{ env.cache_id }}</code>.</p>
+<ul>
+<li>The <code>--utc</code> option makes sure that each workflow runner uses the same time zone.</li>
+<li>The <code>%V</code> format assures a cache update once a week.</li>
+<li>You can change the format to <code>%F</code> to have daily cache updates.</li>
+</ul>
+<p>You can read the [manual page] to learn more about the formatting options of the <code>date</code> command.</p>
+</li>
+<li>
+<p>Add [MkDocs plugins] or Markdown
+    extensions with <code>pip</code> to requirements.txt to be used during the build.</p>
+</li>
+</ol>
+<p>In the next post I will explain how to customize your site with mkdocs-material and some plugins writing mkdocs.yml.</p>
+<p>That's it folks</p>
+<h4 id="urls-for-reference"><a class="toclink" href="../../../../2023/10/18/create-a-blog-with-mkdocsmkdocs-material-mkdocs-rss-plugin-and-github-pages/#urls-for-reference">urls for reference</a></h4>
+<ul>
+<li><a href="https://www.mkdocs.org/">https://www.mkdocs.org/</a></li>
+<li><a href="https://pages.github.com/">https://pages.github.com/</a></li>
+<li><a href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-a-blog/">https://squidfunk.github.io/mkdocs-material/setup/setting-up-a-blog/</a></li>
+<li><a href="https://guts.github.io/mkdocs-rss-plugin/">https://guts.github.io/mkdocs-rss-plugin/</a>
+...</li>
+</ul>
+</div>
+</article>
+<nav class="md-pagination">
+<a class="md-pagination__link" href="../../">1</a> <a class="md-pagination__link" href="../2/">2</a> <span class="md-pagination__current">3</span>
+</nav>
+</div>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2023-now Rafael Fernández
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://www.linkedin.com/in/rafaelfernandezd/" rel="noopener" target="_blank" title="LinkedIn">
+<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"></path></svg>
+</a>
+<a class="md-social__link" href="https://github.com/rfernandezdo" rel="noopener" target="_blank" title="GitHub">
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="https://rfernandezdo.github.io/feed_rss_created.xml" rel="noopener" target="_blank" title="RSS feed">
+<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M64 32C28.7 32 0 60.7 0 96v320c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64zm32 104c0-13.3 10.7-24 24-24 137 0 248 111 248 248 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-110.5-89.5-200-200-200-13.3 0-24-10.7-24-24m0 96c0-13.3 10.7-24 24-24 83.9 0 152 68.1 152 152 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-57.4-46.6-104-104-104-13.3 0-24-10.7-24-24m0 120a32 32 0 1 1 64 0 32 32 0 1 1-64 0"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tabs", "navigation.tabs.sticky", "navigation.expand", "navigation.sections", "navigation.top", "navigation.tracking", "toc.integrate", "toc.nested", "toc.smoothscroll", "footer", "content.code.copy", "content.code.select", "content.code.annotate", "content.tooltips"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../../../javascripts/tablesort.js"></script>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.mermaidConfig = {default: {
+    startOnLoad: false
+}};</script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

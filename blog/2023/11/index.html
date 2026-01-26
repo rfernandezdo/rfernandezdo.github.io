@@ -1,0 +1,2487 @@
+<!DOCTYPE html><html class="no-js" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width,initial-scale=1" name="viewport">
+<meta content="A blog about Azure, DevOps and other stuff" name="description">
+<meta content="Rafael Fernández" name="author">
+<link href="https://rfernandezdo.github.io/blog/2023/11/" rel="canonical">
+<link href="../12/" rel="prev">
+<link href="../10/" rel="next">
+<link href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=es&amp;_x_tr_hl=es&amp;_x_tr_pto=wapp" hreflang="en" rel="alternate">
+<link href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=en&amp;_x_tr_hl=en&amp;_x_tr_pto=wapp" hreflang="es" rel="alternate">
+<link href="../../../feed_rss_created.xml" rel="alternate" title="RSS feed" type="application/rss+xml">
+<link href="../../../feed_rss_updated.xml" rel="alternate" title="RSS feed of updated content" type="application/rss+xml">
+<link href="../../../assets/images/favicon.png" rel="icon">
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.1" name="generator">
+<title>2023/11 - Un Rinconcito donde contar lo que quiera</title>
+<link href="../../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet">
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet">
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<meta content="website" property="og:type">
+<meta content="2023/11 - Un Rinconcito donde contar lo que quiera" property="og:title">
+<meta content="A blog about Azure, DevOps and other stuff" property="og:description">
+<meta content="https://rfernandezdo.github.io/assets/images/social/blog/2023/11.png" property="og:image">
+<meta content="image/png" property="og:image:type">
+<meta content="1200" property="og:image:width">
+<meta content="630" property="og:image:height">
+<meta content="https://rfernandezdo.github.io/blog/2023/11/" property="og:url">
+<meta content="summary_large_image" property="twitter:card">
+<meta content="2023/11 - Un Rinconcito donde contar lo que quiera" property="twitter:title">
+<meta content="A blog about Azure, DevOps and other stuff" property="twitter:description">
+<meta content="https://rfernandezdo.github.io/assets/images/social/blog/2023/11.png" property="twitter:image">
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+<body data-md-color-accent="blue" data-md-color-primary="blue" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox">
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox">
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#202311">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Un Rinconcito donde contar lo que quiera" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="Un Rinconcito donde contar lo que quiera">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Un Rinconcito donde contar lo que quiera
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              2023/11
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="blue" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio">
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="black" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio">
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="Select language" class="md-header__button md-icon">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=es&amp;_x_tr_hl=es&amp;_x_tr_pto=wapp" hreflang="en">
+              English
+            </a>
+</li>
+<li class="md-select__item">
+<a class="md-select__link" href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=en&amp;_x_tr_hl=en&amp;_x_tr_pto=wapp" hreflang="es">
+              Spanish
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text">
+<label class="md-search__icon md-icon" for="__search">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+  Blog
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+        
+  
+  
+    
+  
+  About
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../contributions/">
+        
+  
+  
+    
+  
+  Contributions
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../Azure/Security/MCSB/Readme/">
+          
+  
+  
+  Azure
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../Tools/Federated_Identity_Credentials_Report/README-federated-identity-credentials/">
+          
+  
+  
+  Tools
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Un Rinconcito donde contar lo que quiera" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="Un Rinconcito donde contar lo que quiera">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    Un Rinconcito donde contar lo que quiera
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_1" type="checkbox">
+<label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_1_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Blog
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../tags/">
+<span class="md-ellipsis">
+    
+  
+    Posts by Tags
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_1_3" type="checkbox">
+<label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Archive
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_1_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Archive
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/12/">
+<span class="md-ellipsis">
+    
+  
+    2025/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/11/">
+<span class="md-ellipsis">
+    
+  
+    2025/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/10/">
+<span class="md-ellipsis">
+    
+  
+    2025/10
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/09/">
+<span class="md-ellipsis">
+    
+  
+    2025/09
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/08/">
+<span class="md-ellipsis">
+    
+  
+    2025/08
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/07/">
+<span class="md-ellipsis">
+    
+  
+    2025/07
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/06/">
+<span class="md-ellipsis">
+    
+  
+    2025/06
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/05/">
+<span class="md-ellipsis">
+    
+  
+    2025/05
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/04/">
+<span class="md-ellipsis">
+    
+  
+    2025/04
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/03/">
+<span class="md-ellipsis">
+    
+  
+    2025/03
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/02/">
+<span class="md-ellipsis">
+    
+  
+    2025/02
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/01/">
+<span class="md-ellipsis">
+    
+  
+    2025/01
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/12/">
+<span class="md-ellipsis">
+    
+  
+    2024/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/11/">
+<span class="md-ellipsis">
+    
+  
+    2024/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/10/">
+<span class="md-ellipsis">
+    
+  
+    2024/10
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/09/">
+<span class="md-ellipsis">
+    
+  
+    2024/09
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/06/">
+<span class="md-ellipsis">
+    
+  
+    2024/06
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/05/">
+<span class="md-ellipsis">
+    
+  
+    2024/05
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/04/">
+<span class="md-ellipsis">
+    
+  
+    2024/04
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/03/">
+<span class="md-ellipsis">
+    
+  
+    2024/03
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/02/">
+<span class="md-ellipsis">
+    
+  
+    2024/02
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../12/">
+<span class="md-ellipsis">
+    
+  
+    2023/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox">
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    2023/11
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    2023/11
+  
+
+    
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#comparing-container-apps-with-other-azure-container-options">
+<span class="md-ellipsis">
+      
+        Comparing Container Apps with other Azure container options
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#azure-updates-rss-feed">
+<span class="md-ellipsis">
+      
+        Azure updates RSS feed
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#azure-well-architected-framework-waf-mind-maps">
+<span class="md-ellipsis">
+      
+        Azure Well-Architected Framework (WAF) mind maps
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#azure-communication-services">
+<span class="md-ellipsis">
+      
+        Azure Communication Services
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#azure-services">
+<span class="md-ellipsis">
+      
+        Azure Services
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#starting-to-develop-in-c">
+<span class="md-ellipsis">
+      
+        Starting to develop in c#
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#trunk">
+<span class="md-ellipsis">
+      
+        Trunk
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../10/">
+<span class="md-ellipsis">
+    
+  
+    2023/10
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_1_4" type="checkbox">
+<label class="md-nav__link" for="__nav_1_4" id="__nav_1_4_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Categories
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Categories
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure/">
+<span class="md-ellipsis">
+    
+  
+    Azure
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure-ad/">
+<span class="md-ellipsis">
+    
+  
+    Azure AD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure-automation/">
+<span class="md-ellipsis">
+    
+  
+    Azure Automation
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure-devops/">
+<span class="md-ellipsis">
+    
+  
+    Azure DevOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure-frameworks/">
+<span class="md-ellipsis">
+    
+  
+    Azure Frameworks
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure-governance/">
+<span class="md-ellipsis">
+    
+  
+    Azure Governance
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure-networking/">
+<span class="md-ellipsis">
+    
+  
+    Azure Networking
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure-security/">
+<span class="md-ellipsis">
+    
+  
+    Azure Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure-services/">
+<span class="md-ellipsis">
+    
+  
+    Azure Services
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure-updates/">
+<span class="md-ellipsis">
+    
+  
+    Azure Updates
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/caf/">
+<span class="md-ellipsis">
+    
+  
+    CAF
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/cicd/">
+<span class="md-ellipsis">
+    
+  
+    CI/CD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/devops/">
+<span class="md-ellipsis">
+    
+  
+    DevOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/development/">
+<span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/drift-detection/">
+<span class="md-ellipsis">
+    
+  
+    Drift Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/english/">
+<span class="md-ellipsis">
+    
+  
+    English
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/enterprise-policy-as-code/">
+<span class="md-ellipsis">
+    
+  
+    Enterprise Policy as Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/finops/">
+<span class="md-ellipsis">
+    
+  
+    FinOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/firewall/">
+<span class="md-ellipsis">
+    
+  
+    Firewall
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/gtd/">
+<span class="md-ellipsis">
+    
+  
+    GTD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/git/">
+<span class="md-ellipsis">
+    
+  
+    Git
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/github-actions/">
+<span class="md-ellipsis">
+    
+  
+    GitHub Actions
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/hashicorp/">
+<span class="md-ellipsis">
+    
+  
+    HashiCorp
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/hello_world/">
+<span class="md-ellipsis">
+    
+  
+    Hello_World
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/infrastructure-as-code/">
+<span class="md-ellipsis">
+    
+  
+    Infrastructure as Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/learning/">
+<span class="md-ellipsis">
+    
+  
+    Learning
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/m365/">
+<span class="md-ellipsis">
+    
+  
+    M365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/microsoft-365/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft 365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/microsoft-entra/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/microsoft-entra-external-id/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra External ID
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/microsoft-entra-id/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra ID
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/networking/">
+<span class="md-ellipsis">
+    
+  
+    Networking
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/outlook/">
+<span class="md-ellipsis">
+    
+  
+    Outlook
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/pim/">
+<span class="md-ellipsis">
+    
+  
+    PIM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/power-automate/">
+<span class="md-ellipsis">
+    
+  
+    Power Automate
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/power-bi/">
+<span class="md-ellipsis">
+    
+  
+    Power BI
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/productividad/">
+<span class="md-ellipsis">
+    
+  
+    Productividad
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/productividad--microsoft-365/">
+<span class="md-ellipsis">
+    
+  
+    Productividad / Microsoft 365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/security/">
+<span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/seguridad/">
+<span class="md-ellipsis">
+    
+  
+    Seguridad
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/snowflake/">
+<span class="md-ellipsis">
+    
+  
+    Snowflake
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/terraform/">
+<span class="md-ellipsis">
+    
+  
+    Terraform
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/threat-intelligence/">
+<span class="md-ellipsis">
+    
+  
+    Threat Intelligence
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/tools/">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/troubleshooting/">
+<span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/visual-studio-code/">
+<span class="md-ellipsis">
+    
+  
+    Visual Studio Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/viva-insights/">
+<span class="md-ellipsis">
+    
+  
+    Viva Insights
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/windows/">
+<span class="md-ellipsis">
+    
+  
+    Windows
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../contributions/">
+<span class="md-ellipsis">
+    
+  
+    Contributions
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4" type="checkbox">
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Azure
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Azure
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Security
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1_1" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1_1" id="__nav_4_1_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    MCSB v1
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_4_1_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    MCSB v1
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Readme/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Readme
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Asset%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Asset Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Backup%20and%20Recovery/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Backup and Recovery
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Data%20Protection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Data Protection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/DevOps%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - DevOps Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Endpoint%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Endpoint Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Governance%20and%20Strategy/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Governance and Strategy
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Identity%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Identity Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Incident%20Response/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Incident Response
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Logging%20and%20Threat%20Detection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Logging and Threat Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Network%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Network Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Posture%20and%20Vulnerability%20Mgmt/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Posture and Vulnerability Mgmt
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Privileged%20Access/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Privileged Access
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1_2" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1_2" id="__nav_4_1_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_4_1_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    MCSB v2
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Index/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Cloud Security Benchmark v2
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Network%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Network Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Identity%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Identity Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Privileged%20Access/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Privileged Access
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Data%20Protection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Data Protection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Asset%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Asset Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Logging%20and%20Threat%20Detection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Logging and Threat Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Incident%20Response/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Incident Response
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Posture%20and%20Vulnerability%20Manag/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Posture and Vulnerability Manag
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Endpoint%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Endpoint Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Backup%20and%20Recovery/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Backup and Recovery
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Artificial%20Intelligence%20Securit/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Artificial Intelligence Securit
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5" type="checkbox">
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Tools
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5_1" type="checkbox">
+<label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Federated Identity Credentials Report
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_1_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Federated Identity Credentials Report
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Tools/Federated_Identity_Credentials_Report/README-federated-identity-credentials/">
+<span class="md-ellipsis">
+    
+  
+    Script de Reporte para Federated Identity Credentials
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5_2" type="checkbox">
+<label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Analyze Virtual Network Flows
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Analyze Virtual Network Flows
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Tools/Analyze_Virtual_Network_Flows/">
+<span class="md-ellipsis">
+    
+  
+    Analyze-VNETFlowLogs
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<div class="md-content__inner">
+<header class="md-typeset">
+<h1 id="202311">2023/11</h1>
+</header>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2023-11-30 00:00:00+00:00">November 30, 2023</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/azure-services/">Azure Services</a></li>
+<li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="comparing-container-apps-with-other-azure-container-options"><a class="toclink" href="30/comparing-container-apps-with-other-azure-container-options/">Comparing Container Apps with other Azure container options</a></h2>
+<h3 id="container-option-comparisons"><a class="toclink" href="30/comparing-container-apps-with-other-azure-container-options/#container-option-comparisons">Container option comparisons</a></h3>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Primary Use</th>
+<th>Advantages</th>
+<th>Disadvantages</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Azure Container Apps</td>
+<td>Building serverless microservices and jobs based on containers</td>
+<td>Optimized for general purpose containers. Provides a fully managed experience based on best-practices.</td>
+<td>Doesn't provide direct access to Kubernetes APIs.</td>
+</tr>
+<tr>
+<td>Azure App Service</td>
+<td>Fully managed hosting for web applications including websites and web APIs</td>
+<td>Integrated with other Azure services. Ideal option for building web apps.</td>
+<td>Might not be suitable for non-web applications.</td>
+</tr>
+<tr>
+<td>Azure Container Instances</td>
+<td>Provides a single isolated container on demand</td>
+<td>It's a great solution for any scenario that can operate in isolated containers, including simple applications, task automation, and build jobs.</td>
+<td>Concepts like scale, load balancing, and certificates are not provided.</td>
+</tr>
+<tr>
+<td>Azure Kubernetes Service</td>
+<td>Provides a fully managed Kubernetes option in Azure</td>
+<td>Supports any Kubernetes workload. Complete control over cluster configurations and operations.</td>
+<td>Requires management of the full cluster within your subscription.</td>
+</tr>
+<tr>
+<td>Azure Functions</td>
+<td>Serverless Functions-as-a-Service (FaaS) solution</td>
+<td>Optimized for running event-driven applications using the functions programming model.</td>
+<td>Limited to ephemeral functions deployed as either code or containers.</td>
+</tr>
+<tr>
+<td>Azure Spring Apps</td>
+<td>Fully managed service for Spring developers</td>
+<td>Service manages the infrastructure of Spring applications allowing developers to focus on their code.</td>
+<td>Only suitable for running Spring-based applications.</td>
+</tr>
+<tr>
+<td>Azure Red Hat OpenShift</td>
+<td>Jointly engineered, operated, and supported by Red Hat and Microsoft to provide an integrated product and support experience</td>
+<td>Offers built-in solutions for automated source code management, container and application builds, deployments, scaling, health management.</td>
+<td>Dependent on OpenShift. If your team or organization is not using OpenShift, this may not be the ideal option.</td>
+</tr>
+</tbody>
+</table>
+<p>Please note that the advantages and disadvantages may vary according to specific use cases.</p>
+<h3 id="references"><a class="toclink" href="30/comparing-container-apps-with-other-azure-container-options/#references">References</a></h3>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/azure/container-apps/overview">Azure Container Apps</a>
+https://learn.microsoft.com/en-us/azure/container-apps/compare-options</li>
+</ul>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2023-11-30 00:00:00+00:00">November 30, 2023</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/azure-updates/">Azure Updates</a></li>
+<li class="md-meta__item">
+            
+              1 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="azure-updates-rss-feed"><a class="toclink" href="30/azure-updates-rss-feed/">Azure updates RSS feed</a></h2>
+<p>All the Azure updates in one place.</p>
+<ul>
+<li><a href="https://azurecomcdn.azureedge.net/en-gb/updates/feed/">All</a></li>
+</ul>
+<h3 id="by-category"><a class="toclink" href="30/azure-updates-rss-feed/#by-category">By category</a></h3>
+<ul>
+<li>
+<p><a href="https://azurecomcdn.azureedge.net/en-gb/updates/feed/?category=featured">Featured</a></p>
+</li>
+<li>
+<p><a href="https://azurecomcdn.azureedge.net/en-gb/updates/feed/?category=ai-machine-learning">AI + Machine Learning</a></p>
+</li>
+<li>
+<p><a href="https://azurecomcdn.azureedge.net/en-gb/updates/feed/?category=analytics">Analytics</a></p>
+</li>
+<li>
+<p><a href="https://azurecomcdn.azureedge.net/en-gb/updates/feed/?category=blockchain">Blockchain</a></p>
+</li>
+<li>
+<p><a href="https://azurecomcdn.azureedge.net/en-gb/updates/feed/?category=compute">Compute</a></p>
+</li>
+<li>
+<p><a href="https://azurecomcdn.azureedge.net/en-gb/updates/feed/?category=containers">Containers</a></p>
+</li>
+<li>
+<p><a href="https://azurecomcdn.azureedge.net/en-gb/updates/feed/?category=databases">Databases</a></p>
+</li>
+<li>
+<p><a href="https://azurecomcdn.azureedge.net/en-gb/updates/feed/?category=developer-tools">Developer Tools</a></p>
+</li>
+<li>
+<p><a href="https://azurecomcdn.azureedge.net/en-gb/updates/feed/?category=devops">DevOps</a></p>
+</li>
+<li>
+<p><a href="https://azurecomcdn.azureedge.net/en-gb/updates/feed/?category=hybrid-multicloud">Hybrid + multicloud</a></p>
+</li>
+<li>
+<p><a href="https://azurecomcdn.azureedge.net/en-gb/updates/feed/?category=identity">Identity</a></p>
+</li>
+<li>
+<p><a href="https://azurecomcdn.azureedge.net/en-gb/updates/feed/?category=integration">Integration</a></p>
+</li>
+<li>
+<p><a href="https://azurecomcdn.azureedge.net/en-gb/updates/feed/?category=iot">Internet of Things</a></p>
+</li>
+<li>
+<p><a href="https://azurecomcdn.azureedge.net/en-gb/updates/feed/?category=management-tools">Management</a></p>
+</li>
+<li>
+<p><a href="https://azurecomcdn.azureedge.net/en-gb/updates/feed/?category=media">Media</a></p>
+</li>
+<li>
+<p><a href="https://azurecomcdn.azureedge.net/en-gb/updates/feed/?category=migration">Migration</a></p>
+</li>
+<li>
+<p><a href="https://azurecomcdn.azureedge.net/en-gb/updates/feed/?category=mixed-reality">Mixed Reality</a></p>
+</li>
+<li>
+<p><a href="https://azurecomcdn.azureedge.net/en-gb/updates/feed/?category=mobile">Mobile</a></p>
+</li>
+<li>
+<p><a href="https://azurecomcdn.azureedge.net/en-gb/updates/feed/?category=networking">Networking</a></p>
+</li>
+<li>
+<p><a href="https://azurecomcdn.azureedge.net/en-gb/updates/feed/?category=security">Security</a></p>
+</li>
+<li>
+<p><a href="https://azurecomcdn.azureedge.net/en-gb/updates/feed/?category=storage">Storage</a> </p>
+</li>
+<li>
+<p><a href="https://azurecomcdn.azureedge.net/en-gb/updates/feed/?category=windows-virtual-desktop">Virtual desktop infrastructure</a></p>
+</li>
+<li>
+<p><a href="https://azurecomcdn.azureedge.net/en-gb/updates/feed/?category=web">Web</a></p>
+</li>
+</ul>
+<h3 id="custom"><a class="toclink" href="30/azure-updates-rss-feed/#custom">Custom</a></h3>
+<p>https://azurecomcdn.azureedge.net/en-gb/updates/feed/?category=category1%2Ccategory2%2Ccategory3</p>
+<p>For example: </p>
+<p>https://azurecomcdn.azureedge.net/en-gb/updates/feed/?category=featured%2Cai-machine-learning%2Canalytics</p>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2023-11-21 00:00:00+00:00">November 21, 2023</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/azure-frameworks/">Azure Frameworks</a></li>
+<li class="md-meta__item">
+            
+              14 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="azure-well-architected-framework-waf-mind-maps"><a class="toclink" href="21/azure-well-architected-framework-waf-mind-maps/">Azure Well-Architected Framework (WAF) mind maps</a></h2>
+<h3 id="microsoft-well-architected-framework-pillars-design-principles-mind-map"><a class="toclink" href="21/azure-well-architected-framework-waf-mind-maps/#microsoft-well-architected-framework-pillars-design-principles-mind-map">Microsoft Well-Architected Framework Pillars Design Principles Mind Map</a></h3>
+<p><img alt="&quot;Design Principles&quot;" src="../assets/2023-11-21-design-principles.png"></p>
+<p>Para cuando lo renderice correctamente materials:</p>
+<pre class="mermaid"><code>mindmap
+    root((Pillars))        
+        Reliability(Reliability)
+            DesignPrinciples(Design Principles)
+                Design for business requirements["**Design for business requirements:**
+                Gather business requirements with a focus on the intended utility of the workload."]
+                Design for resilience["**Design for resilience:**
+                The workload must continue to operate with full or reduced functionality."]
+                Design for recovery["**Design for recovery:**
+                The workload must be able to anticipate and recover from most failures, of all magnitudes, with minimal disruption to the user experience and business objectives."]
+                Design for operations["**Design for operations:**
+                Shift left in operations to anticipate failure conditions."]
+                Keep it simple["**Keep it simple:**
+                Avoid overengineering the architecture design, application code, and operations."]
+        Security(Security)
+            DesignPrinciples(Design Principles)
+                Plan your security readiness["**Plan your security readiness:**
+                Strive to adopt and implement security practices in architectural design decisions and operations with minimal friction."]
+                Design to protect confidentiality["**Design to protect confidentiality:**
+                Prevent exposure to privacy, regulatory, application, and proprietary information through access restrictions and obfuscation techniques."]
+                Design to protect integrity["**Design to protect integrity:**
+                Prevent corruption of design, implementation, operations, and data to avoid disruptions that can stop the system from delivering its intended utility or cause it to operate outside the prescribed limits. The system should provide information assurance throughout the workload lifecycle."]
+                Design to protect availability["**Design to protect availability:**
+                Prevent or minimize system and workload downtime and degradation in the event of a security incident by using strong security controls. You must maintain data integrity during the incident and after the system recovers."]
+                Sustain and evolve your security posture["**Sustain and evolve your security posture:**
+                 Incorporate continuous improvement and apply vigilance to stay ahead of attackers who are continuously evolving their attack strategies."]       
+        CostOptimization(Cost Optimization)
+            DesignPrinciples(Design Principles)
+                Develop cost-management discipline["**Develop cost-management discipline:**
+                Build a team culture that has awareness of budget, expenses, reporting, and cost tracking."]
+                Design with a cost-efficiency mindset["**Design with a cost-efficiency mindset:**
+                Spend only on what you need to achieve the highest return on your investments."]
+                Design for usage optimization["**Design for usage optimization:**
+                Maximize the use of resources and operations. Apply them to the negotiated functional and nonfunctional requirements of the solution."]
+                Design for rate optimization["**Design for rate optimization:**
+                Increase efficiency without redesigning, renegotiating, or sacrificing functional or nonfunctional requirements."]
+                Monitor and optimize over time["**Monitor and optimize over time:**
+                Continuously right-size investment as your workload evolves with the ecosystem."]
+        OperationalExcellence(Operational Excellence)
+            DesignPrinciples(Design Principles)
+               Embrace DevOps culture["**Embrace DevOps culture:**
+               Empower development and operations teams to continuously improve their system design and processes by working together with a mindset of collaboration, shared responsibility, and ownership."]
+               Establish development standards["**Establish development standards:**
+               Optimize productivity by standardizing development practices, enforcing quality gates, and tracking progress and success through systematic change management."]
+               Evolve operations with observability["**Evolve operations with observability:**
+                Gain visibility into the system, derive insight, and make data-driven decisions."]
+               Deploy with confidence["**Deploy with confidence:**
+               Reach the desired state of deployment with predictability."]
+               Automate for efficiency["**Automate for efficiency:**
+                Replace repetitive manual tasks with software automation that completes them quicker, with greater consistency and accuracy, and reduces risks."]
+               Adopt safe deployment practices["**Adopt safe deployment practices:**
+               Implement guardrails in the deployment process to minimize the effect of errors or unexpected conditions."]
+        PerformanceEfficiency(Performance Efficiency)        
+            DesignPrinciples(Design Principles)
+               Negotiate realistic performance targets["**Negotiate realistic performance targets:**
+               The intended user experience is defined, and there's a strategy to develop a benchmark and measure targets against the pre-established business requirements."]
+               Design to meet capacity requirements["**Design to meet capacity requirements:**
+               Provide enough supply to address anticipated demand."]
+               Achieve and sustain performance["**Achieve and sustain performance:**
+                Protect against performance degradation while the system is in use and as it evolves."]
+               Improve efficiency through optimization["**Improve efficiency through optimization:**
+                Improve system efficiency within the defined performance targets to increase workload value."]
+</code></pre>
+<p><a href="https://mermaid.live/edit#pako:eNqtWV1v3LoR_SuEXuoEG2PdONeO39IbowiKNEZyX9q6D1yJklhLpEJS62yC_Pd7Zkh9rK1dG0UWSLymhtR8njlD_8hyW6jsKmu1KVrZ3RqBj7M2nJzc6KaRzr94IdInPqTPZ9VoudGNDruT2fcXkwR93iuvK3PjtMl11yh_EhfEtPJgw7RJlNaJTe-1Ud4Lp7722qlWmeD_c5u9fPmU0NXLl49P_rsMtTqwQdzrUAuJE_PeC2sERIU2QZlCFaIPbJ6wJa_fW3fXWFmc3mb_PWqAw9dGK5Orh1pPTxZV_WP2FtH2PojcmqBNr0SwwnbKyaCizmXfNIJPLPocupa9yYO2RpLGz9Awt1vldo_1i-vP1G6jhNw0rJyEnggu6SdNMRwkSmdb0VrIllI3PexfkTsllG9lZXToC1pik5CLupWNKLR3fUfG0MHk-d7jKPUN9rPv-A1jPO3mfwqmb5V_0uzoQRz8KJ2mJ4umf6l1GUSj8J82M-EHlicbKWqFZoFllf6hVCd0EF63KAfWZX9pUYl3W6sLQW5VpoLt8Iap2D_S5bUO8AK9vGCrVkJ2XaNz1lNQta_YbZPu-6p9UXnvqK6HL7-iqG8aacTO9k74dCoSQxYcN7b6mMByIIJDpNnthe0Cm8Qeo3KeDumcRErkylO4Zt6h7Ip6FyrXnkO475X9VCyd5qo6mllQpnOWXkCBL3UBVTTX4TzLDkstGnrj1JZMQtZbT2Hl_Xor890KPqr6RgbrdnthjhHGWyCognQ7WI_kbmMOhNrZvgLa5XmEQR-SdckHm7L3KV-gZm301_6JmprZRKBZucM2j8-PWptbN5Q-UGLI5DHAycopWtHiQgbJKcEFMsEHyrOWOBQ55oPtuFT8zgfVRlwq0MK2sYp08Au477AX2EN1OcNf2weP8PFxHdyYO73Brka3OOWUYTK9xde2bzgiW9owj4b0iKokMEtxwal7XQbnlSrf5Y16bgjkFvCTWvKBKMxFjgYCpnMN6O-jMeTpUbnC3iN92wjFBSIri2iXjj00nQKkn4qSgIKyXmx2gsC7QlScpR-DBHU7Zxs48V-2jy2mlQgL_sUgj1kkin5Ev_Fc0kWWAb1iFunUiQ4k8he8g06nrWprG2DLPhyh-ghV2Z_PFV70rPhgkN2d5RRKbd2CdCC5kR4Rv9gA1PNObHWFQHF6WLhJ7oSsAYzs0RBkfgeLxH2NnHfz07CTFUuu0S5Jk6fx3krHgn5E7H6H4p9QM4g3h_GEFsR85ddwvK1qUIc5Dn_VSiOraDYqlvYA9VPaPiW26OC_9Rq1BiBQshV533AzZACoJRDuHp6KfKEEdygqFVZMKYwnAuIUIgMnVhFR6NUCLsvvsHS0_hKBZF1VWYIJgKHsqHgKr8K8DI9LLnc7qIeYG4QVpXVPtiDhBFp_wXiHvqa2EYhqXdVAdBgCuw2Jc2pqA14UmOs-yY56D08D5aagP2RJjyUW1f4ov0XkSNyNXA6chD7UkR-wEPGOEx6i7UD3jKosemPYo7W8z6BzTit7TD6RdG-b_smOzVSXofyIsY8EFm1FVYOxwMZZSCnSBOfg5nwcpxVlXzSLf8ULvETnoE0o1plVeHLYzGWzPlowaeyLrg3R-cy_CaPZsOMii6b9PocVh_wKrzztmnIKXSym2dgXIiwmFsWNAPnOQLyv-achAWRz_S1XTUO8_mS2KqblXwA91-0GxawIgT51fkAHdszyoyWHXLedvYfDiohPI2LPxwFgDw8Fe5CcID4hcupLiYcmxkaUDG5DZyRXMnxbQBQNrgk3Ek5QnucWE_rGukSHfA1oo5HLd9BBx-6e2P69QaOodbeYN9doLJtG-3rPJCyaQroiMvQnZJb89GlIL9iF4RSjGfVGmDbs0t_JwPl5I18HJhNJ4pr42jM9FhUKMTG9AZLp6MoRmtOq7yOlHRhu9DC8k4u8lgaQNXWRZUfEZv5wCrAbzJ3bOaN6juCBSwjwhq0eokNExs5Yygre4MFGI4AotGhtK-8U855XBT2cDS2LVrxXXWMj-owjxngFsfRoSdPPCl2FNaMEpbxC1IKKdJwO4XjxQeC-BQaIZPaiSu_6YFuejAE9E0KyTgeeLbrvM15NRYo2rYKmYZ9CivwQQfq7FAVvy0BdXsh4chx6aACwNEAgiWKXAZoSf0q3DkgjSZQxp9pBLAjAmYflIHU8bcX7DLpmwdSk8bplU3ke9bJUc0eNiR1NPi6zZPqHcbitepSOA3_3A8neO8PGErATb2f4LUvi_Yiecs6CM1IXN8R7cmqvhy4qbpTjUQVJcj1G5mS2KqblhXvC_xem_zk0froFAOhQBXezl2KmBShGXz5Tdsmnf-xd8j24W9Iefi1BMosEOcBg9RdPg0zk0DtycgIvrG6wq26lu4slCy7AvDO-XcgKhe_DMCu-UgOcqmL5RvJAZQ-DXKsUDbSdzONdyfIF6VHBJY_cpAlVmQigfeRkdMtSJJgdLrlo3IOHl29B3yVGGlE5TkuzoMQiOC5zYCxN82ty5zzQ8-nzvtaNmk9_mouFOCjXtKdRPnGURQM-pFY9Y3NDV3nEFZ8pu0wb096k5gPyONY35-FSWlNs9EA9R_a1lU3P1wXZKmsVdugiu8p-0OtvM8I-dZtd4Sua8N1tdmt-Qo7A8svO5NlVKRuvVlnfwZnqvZZwazuudtL821r8Hlwff82ufmTfsqvL9en64uzyfH15_vri7OLizSrbZVdnb9enb84uL9--eXtx_tvb9fry5yr7zgesTy_Xv52tz9dv_np-8frs7PXFKkMjATn9GP8mwX-a-PknXG1C6Q">English Mermaid Live Editor</a></p>
+<p><a href="https://mermaid.live/edit#pako:eNqtWU1v3EYS_SsET7IxK1ga20p0MyJtECCODee2qxx6yJpxa8luppuc1cjwj9HRBx-C3PY6f2xfVTc_huJII9hCEFFkf1XVq1ev2p_SzOaUnqelNnmpqiuT4MdZWx8dvdeFcuSfPUviT_jIP__UaqELnav8qH981n_nn_dOm0xX2voLutCetn_Zo_5dklMS347m8U_4olxSKaeSAsMd_dlor2s8UlnhWMppVZD_91X6_Pnhw8-fP7-_2wfKbKULenBmklmTNCYhs7R_NoTfSaGSpg62Jxi51r5WbBfeZ8qt5Ll2aqGu7fFV-sejZips7rEewUdqyrCdAZOm_Hp_azwuiE9fa9NgKVuRUya3YtCywVLWqGBEZsuqIBhhsVHeZHh58MGzhtfN9PZvs-_ogyFPO3wFjLpEwQKAB0tuusWcp-jxUm2s236NAfDJUhX4NZO1bI4X_LJUK6PrJid8CPHExO1Xo0uVaFOTc00l54uL0g02Ce7GmyJpPDyoLQ7AULGLa6r1eoyUQ1xmgyesmUTw4Ouko950nmCjYEiuw2g-NhtuAzz9cKXpY72FV8mQwxSvOfpynHtvJ49xuda1uMnbhSNtVmQ0SQywO7yVh_yOvlQOiVVTVjdOzfhztv0716vuc1XoLICD3fvQ2X-nVeOEfLqn78g97wtl9FJzjvuG85pDEs4Fs3y7o_jpwLHT3vPLZvvFZeQZ4IB3bqsaIaVEPF6S4b8qt73LEG0lp-5WbOObUwayakPfOrxzNQ6iM4brwJch753Owjkj_A8BbeVsTStyQnDWLHUumVF07jh8-KRH3oNDASEXM896HY7IS-m1YjrKZ0j9VVNEW2YdbMQyuA7s7MoYAhyg0qAzpGVSUq4Z1MygtRjfOk1lCAH7qN5-yUzrabtsfITjU13DRLJyBzilH_ioOzI7pKYutWYDrMjH2U6kN0muuJDJzqhPDKie5mQIQ7dqKFe8ruQ8p6ZHKaNSuBRLw-OYCIDfr3Y2-agyzOFlYi3hBxxB0hp7F9uvJbDoeY7PHBfW4-RyuMUicAZHyzqpRm4A9MAOO3HlEo-XTrgDPKKzQlhkjQnfUH-HoYF_K2t0VDaPxHF38MOxtAmUli71rRJH1xqlQw6vjUKer6PNvX82U-aEtznQo_KebwBdWQoqhakO6VbTLmtIAG_b6l87W9CIVzh2iNZxcsGFt4x1YBetbWgDuHLwOW-EM_e7AnnkK_CbLC96qTfJU1u_6aGitGLjaW2LJsCKGdZ6Lh87Rx4UrANnTEboF4McAwBhNF1bF-qqSCbOI6YZtmKtV1DFogcEBq2DIocjcCo6nR2kkJX8d0gzEM_2zvTn68LAm5TiNt94HuYUXK0DEWENTGY_3VPh76pakCQAuKCfYKr1RztveYXw_nuqc5Y6wA5SkLGPKQXQGxXxCudvd85k55A9T5szGaKfrIFvmo0S3ZY1RRtZluzIInZyQAG8mg1kG1NPA5bDyjMJzErxJuE5UIuwJWMUIIH7EA3bn-YR9uiUJNNw0WYILXV_hh1XPH3epDt-hhGAjI1qL9hvCNUMRB-F5KKjdNHHyLvaOiOmMda0WQO7D8jDeyrejtDFmthOC_7JoZOWvFU3GJkJSTSBw5ggnLd-V7scJ28qFBQYKuk1bti6bkaiCTOHLwytLJyaB3SLauU8PLDAT9iTsLJYKn-Y9e3oaUHfhPxn4dOH32vDfVhcmZVPtIHLiFcophir3D4P2JEH9nAtKhcwQdJWtYcO2OzqU6DYAwbuS1tQ3PZ_4LLrBqKBaU_qiWAvFHSWZyjeUUjfK3c9Z7b7oWWP5WTXrMubjApx3zuGDSqqOurfJd3L70iHb6JwL3pOuqD1uyoAY-_X6aaglF6XIrYDsQVt3xLoWM6HOiQ1y90rJ8MerFcUEC-seX30r0TkujEMoGlOymyhFta1GhN0CsHj24sfuTdQruYIbqLqxutpvF0CAYuCWDQalnQj48Rnj4yZ9Fwoe5nkEI6QN52aIsEcsu82Qs-Puqp-ZdHTwDnxwIqlUBiRRVdsEggD6GFZSAqLXbnQPeCv7ZcbZAhCB7euo_QZVrcQgO0dbxyUqyoXeo82vewg78bdsATJLjy5tRoq1KdNmfbiIhRQqPtWzw7V6CxUlNVIkKN3siUNm9GF8oovXVCYRCVO2_jLoNHlA0qXqMxtuPza-3WaQgtIrVBCOOA5Q95T-D3ukmS50MO0Vk4f8E0Dw8AXty2x9-wcknv_9z03jWBJNK9SDUgupJCsTNaOKqo1M1OIlepW7gqIt8v6v5gmLBkufuS6Dop1e4cVtneVzm242ArVHk8SOKE-zkwJkKTwRm74brNYQzX51b4otQy2mzRjl4q6Vrucd9CMaTXejqVk1SiX64ClkHLSr08sGJhw2F7RkrIg5NDzonZxURxel2n8j5MEUB2VkS6OF1R8AB1ETXh0OVRnRTL4NHFN_q2V5beu3Hc3jSKNuj3xDGYC3IPfnzB-3wXsvhvPruOXLgaflvBzrhhIdMMYk6rR9y4hGPlA9aMrrZooqx0C41pYcu13owtV6U4fvsrnI1EsFMD9QQLWI6P8Um4sRksLyVfhjmlC0B02cU_r395rcEEO8JHazEiFv2zYAW4zebxPANOiYHUX3vtu4X9F8RE11rXpCNgg2mLHY4P2nbmma9WFYXTXkO8ukcgvbpkHTX7ACXK2kfK4I_F6ObdHk0Y1syuHx3V1R2EHifr0edP9CK8zVuP5zr0YX560bf7ebItZ0t7AqSZWM6y0VoXcF-y7rEpnaUkosDpPz9NPfMSrtP4ItrtKz_EIOfOfq_TKfMY4LhW_b0yWni9V4WmWNhVqLshGIWRl97ZSJj3_lN6k5_PjF_MfTuZz_Pdq_vrHs_nZLN2k5_84mR-fzF-dzk_PXv3w4uXrlyfzz7P01lqscXJ8Nn99dvLy7PTF2enrFyfz01mKeKIfeBv-_VD-GVE2-ZdMQJ9On_8PwOHHng">Spanish Mermaid Live Editor</a></p>
+<h3 id="microsoft-well-architected-framework-pillars-tradeofs-mind-map"><a class="toclink" href="21/azure-well-architected-framework-waf-mind-maps/#microsoft-well-architected-framework-pillars-tradeofs-mind-map">Microsoft Well-Architected Framework Pillars Tradeofs Mind Map</a></h3>
+<p><img alt="&quot;Tradeoffs&quot;" src="../assets/2023-11-21-tradeoffs.png"></p>
+<p>Para cuando lo renderice correctamente materials:</p>
+<pre class="mermaid"><code>mindmap
+    root((Pillars))        
+        Reliability(Reliability)
+            Tradeoffs(Tradeoffs)
+                Reliability tradeoffs with Security["`**Reliability tradeoffs with Security**`"]
+                     Tradeoff: Increased workload surface area. The Security pillar prioritizes a reduced and contained surface area to minimize attack vectors and reduce the management of security controls.["`**Tradeoff: Increased workload surface area.** The Security pillar prioritizes a reduced and contained surface area to minimize attack vectors and reduce the management of security controls.`"]
+                        Tradeoff: Security control bypass. The Security pillar recommends that all controls remain active in both normal and stressed systems.["`**Tradeoff: Security control bypass.** The Security pillar recommends that all controls remain active in both normal and stressed systems.`"]
+                            Tradeoff: Old software versions. The Security pillar encourages a *get current, stay current* approach to vendor security patches.["`**Tradeoff: Old software versions.** The Security pillar encourages a *get current, stay current* approach to vendor security patches.`"]
+                Reliability tradeoffs with Cost Optimization["`**Reliability tradeoffs with Cost Optimization**`"]
+                    Tradeoff: Increased implementation redundancy or waste. A cost-optimized workload minimizes underutilized resources and avoids over-provisioning resources.["`**Tradeoff: Increased implementation redundancy or waste.** A cost-optimized workload minimizes underutilized resources and avoids over-provisioning resources.`"]
+                        Tradeoff: Increased investment in operations that aren't aligned with functional requirements. One approach to cost optimization is evaluating the value that's provided by any deployed solution.["`**Tradeoff: Increased investment in operations that aren't aligned with functional requirements.** One approach to cost optimization is evaluating the value that's provided by any deployed solution.`"]
+                Reliability tradeoffs with Operational Excellence["`**Reliability tradeoffs with Operational Excellence**`"]
+                    Tradeoff: Increased operational complexity. Operational Excellence, like Reliability itself, prioritizes simplicity.["`**Tradeoff: Increased operational complexity.** Operational Excellence, like Reliability itself, prioritizes simplicity.`"]
+                        Tradeoff: Increased effort to generate team knowledge and awareness. The Operational Excellence pillar recommends keeping and maintaining a documentation repository for procedures and topologies. ["`**Tradeoff: Increased effort to generate team knowledge and awareness.** The Operational Excellence pillar recommends keeping and maintaining a documentation repository for procedures and topologies.`"]
+                Reliability tradeoffs with Performance Efficiency["`**Reliability tradeoffs with Performance Efficiency**`"]
+                    Tradeoff: Increased latency. Performance Efficiency requires a system to achieve performance targets for user and data flows.["`**Tradeoff: Increased latency.** Performance Efficiency requires a system to achieve performance targets for user and data flows.`"]
+                        Tradeoff: Increased over-provisioning. The Performance Efficiency pillar discourages over-provisioning, instead recommending the use of just enough resources to satisfy demand.["`**Tradeoff: Increased over-provisioning.** The Performance Efficiency pillar discourages over-provisioning, instead recommending the use of just enough resources to satisfy demand.`"]
+        Security(Security)
+            Tradeoffs(Tradeoffs)
+                Security tradeoffs with Reliability["`**Security tradeoffs with Reliability**`"]
+                    Tradeoff: Increased complexity. The Reliability pillar prioritizes simplicity and recommends that points of failure are minimized.["`**Tradeoff: Increased complexity.** The Reliability pillar prioritizes simplicity and recommends that points of failure are minimized.`"]
+                        Tradeoff: Increased critical dependencies. The Reliability pillar recommends minimizing critical dependencies. A workload that minimizes critical dependencies, especially external ones, has more control over its points of failure.["`**Tradeoff: Increased critical dependencies.** The Reliability pillar recommends minimizing critical dependencies. A workload that minimizes critical dependencies, especially external ones, has more control over its points of failure.`"]
+                            Tradeoff: Increased complexity of disaster recovery. A workload must reliably recover from all forms of disaster.["`**Tradeoff: Increased complexity of disaster recovery.** A workload must reliably recover from all forms of disaster.`"]
+                                Tradeoff: Increased rate of change. A workload that experiences runtime change is exposed to more risk of reliability impact due to that change.["`**Tradeoff: Increased rate of change.** A workload that experiences runtime change is exposed to more risk of reliability impact due to that change.`"]
+                Security tradeoffs with Cost Optimization["`**Security tradeoffs with Cost Optimization**`"]
+                    Tradeoff: Additional infrastructure. One approach to cost optimizing a workload is to look for ways to reduce the diversity and number of components and increase density.["`**Tradeoff: Additional infrastructure.** One approach to cost optimizing a workload is to look for ways to reduce the diversity and number of components and increase density.`"]
+                        Tradeoff: Increased demand on infrastructure. The Cost Optimization pillar prioritizes driving down demand on resources to enable the use of cheaper SKUs, fewer instances, or reduced consumption.["`**Tradeoff: Increased demand on infrastructure.** The Cost Optimization pillar prioritizes driving down demand on resources to enable the use of cheaper SKUs, fewer instances, or reduced consumption.`"]
+                            Tradeoff: Increased process and operational costs. Personnel process costs are part of the overall total cost of ownership and are factored into a workload's return on investment. Optimizing these costs is a recommendation of the Cost Optimization pillar.["`**Tradeoff: Increased process and operational costs.** Personnel process costs are part of the overall total cost of ownership and are factored into a workload's return on investment. Optimizing these costs is a recommendation of the Cost Optimization pillar.`"]
+                Security tradeoffs with Operational Excellence["`**Security tradeoffs with Operational Excellence**`"]
+                    Tradeoff: Complications in observability and serviceability. Operational Excellence requires architectures to be serviceable and observable. The most serviceable architectures are those that are the most transparent to everyone involved.["`**Tradeoff: Complications in observability and serviceability.** Operational Excellence requires architectures to be serviceable and observable. The most serviceable architectures are those that are the most transparent to everyone involved.`"]
+                        Tradeoff: Decreased agility and increased complexity. Workload teams measure their velocity so that they can improve the quality, frequency, and efficiency of delivery activities over time. Workload complexity factors into the effort and risk involved in operations["`**Tradeoff: Decreased agility and increased complexity.** Workload teams measure their velocity so that they can improve the quality, frequency, and efficiency of delivery activities over time. Workload complexity factors into the effort and risk involved in operations`"]
+                            Tradeoff: Increased coordination efforts. A team that minimizes external points of contact and review can control their operations and timeline more effectively.["`**Tradeoff: Increased coordination efforts.** A team that minimizes external points of contact and review can control their operations and timeline more effectively.`"]             
+                Security tradeoffs with Performance Efficiency["`**Security tradeoffs with Performance Efficiency**`"]
+                    Tradeoff: Increased latency and overhead. A performant workload reduces latency and overhead.["`**Tradeoff: Increased latency and overhead.** A performant workload reduces latency and overhead.`"]
+                        Tradeoff: Increased chance of misconfiguration. Reliably meeting performance targets depends on predictable implementations of the design.["`**Tradeoff: Increased chance of misconfiguration.** Reliably meeting performance targets depends on predictable implementations of the design.`"]
+        Cost Optimization["Cost Optimization`"]
+            Tradeoffs(Tradeoffs)
+                Cost Optimization tradeoffs with Reliability["`**Cost Optimization tradeoffs with Reliability**`"]
+                    Tradeoff: Reduced resiliency. A workload incorporates resiliency measures to attempt to avoid and withstand specific types and quantities of malfunction.["`**Tradeoff: Reduced resiliency.** A workload incorporates resiliency measures to attempt to avoid and withstand specific types and quantities of malfunction.`"]
+                        Tradeoff: Limited recovery strategy. A workload that's reliable has a tested incident response and recovery plan for disaster scenarios.["`**Tradeoff: Limited recovery strategy.** A workload that's reliable has a tested incident response and recovery plan for disaster scenarios.`"]
+                            Tradeoff: Increased complexity. A workload that uses straightforward approaches and avoids unnecessary or overengineered complexity is generally easier to manage in terms of reliability.["`**Tradeoff: Increased complexity.** A workload that uses straightforward approaches and avoids unnecessary or overengineered complexity is generally easier to manage in terms of reliability.`"]
+                Cost Optimization tradeoffs with Security["`**Cost Optimization tradeoffs with Security**`"]
+                    Tradeoff: Reduced security controls. Security controls are established across multiple layers, sometimes redundantly, to provide defense in depth.["`**Tradeoff: Reduced security controls.** Security controls are established across multiple layers, sometimes redundantly, to provide defense in depth.`"]
+                        Tradeoff: Increased workload surface area. The Security pillar prioritizes a reduced and contained surface area to minimize attack vectors and the management of security controls.["`**Tradeoff: Increased workload surface area.** The Security pillar prioritizes a reduced and contained surface area to minimize attack vectors and the management of security controls.`"]
+                            Tradeoff: Removed segmentation. The Security pillar prioritizes strong segmentation to support the application of targeted security controls and to control the blast radius.["`**Tradeoff: Removed segmentation.** The Security pillar prioritizes strong segmentation to support the application of targeted security controls and to control the blast radius.`"]
+                Cost Optimization tradeoffs with Operational Excellence["`**Cost Optimization tradeoffs with Operational Excellence**`"]
+                    Tradeoff: Compromised software development lifecycle SDLC capacities. A workload's SDLC process provides rigor, consistency, specificity, and prioritization to change management in a workload.["`**Tradeoff: Compromised software development lifecycle capacities.** A workload's SDLC process provides rigor, consistency, specificity, and prioritization to change management in a workload.`"]
+                        Tradeoff: Reduced observability. Observability is necessary to help ensure that a workload has meaningful alerting and successful incident response.["`**Tradeoff: Reduced observability.** Observability is necessary to help ensure that a workload has meaningful alerting and successful incident response.`"]
+                            Tradeoff: Deferred maintenance. Workload teams are expected to keep code, tooling, software packages, and operating systems patched and up to date in a timely and orderly way.["`**Tradeoff: Deferred maintenance.** Workload teams are expected to keep code, tooling, software packages, and operating systems patched and up to date in a timely and orderly way.`"]
+                Cost Optimization tradeoffs with Performance Efficiency["`**Cost Optimization tradeoffs with Performance Efficiency**`"]
+                    Tradeoff: Underprovisioned or underscaled resources. A performance-efficient workload has enough resources to serve demand but doesn't have excessive unused overhead, even when usage patterns fluctuate.["`**Tradeoff: Underprovisioned or underscaled resources.** A performance-efficient workload has enough resources to serve demand but doesn't have excessive unused overhead, even when usage patterns fluctuate.`"]
+                        Tradeoff: Lack of optimization over time. Evaluating the effects of changes in functionality, changes in usage patterns, new technologies, and different approaches on the workload is one way to try to increase efficiency.["`**Tradeoff: Lack of optimization over time.** Evaluating the effects of changes in functionality, changes in usage patterns, new technologies, and different approaches on the workload is one way to try to increase efficiency.`"]
+        Operational Excellence["Operational Excellence"]
+            Tradeoffs(Tradeoffs)
+                Operational Excellence tradeoffs with Reliability["`**Operational Excellence tradeoffs with Reliability**`"]
+                    Tradeoff: Increased complexity. Reliability prioritizes simplicity, because simple design minimizes misconfiguration and reduces unexpected interactions.["`**Tradeoff: Increased complexity.** Reliability prioritizes simplicity, because simple design minimizes misconfiguration and reduces unexpected interactions.`"]
+                        Tradeoff: Increased potentially destabilizing activities. The Reliability pillar encourages the avoidance of activities or design choices that can destabilize a system and lead to disruptions, outages, or malfunctions["`**Tradeoff: Increased potentially destabilizing activities.** The Reliability pillar encourages the avoidance of activities or design choices that can destabilize a system and lead to disruptions, outages, or malfunctions.`"]
+                Operational Excellence tradeoffs with Security["`**Operational Excellence tradeoffs with Security**`"]
+                    Tradeoff: Increased surface area. The Security pillar recommends a reduced workload surface area in terms of components and exposure to operations. This reduction minimizes attack vectors and produces a smaller scope for security control and testing.["`**Tradeoff: Increased surface area.** The Security pillar recommends a reduced workload surface area in terms of components and exposure to operations. This reduction minimizes attack vectors and produces a smaller scope for security control and testing.`"]
+                        Tradeoff: Increased desire for transparency. A secure workload is based on designs that protect the confidentiality of data that flows through the components of the system.["`**Tradeoff: Increased desire for transparency.** A secure workload is based on designs that protect the confidentiality of data that flows through the components of the system.`"]
+                            Tradeoff: Reduced segmentation. A key security approach for isolating access and function is to design a strong segmentation strategy. This design is implemented through resource isolation and identity controls.["`**Tradeoff: Reduced segmentation.** A key security approach for isolating access and function is to design a strong segmentation strategy. This design is implemented through resource isolation and identity controls.`"]                    
+                Operational Excellence tradeoffs with Cost Optimization["`**Operational Excellence tradeoffs with Cost Optimization**`"]
+                     Tradeoff: Increased resource spending. A major cost driver for a workload is the cost of its resources. Deploying fewer resources, right-sizing resources, and reducing consumption generally helps keep costs low.["`**Tradeoff: Increased resource spending.** A major cost driver for a workload is the cost of its resources. Deploying fewer resources, right-sizing resources, and reducing consumption generally helps keep costs low.`"]
+                        Tradeoff: Decreased focus on delivery activities. Workload team members deliver increased workload value by efficiently performing tasks that are aligned to their capabilities.["`**Tradeoff: Decreased focus on delivery activities.** Workload team members deliver increased workload value by efficiently performing tasks that are aligned to their capabilities.`"]
+                            Tradeoff: Increased tooling demands and diversity. The Cost Optimization pillar recommends the reduction of tooling sprawl, consolidation of vendors, and a right-sized approach to all tooling purchases.["`**Tradeoff: Increased tooling demands and diversity.** The Cost Optimization pillar recommends the reduction of tooling sprawl, consolidation of vendors, and a right-sized approach to all tooling purchases.`"]
+                Operational Excellence tradeoffs with Performance Efficiency["`**Operational Excellence tradeoffs with Performance Efficiency**`"]
+                    Tradeoff: Increased resource utilization. The Performance Efficiency pillar recommends the allocation of as much of the available compute and network as possible to the requirements of the workload.["`**Tradeoff: Increased resource utilization.** The Performance Efficiency pillar recommends the allocation of as much of the available compute and network as possible to the requirements of the workload.`"]
+                        Tradeoff: Increased latency. To create performant workloads, teams look for ways to reduce the time and resources that workloads consume to perform their tasks.["`**Tradeoff: Increased latency.** To create performant workloads, teams look for ways to reduce the time and resources that workloads consume to perform their tasks.`"]
+        Performance Efficiency("Performance Efficiency")
+            Tradeoffs(Tradeoffs)
+                Performance Efficiency tradeoffs with Reliability["`**Performance Efficiency tradeoffs with Reliability**`"]
+                    Tradeoff: Reduced replication and increased density. A cornerstone of reliability is ensuring resilience by using replication and limiting the blast radius of malfunctions.["`**Tradeoff: Reduced replication and increased density.** A cornerstone of reliability is ensuring resilience by using replication and limiting the blast radius of malfunctions.`"]
+                        Tradeoff: Increased complexity. Reliability prioritizes simplicity.["`**Tradeoff: Increased complexity.** Reliability prioritizes simplicity.`"]
+                            Tradeoff: Testing and observation on active environments. Avoiding the unnecessary use of production systems is a self-preservation approach for reliability.["`**Tradeoff: Testing and observation on active environments.** Avoiding the unnecessary use of production systems is a self-preservation approach for reliability.`"]                  
+                Performance Efficiency tradeoffs with Security["`**Performance Efficiency tradeoffs with Security**`"]
+                    Tradeoff: Reduction of security controls. Security controls are established across multiple layers, sometimes redundantly, to provide defense in depth["`**Tradeoff: Reduction of security controls.** Security controls are established across multiple layers, sometimes redundantly, to provide defense in depth.`"]
+                        Tradeoff: Increased workload surface area. Security prioritizes a reduced and contained surface area to minimize attack vectors and reduce the management of security controls.["`**Tradeoff: Increased workload surface area.** Security prioritizes a reduced and contained surface area to minimize attack vectors and reduce the management of security controls.`"]
+                            Tradeoff: Removing segmentation. The Security pillar prioritizes strong segmentation to enable fine-grained security controls and reduce blast radius.["`**Tradeoff: Removing segmentation.** The Security pillar prioritizes strong segmentation to enable fine-grained security controls and reduce blast radius.`"]                   
+                Performance Efficiency tradeoffs with Cost Optimization["`**Performance Efficiency tradeoffs with Cost Optimization**`"]
+                    Tradeoff: Too much supply for demand. Both Cost Optimization and Performance Efficiency prioritize having just enough supply to serve demand.["`**Tradeoff: Too much supply for demand.** Both Cost Optimization and Performance Efficiency prioritize having just enough supply to serve demand.`"]
+                        Tradeoff: More components. One cost optimization technique is to consolidate with a smaller number of resources by increasing density, removing duplication, and co-locating functionality.["`**Tradeoff: More components.** One cost optimization technique is to consolidate with a smaller number of resources by increasing density, removing duplication, and co-locating functionality.`"]
+                        Tradeoff: Increased investment on items that aren't aligned with functional requirements. One approach to cost optimization is evaluating the value provided by any solution that's deployed.["`**Tradeoff: Increased investment on items that aren't aligned with functional requirements.** One approach to cost optimization is evaluating the value provided by any solution that's deployed.`"]                    
+                Performance Efficiency tradeoffs with Operational Excellence["`**Performance Efficiency tradeoffs with Operational Excellence**`"]
+                    Tradeoff: Reduced observability. Observability is necessary to provide a workload with meaningful alerting and help ensure successful incident response.["`**Tradeoff: Reduced observability.** Observability is necessary to provide a workload with meaningful alerting and help ensure successful incident response.`"]
+                        Tradeoff: Increased complexity in operations. A complex environment has more complex interactions and a higher likelihood of a negative impact from routine, ad hoc, and emergency operations.["`**Tradeoff: Increased complexity in operations.** A complex environment has more complex interactions and a higher likelihood of a negative impact from routine, ad hoc, and emergency operations.`"]
+                            Tradeoff: Culture stress. Operational Excellence is rooted in a culture of blamelessness, respect, and continuous improvement.["`**Tradeoff: Culture stress.** Operational Excellence is rooted in a culture of blamelessness, respect, and continuous improvement.`"]
+
+
+</code></pre>
+<p><a href="https://mermaid.live/edit#pako:eNrdXN1v3DYS_1eIfWlqrI0muTiJ33JJHw7XIkWT4oA7H1Ba4q5YS6JKUrveBv3fOzOkJGr1sdI6_moegrUkkvPF4cyPQ35ZRCoWi4tFJvM448VlzuCfVso-e_aTTFOuzbffMv_PvcR_P4tU8iuZSrt7Fvz-tvkC_33WPBZqtTLP6l97X-z1xWz1HdtKm7BPIio1PP_f5eLXk5MJH56c_Hq5-H93jBY5F-xfeaQFNyJmW6WvU8VjZkq94pFgHF6csc-JqPtkBcmBFVoq-Fv-IQzjTIu4jKADnscsUrnlMhftXphVDKQqM2jBuLU8umYbEVmlDbVyPTALQ2U852uRidwytWKmGhj71So1Z47_6fSfnDw2DkbU0tLMp72W7GpXcGP6NaJFpDIYMzZAA7eMp2k9IrzMgCPGIys3gsGvKwWGkiud8ZSoN1YLgzI0O2NF1pXyEC0D0v3K1IxLrC21jym0Uyu7Ba2BhrSRKh-QmcgjVWrQFZrAyVpYBu816G0JJPBd9dcJ40WhFY8SNIINcKV0o9aC2ygRXYn10zEgr69KSb-0RjzGe2Us-1hYNG5ugc6DPqbTYszZ9M1VmRUpTRFqTbMnj3ke7RhwtOWg9jP2DkzG2FPlhgkneDURDYNWQpcWiMQPwGxAjJFwU5JvlAQDVCD8U5DaRqIKZL5uPhtxJhMIBF3eA4lTvUVAer4RxpL_gcmlCqGJh2oqgiF9gzNSrtHHkTpXZR7hJzD_tPi9lJo4h1nzMRctk0NumQr0zqRhYsPTEv4CstH94V-CxvrGMGIqhnGudsDwjsWiSNUOp7ZKS-xgTAVfjQ_Q1D1wMnvefaxYAnq_v4lEmoIfEAcnX3-zuTNQBb2AswZrv4GxzgZ6X7JUXosWM9Iaka6WrZXU4LSREXY0rNeBkVFJX2ns-XNGrFZKWzSMtciRCNC74Bm7ztU2FfFauOmKzjwX1RrcT27PGngtRIFGhX3g2ofxBf3NYhWVoZcplJEQU-wYkIMmB0FJqb2zsKpQqVpLcApsWLpzOfEr0sPxMnva_CT0CoMFpO_71QpUDqQejov7m82dNikIFJqdDXRX-R1cx130gpoAnyMFxDpF0MZyDeu8IeGURmgSS8wtZ6tUbceWpooE0NxdEzF_InWWMjdVBgj15hVLU8c_nQ6W4P2BBx43Vlg5aCAZQ-zfSvDlIlflOgnWV2DZgCmaFfpqGDkec0kdqv20eBR0t7VQxY7Pqh9HZZp1BLo3S4IJ5MQ14cO5cyhcblDI4aTtSc8ax-4zrXZuUShwQgblueIyBQ-DoUEdf41pvb343D0l82dThCNH4JIh2oBxwPbI-w-QGtDjB0WDG-jjXROrEvFNwNrbYMmEKUQkIZPbMXFjhcaVQuX4JuEwoAJWq-QQ5wKu0V2JjGmjl85hxTwFbuckrn12iX2Bk8F0wzEMQ-1a3GToQzRJJ91Vn7CVVhkl3ei8TNjLpOnQPyzlO8cPfFgWQ_KgIAa6ihKer0VXmeIG1jR0zKBOXeYQ0wv_LQX1NxCIiJgAHFSbluYae9NhPJkVPLIsxnBfuU79YMPi2qOqLZ07p6tfmkPOeiDDn_z5NA__Lo6lDyFlvtKgdl1GFufBaPrlosdadJKWwFSpawpLtnxHDwKALZaEp3gvnJfZFVgeagIMGOYozkF8Ib2qYGbnpi8lGab3QMJ4bxTPXzFcyMAwn91TAbrRjmL7VrlYyw1yGKttHvTXilBEDtNehMFMlAgO5s4-_fsXcJIrsUWnCAEQhk7wQOkaZAW_acqsOJD9DzLiV4RHx8pxvp7yIuPU306MDQIwEH8alecirT-kFxRYFFwTwoyUo_NFt2uV9Y3xDXAN7RNZuJwP2qw4QtYErmBKUNvwNwjLgnhzJ_AKeDmrJOwjVyP8-NKh5n4FdvL3pAwpZkTX40Jwec7fRgzzPPcYRjSvzTQf_l5RiOuRNsTdriAv3FQLEsHz8LeMhH80hBgFSaiGzNMKmr00465E00fq8IhqlNQ7qgyl1_qo1Qnq0CawfNZYoNt5wVYgjNwUCG8QCiIwdgEfi-pU6aYnIZjP8iBU9XiZnrqSfBDVpOTrhn_Zm7v9p452BIdgL4MvSkeU1GwjUkWZkvGBCzzesYjnGNRAmuyI_73kOAh4WZQc5tZLGlA0uTbGkBASIUduzwh8u8-3GYZUAR1BBOtmuHETHEfyuBjlbRhpVZJpY8v7tjFDHGAUf0OBHJvBKB3L3Pk9NxAlYYRE7iVgdXrVpE-0BRt52sRGii3JqUq4nDyDDQFCFIHzVObCBdMwpqD9xXQ3mvH0kEmB_IMQirJuiXb6MjGGic5rcyQg6hwamCDETjGquoYZbRMou7DJ9Lc5CHi2Pyc1zR7kCAgmIQGBsjNE-_KVXJdOnWcelYD0NxOCdo36sFWHKxiMKAqgTUaWfHt7g9FUYUMsjFyPxcUj9IBI7o6ituT6EsrOs66wp2GT3dDpEEg5p8U0A__ZR_iw8EIrB_kH-T2sAEoXCjEAE3xTuXxa8bm1AnID-on7vGSJSA1mEhBTIMAEs47ZXeF3RcD559Z7c9AvT6sNzY499JDXBiDum8CpE-sHUJEVcY0qYbEH0LjedWAdisXJmgVhbhycsrG0PkUyxkAH2IDs2YgajKUOixQ8MObhNYJlIsjxICvsbqoMU9OFc-6Cntvig10sDFJYQ1zIdWJh1C3XcY1jtKsOSkioMJfimooakFqRr2FlErqNBkKW4_YSCQ3lRmKgoXydE4YLwJQD-wLsajLu_ng56NfOQV_TrtSb_Pk8v9QtK-vUaLmMAWwUTFaaBGPYSCvInbMytRJEA0vkDhLjJUSkmcCwxNR1LjaFuBMk5KseYBFYCbRsiTBKYZNBh9SlC1R8r5TNX-IfsPDxCVc83r7Ucd-yM7UhC1rXQchhJYCjUBDmhI1oB7UsCiqDSAjFrdJ7imkoCuozVV-ZEIbv7CrluM_BY1maHqPvIXmC-O-V6CO92BjwdGTj6QiUVhDciqCAMhaYPhdkaamElGkXgZf49OGH95BwFTyimCRcDWG1prcVXujdBfgRuVZ6ScitNNYl2FWkQ4k3yrNWVq0bv28TGDyWsNbD9YJKE7kIGGgth_fNwlTHWbn6Fkx2xj62UDNYcZu1GQZPRFowcNQOD0H4qvFetKMqOBZNrMqU8VRoW5UYmTLCXvB5J84aXITalCFad_-0zXF9H2AN0xiyUEEVBIcwWTrwGi2ZN6Bm6zYNsRCL4YkFXA5VShUntaWBRV1jWcoyxNTR5biKal8r7Nx_WWB3MW5nkkEQQOHzZh0LDb-3vBvP9RLdBcEemuwj3d8YoHJk42nu7xcsF67riNCYtSshNhEYX1BA3AJZInFaIYS2bby99UUwGUS1H3ZVWhYrYbCaNuEb1BZaNdbml3lZVUcherJEXDln2wT-Kw1GzgWmkDo3bJXi7hzoomMm0_lpIzqPh6PJqS1GSLjdFFpGgMp-364udsifaUoIaO-hKWEmTx68adO3BBe2hSkWJbkvpHRzJpbQLW0DBCkTWiiMGG5Y4-YATA8qK3BesN58bqDmbr48ziJo8Aky2dbvYNzT_-JIiGtg--gQzjW72W1K81o1V71VcEt2JSKOu-b0rMIKA8x8H6MMzkph-l4vDLiCaE5GYSYjBw9G4PwUs1CwQlpXTxZT4ovnQSiQqHdwBuv6gtNBlBog-FGBwOEGkK7YixIlyTFSwRDPgyFFUxOMnKZYn4rLqDS6pDoGLHAorVuEoccA4zMjG_hT2Bsu5XssDA4odtqsa8M-89rMnaaHgYqgOrJJ9nvxghb8tVeQRDVqFBarYBsLR5QOkSG5BdOpBycAB-1mE-gFhJ0SAAqdESa6n866bBaUiTXYw_Y2Be_4O0jgmPovI7XruakJcJsXNFJ7gbxy1e-5n1dVHbNWWHRAc5GcY-wmd1UZiucD6EM6JAA_NQVk7vNaen77yM3F0UKvfoopHHxQmuehVxX-GaJX7yDd2TUqrusJkVlpVOoCJR7V1U-VK_I1hd7d8V7EqNk5IWP038KveiMPMy7PaBUtV8P6lc6JaQxt7GWMdPPkWOvsrw9us0_z3gNVtUc2nn1ev-bbFO5sCdpbxn8DBVDlGxY_Ykk2_L1XrJqIujYO69aDlPIDnWpEzbmyx_rVElGnxJ4at6wHz-uAicrvm4LIYMcFARZTZf5YNwdzcKyyusMY2dvTYW1-sdVKRaVxTq1T2bOHBLFMYPmwqT4NqpFqSbiTq1e7Os2xQKpPrSk14-a6OUdbH6J1lUFSEyRJIZrsOSQ9kep9KOje6T5uc9WDUh5LMD7f9OXbB6qoWweCRBAe4Lri-zWF5tvUobfwpCkadcf5vdXxxiZF3KpDd-Wtrq8C7DQBqsdSpnF-DhVTPxxHtwnFx8C72_QwN0yvHZk7_h9saY2fK9yTOghINVtBCEiXIDkfq_ANlykVJWAcU1pXfZALi5MKP4b41UiqcFdeh83J-KqTwW2MA7xMOiX5cNzMD5_r472fFcNnVvTVmIFJO3B77MwHHfdxK0gNVKLjqjvxKwqx4gfxbozc3LQTwI-AzraU-23h2eWi_8Xl4qjjqwMWdwg_m91sbrFYs2nbrhOuDvTQjSEajyNYBCf3j3sZtw3lwxBXs0XrYWncs3b_KZYvVVBruOm7V51lRurHDlHsbzl5AJqPqNWchV5-RZxxVqzx2SX34REA5w3rO5FEvpGQFPlLWN4hHFYfHQ9KnvxxJQcvuLzJ75PRuRS8IuO0AJ3UI7SStLFarZkkoo3cPZH96duxvqEN181rM8MrVOvcA9dr9c7_YdqebM1WAwI-qRvqHgPZs2u15B5qc3Sxlj-BuQLuTtfaM9lb5-TZOVyU1aHt-Kqs21E3gDkd67UGIKcjG0_zY5-VcjE61qel7joffzMJ-6fq65ekMZQU1BLHvXnUU3gNih9ib0e_uz4NkwSKvieipjqtH91lERXI7A7Dd-8fo21u-XspPEDapNPCqa_ZPWgOkDcxOwRcPnhz2T5Fb0u8bNHNhris47CldyinLhFDRCzckO9Ie58Bfzr-MbNwq1vzEKOmCOU-L8zbv1-uulauOntQ3Tc37cK841m41V15k5mYDsVPc21j1aq36WFe_jerIrIKhgIAmwgZqjYMqxTvoyryzui7TV7XPpzq0ml6FyYk4RU97mVYveHRyESuE3BAeLVgKhOlYkKjQARr7u6ldVev0IU2WoEV5wKcDrCpIn8iNxN67Q7kNgRNul2nzYNPsB8TF3NCwfcQ_pPK6dLewdsAcLdcKVdJAwRGvhVQC-FSJlJoi9cRLslMIIBd1kGvzEtVmuqQNF3H0Cm2btMwfDz_q1KBUlosFyDAjMt4cbH4gjK7XIA7zMTl4gJ-xlxfXy4u8z_hO15a9WmXR4uLFU-NWC7KAhfGD5JDVJnVTwueLy6-LG4WF69en704f_72u1fnL16e_-P521fLxW5x8fzNq7M35y_enr99-fLN-ctXL_5cLv5QCjr47uztqzevz1-_fv389Yvv3sBHy4WI8QrGH9295nS9OY3wX2pgdSn-_Auzs7K2">English Mermaid Live Editor</a></p>
+<p><a href="https://mermaid.live/edit#pako:eNrlHcmS28b1V1A8jaeYKUuKtrklklyVilxxWXEOiVLlJtCkewKi6W5gMpTLH-OjDzqkfPOVP5a3dGMjmmyQIw1HmhMFoBvvvX77Av00SXUmJ5eTpSqypVi9LRL4M1qXZ2ffqFwYab_4InF_fBP_vlJipnKVieys-flFcx__XujlyuilstqetX73nuo9mWQymdc7JqkukjdyURn817_eTr4_P498-Pz8-7eTf2-_q_fCy-RP1VIWpca9cpHYaiXNXKVK4oXSiJm40hfJqzxZITXwYv2KZGWUNuqdSKqis9LIrErhiWSNMJWywN8rYUQCVFZLWGGSHMC_lmmpgcK4qyjFj5WEFbzYIDALaUu1-a0g2OB53MzonBdYD8ZFny5xOJ2fnzZWO46vd4J_Xq-EpdVuq-5GATSNTGG9LAAJBLHUGcDShQdQX4pCvktFkYi0VNdwtxRIWFkkVtlSLoVNCg1P4eOwH9yxJeAuYLOBc9kDafBIPjysu6ndp_g_pLFKF7APvEEtKsFnp-flf0FjhCg-18iVyFcA01wjJnD_HMAGZoIdJQJeiRw4KdPngLRdISslArjGNvdSfnObcvAPeKPR11Jm2gwQfg_AQcJ_NJCH6b9b1_1tVZLYpV6aXmhbahujJgNLdynNsH5B2QbWLFIlErwGNDAZqAxiPbivlqtcEh3pdRfJd6BYUmEWoqWPEu1AAh6HZSnBU2sWYnaQgsogPraaVaVioltQLvJalYI0nZ4ZiURV1iPmF-3VkmOxAJ65Ezzi9WIXP1VcoxDgdgCXBuw8WyJXF6QNNr-A8shVIQF6Ui4O3h8rAATxmFcFLkIVgsfYFgrdZymHOrxAXou8AtECjodf2tAbAcyVNrRbkoKYwDukAczzyu9ggeALgGTv0d06anS2Hwm5QyT_1U0qc0ms-jfEFtS9iBH7oXWHyTzYD0DginauCS7yi-S1GHzLFIifoOLNiT6wQ-M3ThuXA3kfBU2lUZ5NCAo4v1uF4xCZy4E55pU07zQ7SQs0GMAncA46VWjN4TFypcC5IiCBd3EV8Mqq53IOYdJ2Crw9gv3qn2CyQIdoZG7ACnfJdFo1CoyhAsBTmTlwUAeVwLi5XmzeC5DwXfQ_Er-eyb0jDA8SPnKHCVSkwrcAn9s9SgSDqw8TxFyUtBtLXnBz1nTSSGL7qnYJQRzAY0zZE9ezK8meIxmcZjEREp-Y59UV364sKD1FBM1EGWFfa0CdcN4hqIea0J5Z7sloGCHQ9gLO3sqrIes-ZT5HNi8ydterJK8WbFMqq9vmP7mqyPAQmhbExM5FKimuyoBGRYS17GPRl8RTwaN7SrVPflb_uq18Q-OTo4A29mBQnEMPH21Gu9zUbBwyShRUd8JC5PpVRVoO9Y7Icw3gOt8zlcUYc9rnig8Cz4FyiNut4C3EpODLmc37UqVorwIQt-1Ik6rYsc-gY48oNX58cPU0oSBQiRxBZnjlTSlNgfdKAAO22fxSx-4sRiArW8Tad15B-MNnd18pMS49EXYSfaiXVuwtopeA7gSpNsqGBFDO5EzW6zDuR9AwmUL2PefMmsbQArGkOwS-33eUKxsBZSj6PBrO_ZTeTe1SWAIoFcuZ0jsYSN4AiIrTK_ywRZsBbLFc0WbyCtBg5Cl-wxUV_AJHgNnGKGkX9ChoIZGWPlJveVxADpVhOkbaGqR9J9HDIETpO8Uhym_tmqox2aKolbEW7y_F3AhMNVZpWYG1F5RVoWCxFWSTI-DDbOOSm9YpgWroACD2nlUWLrfYuJVmzhQlBdgygQNSbH5fSqM5eIfjKVAnoU8oOGRwvkdhA5FnGI1utuDEEDnU13VemE9-dZHvWtoAf3QcBcKnfqC3fzsnxjGbNEtVqrbj-Oav31kWmRk8AdtPEwAXFqgCxIktj-6-JkfutdVyv8jvRrZnTk8f3cOtZYdZKXK2GMS3citoIV8PPkYJbeBUfIo5mSJwMls5Pw-mpxS5W7RSknka1Bo5A5S9SyvSppwrMBJC-2IgzRcQpYv6cAzq2wZMkA98vg5QGprtO9Y9vBNFMIx4PyeSHWCdojOa-5fF2iX8DbGLTxWz7OuZlea6tr1rcs0EWGbvmOFtVPzBTGc3fUFlIAMXSknKxMIGcMi0pa8I8YbINe7lLGRbK9lXHlgJ_JNgnTXHt-Fb8QI9DYdcWOAoNhGkbJriITAHJqRNoFh5JH3COdh7SqF4S_pSWQiPqrb-F4uaYiKcAUAtwflR23YQlirjbMq1zDVTmgAld6MClQC4yCtt2PSnwmWz52hlmPbgOLTTOr46qa7xSaYVwGTkQpBYgZCzD0tcvh2abLkwYDLzai19itcnhslfcS5um5bMTLZdqtnmv0Op6LTtZ0rHo2y_f6FrUdAmU0VTtHUk7YX_nSQPRvIUxWAyyFcvOean52TT-gBExki_Xa1b49mkRhd6YcSSCIM9DcbFSnIukdRiv0negYdz1k8EEzytzuGMNZvjahGxi48rRbBVoGQOMXggCeAkqXTBzu4tYqsLWwtD4fuot8er_q_FWht01Wat-B3OnnRUMVdAfy9QLyq0r2YrQ-Nr08ESh8u2ef3Tbkwg5lsBRjJVM26pAt9RWbn531AUFA8tkPGjw9ulesDZPAtcv63iQKjyH1EqiFsaK2vfSgsLmD99K15AslSRarPSqG1kpjKfUWjWk9VTWEbFdAG1nRhSdFhqgyMuyXKuYeeidJaNUrmb93NM7DomqVsm-JwH-GsQ5pBE3hHU8bL9ygKopVyw6e-mZ3M46VIET8SJCue8KwjycuG6eqzLB66H8r1AEnRZyDNFIc1cfVPaVBZc09ydY44COXQgHwfoW0rt78g0ux4rn6HDAANAzPNuz1XbO1NFISGEAGCxF4wMgSoWsoCgZfPetzq4qoZ0Ycd88wts6i39FXJokZSbXw04GP1OgLGVuPuEWlTwv0s17u73jloZr1M7abpwM7LL3wzdw1wMCgOISsr5mOXm9xx0EbXZQixqp4nApmhex6bTNxuWclp3qfiGMUN5lwx8xMJSVgfugc7KAowTjUOdhbp7LA5uwLiN7vyWCB3V0n5yDfofH7FxuvsVWpxCtAN62KrdGByBLwZ2pewuZMzESq85chcub1VriEGOz5RRC8Wdt00kh4G2yLidTN6sAHkCbcC07sMm7vzuCJ-jtXR0wnbsJtGDOy982pEJkao0JywxF8NxBJo5oAJf9s3-yZuXr1-QSYSNJDqKrnHE5eTpdqhU1-7rBWprM6WiCzaoIRa-42Fet8T4s3b-UU-2clfPRf04mJwfyMoeiPU54nXew9ux6CliHm8ivu3X2ro5akq99dLWQLvGC2JhIzkSxvUcDhCA3WCRg7hijlotCkSWWBYlbgG7QNjxzhm-xkeWN9hejgX_xjHeb8a3sOB0-qnhMc4AfE2du3VaQM0laC6w328kcY9p2sZayduhNCm3AC8EZUnTzW8ZMOSUkgs_SGM4skOPhVJ6aNVK2Rn4QSOH8xd-LEo75aNte56HauogUOgXNwk8FIMSSbNOtAEyDA8oBFCFU7z3yB5vOsYlLQ_bKjYEeIk0URik2gp9I4hJfRNx04qa_J0m6XIRLP7TPF2-s63ZK0QInah9nTpg4WhqEdbjunqjIAeGu3vYR6RPuR2w7mrhqB5CzbQAHbVnEgftkUbFSEMImLHAlgnTbpip-y5crww2Kre6ZcCKsVfnr1ctzwu9qj_kOiWBcQ_UQ0MBP38LHxfM3xeMbmfYTHK-VwfmsfSHHDVr-S2YiIIrtzpsdjRqR42ajUZuq960VXYacsnPhi7eVoJdNnvrukMgIrsese4WevJfi4jW92myFn5YxRUv-HanTXqoruIn411lBFQE3HBlEWAg8hPQUR-ZLzwRqA_SHu1y-kpzdOHykXCJclRuZNbsaPn3g9sAO6VBa2lqb69RfNNmONtTodUP0HmlaU8jgVeVg0CahGsSxlQr3gkDI1PS9kC7brXB7jzIcaiHu_xPFfk41zEo2LsTw_uXHaYORuUcW_MVEcm5fha9284rb3C2sQmfOx0GF1ja6fSZdvoYBvN6gCAJbVXUo3SU3l-BZaKj5zJNXs9j4JJKzsQHzWZ-DiQ7bH4YxU87KrgeNRr0HKwGcdyPafyZ4IS7E2jrB9JLueAePlLmPK1T1_yRAjQcSU9TExKSEHa_3vxqmzRwQ22E0KmDi91zwgE8QnWtO8VkXEJjK2nTy2e3PLs0F9eym7DlhI2yLk0LJpSbh70XzlMjDnuXj3HpYtmp6_az6LZs1LmVrYaLDh1yfnfdpNGEEuvtnD8lfOIqUAN58E-RDvtd6bH2bcyEzthNDvgcVp4shOWBpPrjI3iSQEYw8VzqX66q3GrTClPoMENjLnVTe8Zjfs2-L12MYtyYg78zhQNcYixLJUXwLeBGKdw8YXuQovnEVDMI0a1mi3WV0dyV_34AQmVbLfx71Ng2NZizP116HNzxnNfi7hpUh3tkuawOgrecGc2i6BozA6lQt44zIdS7xnFw4HGB4xCCnde636-ZRS3BErl28MEPxOCJpE255WJvi3Is2q4Sf28QP6JFx_okIH19oZlkczfbGey4obKWuzg0ZwVQ5Jhsb9b1kuSiSarVj9Sf4SInsvWtL4F5TkHDl83QLJXQuJ2sA37EtHYsJSInzk6XFscFeiMLBAfsc1go6Lqt0q1vcsV-QKN7YAKLb50GAhZt37-YYDDjZraR0FXZTr-gZwMuLLfNin6KcVgx7I3dghjGfyTkznE8NGfdfEnnG7TZKehIw7t3hkiQsVrdzdNOCY_meIuBOd56EsQ5lbWd9iNQgy-yCCC7ELU-R-XMCnzUJ3fuC07d0wvz2Vn41q1lprtvaLe0x-SnY1cf2KyI5OvUckRvpNkNgFOQjYOjGGQVi8pJcPcbAyBercI_7d30XWM7Nrm37c_4dF7NrcT01Z_BdiMfdQ-kBCPCyTg8XTrhdDE9VC-Nr0d8kHLBSC_wG0qD2WZmM61LZgVNKFv_mVqwntzK74jedChzXOT7Ftg5qXmD5pPbhTNRlXoFp9m8zBfDdzZejwAUjeDHA3U4wXCs1tqTRI9cfJjOuu_N1Z9dYzUohk-qn_pE8TmpNur6YyTRjcdzKsZ0Ek4n0kL9wXAJJH-PVc6jMsAHbRWvuJtvVLtPPFKTCRZ23fdxUpHTdxGGqzg0_t6ZlW9DyE2otvK5qf4XcejDDSZpt7JN8TQ1ttjUA2kY-FvX5uxndcEIF2CbhZlin2qOVjqtuLmJNodDdwVvvDXPq7Tc_C6KQd0fTYJQKeu-ESHefHwl8nKge6330YNXrmGJwkmceddNAa75XFq_62y69cA20NwAW1QSu5ZLmRb-k74uFqWOWyZqPRvnaoYDeXjSImR5scTjJ0zb39NqTnGAU6KIQc7jJ0gO5JnJdLLE_39CZZPLyU_IQW8n5Q9yKd9OLuFnJsx_3k7eFj_Dc-j6vlkX6eRyLnIrp5NqlYlSvlQCv5RQX12JYnL50-Rmcvn46cXDJw-ef_n4ycNHT_744Pnj6WQ9uXzw7PHFsycPnz95_ujRsyePHj_8eTp5pzVs8OXF88fPnj55-vTpg6cPv3wGN6cTCOvAPn_N_9MN_Yc39IZ_0oISAoCf_w9kFKmE">Spanish Mermaid live editor</a></p>
+<h3 id="references"><a class="toclink" href="21/azure-well-architected-framework-waf-mind-maps/#references">References</a></h3>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/azure/well-architected/pillars">Microsoft Well-Architected Framework pillars</a></li>
+</ul>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2023-11-18 00:00:00+00:00">November 18, 2023</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/azure-services/">Azure Services</a></li>
+<li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="azure-communication-services"><a class="toclink" href="18/azure-communication-services/">Azure Communication Services</a></h2>
+<h3 id="what-is-azure-communication-services"><a class="toclink" href="18/azure-communication-services/#what-is-azure-communication-services">What is Azure Communication Services?</a></h3>
+<p>Azure Communication Services are cloud-based services with REST APIs and client library SDKs available to help you integrate communication into your applications. You can add communication to your applications without being an expert in underlying technologies such as media encoding or telephony.</p>
+<p>Azure Communication Services supports various communication formats:</p>
+<ul>
+<li>Voice and Video Calling</li>
+<li>Rich Text Chat</li>
+<li>SMS</li>
+<li>Email</li>
+</ul>
+<p>And offers the following services:</p>
+<ul>
+<li>SMS: Send and receive SMS messages from your applications.</li>
+<li>Phone calling: Enable your applications to make and receive PSTN calls.</li>
+<li>Voice and video calling: Enable your applications to make and receive voice and video calls.</li>
+<li>Chat: Enable your applications to send and receive chat messages.</li>
+<li>Email: Send and receive emails from your applications.</li>
+<li>Network traversal: Enable your applications to connect to other clients behind firewalls and NATs.</li>
+<li>Advanced Messaging:<ul>
+<li>WhatsApp(Public Preview): Enable you to send and receive WhatsApp messages using the Azure Communication Services Messaging SDK. </li>
+</ul>
+</li>
+<li>Job Router(Public Preview): It's a tool designed to optimize the management of customer interactions across various communication applications.</li>
+</ul>
+<p>Some Use Cases:</p>
+<ul>
+<li>Telemedicine: Enable patients to connect with doctors and nurses through video consultations.</li>
+<li>Remote education: Enable students to connect with teachers and other students through video classes.</li>
+<li>Financial Advisory: Enhancing global advisor and client interactions with rich capabilities such as translation for chat.</li>
+<li>Retail Notifications: Send notifications to customers about their orders via SMS or email.</li>
+<li>Professional Support: Enable customers to connect with support agents through chat, voice, or video.</li>
+</ul>
+<h3 id="design-considerations"><a class="toclink" href="18/azure-communication-services/#design-considerations">Design considerations</a></h3>
+<p>You have  some data flow diagrams to help you to understand how Azure Communication Services works <a href="https://learn.microsoft.com/en-us/azure/architecture/guide/mobile/azure-communication-services-architecture">here</a></p>
+<p>Some aspects to consider:</p>
+<ul>
+<li>You need to apply throttling patterns to avoid overloading the service,  HTTP status code 429 (Too many requests).</li>
+<li>Plan how to map users from your identity domain to Azure Communication Services identities. You can follow any kind of pattern. For example, you can use 1:1, 1:N, N:1, or M:N</li>
+<li>Check regional availability. You can see more information about regional availability <a href="https://azure.microsoft.com/en-us/global-infrastructure/services/?products=communication-services">here</a>.</li>
+<li>Check the service limits. You can see more information about service limits <a href="https://learn.microsoft.com/en-us/azure/communication-services/concepts/service-limits">here</a>.</li>
+<li>Check security baseline. You can see more information about security baseline <a href="https://learn.microsoft.com/en-us/security/benchmark/azure/baselines/azure-communication-services-security-baseline">here</a>.</li>
+</ul>
+<h3 id="pricing"><a class="toclink" href="18/azure-communication-services/#pricing">Pricing</a></h3>
+<p>Azure Communication Services is a pay-as-you-go service. You only pay for what you use, and there are no upfront costs. You can see more information about pricing <a href="https://azure.microsoft.com/en-us/pricing/details/communication-services/">here</a>.</p>
+<p>The bad news are:</p>
+<ul>
+<li>In some services pricing vary by country.</li>
+<li>You don't have a free tier, but you have something free.</li>
+<li>You don't have Azure Reservations or equivalent.</li>
+</ul>
+<h3 id="conclusion"><a class="toclink" href="18/azure-communication-services/#conclusion">Conclusion</a></h3>
+<p>Azure Communication Services is a very interesting service but you need to consider the cost of the service and the regional availability before to use it.</p>
+<p>That's it folks!, thanks for reading <img alt="😄" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f604.svg" title=":smile:">!.</p>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2023-11-15 00:00:00+00:00">November 15, 2023</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/azure-services/">Azure Services</a></li>
+<li class="md-meta__item">
+            
+              1 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="azure-services"><a class="toclink" href="15/azure--services/">Azure  Services</a></h2>
+<p>I have decided to create a new category on my blog to talk about Azure services.</p>
+<p>The main goal of this category is to provide a quick overview of some Azure services and some design considerations.</p>
+<p>What is this category due to?</p>
+<p>In some cases, it is because I am working with this Service and I think it is a good idea to share my experience with you and write it down for me, in others, it is because I am studying/reviewing an Azure Service and I think it is a good idea. Share my notes with you.</p>
+<p>I hope you like it.</p>
+<p>I am going to start with <a href="18/azure-communication-services/">Azure Communication Services</a></p>
+<p>That's all folks!, thanks for reading <img alt="❤" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2764.svg" title=":heart:">!</p>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2023-11-04 00:00:00+00:00">November 4, 2023</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/development/">Development</a></li>
+<li class="md-meta__item">
+            
+              1 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="starting-to-develop-in-c"><a class="toclink" href="04/starting-to-develop-in-c/">Starting to develop in c#</a></h2>
+<p>First, I need to clarify that I'm not a C# developer. I'm learning C# so I can better understand the code that has to be deployed to some Azure services when .NET is used.</p>
+<p>If someone that knows me is reading this post, he/she will be thinking: </p>
+<ul>
+<li>"What the hell is he doing?"</li>
+<li>"He is crazy"</li>
+<li>"He is going to die trying".</li>
+<li>The end of the world is approaching!!</li>
+</ul>
+<p>Maybe the last thought can be really true but I have to say that I have decided to learn a programming language and that I have chosen C# because many of the examples for Azure Developers that I have seen are written in C#.</p>
+<p>I repeat, I am not a developer but I'd like to share with you my experience learning C#.</p>
+<h3 id="my-first-steps"><a class="toclink" href="04/starting-to-develop-in-c/#my-first-steps">My first Steps</a></h3>
+<p>You have a lot of resources for learning on <a href="https://dotnet.microsoft.com/">Learn .NET</a> and in <a href="https://docs.microsoft.com/en-us/dotnet/csharp/">c# documentation</a>.</p>
+<p>In my case I prefer to simplify and follow <a href="https://github.com/dotnet/csharp-notebooks">csharp-notebooks</a>, these materials are designed to be used with <a href="https://learn.microsoft.com/en-us/shows/csharp-101/">
+C# 101 SERIES</a>.</p>
+<p>After that, I will follow the free course <a href="https://www.freecodecamp.org/learn/foundational-c-sharp-with-microsoft/">(New) Foundational C# with Microsoft</a>.</p>
+<p>And after that, I think that I will be ready to start with <a href="https://learn.microsoft.com/en-us/dotnet/standard/get-started?source=recommendations">Tutorials for getting started with .NET</a> and plan next steps.</p>
+<p>That's all folks!!</p>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2023-11-03 00:00:00+00:00">November 3, 2023</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/devops/">DevOps</a>, 
+              <a class="md-meta__link" href="../../category/english/">English</a></li>
+<li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="trunk"><a class="toclink" href="03/trunk/">Trunk</a></h2>
+<h3 id="what-is-trunk"><a class="toclink" href="03/trunk/#what-is-trunk">What is Trunk ?</a></h3>
+<p>Trunk is a tool that runs a suite of security and best practice checks against your code. It is designed to be used in CI/CD pipelines, but can also be used as a standalone tool.</p>
+<p>Support for the following languages is currently available:</p>
+<h3 id="installing-trunk"><a class="toclink" href="03/trunk/#installing-trunk">Installing Trunk</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">Trunk cli</label><label for="__tabbed_1_2">Trunk VSCode extension</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a>curl<span class="w"> </span>https://get.trunk.io<span class="w"> </span>-fsSL<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a>code<span class="w"> </span>--install-extension<span class="w"> </span>Trunk.io<span class="w">  </span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<h3 id="trunk-checks"><a class="toclink" href="03/trunk/#trunk-checks">Trunk checks</a></h3>
+<h4 id="trunk-checks-cli"><a class="toclink" href="03/trunk/#trunk-checks-cli">Trunk checks cli</a></h4>
+<p>Trunk detects checks to enable in function of the files in the current directory, but you can also enable and disable checks manually.</p>
+<ul>
+<li>trunck check list: list all available checks</li>
+<li>trunck check enable checkname: enable a check</li>
+<li>trunck check disable checkname: disable a check</li>
+<li>trunck check: run all enabled checks</li>
+</ul>
+<p>For example, to enable the Terraform check:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a>trunk<span class="w"> </span>check<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>terraform<span class="w"> </span>
+</span><span id="__span-2-2"><a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="m">1</span><span class="w"> </span>linter<span class="w"> </span>was<span class="w"> </span>enabled:
+</span><span id="__span-2-3"><a href="#__codelineno-2-3" id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="w">  </span>terraform<span class="w"> </span><span class="m">1</span>.1.0
+</span></code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>You can also enable checks by modifing .trunk.yml file in your repository. See the <a href="https://docs.trunk.io/actions/configuration">configuration page</a>  for more information.</p>
+</div>
+<p>Examples: </p>
+<div class="language-console highlight"><span class="filename">trunk commnad line check example</span><pre><span></span><code><span id="__span-3-1"><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="go">trunk check   </span>
+</span><span id="__span-3-2"><a href="#__codelineno-3-2" id="__codelineno-3-2" name="__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a href="#__codelineno-3-3" id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="go">Checking 68% [====================================================================================================================================================================&gt;                                                                              ]  38/56  9.4s </span>
+</span><span id="__span-3-4"><a href="#__codelineno-3-4" id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="go"> ↳ checkov                                                                                                                                                                                                                                                                      </span>
+</span><span id="__span-3-5"><a href="#__codelineno-3-5" id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="go">   ↳ modules/webapps/linux_function_app/private_endpoint.tf [lint] ⠧                                                                                                                                                                                                            </span>
+</span><span id="__span-3-6"><a href="#__codelineno-3-6" id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="go">   ↳ modules/webapps/linux_function_app/variables.tf [lint] ⠧                                                                                                                                                                                                                   </span>
+</span><span id="__span-3-7"><a href="#__codelineno-3-7" id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="go"> ↳ terrascan                                                                                                                                                                                                                                                                    </span>
+</span><span id="__span-3-8"><a href="#__codelineno-3-8" id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="go">   ↳ modules/webapps/linux_function_app/locals.tf [lint] ⠧                                                                                                                                                                                                                      </span>
+</span><span id="__span-3-9"><a href="#__codelineno-3-9" id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="go">   ↳ modules/webapps/linux_function_app/main.tf [lint] ⠧                                                                              </span>
+</span></code></pre></div>
+<h4 id="trunk-checks-vscode"><a class="toclink" href="03/trunk/#trunk-checks-vscode">Trunk checks vscode</a></h4>
+<p>In the case of the VSCode extension, you can review your checks in your IDE:</p>
+<p><img alt="Trunk checks vscode" src="../assets/2023-11-03-17-00-28.png"></p>
+<p>And you can disable checks from quick fix menu:</p>
+<p><img alt="Quick Fix" src="../assets/2023-11-03-17-04-36.png"></p>
+<h3 id="trunk-updates"><a class="toclink" href="03/trunk/#trunk-updates">Trunk updates</a></h3>
+<h4 id="trunk-updates-cli"><a class="toclink" href="03/trunk/#trunk-updates-cli">Trunk updates cli</a></h4>
+<p>Trunk is updated regularly with new checks and improvements. You can update Trunk by running the following command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a>trunk<span class="w"> </span>update
+</span></code></pre></div>
+<h4 id="trunk-updates-vscode"><a class="toclink" href="03/trunk/#trunk-updates-vscode">Trunk updates vscode</a></h4>
+<p>In the case of the VSCode extension, it will be updated automatically:</p>
+<p><img alt="Trunk updates" src="../assets/2023-10-18-23-52-48.png"></p>
+<h3 id="references"><a class="toclink" href="03/trunk/#references">References</a></h3>
+<ul>
+<li><a href="https://docs.trunk.io/cli">Trunk</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=Trunk.io">Trunk VSCode extension</a></li>
+</ul>
+</div>
+</article>
+<nav class="md-pagination">
+</nav>
+</div>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2023-now Rafael Fernández
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://www.linkedin.com/in/rafaelfernandezd/" rel="noopener" target="_blank" title="LinkedIn">
+<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"></path></svg>
+</a>
+<a class="md-social__link" href="https://github.com/rfernandezdo" rel="noopener" target="_blank" title="GitHub">
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="https://rfernandezdo.github.io/feed_rss_created.xml" rel="noopener" target="_blank" title="RSS feed">
+<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M64 32C28.7 32 0 60.7 0 96v320c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64zm32 104c0-13.3 10.7-24 24-24 137 0 248 111 248 248 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-110.5-89.5-200-200-200-13.3 0-24-10.7-24-24m0 96c0-13.3 10.7-24 24-24 83.9 0 152 68.1 152 152 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-57.4-46.6-104-104-104-13.3 0-24-10.7-24-24m0 120a32 32 0 1 1 64 0 32 32 0 1 1-64 0"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tabs", "navigation.tabs.sticky", "navigation.expand", "navigation.sections", "navigation.top", "navigation.tracking", "toc.integrate", "toc.nested", "toc.smoothscroll", "footer", "content.code.copy", "content.code.select", "content.code.annotate", "content.tooltips"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../javascripts/tablesort.js"></script>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.mermaidConfig = {default: {
+    startOnLoad: false
+}};</script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

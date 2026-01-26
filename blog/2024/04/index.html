@@ -1,0 +1,3038 @@
+<!DOCTYPE html><html class="no-js" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width,initial-scale=1" name="viewport">
+<meta content="A blog about Azure, DevOps and other stuff" name="description">
+<meta content="Rafael Fernández" name="author">
+<link href="https://rfernandezdo.github.io/blog/2024/04/" rel="canonical">
+<link href="../05/" rel="prev">
+<link href="../03/" rel="next">
+<link href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=es&amp;_x_tr_hl=es&amp;_x_tr_pto=wapp" hreflang="en" rel="alternate">
+<link href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=en&amp;_x_tr_hl=en&amp;_x_tr_pto=wapp" hreflang="es" rel="alternate">
+<link href="../../../feed_rss_created.xml" rel="alternate" title="RSS feed" type="application/rss+xml">
+<link href="../../../feed_rss_updated.xml" rel="alternate" title="RSS feed of updated content" type="application/rss+xml">
+<link href="../../../assets/images/favicon.png" rel="icon">
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.1" name="generator">
+<title>2024/04 - Un Rinconcito donde contar lo que quiera</title>
+<link href="../../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet">
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet">
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<meta content="website" property="og:type">
+<meta content="2024/04 - Un Rinconcito donde contar lo que quiera" property="og:title">
+<meta content="A blog about Azure, DevOps and other stuff" property="og:description">
+<meta content="https://rfernandezdo.github.io/assets/images/social/blog/2024/04.png" property="og:image">
+<meta content="image/png" property="og:image:type">
+<meta content="1200" property="og:image:width">
+<meta content="630" property="og:image:height">
+<meta content="https://rfernandezdo.github.io/blog/2024/04/" property="og:url">
+<meta content="summary_large_image" property="twitter:card">
+<meta content="2024/04 - Un Rinconcito donde contar lo que quiera" property="twitter:title">
+<meta content="A blog about Azure, DevOps and other stuff" property="twitter:description">
+<meta content="https://rfernandezdo.github.io/assets/images/social/blog/2024/04.png" property="twitter:image">
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+<body data-md-color-accent="blue" data-md-color-primary="blue" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox">
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox">
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#202404">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Un Rinconcito donde contar lo que quiera" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="Un Rinconcito donde contar lo que quiera">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Un Rinconcito donde contar lo que quiera
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              2024/04
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="blue" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio">
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="black" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio">
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="Select language" class="md-header__button md-icon">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=es&amp;_x_tr_hl=es&amp;_x_tr_pto=wapp" hreflang="en">
+              English
+            </a>
+</li>
+<li class="md-select__item">
+<a class="md-select__link" href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=en&amp;_x_tr_hl=en&amp;_x_tr_pto=wapp" hreflang="es">
+              Spanish
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text">
+<label class="md-search__icon md-icon" for="__search">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+  Blog
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+        
+  
+  
+    
+  
+  About
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../contributions/">
+        
+  
+  
+    
+  
+  Contributions
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../Azure/Security/MCSB/Readme/">
+          
+  
+  
+  Azure
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../Tools/Federated_Identity_Credentials_Report/README-federated-identity-credentials/">
+          
+  
+  
+  Tools
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Un Rinconcito donde contar lo que quiera" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="Un Rinconcito donde contar lo que quiera">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    Un Rinconcito donde contar lo que quiera
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_1" type="checkbox">
+<label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_1_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Blog
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../tags/">
+<span class="md-ellipsis">
+    
+  
+    Posts by Tags
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_1_3" type="checkbox">
+<label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Archive
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_1_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Archive
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/12/">
+<span class="md-ellipsis">
+    
+  
+    2025/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/11/">
+<span class="md-ellipsis">
+    
+  
+    2025/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/10/">
+<span class="md-ellipsis">
+    
+  
+    2025/10
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/09/">
+<span class="md-ellipsis">
+    
+  
+    2025/09
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/08/">
+<span class="md-ellipsis">
+    
+  
+    2025/08
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/07/">
+<span class="md-ellipsis">
+    
+  
+    2025/07
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/06/">
+<span class="md-ellipsis">
+    
+  
+    2025/06
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/05/">
+<span class="md-ellipsis">
+    
+  
+    2025/05
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/04/">
+<span class="md-ellipsis">
+    
+  
+    2025/04
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/03/">
+<span class="md-ellipsis">
+    
+  
+    2025/03
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/02/">
+<span class="md-ellipsis">
+    
+  
+    2025/02
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/01/">
+<span class="md-ellipsis">
+    
+  
+    2025/01
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../12/">
+<span class="md-ellipsis">
+    
+  
+    2024/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../11/">
+<span class="md-ellipsis">
+    
+  
+    2024/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../10/">
+<span class="md-ellipsis">
+    
+  
+    2024/10
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../09/">
+<span class="md-ellipsis">
+    
+  
+    2024/09
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../06/">
+<span class="md-ellipsis">
+    
+  
+    2024/06
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../05/">
+<span class="md-ellipsis">
+    
+  
+    2024/05
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox">
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    2024/04
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    2024/04
+  
+
+    
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#repository-strategy-fork-vs-branch">
+<span class="md-ellipsis">
+      
+        Repository Strategy: Fork vs Branch
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#repository-strategy-monorepo-vs-multi-repo">
+<span class="md-ellipsis">
+      
+        Repository Strategy: Monorepo vs Multi-repo
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#terraform-configuration-language">
+<span class="md-ellipsis">
+      
+        Terraform: Configuration Language
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#terraform-set-your-local-environment-developer">
+<span class="md-ellipsis">
+      
+        Terraform: Set your local environment developer
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#starting-my-iac-project-with-terraform">
+<span class="md-ellipsis">
+      
+        Starting my IaC project with terraform
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#what-you-need-to-think-about-when-starting-an-iac-project">
+<span class="md-ellipsis">
+      
+        What you need to think about when starting an IaC project ?
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#how-to-create-a-management-group-diagram-with-drawio">
+<span class="md-ellipsis">
+      
+        How to create a Management Group diagram with draw.io
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#moving-management-groups-and-subscriptions">
+<span class="md-ellipsis">
+      
+        Moving Management Groups and Subscriptions
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#management-groups">
+<span class="md-ellipsis">
+      
+        Management Groups
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#how-to-create-assigment-reports-for-azure-rbac">
+<span class="md-ellipsis">
+      
+        How to create assigment Reports for Azure RBAC
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../03/">
+<span class="md-ellipsis">
+    
+  
+    2024/03
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../02/">
+<span class="md-ellipsis">
+    
+  
+    2024/02
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2023/12/">
+<span class="md-ellipsis">
+    
+  
+    2023/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2023/11/">
+<span class="md-ellipsis">
+    
+  
+    2023/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2023/10/">
+<span class="md-ellipsis">
+    
+  
+    2023/10
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_1_4" type="checkbox">
+<label class="md-nav__link" for="__nav_1_4" id="__nav_1_4_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Categories
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Categories
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure/">
+<span class="md-ellipsis">
+    
+  
+    Azure
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure-ad/">
+<span class="md-ellipsis">
+    
+  
+    Azure AD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure-automation/">
+<span class="md-ellipsis">
+    
+  
+    Azure Automation
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure-devops/">
+<span class="md-ellipsis">
+    
+  
+    Azure DevOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure-frameworks/">
+<span class="md-ellipsis">
+    
+  
+    Azure Frameworks
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure-governance/">
+<span class="md-ellipsis">
+    
+  
+    Azure Governance
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure-networking/">
+<span class="md-ellipsis">
+    
+  
+    Azure Networking
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure-security/">
+<span class="md-ellipsis">
+    
+  
+    Azure Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure-services/">
+<span class="md-ellipsis">
+    
+  
+    Azure Services
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure-updates/">
+<span class="md-ellipsis">
+    
+  
+    Azure Updates
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/caf/">
+<span class="md-ellipsis">
+    
+  
+    CAF
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/cicd/">
+<span class="md-ellipsis">
+    
+  
+    CI/CD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/devops/">
+<span class="md-ellipsis">
+    
+  
+    DevOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/development/">
+<span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/drift-detection/">
+<span class="md-ellipsis">
+    
+  
+    Drift Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/english/">
+<span class="md-ellipsis">
+    
+  
+    English
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/enterprise-policy-as-code/">
+<span class="md-ellipsis">
+    
+  
+    Enterprise Policy as Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/finops/">
+<span class="md-ellipsis">
+    
+  
+    FinOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/firewall/">
+<span class="md-ellipsis">
+    
+  
+    Firewall
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/gtd/">
+<span class="md-ellipsis">
+    
+  
+    GTD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/git/">
+<span class="md-ellipsis">
+    
+  
+    Git
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/github-actions/">
+<span class="md-ellipsis">
+    
+  
+    GitHub Actions
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/hashicorp/">
+<span class="md-ellipsis">
+    
+  
+    HashiCorp
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/hello_world/">
+<span class="md-ellipsis">
+    
+  
+    Hello_World
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/infrastructure-as-code/">
+<span class="md-ellipsis">
+    
+  
+    Infrastructure as Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/learning/">
+<span class="md-ellipsis">
+    
+  
+    Learning
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/m365/">
+<span class="md-ellipsis">
+    
+  
+    M365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/microsoft-365/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft 365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/microsoft-entra/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/microsoft-entra-external-id/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra External ID
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/microsoft-entra-id/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra ID
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/networking/">
+<span class="md-ellipsis">
+    
+  
+    Networking
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/outlook/">
+<span class="md-ellipsis">
+    
+  
+    Outlook
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/pim/">
+<span class="md-ellipsis">
+    
+  
+    PIM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/power-automate/">
+<span class="md-ellipsis">
+    
+  
+    Power Automate
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/power-bi/">
+<span class="md-ellipsis">
+    
+  
+    Power BI
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/productividad/">
+<span class="md-ellipsis">
+    
+  
+    Productividad
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/productividad--microsoft-365/">
+<span class="md-ellipsis">
+    
+  
+    Productividad / Microsoft 365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/security/">
+<span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/seguridad/">
+<span class="md-ellipsis">
+    
+  
+    Seguridad
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/snowflake/">
+<span class="md-ellipsis">
+    
+  
+    Snowflake
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/terraform/">
+<span class="md-ellipsis">
+    
+  
+    Terraform
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/threat-intelligence/">
+<span class="md-ellipsis">
+    
+  
+    Threat Intelligence
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/tools/">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/troubleshooting/">
+<span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/visual-studio-code/">
+<span class="md-ellipsis">
+    
+  
+    Visual Studio Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/viva-insights/">
+<span class="md-ellipsis">
+    
+  
+    Viva Insights
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/windows/">
+<span class="md-ellipsis">
+    
+  
+    Windows
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../contributions/">
+<span class="md-ellipsis">
+    
+  
+    Contributions
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4" type="checkbox">
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Azure
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Azure
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Security
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1_1" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1_1" id="__nav_4_1_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    MCSB v1
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_4_1_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    MCSB v1
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Readme/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Readme
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Asset%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Asset Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Backup%20and%20Recovery/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Backup and Recovery
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Data%20Protection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Data Protection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/DevOps%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - DevOps Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Endpoint%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Endpoint Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Governance%20and%20Strategy/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Governance and Strategy
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Identity%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Identity Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Incident%20Response/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Incident Response
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Logging%20and%20Threat%20Detection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Logging and Threat Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Network%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Network Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Posture%20and%20Vulnerability%20Mgmt/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Posture and Vulnerability Mgmt
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Privileged%20Access/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Privileged Access
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1_2" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1_2" id="__nav_4_1_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_4_1_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    MCSB v2
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Index/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Cloud Security Benchmark v2
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Network%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Network Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Identity%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Identity Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Privileged%20Access/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Privileged Access
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Data%20Protection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Data Protection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Asset%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Asset Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Logging%20and%20Threat%20Detection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Logging and Threat Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Incident%20Response/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Incident Response
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Posture%20and%20Vulnerability%20Manag/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Posture and Vulnerability Manag
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Endpoint%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Endpoint Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Backup%20and%20Recovery/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Backup and Recovery
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Artificial%20Intelligence%20Securit/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Artificial Intelligence Securit
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5" type="checkbox">
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Tools
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5_1" type="checkbox">
+<label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Federated Identity Credentials Report
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_1_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Federated Identity Credentials Report
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Tools/Federated_Identity_Credentials_Report/README-federated-identity-credentials/">
+<span class="md-ellipsis">
+    
+  
+    Script de Reporte para Federated Identity Credentials
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5_2" type="checkbox">
+<label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Analyze Virtual Network Flows
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Analyze Virtual Network Flows
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Tools/Analyze_Virtual_Network_Flows/">
+<span class="md-ellipsis">
+    
+  
+    Analyze-VNETFlowLogs
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<div class="md-content__inner">
+<header class="md-typeset">
+<h1 id="202404">2024/04</h1>
+</header>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-04-30 00:00:00+00:00">April 30, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/devops/">DevOps</a></li>
+<li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="repository-strategy-fork-vs-branch"><a class="toclink" href="30/repository-strategy-fork-vs-branch/">Repository Strategy: Fork vs Branch</a></h2>
+<p>In this post, I will explain the different ways to contribute to a Git repository: Fork vs Branch.</p>
+<h3 id="fork"><a class="toclink" href="30/repository-strategy-fork-vs-branch/#fork">Fork</a></h3>
+<p>A fork is a copy of a repository that you can make changes to without affecting the original repository. When you fork a repository, you create a new repository in your GitHub account that is a copy of the original repository.</p>
+<p>The benefits of forking a repository include:</p>
+<ul>
+<li><strong>Isolation</strong>: You can work on your changes without affecting the original repository.</li>
+<li><strong>Collaboration</strong>: You can make changes to the forked repository and submit a pull request to the original repository to merge your changes.  </li>
+<li><strong>Ownership</strong>: You have full control over the forked repository and can manage it as you see fit.</li>
+</ul>
+<p>The challenges of forking a repository include:</p>
+<ul>
+<li><strong>Synchronization</strong>: Keeping the forked repository up to date with the original repository can be challenging.</li>
+<li><strong>Conflicts</strong>: Multiple contributors working on the same codebase can lead to conflicts and merge issues.</li>
+<li><strong>Visibility</strong>: Changes made to the forked repository are not visible in the original repository until they are merged.</li>
+</ul>
+<h3 id="branch"><a class="toclink" href="30/repository-strategy-fork-vs-branch/#branch">Branch</a></h3>
+<p>A branch is a parallel version of a repository that allows you to work on changes without affecting the main codebase. When you create a branch, you can make changes to the code and submit a pull request to merge the changes back into the main branch.</p>
+<p>The benefits of using branches include:</p>
+<ul>
+<li><strong>Flexibility</strong>: You can work on different features or bug fixes in separate branches without affecting each other.</li>
+<li><strong>Collaboration</strong>: You can work with other developers on the same codebase by creating branches and submitting pull requests.</li>
+<li><strong>Visibility</strong>: Changes made in branches are visible to other developers, making it easier to review and merge changes.</li>
+</ul>
+<p>The challenges of using branches include:</p>
+<ul>
+<li><strong>Conflicts</strong>: Multiple developers working on the same branch can lead to conflicts and merge issues.</li>
+<li><strong>Complexity</strong>: Managing multiple branches can be challenging, especially in large projects.</li>
+<li><strong>Versioning</strong>: Branches are versioned separately, making it harder to track changes across the project.</li>
+</ul>
+<h3 id="fork-vs-branch"><a class="toclink" href="30/repository-strategy-fork-vs-branch/#fork-vs-branch">Fork vs Branch</a></h3>
+<p>The decision to fork or branch a repository depends on the project's requirements and the collaboration model.</p>
+<ul>
+<li>
+<p><strong>Fork</strong>: Use a fork when you want to work on changes independently of the original repository or when you want to contribute to a project that you do not have write access to.</p>
+</li>
+<li>
+<p><strong>Branch</strong>: Use a branch when you want to work on changes that will be merged back into the main codebase or when you want to collaborate with other developers on the same codebase.</p>
+</li>
+</ul>
+<p>For my IaC project with Terraform, I will use branches to work on different features and bug fixes and submit pull requests to merge the changes back into the main branch. This approach will allow me to collaborate with other developers and keep the codebase clean and organized.</p>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-04-29 00:00:00+00:00">April 29, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/devops/">DevOps</a></li>
+<li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="repository-strategy-monorepo-vs-multi-repo"><a class="toclink" href="29/repository-strategy-monorepo-vs-multi-repo/">Repository Strategy: Monorepo vs Multi-repo</a></h2>
+<p>In this post, I will explain the repository strategy that I will use for my Infrastructure as Code (IaC) project with Terraform. </p>
+<h3 id="monorepo"><a class="toclink" href="29/repository-strategy-monorepo-vs-multi-repo/#monorepo">Monorepo</a></h3>
+<p>A monorepo is a single repository that contains all the code for a project. </p>
+<p>The benefits of using a monorepo include:</p>
+<ul>
+<li><strong>Simplicity</strong>: All the code is in one place, making it easier to manage and maintain.</li>
+<li><strong>Consistency</strong>: Developers can easily see all the code related to a project and ensure that it follows the same standards and conventions.</li>
+<li><strong>Reusability</strong>: Code can be shared across different parts of the project, reducing duplication and improving consistency.</li>
+<li><strong>Versioning</strong>: All the code is versioned together, making it easier to track changes and roll back if necessary.</li>
+</ul>
+<p>The challenges of using a monorepo include:</p>
+<ul>
+<li><strong>Complexity</strong>: A monorepo can become large and complex, making it harder to navigate and understand.</li>
+<li><strong>Build times</strong>: Building and testing a monorepo can take longer than building and testing smaller repositories.</li>
+<li><strong>Conflicts</strong>: Multiple developers working on the same codebase can lead to conflicts and merge issues.</li>
+</ul>
+<h3 id="multi-repo"><a class="toclink" href="29/repository-strategy-monorepo-vs-multi-repo/#multi-repo">Multi-repo</a></h3>
+<p>A multi-repo is a set of separate repositories that contain the code for different parts of a project.</p>
+<p>The benefits of using a multi-repo include:</p>
+<ul>
+<li><strong>Isolation</strong>: Each repository is independent, making it easier to manage and maintain.</li>
+<li><strong>Flexibility</strong>: Developers can work on different parts of the project without affecting each other.</li>
+<li><strong>Scalability</strong>: As the project grows, new repositories can be added to manage the code more effectively.</li>
+</ul>
+<p>The challenges of using a multi-repo include:</p>
+<ul>
+<li><strong>Complexity</strong>: Managing multiple repositories can be more challenging than managing a single repository.</li>
+<li><strong>Consistency</strong>: Ensuring that all the repositories follow the same standards and conventions can be difficult.</li>
+<li><strong>Versioning</strong>: Each repository is versioned separately, making it harder to track changes across the project.</li>
+</ul>
+<h3 id="conclusion"><a class="toclink" href="29/repository-strategy-monorepo-vs-multi-repo/#conclusion">Conclusion</a></h3>
+<p>For my IaC project with Terraform, I will use a monorepo approach to manage all the Terraform modules and configurations for my project.</p>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-04-28 00:00:00+00:00">April 28, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/devops/">DevOps</a></li>
+<li class="md-meta__item">
+            
+              3 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="terraform-configuration-language"><a class="toclink" href="28/terraform-configuration-language/">Terraform: Configuration Language</a></h2>
+<p>After deciding to use Terraform for my Infrastructure as Code (IaC) project,  Terraform configuration language must be understanded to define the desired state of my infrastructure.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>I will update this post with more information about Terraform configuration language in the future.</p>
+</div>
+<p>Terraform uses a declarative configuration language to define the desired state of your infrastructure. This configuration language is designed to be human-readable and easy to understand, making it accessible to both developers and operations teams.</p>
+<h3 id="declarative-vs-imperative"><a class="toclink" href="28/terraform-configuration-language/#declarative-vs-imperative">Declarative vs. Imperative</a></h3>
+<p>Terraform's configuration language is declarative, meaning that you define the desired state of your infrastructure without specifying the exact steps needed to achieve that state. This is in contrast to imperative languages, where you specify the exact sequence of steps needed to achieve a desired outcome.</p>
+<p>For example, in an imperative language, you might write a script that creates a virtual machine by executing a series of commands to provision the necessary resources. In a declarative language like Terraform, you would simply define the desired state of the virtual machine (e.g., its size, image, and network configuration) and let Terraform figure out the steps needed to achieve that state.</p>
+<h3 id="configuration-blocks"><a class="toclink" href="28/terraform-configuration-language/#configuration-blocks">Configuration Blocks</a></h3>
+<p>Terraform uses configuration blocks to define different aspects of your infrastructure. Each block has a specific purpose and contains configuration settings that define how that aspect of your infrastructure should be provisioned.</p>
+<p>For example, you might use a <code>provider</code> block to define the cloud provider you want to use, a <code>resource</code> block to define a specific resource (e.g., a virtual machine or storage account), or a <code>variable</code> block to define input variables that can be passed to your configuration.</p>
+<div class="language-hcl highlight"><pre><span></span><code><span id="__span-0-1"><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="kr">provider</span><span class="w"> </span><span class="nv">"azurerm"</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-2"><a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="w">  </span><span class="nb">features</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-0-3"><a href="#__codelineno-0-3" id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="p">}</span>
+</span><span id="__span-0-4"><a href="#__codelineno-0-4" id="__codelineno-0-4" name="__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a href="#__codelineno-0-5" id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="kr">resource</span><span class="w"> </span><span class="nc">"azurerm_resource_group"</span><span class="w"> </span><span class="nv">"example"</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-6"><a href="#__codelineno-0-6" id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="w">  </span><span class="na">name</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"example-resources"</span>
+</span><span id="__span-0-7"><a href="#__codelineno-0-7" id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="w">  </span><span class="na">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"East US"</span>
+</span><span id="__span-0-8"><a href="#__codelineno-0-8" id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="p">}</span>
+</span><span id="__span-0-9"><a href="#__codelineno-0-9" id="__codelineno-0-9" name="__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a href="#__codelineno-0-10" id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="kr">variable</span><span class="w"> </span><span class="nv">"location"</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-11"><a href="#__codelineno-0-11" id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="w">  </span><span class="na">type</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-0-12"><a href="#__codelineno-0-12" id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="w">  </span><span class="na">default</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"East US"</span>
+</span><span id="__span-0-13"><a href="#__codelineno-0-13" id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="variables"><a class="toclink" href="28/terraform-configuration-language/#variables">Variables</a></h3>
+<p>Terraform allows you to define variables that can be used to parameterize your configuration. Variables can be used to pass values into your configuration, making it easier to reuse and customize your infrastructure definitions.</p>
+<div class="language-hcl highlight"><pre><span></span><code><span id="__span-1-1"><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="kr">variable</span><span class="w"> </span><span class="nv">"location"</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-2"><a href="#__codelineno-1-2" id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="w">  </span><span class="na">type</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-1-3"><a href="#__codelineno-1-3" id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="w">  </span><span class="na">default</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"East US"</span>
+</span><span id="__span-1-4"><a href="#__codelineno-1-4" id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="p">}</span>
+</span><span id="__span-1-5"><a href="#__codelineno-1-5" id="__codelineno-1-5" name="__codelineno-1-5"></a>
+</span><span id="__span-1-6"><a href="#__codelineno-1-6" id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="kr">resource</span><span class="w"> </span><span class="nc">"azurerm_resource_group"</span><span class="w"> </span><span class="nv">"example"</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-7"><a href="#__codelineno-1-7" id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="w">  </span><span class="na">name</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"example-resources"</span>
+</span><span id="__span-1-8"><a href="#__codelineno-1-8" id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="w">  </span><span class="na">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">var.location</span>
+</span><span id="__span-1-9"><a href="#__codelineno-1-9" id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="locals"><a class="toclink" href="28/terraform-configuration-language/#locals">locals</a></h3>
+<p>Terraform allows you to define local values that can be used within your configuration. Locals are similar to variables but are only available within the current module or configuration block.</p>
+<div class="language-hcl highlight"><pre><span></span><code><span id="__span-2-1"><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="kr">variable</span><span class="w"> </span><span class="nv">"location"</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-2"><a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="w">  </span><span class="na">type</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-2-3"><a href="#__codelineno-2-3" id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="w">  </span><span class="na">default</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"East US"</span>
+</span><span id="__span-2-4"><a href="#__codelineno-2-4" id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="p">}</span>
+</span><span id="__span-2-5"><a href="#__codelineno-2-5" id="__codelineno-2-5" name="__codelineno-2-5"></a>
+</span><span id="__span-2-6"><a href="#__codelineno-2-6" id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="nb">locals</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-7"><a href="#__codelineno-2-7" id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="w">  </span><span class="na">resource_group_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"example-resources"</span>
+</span><span id="__span-2-8"><a href="#__codelineno-2-8" id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="p">}</span>
+</span><span id="__span-2-9"><a href="#__codelineno-2-9" id="__codelineno-2-9" name="__codelineno-2-9"></a>
+</span><span id="__span-2-10"><a href="#__codelineno-2-10" id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="kr">resource</span><span class="w"> </span><span class="nc">"azurerm_resource_group"</span><span class="w"> </span><span class="nv">"example"</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-11"><a href="#__codelineno-2-11" id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="w">  </span><span class="na">name</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="nv">local.resource_group_name</span>
+</span><span id="__span-2-12"><a href="#__codelineno-2-12" id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="w">  </span><span class="na">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">var.location</span>
+</span><span id="__span-2-13"><a href="#__codelineno-2-13" id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="data-sources"><a class="toclink" href="28/terraform-configuration-language/#data-sources">Data Sources</a></h3>
+<p>Terraform allows you to define data sources that can be used to query external resources and retrieve information that can be used in your configuration. Data sources are read-only and can be used to fetch information about existing resources, such as virtual networks, storage accounts, or database instances.</p>
+<div class="language-hcl highlight"><pre><span></span><code><span id="__span-3-1"><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="kr">data</span><span class="w"> </span><span class="nc">"azurerm_resource_group"</span><span class="w"> </span><span class="nv">"example"</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-2"><a href="#__codelineno-3-2" id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="w">  </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"example-resources"</span>
+</span><span id="__span-3-3"><a href="#__codelineno-3-3" id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="p">}</span>
+</span><span id="__span-3-4"><a href="#__codelineno-3-4" id="__codelineno-3-4" name="__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a href="#__codelineno-3-5" id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="kr">resource</span><span class="w"> </span><span class="nc">"azurerm_virtual_network"</span><span class="w"> </span><span class="nv">"example"</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-6"><a href="#__codelineno-3-6" id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="w">  </span><span class="na">name</span><span class="w">                </span><span class="o">=</span><span class="w"> </span><span class="s2">"example-network"</span>
+</span><span id="__span-3-7"><a href="#__codelineno-3-7" id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="w">  </span><span class="na">location</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="nv">data.azurerm_resource_group.example.location</span>
+</span><span id="__span-3-8"><a href="#__codelineno-3-8" id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="w">  </span><span class="na">resource_group_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">data.azurerm_resource_group.example.name</span>
+</span><span id="__span-3-9"><a href="#__codelineno-3-9" id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="functions"><a class="toclink" href="28/terraform-configuration-language/#functions">Functions</a></h3>
+<h4 id="try"><a class="toclink" href="28/terraform-configuration-language/#try">try</a></h4>
+<p>The <code>try</code> function allows you to provide a default value in case an expression returns an error. This can be useful when working with optional values that may or may not be present.</p>
+<div class="language-hcl highlight"><pre><span></span><code><span id="__span-4-1"><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="kr">variable</span><span class="w"> </span><span class="nv">"optional_value"</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-2"><a href="#__codelineno-4-2" id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="w">  </span><span class="na">type</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-4-3"><a href="#__codelineno-4-3" id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="w">  </span><span class="na">default</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">null</span>
+</span><span id="__span-4-4"><a href="#__codelineno-4-4" id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="p">}</span>
+</span><span id="__span-4-5"><a href="#__codelineno-4-5" id="__codelineno-4-5" name="__codelineno-4-5"></a>
+</span><span id="__span-4-6"><a href="#__codelineno-4-6" id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="nb">locals</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-7"><a href="#__codelineno-4-7" id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="w">  </span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">try</span><span class="p">(</span><span class="nv">var.optional_value</span><span class="p">,</span><span class="w"> </span><span class="s2">"default_value"</span><span class="p">)</span>
+</span><span id="__span-4-8"><a href="#__codelineno-4-8" id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="debugging-terraform"><a class="toclink" href="28/terraform-configuration-language/#debugging-terraform">Debugging Terraform</a></h3>
+<p>You can use the <code>TF_LOG</code> environment variable to enable debug logging in Terraform. This can be useful when troubleshooting issues with your infrastructure or understanding how Terraform is executing your configuration.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a href="#__codelineno-5-1" id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TF_LOG</span><span class="o">=</span>DEBUG
+</span><span id="__span-5-2"><a href="#__codelineno-5-2" id="__codelineno-5-2" name="__codelineno-5-2"></a>terraform<span class="w"> </span>plan
+</span></code></pre></div>
+<p>TOu can use the following decreasing verbosity levels log:  TRACE, DEBUG, INFO, WARN or ERROR</p>
+<p>To persist logged output logs in a file:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a href="#__codelineno-6-1" id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TF_LOG_PATH</span><span class="o">=</span><span class="s2">"terraform.log"</span>
+</span></code></pre></div>
+<p>To separare logs for Terraform and provider, you can use the following environment variables <strong>TF_LOG_CORE</strong> and <strong>TF_LOG_PROVIDER</strong> respectively. For example, to enable debug logging for both Terraform and the Azure provider, you can use the following environment variables:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a href="#__codelineno-7-1" id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TF_LOG_CORE</span><span class="o">=</span>DEBUG
+</span><span id="__span-7-2"><a href="#__codelineno-7-2" id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TF_LOG_PATH</span><span class="o">=</span><span class="s2">"terraform.log"</span>
+</span></code></pre></div>
+<p>or </p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a href="#__codelineno-8-1" id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TF_LOG_PROVIDER</span><span class="o">=</span>DEBUG
+</span><span id="__span-8-2"><a href="#__codelineno-8-2" id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TF_LOG_PATH</span><span class="o">=</span><span class="s2">"provider.log"</span>
+</span></code></pre></div>
+<p>To disable debug logging, you can unset the <code>TF_LOG</code> environment variable:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a href="#__codelineno-9-1" id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="nb">unset</span><span class="w"> </span>TF_LOG
+</span></code></pre></div>
+<h3 id="references"><a class="toclink" href="28/terraform-configuration-language/#references">References</a></h3>
+<ul>
+<li><a href="https://www.terraform.io/docs/language/index.html">Terraform Configuration Language</a></li>
+<li><a href="https://www.terraform.io/docs/language/functions/index.html">Terraform Functions</a></li>
+<li><a href="https://www.terraform.io/docs/internals/debugging.html">Terraform Debugging</a></li>
+</ul>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-04-28 00:00:00+00:00">April 28, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/devops/">DevOps</a></li>
+<li class="md-meta__item">
+            
+              1 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="terraform-set-your-local-environment-developer"><a class="toclink" href="28/terraform-set-your-local-environment-developer/">Terraform: Set your local environment developer</a></h2>
+<p>I wil use Ubuntu in WSL v2 as my local environment for my IaC project with Terraform. I will install the following tools:</p>
+<ul>
+<li>vscode</li>
+<li>Trunk</li>
+<li>tenv</li>
+<li>az cli</li>
+</ul>
+<h3 id="az-cli"><a class="toclink" href="28/terraform-set-your-local-environment-developer/#az-cli">az cli</a></h3>
+<p>I will use the Azure CLI to interact with Azure resources from the command line. I will install the Azure CLI using the following commands:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a>curl<span class="w"> </span>-sL<span class="w"> </span>https://aka.ms/InstallAzureCLIDeb<span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>bash
+</span></code></pre></div>
+<h3 id="vscode"><a class="toclink" href="28/terraform-set-your-local-environment-developer/#vscode">vscode</a></h3>
+<p>I will use Visual Studio Code as my code editor for my IaC project with Terraform. I will install the following extensions:</p>
+<ul>
+<li>Terraform</li>
+<li>Azure Terraform</li>
+<li>Azure Account</li>
+<li>Trunk</li>
+</ul>
+<h3 id="tenv"><a class="toclink" href="28/terraform-set-your-local-environment-developer/#tenv">tenv</a></h3>
+<p><code>tenv</code> is a tool that allows you to manage multiple Terraform environments with ease. It provides a simple way to switch between different environments, such as development, staging, and production, by managing environment variables and state files for each environment.</p>
+<h4 id="installation"><a class="toclink" href="28/terraform-set-your-local-environment-developer/#installation">Installation</a></h4>
+<p>You can install <code>tenv</code> using <code>go get</code>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="nv">LATEST_VERSION</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>--silent<span class="w"> </span>https://api.github.com/repos/tofuutils/tenv/releases/latest<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.tag_name<span class="k">)</span>
+</span><span id="__span-1-2"><a href="#__codelineno-1-2" id="__codelineno-1-2" name="__codelineno-1-2"></a>curl<span class="w"> </span>-O<span class="w"> </span>-L<span class="w"> </span><span class="s2">"https://github.com/tofuutils/tenv/releases/latest/download/tenv_</span><span class="si">${</span><span class="nv">LATEST_VERSION</span><span class="si">}</span><span class="s2">_amd64.deb"</span>
+</span><span id="__span-1-3"><a href="#__codelineno-1-3" id="__codelineno-1-3" name="__codelineno-1-3"></a>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span><span class="s2">"tenv_</span><span class="si">${</span><span class="nv">LATEST_VERSION</span><span class="si">}</span><span class="s2">_amd64.deb"</span>
+</span></code></pre></div>
+<h4 id="usage"><a class="toclink" href="28/terraform-set-your-local-environment-developer/#usage">Usage</a></h4>
+<p>To create a new environment, you can use the <code>tenv create</code> command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1"># to install the latest version of Terraform</span>
+</span><span id="__span-2-2"><a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a>tenv<span class="w"> </span>tf<span class="w"> </span>install<span class="w"> </span>
+</span></code></pre></div>
+<h3 id="references"><a class="toclink" href="28/terraform-set-your-local-environment-developer/#references">References</a></h3>
+<ul>
+<li><a href="https://github.com/tofuutils/tenv">tenv</a></li>
+</ul>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-04-27 00:00:00+00:00">April 27, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/devops/">DevOps</a></li>
+<li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="starting-my-iac-project-with-terraform"><a class="toclink" href="27/starting-my-iac-project-with-terraform/">Starting my IaC project with terraform</a></h2>
+<p>This is not my first IaC project but I want to share with you some key considerations that I have in mind to start a personal IaC project with Terraform based on post <a href="26/what-you-need-to-think-about-when-starting-an-iac-project-/">What you need to think about when starting an IaC project ?</a></p>
+<h3 id="1-define-your-goals"><a class="toclink" href="27/starting-my-iac-project-with-terraform/#1-define-your-goals">1. <strong>Define Your Goals</strong></a></h3>
+<p>These are my goals:</p>
+<ul>
+<li>Automate the provisioning of infrastructure</li>
+<li>Improve consistency and repeatability</li>
+<li>Reduce manual effort</li>
+<li>Enable faster deployments</li>
+</ul>
+<h3 id="2-select-the-right-tools"><a class="toclink" href="27/starting-my-iac-project-with-terraform/#2-select-the-right-tools">2. <strong>Select the Right Tools</strong></a></h3>
+<p>For my project I will use Terraform because I am familiar with it and I like its declarative configuration language.</p>
+<h3 id="3-design-your-infrastructure"><a class="toclink" href="27/starting-my-iac-project-with-terraform/#3-design-your-infrastructure">3. <strong>Design Your Infrastructure</strong></a></h3>
+<p>In my project, I will use a modular design that separates my infrastructure into different modules, such as networking, compute, and storage. This will allow me to reuse code across different projects and make my infrastructure more maintainable.</p>
+<h3 id="4-version-control-your-code"><a class="toclink" href="27/starting-my-iac-project-with-terraform/#4-version-control-your-code">4. <strong>Version Control Your Code</strong></a></h3>
+<p>I will use Git for version control and follow best practices for version control, such as using descriptive commit messages and branching strategies.</p>
+<h3 id="5-automate-testing"><a class="toclink" href="27/starting-my-iac-project-with-terraform/#5-automate-testing">5. <strong>Automate Testing</strong></a></h3>
+<p>Like appear in <a href="https://learn.microsoft.com/en-us/azure/developer/terraform/best-practices-compliance-testing">Implement compliance testing with Terraform and Azure</a>, I'd  like to implement: </p>
+<ul>
+<li>Compliance testing</li>
+<li>End-to-end testing</li>
+<li>Integration testing</li>
+</ul>
+<h3 id="6-implement-continuous-integrationcontinuous-deployment-cicd"><a class="toclink" href="27/starting-my-iac-project-with-terraform/#6-implement-continuous-integrationcontinuous-deployment-cicd">6. <strong>Implement Continuous Integration/Continuous Deployment (CI/CD)</strong></a></h3>
+<p>I set up my  CI/CD pipelines with Github Actions.</p>
+<h3 id="7-monitor-and-maintain-your-infrastructure"><a class="toclink" href="27/starting-my-iac-project-with-terraform/#7-monitor-and-maintain-your-infrastructure">7. <strong>Monitor and Maintain Your Infrastructure</strong></a></h3>
+<p>I will use Azure Monitor to monitor my infrastructure and set up alerts to notify me of any issues. I will also regularly review and update my infrastructure code to ensure that it remains up to date and secure.</p>
+<p>Of course I don't have all the answers yet, but I will keep you updated on my progress and share my learnings along the way. Stay tuned for more updates on my IaC project with Terraform!</p>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-04-26 00:00:00+00:00">April 26, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/devops/">DevOps</a></li>
+<li class="md-meta__item">
+            
+              4 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="what-you-need-to-think-about-when-starting-an-iac-project"><a class="toclink" href="26/what-you-need-to-think-about-when-starting-an-iac-project-/">What you need to think about when starting an IaC project ?</a></h2>
+<p>Infrastructure as Code (IaC) is a key practice in modern software development that allows you to manage your infrastructure in a declarative manner. With IaC, you can define your infrastructure using code, which can be version-controlled, tested, and deployed automatically. This approach brings several benefits, such as increased consistency, repeatability, and scalability.</p>
+<p>When starting an IaC project, there are several key considerations you need to keep in mind to ensure its success. In this article, we will discuss some of the key things you should think about when embarking on an IaC project.</p>
+<h3 id="1-define-your-goals"><a class="toclink" href="26/what-you-need-to-think-about-when-starting-an-iac-project-/#1-define-your-goals">1. <strong>Define Your Goals</strong></a></h3>
+<p>Before you start writing any code, it's essential to define your goals for the IaC project. What are you trying to achieve with IaC? Are you looking to automate the provisioning of infrastructure, improve consistency, or increase scalability? By clearly defining your goals, you can ensure that your IaC project is aligned with your organization's objectives.</p>
+<p>Some examples: </p>
+<ul>
+<li>Automate the provisioning of infrastructure</li>
+<li>Improve consistency and repeatability</li>
+<li>Increase scalability and reduce manual effort</li>
+<li>Enhance security and compliance</li>
+<li>Enable faster development and deployment cycles</li>
+</ul>
+<h3 id="2-select-the-right-tools"><a class="toclink" href="26/what-you-need-to-think-about-when-starting-an-iac-project-/#2-select-the-right-tools">2. <strong>Select the Right Tools</strong></a></h3>
+<p>Choosing the right tools is crucial for the success of your IaC project. There are several IaC tools available, such as Terraform, Ansible, and AWS CloudFormation, each with its strengths and weaknesses. Consider factors such as ease of use, scalability, and integration with your existing tools when selecting an IaC tool.</p>
+<p>Some examples:</p>
+<ul>
+<li>Terraform: A popular IaC tool that allows you to define your infrastructure using a declarative configuration language.</li>
+<li>Ansible: A configuration management tool that can also be used for IaC.</li>
+<li>AWS CloudFormation: A service provided by AWS that allows you to define your infrastructure using JSON or YAML templates.</li>
+<li>Azure Resource Manager (ARM) templates: A service provided by Azure that allows you to define your infrastructure using JSON templates.</li>
+<li>Bicep: A domain-specific language for defining Azure resources that compiles to ARM templates.</li>
+<li>Pulumi: A tool that allows you to define your infrastructure using familiar programming languages such as Python, JavaScript, and Go.</li>
+<li>Chef: A configuration management tool that can also be used for IaC.</li>
+</ul>
+<h3 id="3-design-your-infrastructure"><a class="toclink" href="26/what-you-need-to-think-about-when-starting-an-iac-project-/#3-design-your-infrastructure">3. <strong>Design Your Infrastructure</strong></a></h3>
+<p>When designing your infrastructure, think about how you want to structure your code. Consider using modular designs that allow you to reuse code across different projects. Define your infrastructure in a way that is easy to understand and maintain, and follow best practices for code organization.</p>
+<h3 id="4-version-control-your-code"><a class="toclink" href="26/what-you-need-to-think-about-when-starting-an-iac-project-/#4-version-control-your-code">4. <strong>Version Control Your Code</strong></a></h3>
+<p>Version control is a fundamental practice in software development, and it is equally important for IaC projects. By using version control systems such as Git, you can track changes to your infrastructure code, collaborate with team members, and roll back changes if needed. Make sure to follow best practices for version control, such as using descriptive commit messages and branching strategies.</p>
+<p>Some examples:</p>
+<ul>
+<li>Use Git for version control</li>
+<li>Use branching strategies like Microsoft Flow or GitHub Flow to manage your codebase</li>
+<li>Use pull requests for code reviews</li>
+<li>Automate your CI/CD pipelines to run tests and deploy changes</li>
+<li>Use tags to mark releases or milestones</li>
+</ul>
+<h3 id="5-automate-testing"><a class="toclink" href="26/what-you-need-to-think-about-when-starting-an-iac-project-/#5-automate-testing">5. <strong>Automate Testing</strong></a></h3>
+<p>Testing is an essential part of any software development project, and IaC is no exception. Automating your tests can help you catch errors early in the development process and ensure that your infrastructure code is working as expected. Consider using tools such as Terraform's built-in testing framework or third-party testing tools to automate your tests.</p>
+<p>Some examples:</p>
+<ul>
+<li>Use Terraform's built-in testing framework to write unit tests for your infrastructure code</li>
+<li>Use tools like Terratest or Kitchen-Terraform to write integration tests for your infrastructure code</li>
+<li>Use static code analysis tools to check for common errors and best practices in your infrastructure code, like Terraform's <code>terraform validate</code> command, or tools like <code>tfsec</code> or <code>checkov</code>.</li>
+<li>Use linting tools to enforce coding standards and style guidelines in your infrastructure code, like Terraform's <code>terraform fmt</code> command, or tools like <code>tflint</code> or <code>checkov</code>.</li>
+<li>Use security scanning tools to identify potential security vulnerabilities in your infrastructure code.</li>
+</ul>
+<h3 id="6-implement-continuous-integrationcontinuous-deployment-cicd"><a class="toclink" href="26/what-you-need-to-think-about-when-starting-an-iac-project-/#6-implement-continuous-integrationcontinuous-deployment-cicd">6. <strong>Implement Continuous Integration/Continuous Deployment (CI/CD)</strong></a></h3>
+<p>CI/CD pipelines are a key component of modern software development practices, and they are equally important for IaC projects. By implementing CI/CD pipelines, you can automate the testing, building, and deployment of your infrastructure code, reducing the risk of errors and speeding up the development process. Consider using tools such as Github or Azure DevOps to set up your CI/CD pipelines.</p>
+<p>Use tools like Terraform Cloud, Azure DevOps, or Github Actions to automate your CI/CD pipelines.</p>
+<h3 id="7-monitor-and-maintain-your-infrastructure"><a class="toclink" href="26/what-you-need-to-think-about-when-starting-an-iac-project-/#7-monitor-and-maintain-your-infrastructure">7. <strong>Monitor and Maintain Your Infrastructure</strong></a></h3>
+<p>Once your IaC project is up and running, it's essential to monitor and maintain your infrastructure. Implement monitoring solutions that allow you to track the health and performance of your infrastructure, and set up alerts to notify you of any issues. Regularly review and update your infrastructure code to ensure that it remains up-to-date and secure.</p>
+<p>By keeping these key considerations in mind when starting an IaC project, you can set yourself up for success and ensure that your infrastructure is managed efficiently and effectively. IaC is a powerful practice that can help you automate and scale your infrastructure, and by following best practices, you can maximize the benefits of this approach.</p>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-04-24 00:00:00+00:00">April 24, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/azure-services/">Azure Services</a></li>
+<li class="md-meta__item">
+            
+              4 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="how-to-create-a-management-group-diagram-with-drawio"><a class="toclink" href="24/how-to-create-a-management-group-diagram-with-drawio/">How to create a Management Group diagram with draw.io</a></h2>
+<p>I nedd to create a diagram of the Management Groups in Azure, and I remembered a project that did something similar but with PowerShell: https://github.com/PowerShellToday/new-mgmgroupdiagram.</p>
+<h3 id="export-your-management-group-structure-from-azure-portal-or-ask-for-it"><a class="toclink" href="24/how-to-create-a-management-group-diagram-with-drawio/#export-your-management-group-structure-from-azure-portal-or-ask-for-it">Export your Management Group structure from Azure Portal or ask for it</a></h3>
+<p>If you can access the Azure Portal, you can export the Management Group structure to a CSV file. To do this, follow these steps:</p>
+<ol>
+<li>Go to the <strong>Azure portal</strong>.</li>
+<li>Navigate to <strong>Management groups</strong>.</li>
+<li>Click on <strong>Export</strong>.</li>
+<li>Save the CSV file to your local machine.</li>
+</ol>
+<p>If you don't have access to the Azure Portal, you can ask your Azure administrator to export the Management Group structure for you.</p>
+<p>The file has the following columns:</p>
+<ul>
+<li>id: The unique identifier of the Management Group or subscription.</li>
+<li>displayName: The name of the Management Group or subscription.</li>
+<li>itemType: The type of the item (Management Group or subscription).</li>
+<li>path: The path to the management or subscription group, its parent.</li>
+<li>accessLevel: Your access level.</li>
+<li>childSubscriptionCount: The number of child subscriptions at this level.</li>
+<li>totalSubscriptionCount: The total number of subscriptions.</li>
+</ul>
+<h3 id="create-a-csv-to-be-imported-into-drawio"><a class="toclink" href="24/how-to-create-a-management-group-diagram-with-drawio/#create-a-csv-to-be-imported-into-drawio">Create a CSV to be imported into draw.io</a></h3>
+<ol>
+<li>Import the CSV file to excel, rename the sheet to "Export_Portal"</li>
+<li>Create a second sheet with the following columns:<ul>
+<li>id: reference to the id in the first sheet</li>
+<li>displayName: reference to the displayName in the first sheet</li>
+<li>itemType: reference to the itemType in the first sheet</li>
+<li>ParentId: Use the following formula to get the parent of the current item:
+    <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a>=IF(ISERROR(FIND(","; Export_Portal!D2)); Export_Portal!D2; TRIM(RIGHT(SUBSTITUTE(Export_Portal!D2; ","; REPT(" "; LEN(Export_Portal!D2))); LEN(Export_Portal!D2))))
+</span></code></pre></div></li>
+</ul>
+</li>
+<li>Export the second sheet to a CSV file.</li>
+</ol>
+<h3 id="import-the-csv-file-into-drawio"><a class="toclink" href="24/how-to-create-a-management-group-diagram-with-drawio/#import-the-csv-file-into-drawio">Import the CSV file into draw.io</a></h3>
+<ol>
+<li>Go to <a href="https://app.diagrams.net/">draw.io</a> and create a new diagram.</li>
+<li>Click on Arrange &gt; Insert &gt; Advanced &gt; CSV.</li>
+<li>
+<p>Insert the header for the columns: id, displayName, itemType, Parent:</p>
+<p></p><div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a>    #label: %displayName%
+</span><span id="__span-1-2"><a href="#__codelineno-1-2" id="__codelineno-1-2" name="__codelineno-1-2"></a>    #stylename: itemType
+</span><span id="__span-1-3"><a href="#__codelineno-1-3" id="__codelineno-1-3" name="__codelineno-1-3"></a>    #styles: {"Management Group": "label;image=img/lib/azure2/general/Management_Groups.svg;whiteSpace=wrap;html=1;rounded=1; fillColor=%fill%;strokeColor=#6c8ebf;fillColor=#dae8fc;points=[[0.5,0,0,0,0],[0.5,1,0,0,0]];",\
+</span><span id="__span-1-4"><a href="#__codelineno-1-4" id="__codelineno-1-4" name="__codelineno-1-4"></a>    #"Subscription": "label;image=img/lib/azure2/general/Subscriptions.svg;whiteSpace=wrap;html=1;rounded=1; fillColor=%fill%;strokeColor=#d6b656;fillColor=#fff2cc;points=[[0.5,0,0,0,0],[0.5,1,0,0,0]];imageWidth=26;"}
+</span><span id="__span-1-5"><a href="#__codelineno-1-5" id="__codelineno-1-5" name="__codelineno-1-5"></a>    #
+</span><span id="__span-1-6"><a href="#__codelineno-1-6" id="__codelineno-1-6" name="__codelineno-1-6"></a>    #
+</span><span id="__span-1-7"><a href="#__codelineno-1-7" id="__codelineno-1-7" name="__codelineno-1-7"></a>    #namespace: csvimport-
+</span><span id="__span-1-8"><a href="#__codelineno-1-8" id="__codelineno-1-8" name="__codelineno-1-8"></a>    #
+</span><span id="__span-1-9"><a href="#__codelineno-1-9" id="__codelineno-1-9" name="__codelineno-1-9"></a>    #connect: {"from": "ParentId", "to": "displayName", "invert": true, "style": "curved=1;endArrow=blockThin;endFill=1;fontSize=11;edgeStyle=orthogonalEdgeStyle;"}
+</span><span id="__span-1-10"><a href="#__codelineno-1-10" id="__codelineno-1-10" name="__codelineno-1-10"></a>    #
+</span><span id="__span-1-11"><a href="#__codelineno-1-11" id="__codelineno-1-11" name="__codelineno-1-11"></a>    ## Node width and height, and padding for autosize
+</span><span id="__span-1-12"><a href="#__codelineno-1-12" id="__codelineno-1-12" name="__codelineno-1-12"></a>    #width: auto
+</span><span id="__span-1-13"><a href="#__codelineno-1-13" id="__codelineno-1-13" name="__codelineno-1-13"></a>    #height: auto
+</span><span id="__span-1-14"><a href="#__codelineno-1-14" id="__codelineno-1-14" name="__codelineno-1-14"></a>    #padding: -12
+</span><span id="__span-1-15"><a href="#__codelineno-1-15" id="__codelineno-1-15" name="__codelineno-1-15"></a>    #
+</span><span id="__span-1-16"><a href="#__codelineno-1-16" id="__codelineno-1-16" name="__codelineno-1-16"></a>    ## ignore: id,image,fill,stroke,refs,manager
+</span><span id="__span-1-17"><a href="#__codelineno-1-17" id="__codelineno-1-17" name="__codelineno-1-17"></a>    #
+</span><span id="__span-1-18"><a href="#__codelineno-1-18" id="__codelineno-1-18" name="__codelineno-1-18"></a>    ## Column to be renamed to link attribute (used as link).
+</span><span id="__span-1-19"><a href="#__codelineno-1-19" id="__codelineno-1-19" name="__codelineno-1-19"></a>    ## link: url
+</span><span id="__span-1-20"><a href="#__codelineno-1-20" id="__codelineno-1-20" name="__codelineno-1-20"></a>    #
+</span><span id="__span-1-21"><a href="#__codelineno-1-21" id="__codelineno-1-21" name="__codelineno-1-21"></a>    ## Spacing between nodes, heirarchical levels and parallel connections.
+</span><span id="__span-1-22"><a href="#__codelineno-1-22" id="__codelineno-1-22" name="__codelineno-1-22"></a>    #nodespacing: 40
+</span><span id="__span-1-23"><a href="#__codelineno-1-23" id="__codelineno-1-23" name="__codelineno-1-23"></a>    #levelspacing: 100
+</span><span id="__span-1-24"><a href="#__codelineno-1-24" id="__codelineno-1-24" name="__codelineno-1-24"></a>    #edgespacing: 40
+</span><span id="__span-1-25"><a href="#__codelineno-1-25" id="__codelineno-1-25" name="__codelineno-1-25"></a>    #
+</span><span id="__span-1-26"><a href="#__codelineno-1-26" id="__codelineno-1-26" name="__codelineno-1-26"></a>    ## layout: auto
+</span><span id="__span-1-27"><a href="#__codelineno-1-27" id="__codelineno-1-27" name="__codelineno-1-27"></a>    #layout: verticaltree
+</span><span id="__span-1-28"><a href="#__codelineno-1-28" id="__codelineno-1-28" name="__codelineno-1-28"></a>    #
+</span><span id="__span-1-29"><a href="#__codelineno-1-29" id="__codelineno-1-29" name="__codelineno-1-29"></a>    ## ---- CSV below this line. First line are column names. ----
+</span></code></pre></div>
+4. Paste the content of the CSV file and click on Import.<p></p>
+</li>
+</ol>
+<p>You should see a diagram with the Management Groups and Subscriptions.</p>
+<p>For example:</p>
+<p>This is the common structure for the Management Groups in the Enterprise Scale Landing Zone, now Accelerator Landing Zone: </p>
+<pre class="mermaid"><code>    graph TD
+        A[Root Management Group] --&gt; B[Intermediary-Management-Group]
+        B --&gt; C[Decommissioned]
+        B --&gt; D[Landing Zones]
+        B --&gt; E[Platform]
+        B --&gt; F[Sandboxes]
+        D --&gt; G[Corp]
+        D --&gt; H[Online]
+        E --&gt; I[Connectivity]
+        E --&gt; J[Identity]
+        E --&gt; K[Management]        
+</code></pre>
+<p>And this is the CSV file to import into draw.io:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a>#label: %displayName%
+</span><span id="__span-2-2"><a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a>#stylename: itemType
+</span><span id="__span-2-3"><a href="#__codelineno-2-3" id="__codelineno-2-3" name="__codelineno-2-3"></a>#styles: {"Management Group": "label;image=img/lib/azure2/general/Management_Groups.svg;whiteSpace=wrap;html=1;rounded=1; fillColor=%fill%;strokeColor=#6c8ebf;fillColor=#dae8fc;points=[[0.5,0,0,0,0],[0.5,1,0,0,0]];",\
+</span><span id="__span-2-4"><a href="#__codelineno-2-4" id="__codelineno-2-4" name="__codelineno-2-4"></a>#"Subscription": "label;image=img/lib/azure2/general/Subscriptions.svg;whiteSpace=wrap;html=1;rounded=1; fillColor=%fill%;strokeColor=#d6b656;fillColor=#fff2cc;points=[[0.5,0,0,0,0],[0.5,1,0,0,0]];imageWidth=26;"}
+</span><span id="__span-2-5"><a href="#__codelineno-2-5" id="__codelineno-2-5" name="__codelineno-2-5"></a>#
+</span><span id="__span-2-6"><a href="#__codelineno-2-6" id="__codelineno-2-6" name="__codelineno-2-6"></a>#
+</span><span id="__span-2-7"><a href="#__codelineno-2-7" id="__codelineno-2-7" name="__codelineno-2-7"></a>#namespace: csvimport-
+</span><span id="__span-2-8"><a href="#__codelineno-2-8" id="__codelineno-2-8" name="__codelineno-2-8"></a>#
+</span><span id="__span-2-9"><a href="#__codelineno-2-9" id="__codelineno-2-9" name="__codelineno-2-9"></a>#connect: {"from": "ParentId", "to": "displayName", "invert": true, "style": "curved=1;endArrow=blockThin;endFill=1;fontSize=11;edgeStyle=orthogonalEdgeStyle;"}
+</span><span id="__span-2-10"><a href="#__codelineno-2-10" id="__codelineno-2-10" name="__codelineno-2-10"></a>#
+</span><span id="__span-2-11"><a href="#__codelineno-2-11" id="__codelineno-2-11" name="__codelineno-2-11"></a>## Node width and height, and padding for autosize
+</span><span id="__span-2-12"><a href="#__codelineno-2-12" id="__codelineno-2-12" name="__codelineno-2-12"></a>#width: auto
+</span><span id="__span-2-13"><a href="#__codelineno-2-13" id="__codelineno-2-13" name="__codelineno-2-13"></a>#height: auto
+</span><span id="__span-2-14"><a href="#__codelineno-2-14" id="__codelineno-2-14" name="__codelineno-2-14"></a>#padding: -12
+</span><span id="__span-2-15"><a href="#__codelineno-2-15" id="__codelineno-2-15" name="__codelineno-2-15"></a>#
+</span><span id="__span-2-16"><a href="#__codelineno-2-16" id="__codelineno-2-16" name="__codelineno-2-16"></a>## ignore: id,image,fill,stroke,refs,manager
+</span><span id="__span-2-17"><a href="#__codelineno-2-17" id="__codelineno-2-17" name="__codelineno-2-17"></a>#
+</span><span id="__span-2-18"><a href="#__codelineno-2-18" id="__codelineno-2-18" name="__codelineno-2-18"></a>## Column to be renamed to link attribute (used as link).
+</span><span id="__span-2-19"><a href="#__codelineno-2-19" id="__codelineno-2-19" name="__codelineno-2-19"></a>## link: url
+</span><span id="__span-2-20"><a href="#__codelineno-2-20" id="__codelineno-2-20" name="__codelineno-2-20"></a>#
+</span><span id="__span-2-21"><a href="#__codelineno-2-21" id="__codelineno-2-21" name="__codelineno-2-21"></a>## Spacing between nodes, heirarchical levels and parallel connections.
+</span><span id="__span-2-22"><a href="#__codelineno-2-22" id="__codelineno-2-22" name="__codelineno-2-22"></a>#nodespacing: 40
+</span><span id="__span-2-23"><a href="#__codelineno-2-23" id="__codelineno-2-23" name="__codelineno-2-23"></a>#levelspacing: 100
+</span><span id="__span-2-24"><a href="#__codelineno-2-24" id="__codelineno-2-24" name="__codelineno-2-24"></a>#edgespacing: 40
+</span><span id="__span-2-25"><a href="#__codelineno-2-25" id="__codelineno-2-25" name="__codelineno-2-25"></a>#
+</span><span id="__span-2-26"><a href="#__codelineno-2-26" id="__codelineno-2-26" name="__codelineno-2-26"></a>## layout: auto
+</span><span id="__span-2-27"><a href="#__codelineno-2-27" id="__codelineno-2-27" name="__codelineno-2-27"></a>#layout: verticaltree
+</span><span id="__span-2-28"><a href="#__codelineno-2-28" id="__codelineno-2-28" name="__codelineno-2-28"></a>#
+</span><span id="__span-2-29"><a href="#__codelineno-2-29" id="__codelineno-2-29" name="__codelineno-2-29"></a>## ---- CSV below this line. First line are column names. ----
+</span><span id="__span-2-30"><a href="#__codelineno-2-30" id="__codelineno-2-30" name="__codelineno-2-30"></a>id,displayName,itemType,ParentId
+</span><span id="__span-2-31"><a href="#__codelineno-2-31" id="__codelineno-2-31" name="__codelineno-2-31"></a>1,Tenant Root Group,Management Group,
+</span><span id="__span-2-32"><a href="#__codelineno-2-32" id="__codelineno-2-32" name="__codelineno-2-32"></a>2,Intermediary Management Group,Management Group,Tenant Root Group
+</span><span id="__span-2-33"><a href="#__codelineno-2-33" id="__codelineno-2-33" name="__codelineno-2-33"></a>3,Decommissioned,Management Group,Intermediary Management Group
+</span><span id="__span-2-34"><a href="#__codelineno-2-34" id="__codelineno-2-34" name="__codelineno-2-34"></a>4,Landing Zones,Management Group,Intermediary Management Group
+</span><span id="__span-2-35"><a href="#__codelineno-2-35" id="__codelineno-2-35" name="__codelineno-2-35"></a>5,Platform,Management Group,Intermediary Management Group
+</span><span id="__span-2-36"><a href="#__codelineno-2-36" id="__codelineno-2-36" name="__codelineno-2-36"></a>6,Sandboxes,Management Group,Landing Zones
+</span><span id="__span-2-37"><a href="#__codelineno-2-37" id="__codelineno-2-37" name="__codelineno-2-37"></a>7,Corp,Management Group,Landing Zones
+</span><span id="__span-2-38"><a href="#__codelineno-2-38" id="__codelineno-2-38" name="__codelineno-2-38"></a>8,Online,Management Group,Landing Zones
+</span><span id="__span-2-39"><a href="#__codelineno-2-39" id="__codelineno-2-39" name="__codelineno-2-39"></a>9,Connectivity,Management Group,Platform
+</span><span id="__span-2-40"><a href="#__codelineno-2-40" id="__codelineno-2-40" name="__codelineno-2-40"></a>10,Identity,Management Group,Platform
+</span><span id="__span-2-41"><a href="#__codelineno-2-41" id="__codelineno-2-41" name="__codelineno-2-41"></a>11,Management,Management Group,Platform
+</span><span id="__span-2-42"><a href="#__codelineno-2-42" id="__codelineno-2-42" name="__codelineno-2-42"></a>12,subcr-1,Subscription,Decommissioned
+</span><span id="__span-2-43"><a href="#__codelineno-2-43" id="__codelineno-2-43" name="__codelineno-2-43"></a>13,subcr-2,Subscription,Sandboxes
+</span><span id="__span-2-44"><a href="#__codelineno-2-44" id="__codelineno-2-44" name="__codelineno-2-44"></a>14,subcr-3,Subscription,Corp
+</span><span id="__span-2-45"><a href="#__codelineno-2-45" id="__codelineno-2-45" name="__codelineno-2-45"></a>15,subcr-4,Subscription,Online
+</span><span id="__span-2-46"><a href="#__codelineno-2-46" id="__codelineno-2-46" name="__codelineno-2-46"></a>16,subcr-5,Subscription,Connectivity
+</span><span id="__span-2-47"><a href="#__codelineno-2-47" id="__codelineno-2-47" name="__codelineno-2-47"></a>17,subcr-6,Subscription,Identity
+</span><span id="__span-2-48"><a href="#__codelineno-2-48" id="__codelineno-2-48" name="__codelineno-2-48"></a>18,subcr-7,Subscription,Management
+</span></code></pre></div>
+<h3 id="make-your-diagram-animated-and-interactive"><a class="toclink" href="24/how-to-create-a-management-group-diagram-with-drawio/#make-your-diagram-animated-and-interactive">Make your diagram animated and interactive</a></h3>
+<p>You can make your diagram animated and interactive by following these steps:</p>
+<ol>
+<li>File &gt; Export as &gt; URL</li>
+<li>Add p=ex&amp; after the first ? in the URL.</li>
+</ol>
+<p>For example, the URL should look like this:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a>https://viewer.diagrams.net/?p=ex&amp;tags=%7B%7D&amp;highlight=0000ff&amp;layers=1&amp;nav=1&amp;title=MGs.drawio#R7Zxbc5s4FMc%2FjR%2BbAQkEPK7dJHWn3XbW6exMX3ZkkLFakDxCvvXTr7jFxrZi1k0Wg5lxYnR0QfqfHxqOBB7AUbx5FHgx%2F8wDEg2AEWwG8P0AAGAgQ32llm1uMU0X5pZQ0KCw7QwT%2BosUxqJiuKQBSSoFJeeRpIuq0eeMEV9WbFgIvq4Wm%2FGoetYFDsmRYeLj6Nj6Nw3kvBwG8nYZHwgN58WpXeDkGTEuCxcjSeY44Os9E7wfwJHgXOZH8WZEolS9Upe83oMm97ljgjB5osK3hIgv0x%2BpJsCI8FQ5Jis0AHZAk0WEt3%2FimKhU3k7Z7HBLxq7x42mcwOHy%2B0dn9PCRvIOFz%2FYrZqWfCMMsPcFf6TCA8Sj4clE0KEn8tF0UBT9jpoSKCTso9TXr%2Fjgo%2B5YNKcI%2BmStHEbHvvKoMidyWLioGN6Rx7ksah0qFiE7Vf%2FxrKUgqSkgYEVjVfNh15Z%2BsI8ldsgpV9fVcdXmyUOdWbawVzso2l3Eqm6kOVVEWkKBIpSjRKBrxiIusF3aaTNWEw0QK%2FpPssiDyXTKdqZxqFRhg4s58ZV9wymQ2VnuoPsadcsrIqPzZqsLoOc88zFOftFOpfCsiJNloIdnX8pHwmEixVUWKCpYD7goituU1nCfXO%2FqB4ea2%2BR74dmHDhc%2FC57Z3TKqDwoFlco%2FS16fW0lA7ZpKImAQUZ0PXsXkJwS9cED3WDWINnQOsTegec%2B20g2tbw%2FV74vM4pklCOVMuvRjimtdHD3RzQJezcjlJ2%2BiIZtNrB81IQ%2FMnzALKFCLGd4Vz0uPcYZyhZ57nuSWzs6Ph%2BWuE5YyLuAe5wyB7rn0eZKsdILsakCdqYp7yze9MySfn9p7bBu8nAKxwCx3rmFvUDm49DbcjLn4jsuuRvTJkLWieRxa0AlnL0CD7hUWUkR7azkBre955aGE7oDW182y2FE9XVG4vR7d6u9wz2xyzjuN05d7AAhpmx4ESo%2Be1E7wexmBtnmN1G2%2F7TPbEtp1Y00Q1wq92rH9Zul23ZDn1xTvzFK%2BT5TTxBV1IytkpUk9tbLwxr%2FtdentWAzRFNjpmdTabAf8VWc0GXz7HANAr3dPWmG5bEofpdtZydsEl7B6slvXYXgu2wKrOuZYHWsutbg8t5xZewu1utaxH9lqQPVzyajOyum2yHFnrEmT3V8t6aK8FWmRYnYFWtyWWQ2tfAu3xalmP7rWg63hOZ9DV7Yrl6KJL0K0umvXYXgu2nmd0BVtbtzOWY%2Btcgu3h2lkP7rWAa5qu2yS5Ry9ZnGayGNcKR0tSog2qjPhLsXp2IGHBH%2BmrKCo5jbj%2F82lOWW5%2BSB2ZF5pxJovXX8ysUhCSSdEgF3LOQ85wdL%2BzFoKn5V6WW3WML4VPXhhS%2BYKHxCIk8qWC1mkHChJhdQ9T7cl%2FcEZN5UH3lLfqKm83qjy8YeVRo8pbN6y806jydveUR3WVdxtVHt2w8l6jyju3q3z%2BFF5jyrvdU96pq7wmLPiflPduWHnQpPLlrwPcpPKwUeU7GMPadZVvNIZFHYxh3brKNxrDog7GsF5d5RuNYVH3YtjylY3zyjcaw6LuxbDlewfnlW80hkXdi2HLp%2BfPK99oDIu6F8Naddfn7TeKYVVy90tVWd7eD37B%2B38B#%7B%22pageId%22%3A%22UGUHswWqf16rUITyRAQM%22%7D
+</span></code></pre></div>
+<p>You can check it <a href="https://viewer.diagrams.net/?p=ex&amp;tags=%7B%7D&amp;highlight=0000ff&amp;layers=1&amp;nav=1&amp;title=MGs.drawio#R7Zxbc5s4FMc%2FjR%2BbAQkEPK7dJHWn3XbW6exMX3ZkkLFakDxCvvXTr7jFxrZi1k0Wg5lxYnR0QfqfHxqOBB7AUbx5FHgx%2F8wDEg2AEWwG8P0AAGAgQ32llm1uMU0X5pZQ0KCw7QwT%2BosUxqJiuKQBSSoFJeeRpIuq0eeMEV9WbFgIvq4Wm%2FGoetYFDsmRYeLj6Nj6Nw3kvBwG8nYZHwgN58WpXeDkGTEuCxcjSeY44Os9E7wfwJHgXOZH8WZEolS9Upe83oMm97ljgjB5osK3hIgv0x%2BpJsCI8FQ5Jis0AHZAk0WEt3%2FimKhU3k7Z7HBLxq7x42mcwOHy%2B0dn9PCRvIOFz%2FYrZqWfCMMsPcFf6TCA8Sj4clE0KEn8tF0UBT9jpoSKCTso9TXr%2Fjgo%2B5YNKcI%2BmStHEbHvvKoMidyWLioGN6Rx7ksah0qFiE7Vf%2FxrKUgqSkgYEVjVfNh15Z%2BsI8ldsgpV9fVcdXmyUOdWbawVzso2l3Eqm6kOVVEWkKBIpSjRKBrxiIusF3aaTNWEw0QK%2FpPssiDyXTKdqZxqFRhg4s58ZV9wymQ2VnuoPsadcsrIqPzZqsLoOc88zFOftFOpfCsiJNloIdnX8pHwmEixVUWKCpYD7goituU1nCfXO%2FqB4ea2%2BR74dmHDhc%2FC57Z3TKqDwoFlco%2FS16fW0lA7ZpKImAQUZ0PXsXkJwS9cED3WDWINnQOsTegec%2B20g2tbw%2FV74vM4pklCOVMuvRjimtdHD3RzQJezcjlJ2%2BiIZtNrB81IQ%2FMnzALKFCLGd4Vz0uPcYZyhZ57nuSWzs6Ph%2BWuE5YyLuAe5wyB7rn0eZKsdILsakCdqYp7yze9MySfn9p7bBu8nAKxwCx3rmFvUDm49DbcjLn4jsuuRvTJkLWieRxa0AlnL0CD7hUWUkR7azkBre955aGE7oDW182y2FE9XVG4vR7d6u9wz2xyzjuN05d7AAhpmx4ESo%2Be1E7wexmBtnmN1G2%2F7TPbEtp1Y00Q1wq92rH9Zul23ZDn1xTvzFK%2BT5TTxBV1IytkpUk9tbLwxr%2FtdentWAzRFNjpmdTabAf8VWc0GXz7HANAr3dPWmG5bEofpdtZydsEl7B6slvXYXgu2wKrOuZYHWsutbg8t5xZewu1utaxH9lqQPVzyajOyum2yHFnrEmT3V8t6aK8FWmRYnYFWtyWWQ2tfAu3xalmP7rWg63hOZ9DV7Yrl6KJL0K0umvXYXgu2nmd0BVtbtzOWY%2Btcgu3h2lkP7rWAa5qu2yS5Ry9ZnGayGNcKR0tSog2qjPhLsXp2IGHBH%2BmrKCo5jbj%2F82lOWW5%2BSB2ZF5pxJovXX8ysUhCSSdEgF3LOQ85wdL%2BzFoKn5V6WW3WML4VPXhhS%2BYKHxCIk8qWC1mkHChJhdQ9T7cl%2FcEZN5UH3lLfqKm83qjy8YeVRo8pbN6y806jydveUR3WVdxtVHt2w8l6jyju3q3z%2BFF5jyrvdU96pq7wmLPiflPduWHnQpPLlrwPcpPKwUeU7GMPadZVvNIZFHYxh3brKNxrDog7GsF5d5RuNYVH3YtjylY3zyjcaw6LuxbDlewfnlW80hkXdi2HLp%2BfPK99oDIu6F8Naddfn7TeKYVVy90tVWd7eD37B%2B38B#%7B%22pageId%22%3A%22UGUHswWqf16rUITyRAQM%22%7D">here</a></p>
+<h3 id="references"><a class="toclink" href="24/how-to-create-a-management-group-diagram-with-drawio/#references">References</a></h3>
+<ul>
+<li><a href="https://drawio-app.com/blog/automatically-create-draw-io-diagrams-from-csv-files/">Automatically create draw.io diagrams from CSV files</a></li>
+<li><a href="https://drawio-app.com/blog/animation-and-automatic-layout-explore-complex-diagrams/">Animation and Automatic Layout: Explore Complex Diagrams</a></li>
+</ul>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-04-23 00:00:00+00:00">April 23, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/azure-services/">Azure Services</a></li>
+<li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="moving-management-groups-and-subscriptions"><a class="toclink" href="23/moving-management-groups-and-subscriptions/">Moving Management Groups and Subscriptions</a></h2>
+<p>Managing your Azure resources efficiently often involves moving management groups and subscriptions. Here's a brief guide on how to do it:</p>
+<h3 id="moving-management-groups"><a class="toclink" href="23/moving-management-groups-and-subscriptions/#moving-management-groups">Moving Management Groups</a></h3>
+<p>To move a management group, you need to have the necessary permissions. You must be an owner of the target parent management group and have <code>Management Group Contributor</code> role at the group you want to move.</p>
+<p>Here's the step-by-step process:</p>
+<ol>
+<li>Navigate to the <strong>Azure portal</strong>.</li>
+<li>Go to <strong>Management groups</strong>.</li>
+<li>Select the management group you want to move.</li>
+<li>Click <strong>Details</strong>.</li>
+<li>Under <strong>Parent group</strong>, click <strong>Change</strong>.</li>
+<li>Choose the new parent group from the list and click <strong>Save</strong>.</li>
+</ol>
+<p>Remember, moving a management group will also move all its child resources including other management groups and subscriptions.</p>
+<h3 id="moving-subscriptions"><a class="toclink" href="23/moving-management-groups-and-subscriptions/#moving-subscriptions">Moving Subscriptions</a></h3>
+<p>You can move a subscription from one management group to another or within the same management group. To do this, you must have the <code>Owner</code> or <code>Contributor</code> role at the target management group and <code>Owner</code> role at the subscription level.</p>
+<p>Follow these steps:</p>
+<ol>
+<li>Go to the <strong>Azure portal</strong>.</li>
+<li>Navigate to <strong>Management groups</strong>.</li>
+<li>Select the management group where the subscription currently resides.</li>
+<li>Click on <strong>Subscriptions</strong>.</li>
+<li>Find the subscription you want to move and select <strong>..."</strong> (More options).</li>
+<li>Click <strong>Change parent</strong>.</li>
+<li>In the pop-up window, select the new parent management group and click <strong>Save</strong>.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Moving subscriptions could affect the resources if there are policies or permissions applied at the management group level. It's important to understand the implications before making the move. Also, keep in mind that you cannot move the Root management group or rename it.</p>
+</div>
+<p>In conclusion, moving management groups and subscriptions allows for better organization and management of your Azure resources. However, it should be done carefully considering the impact on resources and compliance with assigned policies.</p>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-04-22 00:00:00+00:00">April 22, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/azure-services/">Azure Services</a></li>
+<li class="md-meta__item">
+            
+              6 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="management-groups"><a class="toclink" href="22/management-groups/">Management Groups</a></h2>
+<h3 id="what-are-management-groups"><a class="toclink" href="22/management-groups/#what-are-management-groups">What are Management Groups?</a></h3>
+<p>Management Groups are a way to manage access, policies, and compliance for multiple subscriptions. They provide a way to manage access, policies, and compliance for multiple subscriptions. Management groups are containers that help you manage access, policy, and compliance for multiple subscriptions. You organize subscriptions into containers called "management groups" and apply your governance conditions to the management groups. All subscriptions within a management group automatically inherit the conditions applied to the management group.</p>
+<h3 id="management-groups-hierarchy"><a class="toclink" href="22/management-groups/#management-groups-hierarchy">Management Groups Hierarchy</a></h3>
+<p>The management group hierarchy is a level of management groups that represent the different levels of your organization. The hierarchy starts with a single root management group, which represents the Microsoft Entra ID tenant. The root management group is the highest level in the hierarchy. All other management groups are subgroups of the root management group.</p>
+<h3 id="management-group-design-considerations"><a class="toclink" href="22/management-groups/#management-group-design-considerations">Management group design considerations</a></h3>
+<p>When designing your management group hierarchy, consider the following:</p>
+<ul>
+<li>
+<p>How does your organization differentiate services that are managed or run by particular teams?</p>
+</li>
+<li>
+<p>Are there any specific operations that need to be isolated due to business or regulatory compliance requirements?</p>
+</li>
+<li>
+<p>Management groups can be utilized to consolidate policy and initiative assignments through Azure Policy.</p>
+</li>
+<li>
+<p>A management group hierarchy can accommodate up to six nested levels. The tenant root level and the subscription level are not included in this count.</p>
+</li>
+<li>
+<p>Any principal, be it a user or service principal, within a Microsoft Entra tenant has the authority to establish new management groups. This is due to the fact that Azure role-based access control (RBAC) authorization for managing group activities is not activated by default. For additional details, refer to the guide on safeguarding your resource hierarchy.</p>
+</li>
+<li>
+<p>By default, all newly created subscriptions will be assigned to the tenant root management group.</p>
+</li>
+</ul>
+<h3 id="management-group-recommendations"><a class="toclink" href="22/management-groups/#management-group-recommendations">Management group recommendations</a></h3>
+<ul>
+<li>
+<p>Maintain a relatively flat management group hierarchy, ideally with three to four levels maximum. This practice minimizes managerial complexity and overhead.</p>
+</li>
+<li>
+<p>Refrain from mirroring your organizational structure into a deeply nested management group hierarchy. Utilize management groups primarily for policy assignment rather than billing. This strategy aligns with the Azure landing zone conceptual architecture, which applies Azure policies to workloads that need similar security and compliance at the same management group level.</p>
+</li>
+<li>
+<p>Establish management groups under your root-level group representing different types of workloads you will host. These groups should reflect the security, compliance, connectivity, and feature requirements of the workloads. By doing this, you can apply a set of Azure policies at the management group level for all workloads with similar needs.</p>
+</li>
+<li>
+<p>Leverage resource tags for querying and horizontally traversing across the management group hierarchy. Resource tags, enforced or appended via Azure Policy, allow you to group resources for search purposes without relying on a complex management group hierarchy.</p>
+</li>
+<li>
+<p>Set up a top-level sandbox management group. This allows users to immediately experiment with Azure and try out resources not yet permitted in production environments. The sandbox provides isolation from your development, testing, and production settings.</p>
+</li>
+<li>
+<p>Create a platform management group beneath the root management group to support common platform policy and Azure role assignments. This ensures distinct policies can be applied to subscriptions used for your Azure foundation and centralizes billing for common resources in one foundational subscription set.</p>
+</li>
+<li>
+<p>Minimize the number of Azure Policy assignments made at the root management group scope. This reduces the debugging of inherited policies in lower-level management groups.</p>
+</li>
+<li>
+<p>Implement policies to enforce compliance requirements either at the management group or subscription scope to achieve policy-driven governance.</p>
+</li>
+<li>
+<p>Ensure only privileged users have operational access to management groups in the tenant. Enable Azure RBAC authorization in the management group <a href="https://learn.microsoft.com/en-us/azure/governance/management-groups/how-to/protect-resource-hierarchy#setting-require-authorization">hierarchy settings</a> to fine-tune user privileges. By default, all users are authorized to create their own management groups under the root management group.</p>
+</li>
+<li>
+<p>Set up a default, dedicated management group for new subscriptions. This prevents any subscriptions from being placed under the root management group. This is particularly important if there are users eligible for Microsoft Developer Network (MSDN) or Visual Studio benefits and subscriptions. A sandbox management group could be a suitable candidate for this type of management group. For more information, see <a href="https://learn.microsoft.com/en-us/azure/governance/management-groups/how-to/protect-resource-hierarchy#setting---default-management-group">Setting - default management group</a>.</p>
+</li>
+<li>
+<p>Avoid creating management groups for production, testing, and development environments. If needed, separate these groups into different subscriptions within the same management group.</p>
+</li>
+</ul>
+<h3 id="management-group-structure-in-the-enterprise-scale-landing-zone"><a class="toclink" href="22/management-groups/#management-group-structure-in-the-enterprise-scale-landing-zone">Management Group Structure in the Enterprise Scale Landing Zone</a></h3>
+<p>This is the common structure for the Management Groups in the Enterprise Scale Landing Zone: </p>
+<pre class="mermaid"><code>    graph TD
+        A[Root Management Group] --&gt; B[Intermediary-Management-Group]
+        B --&gt; C[Decommissioned]
+        B --&gt; D[Landing Zones]
+        B --&gt; E[Platform]
+        B --&gt; F[Sandboxes]
+        D --&gt; G[Corp]
+        D --&gt; H[Online]
+        E --&gt; I[Connectivity]
+        E --&gt; J[Identity]
+        E --&gt; K[Management]
+</code></pre>
+<ol>
+<li><strong>Root Management Group</strong><ul>
+<li>Intermediary-Management-Group<ul>
+<li>Decommissioned: This could be where resources that are being phased out or decommissioned are managed.</li>
+<li>Sandboxes: This could be an area where developers can test and experiment without affecting production systems.</li>
+<li>Landing Zones<ul>
+<li>Corp: This could represent corporate resources or applications.</li>
+<li>Online: This could represent online or customer-facing applications.</li>
+</ul>
+</li>
+<li>Platform<ul>
+<li>Connectivity: This could manage resources related to network connectivity.</li>
+<li>Identity: This could manage resources related to identity and access management.</li>
+<li>Management: This could manage resources related to overall platform management.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>This structure allows for clear segmentation of resources based on their purpose and lifecycle. For example, decommissioned resources are separated from active ones, like Sandbox, and resources within the 'Platform' are further categorized based on their function (Connectivity, Identity, Management). The 'Landing Zones' group appears to separate resources based on their use case or environment (Corp, Online).</p>
+<p>The exact interpretation would depend on the specific context and conventions of your organization.</p>
+<h3 id="bad-examples"><a class="toclink" href="22/management-groups/#bad-examples">Bad Examples</a></h3>
+<h4 id="example-1-deeply-nested-hierarchy"><a class="toclink" href="22/management-groups/#example-1-deeply-nested-hierarchy">Example 1: Deeply Nested Hierarchy</a></h4>
+<pre class="mermaid"><code>graph TD
+    A[Root Management Group] --&gt; B[Group 1]
+    B --&gt; C[Group 2]
+    C --&gt; D[Group 3]
+    D --&gt; E[Group 4]
+    E --&gt; F[Group 5]
+    F --&gt; G[Group 6]
+</code></pre>
+<p><strong>Why it's bad:</strong> This hierarchy is too deep. It becomes difficult to manage and increases complexity. Azure supports up to six levels of nested management groups but it's recommended to keep the hierarchy as flat as possible for simplicity.</p>
+<h4 id="example-2-unorganized-structure"><a class="toclink" href="22/management-groups/#example-2-unorganized-structure">Example 2: Unorganized Structure</a></h4>
+<pre class="mermaid"><code>graph TD
+    A[Root Management Group] --&gt; B[Group 1]
+    A --&gt; C[Group 2]
+    B --&gt; D[Group 3]
+    C --&gt; E[Group 4]
+    D --&gt; F[Group 5]
+    E --&gt; G[Group 6]
+</code></pre>
+<p><strong>Why it's bad:</strong> The structure is not well-organized and doesn't follow a logical grouping or hierarchy. This can lead to confusion and difficulty in managing resources and policies.</p>
+<h4 id="example-3-single-level-hierarchy"><a class="toclink" href="22/management-groups/#example-3-single-level-hierarchy">Example 3: Single Level Hierarchy</a></h4>
+<pre class="mermaid"><code>graph TD
+    A[Root Management Group] --&gt; B[Group 1]
+    A --&gt; C[Group 2]
+    A --&gt; D[Group 3]
+    A --&gt; E[Group 4]
+    A --&gt; F[Group 5]
+    A --&gt; G[Group 6]
+</code></pre>
+<p><strong>Why it's bad:</strong> Although this structure is simple, it lacks the ability to group related subscriptions together under a common management group. This makes it harder to apply consistent policies across related subscriptions.</p>
+<h4 id="example-4-environment-based-hierarchy"><a class="toclink" href="22/management-groups/#example-4-environment-based-hierarchy">Example 4: Environment-Based Hierarchy</a></h4>
+<pre class="mermaid"><code>
+graph TD
+    A[Root Management Group] --&gt; B[Production Management Group]
+    A[Root Management Group] --&gt; C[Development Management Group]
+    A[Root Management Group] --&gt; D[Testing Management Group]
+</code></pre>
+<p><strong>Why it's bad:</strong> This structure separates environments into different management groups, which can lead to duplication of policies and increased complexity. It's better to use subscriptions within the same management group to separate environments and apply policies accordingly.</p>
+<h3 id="good-examples"><a class="toclink" href="22/management-groups/#good-examples">Good examples</a></h3>
+<pre class="mermaid"><code>    graph TD
+        A[Root Management Group] --&gt; B[Intermediary-Management-Group]
+        B --&gt; C[Decommissioned]
+        B --&gt; D[Landing Zones]
+        B --&gt; E[Platform]
+        B --&gt; F[Sandboxes]
+        D --&gt; G[Corp]
+        D --&gt; H[Online]
+        E --&gt; I[Connectivity]
+        E --&gt; J[Identity]
+        E --&gt; K[Management]
+</code></pre>
+<p><img alt="😄" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f604.svg" title=":smile:"></p>
+<h3 id="references"><a class="toclink" href="22/management-groups/#references">References</a></h3>
+<ul>
+<li>https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups</li>
+<li>https://learn.microsoft.com/en-us/azure/governance/management-groups/overview</li>
+</ul>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-04-20 00:00:00+00:00">April 20, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/azure/">Azure</a></li>
+<li class="md-meta__item">
+            
+              6 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="how-to-create-assigment-reports-for-azure-rbac"><a class="toclink" href="20/how-to-create-assigment-reports-for-azure-rbac/">How to create assigment Reports for Azure RBAC</a></h2>
+<p>Role-Based Access Control (RBAC) is a key feature of Azure that allows you to manage access to Azure resources. With RBAC, you can grant permissions to users, groups, and applications at a certain scope, such as a subscription, resource group, or resource. RBAC uses role assignments to determine what actions a user, group, or application can perform on a resource.</p>
+<p>In this article, we will show you how to create reports for role assignments in Azure using PowerShell and the ImportExcel module. We will generate separate Excel files for role assignments at the subscription and management group levels, including information such as the role, principal, scope, and whether the assignment is inherited.</p>
+<h3 id="role-assignment-report-in-excel"><a class="toclink" href="20/how-to-create-assigment-reports-for-azure-rbac/#role-assignment-report-in-excel">Role assignment report in Excel</a></h3>
+<p>This is the PowerShell script that generates the role assignment reports:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-0-1"><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="cm">&lt;#</span>
+</span><span id="__span-0-2"><a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="sd">.SYNOPSIS</span>
+</span><span id="__span-0-3"><a href="#__codelineno-0-3" id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="cm">A script to get role assignments for Azure subscriptions and management groups.</span>
+</span><span id="__span-0-4"><a href="#__codelineno-0-4" id="__codelineno-0-4" name="__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a href="#__codelineno-0-5" id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="sd">.DESCRIPTION</span>
+</span><span id="__span-0-6"><a href="#__codelineno-0-6" id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="cm">This script gets role assignments for specified or all Azure subscriptions and management groups,</span>
+</span><span id="__span-0-7"><a href="#__codelineno-0-7" id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="cm">and exports them to Excel files. It uses the ImportExcel module to create the Excel files.</span>
+</span><span id="__span-0-8"><a href="#__codelineno-0-8" id="__codelineno-0-8" name="__codelineno-0-8"></a>
+</span><span id="__span-0-9"><a href="#__codelineno-0-9" id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="sd">.PARAMETER</span><span class="cm"> SubscriptionId</span>
+</span><span id="__span-0-10"><a href="#__codelineno-0-10" id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="cm">The ID of the Azure subscription. If not provided, the script gets role assignments for all subscriptions.</span>
+</span><span id="__span-0-11"><a href="#__codelineno-0-11" id="__codelineno-0-11" name="__codelineno-0-11"></a>
+</span><span id="__span-0-12"><a href="#__codelineno-0-12" id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="sd">.PARAMETER</span><span class="cm"> ManagementGroupName</span>
+</span><span id="__span-0-13"><a href="#__codelineno-0-13" id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="cm">The name of the Azure management group. If not provided, the script gets role assignments for all management groups.</span>
+</span><span id="__span-0-14"><a href="#__codelineno-0-14" id="__codelineno-0-14" name="__codelineno-0-14"></a>
+</span><span id="__span-0-15"><a href="#__codelineno-0-15" id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">.PARAMETER</span><span class="cm"> GetSubscriptions</span>
+</span><span id="__span-0-16"><a href="#__codelineno-0-16" id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="cm">Specifies whether to get role assignments for subscriptions. Default is false.</span>
+</span><span id="__span-0-17"><a href="#__codelineno-0-17" id="__codelineno-0-17" name="__codelineno-0-17"></a>
+</span><span id="__span-0-18"><a href="#__codelineno-0-18" id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">.PARAMETER</span><span class="cm"> GetManagementGroups</span>
+</span><span id="__span-0-19"><a href="#__codelineno-0-19" id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="cm">Specifies whether to get role assignments for management groups. Default is true.</span>
+</span><span id="__span-0-20"><a href="#__codelineno-0-20" id="__codelineno-0-20" name="__codelineno-0-20"></a>
+</span><span id="__span-0-21"><a href="#__codelineno-0-21" id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">.EXAMPLE</span>
+</span><span id="__span-0-22"><a href="#__codelineno-0-22" id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="cm">.\get-azroleassigments.ps1 -SubscriptionId "sub-id"</span>
+</span><span id="__span-0-23"><a href="#__codelineno-0-23" id="__codelineno-0-23" name="__codelineno-0-23"></a>
+</span><span id="__span-0-24"><a href="#__codelineno-0-24" id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="cm">This example gets role assignments for the specified subscription and management group.</span>
+</span><span id="__span-0-25"><a href="#__codelineno-0-25" id="__codelineno-0-25" name="__codelineno-0-25"></a>
+</span><span id="__span-0-26"><a href="#__codelineno-0-26" id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="cm">.\get-azroleassigments.ps1 -ManagementGroupName "mg-name" -GetSubscriptions $true -GetManagementGroups $false</span>
+</span><span id="__span-0-27"><a href="#__codelineno-0-27" id="__codelineno-0-27" name="__codelineno-0-27"></a>
+</span><span id="__span-0-28"><a href="#__codelineno-0-28" id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="cm">This example gets role assignments for the specified management group.</span>
+</span><span id="__span-0-29"><a href="#__codelineno-0-29" id="__codelineno-0-29" name="__codelineno-0-29"></a>
+</span><span id="__span-0-30"><a href="#__codelineno-0-30" id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="cm">.\get-azroleassigments.ps1  -GetSubscriptions $true -GetManagementGroups $true</span>
+</span><span id="__span-0-31"><a href="#__codelineno-0-31" id="__codelineno-0-31" name="__codelineno-0-31"></a>
+</span><span id="__span-0-32"><a href="#__codelineno-0-32" id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="cm">This example gets role assignments for all subscriptions and management groups.</span>
+</span><span id="__span-0-33"><a href="#__codelineno-0-33" id="__codelineno-0-33" name="__codelineno-0-33"></a>
+</span><span id="__span-0-34"><a href="#__codelineno-0-34" id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">.NOTES</span>
+</span><span id="__span-0-35"><a href="#__codelineno-0-35" id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="cm">You can not provide both SubscriptionId and GetSubscriptions parameters at the same time.</span>
+</span><span id="__span-0-36"><a href="#__codelineno-0-36" id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="cm">You can not provide both ManagementGroupName and GetManagementGroups parameters at the same time.</span>
+</span><span id="__span-0-37"><a href="#__codelineno-0-37" id="__codelineno-0-37" name="__codelineno-0-37"></a>
+</span><span id="__span-0-38"><a href="#__codelineno-0-38" id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="cm">#&gt;</span>
+</span><span id="__span-0-39"><a href="#__codelineno-0-39" id="__codelineno-0-39" name="__codelineno-0-39"></a>
+</span><span id="__span-0-40"><a href="#__codelineno-0-40" id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="c"># Parameters setup</span>
+</span><span id="__span-0-41"><a href="#__codelineno-0-41" id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="k">param</span> <span class="p">(</span>
+</span><span id="__span-0-42"><a href="#__codelineno-0-42" id="__codelineno-0-42" name="__codelineno-0-42"></a>    <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span><span class="k">Mandatory</span><span class="p">=</span><span class="nv">$false</span><span class="p">)]</span>
+</span><span id="__span-0-43"><a href="#__codelineno-0-43" id="__codelineno-0-43" name="__codelineno-0-43"></a>    <span class="no">[string]</span><span class="nv">$SubscriptionId</span><span class="p">,</span>
+</span><span id="__span-0-44"><a href="#__codelineno-0-44" id="__codelineno-0-44" name="__codelineno-0-44"></a>
+</span><span id="__span-0-45"><a href="#__codelineno-0-45" id="__codelineno-0-45" name="__codelineno-0-45"></a>    <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span><span class="k">Mandatory</span><span class="p">=</span><span class="nv">$false</span><span class="p">)]</span>
+</span><span id="__span-0-46"><a href="#__codelineno-0-46" id="__codelineno-0-46" name="__codelineno-0-46"></a>    <span class="no">[string]</span><span class="nv">$ManagementGroupName</span><span class="p">,</span>
+</span><span id="__span-0-47"><a href="#__codelineno-0-47" id="__codelineno-0-47" name="__codelineno-0-47"></a>
+</span><span id="__span-0-48"><a href="#__codelineno-0-48" id="__codelineno-0-48" name="__codelineno-0-48"></a>    <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span><span class="k">Mandatory</span><span class="p">=</span><span class="nv">$false</span><span class="p">)]</span>
+</span><span id="__span-0-49"><a href="#__codelineno-0-49" id="__codelineno-0-49" name="__codelineno-0-49"></a>    <span class="no">[bool]</span><span class="nv">$GetSubscriptions</span> <span class="p">=</span> <span class="nv">$false</span><span class="p">,</span>
+</span><span id="__span-0-50"><a href="#__codelineno-0-50" id="__codelineno-0-50" name="__codelineno-0-50"></a>
+</span><span id="__span-0-51"><a href="#__codelineno-0-51" id="__codelineno-0-51" name="__codelineno-0-51"></a>    <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span><span class="k">Mandatory</span><span class="p">=</span><span class="nv">$false</span><span class="p">)]</span>
+</span><span id="__span-0-52"><a href="#__codelineno-0-52" id="__codelineno-0-52" name="__codelineno-0-52"></a>    <span class="no">[bool]</span><span class="nv">$GetManagementGroups</span> <span class="p">=</span> <span class="nv">$true</span>
+</span><span id="__span-0-53"><a href="#__codelineno-0-53" id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="p">)</span>
+</span><span id="__span-0-54"><a href="#__codelineno-0-54" id="__codelineno-0-54" name="__codelineno-0-54"></a>
+</span><span id="__span-0-55"><a href="#__codelineno-0-55" id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="c"># The rest of your script...</span>
+</span><span id="__span-0-56"><a href="#__codelineno-0-56" id="__codelineno-0-56" name="__codelineno-0-56"></a>
+</span><span id="__span-0-57"><a href="#__codelineno-0-57" id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="c"># Parameters setup</span>
+</span><span id="__span-0-58"><a href="#__codelineno-0-58" id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="k">param</span> <span class="p">(</span>
+</span><span id="__span-0-59"><a href="#__codelineno-0-59" id="__codelineno-0-59" name="__codelineno-0-59"></a>    <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span><span class="k">Mandatory</span><span class="p">=</span><span class="nv">$false</span><span class="p">)]</span>
+</span><span id="__span-0-60"><a href="#__codelineno-0-60" id="__codelineno-0-60" name="__codelineno-0-60"></a>    <span class="no">[string]</span><span class="nv">$SubscriptionId</span><span class="p">,</span>
+</span><span id="__span-0-61"><a href="#__codelineno-0-61" id="__codelineno-0-61" name="__codelineno-0-61"></a>
+</span><span id="__span-0-62"><a href="#__codelineno-0-62" id="__codelineno-0-62" name="__codelineno-0-62"></a>    <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span><span class="k">Mandatory</span><span class="p">=</span><span class="nv">$false</span><span class="p">)]</span>
+</span><span id="__span-0-63"><a href="#__codelineno-0-63" id="__codelineno-0-63" name="__codelineno-0-63"></a>    <span class="no">[string]</span><span class="nv">$ManagementGroupName</span><span class="p">,</span>
+</span><span id="__span-0-64"><a href="#__codelineno-0-64" id="__codelineno-0-64" name="__codelineno-0-64"></a>
+</span><span id="__span-0-65"><a href="#__codelineno-0-65" id="__codelineno-0-65" name="__codelineno-0-65"></a>    <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span><span class="k">Mandatory</span><span class="p">=</span><span class="nv">$false</span><span class="p">)]</span>
+</span><span id="__span-0-66"><a href="#__codelineno-0-66" id="__codelineno-0-66" name="__codelineno-0-66"></a>    <span class="no">[bool]</span><span class="nv">$GetSubscriptions</span> <span class="p">=</span> <span class="nv">$false</span><span class="p">,</span>
+</span><span id="__span-0-67"><a href="#__codelineno-0-67" id="__codelineno-0-67" name="__codelineno-0-67"></a>
+</span><span id="__span-0-68"><a href="#__codelineno-0-68" id="__codelineno-0-68" name="__codelineno-0-68"></a>    <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span><span class="k">Mandatory</span><span class="p">=</span><span class="nv">$false</span><span class="p">)]</span>
+</span><span id="__span-0-69"><a href="#__codelineno-0-69" id="__codelineno-0-69" name="__codelineno-0-69"></a>    <span class="no">[bool]</span><span class="nv">$GetManagementGroups</span> <span class="p">=</span> <span class="nv">$true</span>
+</span><span id="__span-0-70"><a href="#__codelineno-0-70" id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="p">)</span>
+</span><span id="__span-0-71"><a href="#__codelineno-0-71" id="__codelineno-0-71" name="__codelineno-0-71"></a>
+</span><span id="__span-0-72"><a href="#__codelineno-0-72" id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="c"># Install the ImportExcel module if not already installed</span>
+</span><span id="__span-0-73"><a href="#__codelineno-0-73" id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="k">if</span> <span class="p">(!(</span><span class="nb">Get-Module</span> <span class="n">-ListAvailable</span> <span class="n">-Name</span> <span class="n">ImportExcel</span><span class="p">))</span> <span class="p">{</span>
+</span><span id="__span-0-74"><a href="#__codelineno-0-74" id="__codelineno-0-74" name="__codelineno-0-74"></a>    <span class="nb">Install-Module</span> <span class="n">-Name</span> <span class="n">ImportExcel</span> <span class="n">-Scope</span> <span class="n">CurrentUser</span>
+</span><span id="__span-0-75"><a href="#__codelineno-0-75" id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="p">}</span>
+</span><span id="__span-0-76"><a href="#__codelineno-0-76" id="__codelineno-0-76" name="__codelineno-0-76"></a>
+</span><span id="__span-0-77"><a href="#__codelineno-0-77" id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="c"># Define the path to your Excel file for Managing Group role assignments</span>
+</span><span id="__span-0-78"><a href="#__codelineno-0-78" id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="nv">$managementGroupPath</span> <span class="p">=</span> <span class="s2">".\AzRoleAssignmentMg.xlsx"</span>
+</span><span id="__span-0-79"><a href="#__codelineno-0-79" id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="c"># Define the path to your Excel file for Subscription role assignments</span>
+</span><span id="__span-0-80"><a href="#__codelineno-0-80" id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="nv">$subscriptionPath</span> <span class="p">=</span> <span class="s2">".\AzRoleAssignmentSub.xlsx"</span>
+</span><span id="__span-0-81"><a href="#__codelineno-0-81" id="__codelineno-0-81" name="__codelineno-0-81"></a>
+</span><span id="__span-0-82"><a href="#__codelineno-0-82" id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="c"># Initialize an empty array to hold all role assignments</span>
+</span><span id="__span-0-83"><a href="#__codelineno-0-83" id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="nv">$subscriptionRoleAssignments</span> <span class="p">=</span> <span class="p">@()</span>
+</span><span id="__span-0-84"><a href="#__codelineno-0-84" id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="nv">$managementGroupRoleAssignments</span> <span class="p">=</span> <span class="p">@()</span>
+</span><span id="__span-0-85"><a href="#__codelineno-0-85" id="__codelineno-0-85" name="__codelineno-0-85"></a>
+</span><span id="__span-0-86"><a href="#__codelineno-0-86" id="__codelineno-0-86" name="__codelineno-0-86"></a><span class="k">if</span> <span class="p">(</span><span class="nv">$GetManagementGroups</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-0-87"><a href="#__codelineno-0-87" id="__codelineno-0-87" name="__codelineno-0-87"></a>    <span class="c"># Check if ManagementGroupName is provided</span>
+</span><span id="__span-0-88"><a href="#__codelineno-0-88" id="__codelineno-0-88" name="__codelineno-0-88"></a>    <span class="k">if</span> <span class="p">(</span><span class="nv">$ManagementGroupName</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-0-89"><a href="#__codelineno-0-89" id="__codelineno-0-89" name="__codelineno-0-89"></a>        <span class="c"># Get role assignments for the specified management group</span>
+</span><span id="__span-0-90"><a href="#__codelineno-0-90" id="__codelineno-0-90" name="__codelineno-0-90"></a>        <span class="nv">$roleAssignments</span> <span class="p">=</span> <span class="nb">Get-AzRoleAssignment</span> <span class="n">-Scope</span> <span class="s2">"/providers/Microsoft.Management/managementGroups/$ManagementGroupName"</span>
+</span><span id="__span-0-91"><a href="#__codelineno-0-91" id="__codelineno-0-91" name="__codelineno-0-91"></a>
+</span><span id="__span-0-92"><a href="#__codelineno-0-92" id="__codelineno-0-92" name="__codelineno-0-92"></a>        <span class="c"># Add these role assignments to the management group role assignments array</span>
+</span><span id="__span-0-93"><a href="#__codelineno-0-93" id="__codelineno-0-93" name="__codelineno-0-93"></a>        <span class="nv">$managementGroupRoleAssignments</span> <span class="p">+=</span> <span class="nv">$roleAssignments</span>
+</span><span id="__span-0-94"><a href="#__codelineno-0-94" id="__codelineno-0-94" name="__codelineno-0-94"></a>
+</span><span id="__span-0-95"><a href="#__codelineno-0-95" id="__codelineno-0-95" name="__codelineno-0-95"></a>        <span class="c"># Add 'GroupName' and 'IsInherited' properties to each role assignment object</span>
+</span><span id="__span-0-96"><a href="#__codelineno-0-96" id="__codelineno-0-96" name="__codelineno-0-96"></a>        <span class="nv">$roleAssignments</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span>
+</span><span id="__span-0-97"><a href="#__codelineno-0-97" id="__codelineno-0-97" name="__codelineno-0-97"></a>            <span class="nv">$_</span> <span class="p">|</span> <span class="nb">Add-Member</span> <span class="n">-NotePropertyName</span> <span class="s1">'GroupDisplayName'</span> <span class="n">-NotePropertyValue</span> <span class="p">(</span><span class="nb">Get-AzManagementGroup</span> <span class="n">-GroupName</span> <span class="nv">$ManagementGroupName</span><span class="p">).</span><span class="n">DisplayName</span>
+</span><span id="__span-0-98"><a href="#__codelineno-0-98" id="__codelineno-0-98" name="__codelineno-0-98"></a>            <span class="nv">$_</span> <span class="p">|</span> <span class="nb">Add-Member</span> <span class="n">-NotePropertyName</span> <span class="s1">'GroupName'</span> <span class="n">-NotePropertyValue</span> <span class="nv">$ManagementGroupName</span>
+</span><span id="__span-0-99"><a href="#__codelineno-0-99" id="__codelineno-0-99" name="__codelineno-0-99"></a>            <span class="c"># If the Scope of the role assignment is equal to the Id of the management group,</span>
+</span><span id="__span-0-100"><a href="#__codelineno-0-100" id="__codelineno-0-100" name="__codelineno-0-100"></a>            <span class="c"># then the role assignment is not inherited; otherwise, it is inherited.</span>
+</span><span id="__span-0-101"><a href="#__codelineno-0-101" id="__codelineno-0-101" name="__codelineno-0-101"></a>            <span class="k">if</span> <span class="p">(</span><span class="nv">$_</span><span class="p">.</span><span class="n">Scope</span> <span class="o">-eq</span> <span class="s2">"/providers/Microsoft.Management/managementGroups/$ManagementGroupName"</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-0-102"><a href="#__codelineno-0-102" id="__codelineno-0-102" name="__codelineno-0-102"></a>                <span class="nv">$_</span> <span class="p">|</span> <span class="nb">Add-Member</span> <span class="n">-NotePropertyName</span> <span class="s1">'IsInherited'</span> <span class="n">-NotePropertyValue</span> <span class="nv">$false</span>
+</span><span id="__span-0-103"><a href="#__codelineno-0-103" id="__codelineno-0-103" name="__codelineno-0-103"></a>            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span id="__span-0-104"><a href="#__codelineno-0-104" id="__codelineno-0-104" name="__codelineno-0-104"></a>                <span class="nv">$_</span> <span class="p">|</span> <span class="nb">Add-Member</span> <span class="n">-NotePropertyName</span> <span class="s1">'IsInherited'</span> <span class="n">-NotePropertyValue</span> <span class="nv">$true</span>
+</span><span id="__span-0-105"><a href="#__codelineno-0-105" id="__codelineno-0-105" name="__codelineno-0-105"></a>            <span class="p">}</span>
+</span><span id="__span-0-106"><a href="#__codelineno-0-106" id="__codelineno-0-106" name="__codelineno-0-106"></a>        <span class="p">}</span>
+</span><span id="__span-0-107"><a href="#__codelineno-0-107" id="__codelineno-0-107" name="__codelineno-0-107"></a>
+</span><span id="__span-0-108"><a href="#__codelineno-0-108" id="__codelineno-0-108" name="__codelineno-0-108"></a>        <span class="c"># Export the role assignments to a new sheet in the Excel file</span>
+</span><span id="__span-0-109"><a href="#__codelineno-0-109" id="__codelineno-0-109" name="__codelineno-0-109"></a>        <span class="nv">$roleAssignments</span> <span class="p">|</span> <span class="nb">Export-Excel</span> <span class="n">-Path</span> <span class="nv">$managementGroupPath</span> <span class="n">-WorksheetName</span> <span class="p">(</span><span class="nb">Get-AzManagementGroup</span> <span class="n">-GroupName</span> <span class="nv">$ManagementGroupName</span><span class="p">).</span><span class="n">DisplayName</span> <span class="n">-AutoSize</span> <span class="n">-AutoFilter</span>
+</span><span id="__span-0-110"><a href="#__codelineno-0-110" id="__codelineno-0-110" name="__codelineno-0-110"></a>    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span id="__span-0-111"><a href="#__codelineno-0-111" id="__codelineno-0-111" name="__codelineno-0-111"></a>        <span class="c"># Get all management groups</span>
+</span><span id="__span-0-112"><a href="#__codelineno-0-112" id="__codelineno-0-112" name="__codelineno-0-112"></a>        <span class="nv">$managementGroups</span> <span class="p">=</span> <span class="nb">Get-AzManagementGroup</span>
+</span><span id="__span-0-113"><a href="#__codelineno-0-113" id="__codelineno-0-113" name="__codelineno-0-113"></a>        <span class="c"># Loop through each management group</span>
+</span><span id="__span-0-114"><a href="#__codelineno-0-114" id="__codelineno-0-114" name="__codelineno-0-114"></a>        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$mg</span> <span class="k">in</span> <span class="nv">$managementGroups</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-0-115"><a href="#__codelineno-0-115" id="__codelineno-0-115" name="__codelineno-0-115"></a>            <span class="c"># Get role assignments for the current management group</span>
+</span><span id="__span-0-116"><a href="#__codelineno-0-116" id="__codelineno-0-116" name="__codelineno-0-116"></a>            <span class="nv">$roleAssignments</span> <span class="p">=</span> <span class="nb">Get-AzRoleAssignment</span> <span class="n">-Scope</span> <span class="s2">"/providers/Microsoft.Management/managementGroups/</span><span class="p">$(</span><span class="nv">$mg</span><span class="p">.</span><span class="n">Name</span><span class="p">)</span><span class="s2">"</span>
+</span><span id="__span-0-117"><a href="#__codelineno-0-117" id="__codelineno-0-117" name="__codelineno-0-117"></a>
+</span><span id="__span-0-118"><a href="#__codelineno-0-118" id="__codelineno-0-118" name="__codelineno-0-118"></a>            <span class="c"># Add these role assignments to the management group role assignments array</span>
+</span><span id="__span-0-119"><a href="#__codelineno-0-119" id="__codelineno-0-119" name="__codelineno-0-119"></a>            <span class="nv">$managementGroupRoleAssignments</span> <span class="p">+=</span> <span class="nv">$roleAssignments</span>
+</span><span id="__span-0-120"><a href="#__codelineno-0-120" id="__codelineno-0-120" name="__codelineno-0-120"></a>
+</span><span id="__span-0-121"><a href="#__codelineno-0-121" id="__codelineno-0-121" name="__codelineno-0-121"></a>            <span class="c"># Add 'GroupName' and 'IsInherited' properties to each role assignment object</span>
+</span><span id="__span-0-122"><a href="#__codelineno-0-122" id="__codelineno-0-122" name="__codelineno-0-122"></a>            <span class="nv">$roleAssignments</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span>
+</span><span id="__span-0-123"><a href="#__codelineno-0-123" id="__codelineno-0-123" name="__codelineno-0-123"></a>                <span class="nv">$_</span> <span class="p">|</span> <span class="nb">Add-Member</span> <span class="n">-NotePropertyName</span> <span class="s1">'GroupDisplayName'</span> <span class="n">-NotePropertyValue</span> <span class="nv">$mg</span><span class="p">.</span><span class="n">DisplayName</span>
+</span><span id="__span-0-124"><a href="#__codelineno-0-124" id="__codelineno-0-124" name="__codelineno-0-124"></a>                <span class="nv">$_</span> <span class="p">|</span> <span class="nb">Add-Member</span> <span class="n">-NotePropertyName</span> <span class="s1">'GroupName'</span> <span class="n">-NotePropertyValue</span> <span class="nv">$mg</span><span class="p">.</span><span class="n">Name</span>
+</span><span id="__span-0-125"><a href="#__codelineno-0-125" id="__codelineno-0-125" name="__codelineno-0-125"></a>                <span class="c"># If the Scope of the role assignment is equal to the Id of the management group,</span>
+</span><span id="__span-0-126"><a href="#__codelineno-0-126" id="__codelineno-0-126" name="__codelineno-0-126"></a>                <span class="c"># then the role assignment is not inherited; otherwise, it is inherited.</span>
+</span><span id="__span-0-127"><a href="#__codelineno-0-127" id="__codelineno-0-127" name="__codelineno-0-127"></a>                <span class="k">if</span> <span class="p">(</span><span class="nv">$_</span><span class="p">.</span><span class="n">Scope</span> <span class="o">-eq</span> <span class="nv">$mg</span><span class="p">.</span><span class="n">Id</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-0-128"><a href="#__codelineno-0-128" id="__codelineno-0-128" name="__codelineno-0-128"></a>                    <span class="nv">$_</span> <span class="p">|</span> <span class="nb">Add-Member</span> <span class="n">-NotePropertyName</span> <span class="s1">'IsInherited'</span> <span class="n">-NotePropertyValue</span> <span class="nv">$false</span>
+</span><span id="__span-0-129"><a href="#__codelineno-0-129" id="__codelineno-0-129" name="__codelineno-0-129"></a>                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span id="__span-0-130"><a href="#__codelineno-0-130" id="__codelineno-0-130" name="__codelineno-0-130"></a>                    <span class="nv">$_</span> <span class="p">|</span> <span class="nb">Add-Member</span> <span class="n">-NotePropertyName</span> <span class="s1">'IsInherited'</span> <span class="n">-NotePropertyValue</span> <span class="nv">$true</span>
+</span><span id="__span-0-131"><a href="#__codelineno-0-131" id="__codelineno-0-131" name="__codelineno-0-131"></a>                <span class="p">}</span>
+</span><span id="__span-0-132"><a href="#__codelineno-0-132" id="__codelineno-0-132" name="__codelineno-0-132"></a>            <span class="p">}</span>
+</span><span id="__span-0-133"><a href="#__codelineno-0-133" id="__codelineno-0-133" name="__codelineno-0-133"></a>
+</span><span id="__span-0-134"><a href="#__codelineno-0-134" id="__codelineno-0-134" name="__codelineno-0-134"></a>            <span class="c"># Export the role assignments to a new sheet in the Excel file</span>
+</span><span id="__span-0-135"><a href="#__codelineno-0-135" id="__codelineno-0-135" name="__codelineno-0-135"></a>            <span class="nv">$roleAssignments</span> <span class="p">|</span> <span class="nb">Export-Excel</span> <span class="n">-Path</span> <span class="nv">$managementGroupPath</span> <span class="n">-WorksheetName</span> <span class="nv">$mg</span><span class="p">.</span><span class="n">DisplayName</span> <span class="n">-AutoSize</span> <span class="n">-AutoFilter</span>
+</span><span id="__span-0-136"><a href="#__codelineno-0-136" id="__codelineno-0-136" name="__codelineno-0-136"></a>        <span class="p">}</span>
+</span><span id="__span-0-137"><a href="#__codelineno-0-137" id="__codelineno-0-137" name="__codelineno-0-137"></a>    <span class="p">}</span>
+</span><span id="__span-0-138"><a href="#__codelineno-0-138" id="__codelineno-0-138" name="__codelineno-0-138"></a><span class="p">}</span>
+</span><span id="__span-0-139"><a href="#__codelineno-0-139" id="__codelineno-0-139" name="__codelineno-0-139"></a>
+</span><span id="__span-0-140"><a href="#__codelineno-0-140" id="__codelineno-0-140" name="__codelineno-0-140"></a><span class="k">if</span> <span class="p">(</span><span class="nv">$GetSubscriptions</span><span class="p">)</span> <span class="p">{</span>   
+</span><span id="__span-0-141"><a href="#__codelineno-0-141" id="__codelineno-0-141" name="__codelineno-0-141"></a>    <span class="c"># Check if SubscriptionId is provided</span>
+</span><span id="__span-0-142"><a href="#__codelineno-0-142" id="__codelineno-0-142" name="__codelineno-0-142"></a>    <span class="k">if</span> <span class="p">(</span><span class="nv">$SubscriptionId</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-0-143"><a href="#__codelineno-0-143" id="__codelineno-0-143" name="__codelineno-0-143"></a>        <span class="c"># Get role assignments for the specified subscription</span>
+</span><span id="__span-0-144"><a href="#__codelineno-0-144" id="__codelineno-0-144" name="__codelineno-0-144"></a>        <span class="nv">$roleAssignments</span> <span class="p">=</span> <span class="nb">Get-AzRoleAssignment</span> <span class="n">-Scope</span> <span class="s2">"/subscriptions/$SubscriptionId"</span>
+</span><span id="__span-0-145"><a href="#__codelineno-0-145" id="__codelineno-0-145" name="__codelineno-0-145"></a>
+</span><span id="__span-0-146"><a href="#__codelineno-0-146" id="__codelineno-0-146" name="__codelineno-0-146"></a>        <span class="c"># Add these role assignments to the subscription role assignments array</span>
+</span><span id="__span-0-147"><a href="#__codelineno-0-147" id="__codelineno-0-147" name="__codelineno-0-147"></a>        <span class="nv">$subscriptionRoleAssignments</span> <span class="p">+=</span> <span class="nv">$roleAssignments</span>
+</span><span id="__span-0-148"><a href="#__codelineno-0-148" id="__codelineno-0-148" name="__codelineno-0-148"></a>
+</span><span id="__span-0-149"><a href="#__codelineno-0-149" id="__codelineno-0-149" name="__codelineno-0-149"></a>        <span class="c"># Add 'SubscriptionName' and 'IsInherited' properties to each role assignment object</span>
+</span><span id="__span-0-150"><a href="#__codelineno-0-150" id="__codelineno-0-150" name="__codelineno-0-150"></a>        <span class="nv">$roleAssignments</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span> 
+</span><span id="__span-0-151"><a href="#__codelineno-0-151" id="__codelineno-0-151" name="__codelineno-0-151"></a>            <span class="nv">$_</span> <span class="p">|</span> <span class="nb">Add-Member</span> <span class="n">-NotePropertyName</span> <span class="s1">'SubscriptionName'</span> <span class="n">-NotePropertyValue</span> <span class="p">(</span><span class="nb">Get-AzSubscription</span> <span class="n">-SubscriptionId</span> <span class="nv">$SubscriptionId</span><span class="p">).</span><span class="n">Name</span> 
+</span><span id="__span-0-152"><a href="#__codelineno-0-152" id="__codelineno-0-152" name="__codelineno-0-152"></a>            <span class="nv">$_</span> <span class="p">|</span> <span class="nb">Add-Member</span> <span class="n">-NotePropertyName</span> <span class="s1">'IsInherited'</span> <span class="n">-NotePropertyValue</span> <span class="nv">$false</span>
+</span><span id="__span-0-153"><a href="#__codelineno-0-153" id="__codelineno-0-153" name="__codelineno-0-153"></a>        <span class="p">}</span>
+</span><span id="__span-0-154"><a href="#__codelineno-0-154" id="__codelineno-0-154" name="__codelineno-0-154"></a>
+</span><span id="__span-0-155"><a href="#__codelineno-0-155" id="__codelineno-0-155" name="__codelineno-0-155"></a>        <span class="c"># Export the role assignments to a new sheet in the Excel file</span>
+</span><span id="__span-0-156"><a href="#__codelineno-0-156" id="__codelineno-0-156" name="__codelineno-0-156"></a>        <span class="nv">$roleAssignments</span> <span class="p">|</span> <span class="nb">Export-Excel</span> <span class="n">-Path</span> <span class="nv">$subscriptionPath</span> <span class="n">-WorksheetName</span> <span class="p">(</span><span class="nb">Get-AzSubscription</span> <span class="n">-SubscriptionId</span> <span class="nv">$SubscriptionId</span><span class="p">).</span><span class="n">Name</span> <span class="n">-AutoSize</span> <span class="n">-AutoFilter</span>
+</span><span id="__span-0-157"><a href="#__codelineno-0-157" id="__codelineno-0-157" name="__codelineno-0-157"></a>    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span id="__span-0-158"><a href="#__codelineno-0-158" id="__codelineno-0-158" name="__codelineno-0-158"></a>        <span class="c"># Get all subscriptions</span>
+</span><span id="__span-0-159"><a href="#__codelineno-0-159" id="__codelineno-0-159" name="__codelineno-0-159"></a>        <span class="nv">$subscriptions</span> <span class="p">=</span> <span class="nb">Get-AzSubscription</span>
+</span><span id="__span-0-160"><a href="#__codelineno-0-160" id="__codelineno-0-160" name="__codelineno-0-160"></a>
+</span><span id="__span-0-161"><a href="#__codelineno-0-161" id="__codelineno-0-161" name="__codelineno-0-161"></a>        <span class="c"># Loop through each subscription</span>
+</span><span id="__span-0-162"><a href="#__codelineno-0-162" id="__codelineno-0-162" name="__codelineno-0-162"></a>        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$sub</span> <span class="k">in</span> <span class="nv">$subscriptions</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-0-163"><a href="#__codelineno-0-163" id="__codelineno-0-163" name="__codelineno-0-163"></a>            <span class="c"># Get role assignments for the current subscription</span>
+</span><span id="__span-0-164"><a href="#__codelineno-0-164" id="__codelineno-0-164" name="__codelineno-0-164"></a>            <span class="nv">$roleAssignments</span> <span class="p">=</span> <span class="nb">Get-AzRoleAssignment</span> <span class="n">-Scope</span> <span class="s2">"/subscriptions/</span><span class="p">$(</span><span class="nv">$sub</span><span class="p">.</span><span class="n">SubscriptionId</span><span class="p">)</span><span class="s2">"</span>
+</span><span id="__span-0-165"><a href="#__codelineno-0-165" id="__codelineno-0-165" name="__codelineno-0-165"></a>
+</span><span id="__span-0-166"><a href="#__codelineno-0-166" id="__codelineno-0-166" name="__codelineno-0-166"></a>            <span class="c"># Add these role assignments to the subscription role assignments array</span>
+</span><span id="__span-0-167"><a href="#__codelineno-0-167" id="__codelineno-0-167" name="__codelineno-0-167"></a>            <span class="nv">$subscriptionRoleAssignments</span> <span class="p">+=</span> <span class="nv">$roleAssignments</span>
+</span><span id="__span-0-168"><a href="#__codelineno-0-168" id="__codelineno-0-168" name="__codelineno-0-168"></a>
+</span><span id="__span-0-169"><a href="#__codelineno-0-169" id="__codelineno-0-169" name="__codelineno-0-169"></a>            <span class="c"># Add 'SubscriptionName' and 'IsInherited' properties to each role assignment object</span>
+</span><span id="__span-0-170"><a href="#__codelineno-0-170" id="__codelineno-0-170" name="__codelineno-0-170"></a>            <span class="nv">$roleAssignments</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span> 
+</span><span id="__span-0-171"><a href="#__codelineno-0-171" id="__codelineno-0-171" name="__codelineno-0-171"></a>                <span class="nv">$_</span> <span class="p">|</span> <span class="nb">Add-Member</span> <span class="n">-NotePropertyName</span> <span class="s1">'SubscriptionName'</span> <span class="n">-NotePropertyValue</span> <span class="nv">$sub</span><span class="p">.</span><span class="n">Name</span>
+</span><span id="__span-0-172"><a href="#__codelineno-0-172" id="__codelineno-0-172" name="__codelineno-0-172"></a>                 <span class="c"># If the Scope of the role assignment is equal to the subscription Id,</span>
+</span><span id="__span-0-173"><a href="#__codelineno-0-173" id="__codelineno-0-173" name="__codelineno-0-173"></a>                 <span class="c"># then the role assignment is not inherited; otherwise, it is inherited.</span>
+</span><span id="__span-0-174"><a href="#__codelineno-0-174" id="__codelineno-0-174" name="__codelineno-0-174"></a>                <span class="k">if</span> <span class="p">(</span><span class="nv">$_</span><span class="p">.</span><span class="n">Scope</span> <span class="o">-eq</span> <span class="s2">"/subscriptions/</span><span class="p">$(</span><span class="nv">$sub</span><span class="p">.</span><span class="n">SubscriptionId</span><span class="p">)</span><span class="s2">"</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-0-175"><a href="#__codelineno-0-175" id="__codelineno-0-175" name="__codelineno-0-175"></a>                    <span class="nv">$_</span> <span class="p">|</span> <span class="nb">Add-Member</span> <span class="n">-NotePropertyName</span> <span class="s1">'IsInherited'</span> <span class="n">-NotePropertyValue</span> <span class="nv">$false</span>
+</span><span id="__span-0-176"><a href="#__codelineno-0-176" id="__codelineno-0-176" name="__codelineno-0-176"></a>                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span id="__span-0-177"><a href="#__codelineno-0-177" id="__codelineno-0-177" name="__codelineno-0-177"></a>                    <span class="nv">$_</span> <span class="p">|</span> <span class="nb">Add-Member</span> <span class="n">-NotePropertyName</span> <span class="s1">'IsInherited'</span> <span class="n">-NotePropertyValue</span> <span class="nv">$true</span>
+</span><span id="__span-0-178"><a href="#__codelineno-0-178" id="__codelineno-0-178" name="__codelineno-0-178"></a>                <span class="p">}</span>
+</span><span id="__span-0-179"><a href="#__codelineno-0-179" id="__codelineno-0-179" name="__codelineno-0-179"></a>            <span class="p">}</span>
+</span><span id="__span-0-180"><a href="#__codelineno-0-180" id="__codelineno-0-180" name="__codelineno-0-180"></a>
+</span><span id="__span-0-181"><a href="#__codelineno-0-181" id="__codelineno-0-181" name="__codelineno-0-181"></a>            <span class="c"># Export the role assignments to a new sheet in the Excel file</span>
+</span><span id="__span-0-182"><a href="#__codelineno-0-182" id="__codelineno-0-182" name="__codelineno-0-182"></a>            <span class="nv">$roleAssignments</span> <span class="p">|</span> <span class="nb">Export-Excel</span> <span class="n">-Path</span> <span class="nv">$subscriptionPath</span> <span class="n">-WorksheetName</span> <span class="nv">$sub</span><span class="p">.</span><span class="n">Name</span> <span class="n">-AutoSize</span> <span class="n">-AutoFilter</span>
+</span><span id="__span-0-183"><a href="#__codelineno-0-183" id="__codelineno-0-183" name="__codelineno-0-183"></a>        <span class="p">}</span>
+</span><span id="__span-0-184"><a href="#__codelineno-0-184" id="__codelineno-0-184" name="__codelineno-0-184"></a>    <span class="p">}</span>
+</span><span id="__span-0-185"><a href="#__codelineno-0-185" id="__codelineno-0-185" name="__codelineno-0-185"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>This script takes the following parameters:</p>
+<ul>
+<li><code>GetSubscriptions</code>: A switch parameter that specifies whether to generate reports for subscriptions. The default value is <code>$false</code>.</li>
+<li><code>GetManagementGroups</code>: A switch parameter that specifies whether to generate reports for management groups. The default value is <code>$true</code>.</li>
+<li><code>SubscriptionId</code>: The ID of the subscription for which you want to generate the report. If this parameter is not provided, the script will generate reports for all subscriptions.</li>
+<li><code>ManagementGroupName</code>: The name of the management group for which you want to generate the report. If this parameter is not provided, the script will generate reports for all management groups.</li>
+</ul>
+<h3 id="role-definition-report-in-excel-1"><a class="toclink" href="20/how-to-create-assigment-reports-for-azure-rbac/#role-definition-report-in-excel-1">Role definition report in Excel 1</a></h3>
+<p>You can also generate a report for role definitions in Azure using the following PowerShell script:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-1-1"><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">param</span><span class="p">(</span>
+</span><span id="__span-1-2"><a href="#__codelineno-1-2" id="__codelineno-1-2" name="__codelineno-1-2"></a>    <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span><span class="k">Mandatory</span><span class="p">=</span><span class="nv">$false</span><span class="p">)]</span>
+</span><span id="__span-1-3"><a href="#__codelineno-1-3" id="__codelineno-1-3" name="__codelineno-1-3"></a>    <span class="p">[</span><span class="k">ValidateSet</span><span class="p">(</span><span class="s1">'Console'</span><span class="p">,</span> <span class="s1">'Excel'</span><span class="p">)]</span>
+</span><span id="__span-1-4"><a href="#__codelineno-1-4" id="__codelineno-1-4" name="__codelineno-1-4"></a>    <span class="no">[string]</span><span class="nv">$OutputType</span> <span class="p">=</span> <span class="s1">'Console'</span><span class="p">,</span>
+</span><span id="__span-1-5"><a href="#__codelineno-1-5" id="__codelineno-1-5" name="__codelineno-1-5"></a>
+</span><span id="__span-1-6"><a href="#__codelineno-1-6" id="__codelineno-1-6" name="__codelineno-1-6"></a>    <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span><span class="k">Mandatory</span><span class="p">=</span><span class="nv">$false</span><span class="p">)]</span>
+</span><span id="__span-1-7"><a href="#__codelineno-1-7" id="__codelineno-1-7" name="__codelineno-1-7"></a>    <span class="no">[string]</span><span class="nv">$ExcelFilePath</span> <span class="p">=</span> <span class="s2">".\AzRoleDefinition.xlsx"</span>
+</span><span id="__span-1-8"><a href="#__codelineno-1-8" id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="p">)</span>
+</span><span id="__span-1-9"><a href="#__codelineno-1-9" id="__codelineno-1-9" name="__codelineno-1-9"></a>
+</span><span id="__span-1-10"><a href="#__codelineno-1-10" id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="c"># Install the ImportExcel module if not already installed</span>
+</span><span id="__span-1-11"><a href="#__codelineno-1-11" id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="k">if</span> <span class="p">(!(</span><span class="nb">Get-Module</span> <span class="n">-ListAvailable</span> <span class="n">-Name</span> <span class="n">ImportExcel</span><span class="p">))</span> <span class="p">{</span>
+</span><span id="__span-1-12"><a href="#__codelineno-1-12" id="__codelineno-1-12" name="__codelineno-1-12"></a>    <span class="nb">Install-Module</span> <span class="n">-Name</span> <span class="n">ImportExcel</span> <span class="n">-Scope</span> <span class="n">CurrentUser</span>
+</span><span id="__span-1-13"><a href="#__codelineno-1-13" id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="p">}</span>
+</span><span id="__span-1-14"><a href="#__codelineno-1-14" id="__codelineno-1-14" name="__codelineno-1-14"></a>
+</span><span id="__span-1-15"><a href="#__codelineno-1-15" id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="c"># Install the  AzureRM module if not already installed</span>
+</span><span id="__span-1-16"><a href="#__codelineno-1-16" id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="k">if</span> <span class="p">(!(</span><span class="nb">Get-Module</span> <span class="n">-ListAvailable</span> <span class="n">-Name</span>  <span class="n">Az</span><span class="p">))</span> <span class="p">{</span>
+</span><span id="__span-1-17"><a href="#__codelineno-1-17" id="__codelineno-1-17" name="__codelineno-1-17"></a>    <span class="nb">Set-ExecutionPolicy</span> <span class="n">-ExecutionPolicy</span> <span class="n">RemoteSigned</span> <span class="n">-Scope</span> <span class="n">CurrentUser</span>
+</span><span id="__span-1-18"><a href="#__codelineno-1-18" id="__codelineno-1-18" name="__codelineno-1-18"></a>    <span class="nb">Install-Module</span> <span class="n">-Name</span>  <span class="n">Az</span> <span class="n">-Scope</span> <span class="n">CurrentUser</span>
+</span><span id="__span-1-19"><a href="#__codelineno-1-19" id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="p">}</span>
+</span><span id="__span-1-20"><a href="#__codelineno-1-20" id="__codelineno-1-20" name="__codelineno-1-20"></a>
+</span><span id="__span-1-21"><a href="#__codelineno-1-21" id="__codelineno-1-21" name="__codelineno-1-21"></a><span class="c"># Get all role definitions</span>
+</span><span id="__span-1-22"><a href="#__codelineno-1-22" id="__codelineno-1-22" name="__codelineno-1-22"></a><span class="nv">$roleDefinitions</span> <span class="p">=</span> <span class="nb">Get-AzRoleDefinition</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span>
+</span><span id="__span-1-23"><a href="#__codelineno-1-23" id="__codelineno-1-23" name="__codelineno-1-23"></a>    <span class="c"># Create a custom object with ordered properties</span>
+</span><span id="__span-1-24"><a href="#__codelineno-1-24" id="__codelineno-1-24" name="__codelineno-1-24"></a>    <span class="nv">$customObject</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">PSObject</span> <span class="n">-Property</span> <span class="p">@{</span>
+</span><span id="__span-1-25"><a href="#__codelineno-1-25" id="__codelineno-1-25" name="__codelineno-1-25"></a>        <span class="n">Name</span> <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Name</span>
+</span><span id="__span-1-26"><a href="#__codelineno-1-26" id="__codelineno-1-26" name="__codelineno-1-26"></a>        <span class="n">Id</span> <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Id</span>
+</span><span id="__span-1-27"><a href="#__codelineno-1-27" id="__codelineno-1-27" name="__codelineno-1-27"></a>        <span class="n">IsCustom</span> <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="n">IsCustom</span>
+</span><span id="__span-1-28"><a href="#__codelineno-1-28" id="__codelineno-1-28" name="__codelineno-1-28"></a>        <span class="n">Description</span> <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Description</span>
+</span><span id="__span-1-29"><a href="#__codelineno-1-29" id="__codelineno-1-29" name="__codelineno-1-29"></a>        <span class="n">Actions</span> <span class="p">=</span> <span class="p">(</span><span class="nv">$_</span><span class="p">.</span><span class="n">Actions</span> <span class="n">-join</span> <span class="s1">', '</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s1">','</span><span class="p">,</span> <span class="s2">",</span><span class="se">`n</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-1-30"><a href="#__codelineno-1-30" id="__codelineno-1-30" name="__codelineno-1-30"></a>        <span class="n">NotActions</span> <span class="p">=</span> <span class="p">(</span><span class="nv">$_</span><span class="p">.</span><span class="n">NotActions</span> <span class="n">-join</span> <span class="s1">', '</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s1">','</span><span class="p">,</span> <span class="s2">",</span><span class="se">`n</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-1-31"><a href="#__codelineno-1-31" id="__codelineno-1-31" name="__codelineno-1-31"></a>        <span class="n">DataActions</span> <span class="p">=</span> <span class="p">(</span><span class="nv">$_</span><span class="p">.</span><span class="n">DataActions</span> <span class="n">-join</span> <span class="s1">', '</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s1">','</span><span class="p">,</span> <span class="s2">",</span><span class="se">`n</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-1-32"><a href="#__codelineno-1-32" id="__codelineno-1-32" name="__codelineno-1-32"></a>        <span class="n">NotDataActions</span> <span class="p">=</span> <span class="p">(</span><span class="nv">$_</span><span class="p">.</span><span class="n">NotDataActions</span> <span class="n">-join</span> <span class="s1">', '</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s1">','</span><span class="p">,</span> <span class="s2">",</span><span class="se">`n</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-1-33"><a href="#__codelineno-1-33" id="__codelineno-1-33" name="__codelineno-1-33"></a>        <span class="n">AssignableScopes</span> <span class="p">=</span> <span class="p">(</span><span class="nv">$_</span><span class="p">.</span><span class="n">AssignableScopes</span> <span class="n">-join</span> <span class="s1">', '</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s1">','</span><span class="p">,</span> <span class="s2">",</span><span class="se">`n</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-1-34"><a href="#__codelineno-1-34" id="__codelineno-1-34" name="__codelineno-1-34"></a>    <span class="p">}</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span> <span class="n">Id</span><span class="p">,</span> <span class="n">IsCustom</span><span class="p">,</span> <span class="n">Description</span><span class="p">,</span> <span class="n">Actions</span><span class="p">,</span> <span class="n">NotActions</span><span class="p">,</span> <span class="n">DataActions</span><span class="p">,</span> <span class="n">NotDataActions</span><span class="p">,</span> <span class="n">AssignableScopes</span>
+</span><span id="__span-1-35"><a href="#__codelineno-1-35" id="__codelineno-1-35" name="__codelineno-1-35"></a>
+</span><span id="__span-1-36"><a href="#__codelineno-1-36" id="__codelineno-1-36" name="__codelineno-1-36"></a>    <span class="k">return</span> <span class="nv">$customObject</span>
+</span><span id="__span-1-37"><a href="#__codelineno-1-37" id="__codelineno-1-37" name="__codelineno-1-37"></a><span class="p">}</span>
+</span><span id="__span-1-38"><a href="#__codelineno-1-38" id="__codelineno-1-38" name="__codelineno-1-38"></a>
+</span><span id="__span-1-39"><a href="#__codelineno-1-39" id="__codelineno-1-39" name="__codelineno-1-39"></a><span class="k">if</span> <span class="p">(</span><span class="nv">$OutputType</span> <span class="o">-eq</span> <span class="s1">'Console'</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-1-40"><a href="#__codelineno-1-40" id="__codelineno-1-40" name="__codelineno-1-40"></a>    <span class="c"># Output to console</span>
+</span><span id="__span-1-41"><a href="#__codelineno-1-41" id="__codelineno-1-41" name="__codelineno-1-41"></a>    <span class="nv">$roleDefinitions</span> <span class="p">|</span> <span class="nb">Format-Table</span> <span class="n">-AutoSize</span>
+</span><span id="__span-1-42"><a href="#__codelineno-1-42" id="__codelineno-1-42" name="__codelineno-1-42"></a><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span id="__span-1-43"><a href="#__codelineno-1-43" id="__codelineno-1-43" name="__codelineno-1-43"></a>    <span class="c"># Export to Excel</span>
+</span><span id="__span-1-44"><a href="#__codelineno-1-44" id="__codelineno-1-44" name="__codelineno-1-44"></a>    <span class="nv">$roleDefinitions</span> <span class="p">|</span> <span class="nb">Export-Excel</span> <span class="n">-Path</span> <span class="nv">$ExcelFilePath</span> <span class="n">-WorksheetName</span> <span class="s1">'Role Definitions'</span> <span class="n">-AutoSize</span> <span class="n">-AutoFilter</span>    
+</span><span id="__span-1-45"><a href="#__codelineno-1-45" id="__codelineno-1-45" name="__codelineno-1-45"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>This script takes the following parameters:</p>
+<ul>
+<li><code>OutputType</code>: A string parameter that specifies the output type. The default value is <code>'Console'</code>. You can also specify <code>'Excel'</code> to export the report to an Excel file.</li>
+<li><code>ExcelFilePath</code>: The path to the Excel file where you want to export the report. The default value is <code>".\AzRoleDefinition.xlsx"</code>.</li>
+</ul>
+<p>In the Excel report, you will see the following columns for each role definition: <code>Name</code>, <code>Id</code>, <code>IsCustom</code>, <code>Description</code>, <code>Actions</code>, <code>NotActions</code>, <code>DataActions</code>, <code>NotDataActions</code>, and <code>AssignableScopes</code>.</p>
+<h3 id="conclusion"><a class="toclink" href="20/how-to-create-assigment-reports-for-azure-rbac/#conclusion">Conclusion</a></h3>
+<p>In this article, we have shown you how to create reports for role assignments and role definitions in Azure using PowerShell and the ImportExcel module. These reports can help you better understand the permissions assigned to users, groups, and applications in your Azure environment and ensure that they are configured correctly. You can customize the scripts to include additional information or export the reports in different formats to suit your needs.</p>
+</div>
+</article>
+<nav class="md-pagination">
+<span class="md-pagination__current">1</span> <a class="md-pagination__link" href="page/2/">2</a> <a class="md-pagination__link" href="page/3/">3</a>
+</nav>
+</div>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2023-now Rafael Fernández
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://www.linkedin.com/in/rafaelfernandezd/" rel="noopener" target="_blank" title="LinkedIn">
+<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"></path></svg>
+</a>
+<a class="md-social__link" href="https://github.com/rfernandezdo" rel="noopener" target="_blank" title="GitHub">
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="https://rfernandezdo.github.io/feed_rss_created.xml" rel="noopener" target="_blank" title="RSS feed">
+<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M64 32C28.7 32 0 60.7 0 96v320c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64zm32 104c0-13.3 10.7-24 24-24 137 0 248 111 248 248 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-110.5-89.5-200-200-200-13.3 0-24-10.7-24-24m0 96c0-13.3 10.7-24 24-24 83.9 0 152 68.1 152 152 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-57.4-46.6-104-104-104-13.3 0-24-10.7-24-24m0 120a32 32 0 1 1 64 0 32 32 0 1 1-64 0"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tabs", "navigation.tabs.sticky", "navigation.expand", "navigation.sections", "navigation.top", "navigation.tracking", "toc.integrate", "toc.nested", "toc.smoothscroll", "footer", "content.code.copy", "content.code.select", "content.code.annotate", "content.tooltips"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../javascripts/tablesort.js"></script>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.mermaidConfig = {default: {
+    startOnLoad: false
+}};</script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

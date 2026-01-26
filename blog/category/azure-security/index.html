@@ -1,0 +1,2840 @@
+<!DOCTYPE html><html class="no-js" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width,initial-scale=1" name="viewport">
+<meta content="A blog about Azure, DevOps and other stuff" name="description">
+<meta content="Rafael Fernández" name="author">
+<link href="https://rfernandezdo.github.io/blog/category/azure-security/" rel="canonical">
+<link href="../azure-networking/" rel="prev">
+<link href="../azure-services/" rel="next">
+<link href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=es&amp;_x_tr_hl=es&amp;_x_tr_pto=wapp" hreflang="en" rel="alternate">
+<link href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=en&amp;_x_tr_hl=en&amp;_x_tr_pto=wapp" hreflang="es" rel="alternate">
+<link href="../../../feed_rss_created.xml" rel="alternate" title="RSS feed" type="application/rss+xml">
+<link href="../../../feed_rss_updated.xml" rel="alternate" title="RSS feed of updated content" type="application/rss+xml">
+<link href="../../../assets/images/favicon.png" rel="icon">
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.1" name="generator">
+<title>Azure Security - Un Rinconcito donde contar lo que quiera</title>
+<link href="../../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet">
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet">
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<meta content="website" property="og:type">
+<meta content="Azure Security - Un Rinconcito donde contar lo que quiera" property="og:title">
+<meta content="A blog about Azure, DevOps and other stuff" property="og:description">
+<meta content="https://rfernandezdo.github.io/assets/images/social/blog/category/azure-security.png" property="og:image">
+<meta content="image/png" property="og:image:type">
+<meta content="1200" property="og:image:width">
+<meta content="630" property="og:image:height">
+<meta content="https://rfernandezdo.github.io/blog/category/azure-security/" property="og:url">
+<meta content="summary_large_image" property="twitter:card">
+<meta content="Azure Security - Un Rinconcito donde contar lo que quiera" property="twitter:title">
+<meta content="A blog about Azure, DevOps and other stuff" property="twitter:description">
+<meta content="https://rfernandezdo.github.io/assets/images/social/blog/category/azure-security.png" property="twitter:image">
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+<body data-md-color-accent="blue" data-md-color-primary="blue" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox">
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox">
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#azure-security">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Un Rinconcito donde contar lo que quiera" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="Un Rinconcito donde contar lo que quiera">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Un Rinconcito donde contar lo que quiera
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Azure Security
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="blue" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio">
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="black" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio">
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="Select language" class="md-header__button md-icon">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=es&amp;_x_tr_hl=es&amp;_x_tr_pto=wapp" hreflang="en">
+              English
+            </a>
+</li>
+<li class="md-select__item">
+<a class="md-select__link" href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=en&amp;_x_tr_hl=en&amp;_x_tr_pto=wapp" hreflang="es">
+              Spanish
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text">
+<label class="md-search__icon md-icon" for="__search">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+  Blog
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+        
+  
+  
+    
+  
+  About
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../contributions/">
+        
+  
+  
+    
+  
+  Contributions
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../Azure/Security/MCSB/Readme/">
+          
+  
+  
+  Azure
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../Tools/Federated_Identity_Credentials_Report/README-federated-identity-credentials/">
+          
+  
+  
+  Tools
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Un Rinconcito donde contar lo que quiera" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="Un Rinconcito donde contar lo que quiera">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    Un Rinconcito donde contar lo que quiera
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_1" type="checkbox">
+<label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_1_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Blog
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../tags/">
+<span class="md-ellipsis">
+    
+  
+    Posts by Tags
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_1_3" type="checkbox">
+<label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Archive
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Archive
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/12/">
+<span class="md-ellipsis">
+    
+  
+    2025/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/11/">
+<span class="md-ellipsis">
+    
+  
+    2025/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/10/">
+<span class="md-ellipsis">
+    
+  
+    2025/10
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/09/">
+<span class="md-ellipsis">
+    
+  
+    2025/09
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/08/">
+<span class="md-ellipsis">
+    
+  
+    2025/08
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/07/">
+<span class="md-ellipsis">
+    
+  
+    2025/07
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/06/">
+<span class="md-ellipsis">
+    
+  
+    2025/06
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/05/">
+<span class="md-ellipsis">
+    
+  
+    2025/05
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/04/">
+<span class="md-ellipsis">
+    
+  
+    2025/04
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/03/">
+<span class="md-ellipsis">
+    
+  
+    2025/03
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/02/">
+<span class="md-ellipsis">
+    
+  
+    2025/02
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/01/">
+<span class="md-ellipsis">
+    
+  
+    2025/01
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/12/">
+<span class="md-ellipsis">
+    
+  
+    2024/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/11/">
+<span class="md-ellipsis">
+    
+  
+    2024/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/10/">
+<span class="md-ellipsis">
+    
+  
+    2024/10
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/09/">
+<span class="md-ellipsis">
+    
+  
+    2024/09
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/06/">
+<span class="md-ellipsis">
+    
+  
+    2024/06
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/05/">
+<span class="md-ellipsis">
+    
+  
+    2024/05
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/04/">
+<span class="md-ellipsis">
+    
+  
+    2024/04
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/03/">
+<span class="md-ellipsis">
+    
+  
+    2024/03
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/02/">
+<span class="md-ellipsis">
+    
+  
+    2024/02
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2023/12/">
+<span class="md-ellipsis">
+    
+  
+    2023/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2023/11/">
+<span class="md-ellipsis">
+    
+  
+    2023/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2023/10/">
+<span class="md-ellipsis">
+    
+  
+    2023/10
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_1_4" type="checkbox">
+<label class="md-nav__link" for="__nav_1_4" id="__nav_1_4_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Categories
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_1_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Categories
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../azure/">
+<span class="md-ellipsis">
+    
+  
+    Azure
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../azure-ad/">
+<span class="md-ellipsis">
+    
+  
+    Azure AD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../azure-automation/">
+<span class="md-ellipsis">
+    
+  
+    Azure Automation
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../azure-devops/">
+<span class="md-ellipsis">
+    
+  
+    Azure DevOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../azure-frameworks/">
+<span class="md-ellipsis">
+    
+  
+    Azure Frameworks
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../azure-governance/">
+<span class="md-ellipsis">
+    
+  
+    Azure Governance
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../azure-networking/">
+<span class="md-ellipsis">
+    
+  
+    Azure Networking
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox">
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    Azure Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../azure-services/">
+<span class="md-ellipsis">
+    
+  
+    Azure Services
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../azure-updates/">
+<span class="md-ellipsis">
+    
+  
+    Azure Updates
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../caf/">
+<span class="md-ellipsis">
+    
+  
+    CAF
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../cicd/">
+<span class="md-ellipsis">
+    
+  
+    CI/CD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../devops/">
+<span class="md-ellipsis">
+    
+  
+    DevOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../development/">
+<span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../drift-detection/">
+<span class="md-ellipsis">
+    
+  
+    Drift Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../english/">
+<span class="md-ellipsis">
+    
+  
+    English
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../enterprise-policy-as-code/">
+<span class="md-ellipsis">
+    
+  
+    Enterprise Policy as Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../finops/">
+<span class="md-ellipsis">
+    
+  
+    FinOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../firewall/">
+<span class="md-ellipsis">
+    
+  
+    Firewall
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../gtd/">
+<span class="md-ellipsis">
+    
+  
+    GTD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../git/">
+<span class="md-ellipsis">
+    
+  
+    Git
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../github-actions/">
+<span class="md-ellipsis">
+    
+  
+    GitHub Actions
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../hashicorp/">
+<span class="md-ellipsis">
+    
+  
+    HashiCorp
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../hello_world/">
+<span class="md-ellipsis">
+    
+  
+    Hello_World
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../infrastructure-as-code/">
+<span class="md-ellipsis">
+    
+  
+    Infrastructure as Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../learning/">
+<span class="md-ellipsis">
+    
+  
+    Learning
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../m365/">
+<span class="md-ellipsis">
+    
+  
+    M365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../microsoft-365/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft 365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../microsoft-entra/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../microsoft-entra-external-id/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra External ID
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../microsoft-entra-id/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra ID
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../networking/">
+<span class="md-ellipsis">
+    
+  
+    Networking
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../outlook/">
+<span class="md-ellipsis">
+    
+  
+    Outlook
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../pim/">
+<span class="md-ellipsis">
+    
+  
+    PIM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../power-automate/">
+<span class="md-ellipsis">
+    
+  
+    Power Automate
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../power-bi/">
+<span class="md-ellipsis">
+    
+  
+    Power BI
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../productividad/">
+<span class="md-ellipsis">
+    
+  
+    Productividad
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../productividad--microsoft-365/">
+<span class="md-ellipsis">
+    
+  
+    Productividad / Microsoft 365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../security/">
+<span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../seguridad/">
+<span class="md-ellipsis">
+    
+  
+    Seguridad
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../snowflake/">
+<span class="md-ellipsis">
+    
+  
+    Snowflake
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../terraform/">
+<span class="md-ellipsis">
+    
+  
+    Terraform
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../threat-intelligence/">
+<span class="md-ellipsis">
+    
+  
+    Threat Intelligence
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../tools/">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../troubleshooting/">
+<span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../visual-studio-code/">
+<span class="md-ellipsis">
+    
+  
+    Visual Studio Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../viva-insights/">
+<span class="md-ellipsis">
+    
+  
+    Viva Insights
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../windows/">
+<span class="md-ellipsis">
+    
+  
+    Windows
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../contributions/">
+<span class="md-ellipsis">
+    
+  
+    Contributions
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4" type="checkbox">
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Azure
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Azure
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Security
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1_1" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1_1" id="__nav_4_1_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    MCSB v1
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_4_1_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    MCSB v1
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Readme/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Readme
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Asset%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Asset Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Backup%20and%20Recovery/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Backup and Recovery
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Data%20Protection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Data Protection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/DevOps%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - DevOps Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Endpoint%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Endpoint Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Governance%20and%20Strategy/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Governance and Strategy
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Identity%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Identity Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Incident%20Response/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Incident Response
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Logging%20and%20Threat%20Detection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Logging and Threat Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Network%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Network Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Posture%20and%20Vulnerability%20Mgmt/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Posture and Vulnerability Mgmt
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Privileged%20Access/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Privileged Access
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1_2" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1_2" id="__nav_4_1_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_4_1_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    MCSB v2
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Index/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Cloud Security Benchmark v2
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Network%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Network Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Identity%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Identity Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Privileged%20Access/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Privileged Access
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Data%20Protection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Data Protection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Asset%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Asset Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Logging%20and%20Threat%20Detection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Logging and Threat Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Incident%20Response/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Incident Response
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Posture%20and%20Vulnerability%20Manag/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Posture and Vulnerability Manag
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Endpoint%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Endpoint Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Backup%20and%20Recovery/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Backup and Recovery
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Artificial%20Intelligence%20Securit/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Artificial Intelligence Securit
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5" type="checkbox">
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Tools
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5_1" type="checkbox">
+<label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Federated Identity Credentials Report
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_1_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Federated Identity Credentials Report
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Tools/Federated_Identity_Credentials_Report/README-federated-identity-credentials/">
+<span class="md-ellipsis">
+    
+  
+    Script de Reporte para Federated Identity Credentials
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5_2" type="checkbox">
+<label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Analyze Virtual Network Flows
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Analyze Virtual Network Flows
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Tools/Analyze_Virtual_Network_Flows/">
+<span class="md-ellipsis">
+    
+  
+    Analyze-VNETFlowLogs
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<div class="md-content__inner">
+<header class="md-typeset">
+<h1 id="azure-security">Azure Security</h1>
+</header>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2025-09-15 00:00:00+00:00">September 15, 2025</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="./">Azure Security</a>, 
+              <a class="md-meta__link" href="../networking/">Networking</a>, 
+              <a class="md-meta__link" href="../firewall/">Firewall</a>, 
+              <a class="md-meta__link" href="../threat-intelligence/">Threat Intelligence</a></li>
+<li class="md-meta__item">
+            
+              3 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="azure-firewall-premium-inspeccion-tls-threat-intelligence-y-reglas-avanzadas"><a class="toclink" href="../../2025/09/15/azure-firewall-premium-inspecci%C3%B3n-tls-threat-intelligence-y-reglas-avanzadas/">Azure Firewall Premium: inspección TLS, Threat Intelligence y reglas avanzadas</a></h2>
+<h3 id="resumen"><a class="toclink" href="../../2025/09/15/azure-firewall-premium-inspecci%C3%B3n-tls-threat-intelligence-y-reglas-avanzadas/#resumen">Resumen</a></h3>
+<p>Azure Firewall Premium añade inspección TLS, Threat Intelligence y reglas personalizadas para proteger redes cloud y híbridas. Este post va directo: cómo activar TLS inspection, usar Threat Intelligence, crear reglas avanzadas y monitorizar tráfico. Para admins y arquitectos que quieren seguridad real en producción.</p>
+<h3 id="que-es-azure-firewall-premium"><a class="toclink" href="../../2025/09/15/azure-firewall-premium-inspecci%C3%B3n-tls-threat-intelligence-y-reglas-avanzadas/#que-es-azure-firewall-premium">¿Qué es Azure Firewall Premium?</a></h3>
+<ul>
+<li>Firewall gestionado, escalable y centralizado</li>
+<li>Inspección TLS (decrypted traffic)</li>
+<li>Threat Intelligence (bloqueo IPs maliciosas)</li>
+<li>FQDN filtering, IDPS, reglas de aplicación y red</li>
+<li>Integración con Log Analytics y Sentinel</li>
+</ul>
+<h3 id="arquitectura-como-funciona"><a class="toclink" href="../../2025/09/15/azure-firewall-premium-inspecci%C3%B3n-tls-threat-intelligence-y-reglas-avanzadas/#arquitectura-como-funciona">Arquitectura / Cómo funciona</a></h3>
+<pre class="mermaid"><code>flowchart LR
+    Internet --&gt; FW[Azure Firewall Premium]
+    FW --&gt; VNet1[Prod VNet]
+    FW --&gt; VNet2[Dev VNet]
+    FW --&gt; OnPrem[On-Premises]
+    FW -.-&gt; LogAnalytics[Log Analytics]
+    FW -.-&gt; Sentinel[Azure Sentinel]
+</code></pre>
+<h3 id="activar-firewall-premium-y-tls-inspection"><a class="toclink" href="../../2025/09/15/azure-firewall-premium-inspecci%C3%B3n-tls-threat-intelligence-y-reglas-avanzadas/#activar-firewall-premium-y-tls-inspection">Activar Firewall Premium y TLS Inspection</a></h3>
+<ol>
+<li>Crear Firewall Premium:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a href="#__codelineno-7-1" id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="nv">RESOURCE_GROUP</span><span class="o">=</span><span class="s2">"rg-fw-prod"</span>
+</span><span id="__span-7-2"><a href="#__codelineno-7-2" id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="nv">LOCATION</span><span class="o">=</span><span class="s2">"westeurope"</span>
+</span><span id="__span-7-3"><a href="#__codelineno-7-3" id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="nv">FW_NAME</span><span class="o">=</span><span class="s2">"fw-premium-prod"</span>
+</span><span id="__span-7-4"><a href="#__codelineno-7-4" id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="nv">VNET_NAME</span><span class="o">=</span><span class="s2">"vnet-fw-prod"</span>
+</span><span id="__span-7-5"><a href="#__codelineno-7-5" id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="nv">SUBNET_NAME</span><span class="o">=</span><span class="s2">"AzureFirewallSubnet"</span>
+</span><span id="__span-7-6"><a href="#__codelineno-7-6" id="__codelineno-7-6" name="__codelineno-7-6"></a>
+</span><span id="__span-7-7"><a href="#__codelineno-7-7" id="__codelineno-7-7" name="__codelineno-7-7"></a>az<span class="w"> </span>network<span class="w"> </span>firewall<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-8"><a href="#__codelineno-7-8" id="__codelineno-7-8" name="__codelineno-7-8"></a><span class="w">  </span>--name<span class="w"> </span><span class="nv">$FW_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-9"><a href="#__codelineno-7-9" id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-10"><a href="#__codelineno-7-10" id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="w">  </span>--location<span class="w"> </span><span class="nv">$LOCATION</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-11"><a href="#__codelineno-7-11" id="__codelineno-7-11" name="__codelineno-7-11"></a><span class="w">  </span>--sku<span class="w"> </span>Premium
+</span></code></pre></div></li>
+<li>Crear certificado para TLS inspection:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a href="#__codelineno-8-1" id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="c1"># Generar certificado raíz (usando OpenSSL)</span>
+</span><span id="__span-8-2"><a href="#__codelineno-8-2" id="__codelineno-8-2" name="__codelineno-8-2"></a>openssl<span class="w"> </span>req<span class="w"> </span>-x509<span class="w"> </span>-newkey<span class="w"> </span>rsa:4096<span class="w"> </span>-keyout<span class="w"> </span>tls.key<span class="w"> </span>-out<span class="w"> </span>tls.crt<span class="w"> </span>-days<span class="w"> </span><span class="m">365</span><span class="w"> </span>-nodes<span class="w"> </span>-subj<span class="w"> </span><span class="s2">"/CN=AzureFirewallTLS"</span>
+</span><span id="__span-8-3"><a href="#__codelineno-8-3" id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="c1"># Subir a Key Vault</span>
+</span><span id="__span-8-4"><a href="#__codelineno-8-4" id="__codelineno-8-4" name="__codelineno-8-4"></a>az<span class="w"> </span>keyvault<span class="w"> </span>certificate<span class="w"> </span>import<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-5"><a href="#__codelineno-8-5" id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="w">  </span>--vault-name<span class="w"> </span>kv-fw-prod<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-6"><a href="#__codelineno-8-6" id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="w">  </span>--name<span class="w"> </span>fw-tls-root<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-7"><a href="#__codelineno-8-7" id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="w">  </span>--file<span class="w"> </span>tls.crt
+</span></code></pre></div></li>
+<li>Configurar TLS inspection:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a href="#__codelineno-9-1" id="__codelineno-9-1" name="__codelineno-9-1"></a>az<span class="w"> </span>network<span class="w"> </span>firewall<span class="w"> </span>policy<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-2"><a href="#__codelineno-9-2" id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="w">  </span>--name<span class="w"> </span>fw-policy-premium<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-3"><a href="#__codelineno-9-3" id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-4"><a href="#__codelineno-9-4" id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="w">  </span>--location<span class="w"> </span><span class="nv">$LOCATION</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-5"><a href="#__codelineno-9-5" id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="w">  </span>--sku<span class="w"> </span>Premium
+</span><span id="__span-9-6"><a href="#__codelineno-9-6" id="__codelineno-9-6" name="__codelineno-9-6"></a>az<span class="w"> </span>network<span class="w"> </span>firewall<span class="w"> </span>policy<span class="w"> </span>tls-inspection<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-7"><a href="#__codelineno-9-7" id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="w">  </span>--policy-name<span class="w"> </span>fw-policy-premium<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-8"><a href="#__codelineno-9-8" id="__codelineno-9-8" name="__codelineno-9-8"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-9"><a href="#__codelineno-9-9" id="__codelineno-9-9" name="__codelineno-9-9"></a><span class="w">  </span>--key-vault-secret-id<span class="w"> </span>&lt;KV_CERT_SECRET_ID&gt;
+</span></code></pre></div></li>
+</ol>
+<h3 id="threat-intelligence"><a class="toclink" href="../../2025/09/15/azure-firewall-premium-inspecci%C3%B3n-tls-threat-intelligence-y-reglas-avanzadas/#threat-intelligence">Threat Intelligence</a></h3>
+<ul>
+<li>Dos modos: "Alert" (solo avisa) y "Deny" (bloquea IPs maliciosas)
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a href="#__codelineno-10-1" id="__codelineno-10-1" name="__codelineno-10-1"></a>az<span class="w"> </span>network<span class="w"> </span>firewall<span class="w"> </span>policy<span class="w"> </span>threat-intel-set<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-2"><a href="#__codelineno-10-2" id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="w">  </span>--policy-name<span class="w"> </span>fw-policy-premium<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-3"><a href="#__codelineno-10-3" id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-4"><a href="#__codelineno-10-4" id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="w">  </span>--action<span class="w"> </span>Deny
+</span></code></pre></div></li>
+</ul>
+<h3 id="reglas-avanzadas"><a class="toclink" href="../../2025/09/15/azure-firewall-premium-inspecci%C3%B3n-tls-threat-intelligence-y-reglas-avanzadas/#reglas-avanzadas">Reglas avanzadas</a></h3>
+<ul>
+<li>Application rules: FQDN, URL, TLS</li>
+<li>Network rules: IP, port, protocol</li>
+<li>IDPS: detección y bloqueo de ataques
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a href="#__codelineno-11-1" id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="c1"># Application rule: solo permite https://github.com</span>
+</span><span id="__span-11-2"><a href="#__codelineno-11-2" id="__codelineno-11-2" name="__codelineno-11-2"></a>az<span class="w"> </span>network<span class="w"> </span>firewall<span class="w"> </span>policy<span class="w"> </span>rule-collection-group<span class="w"> </span>application-rule-collection<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-3"><a href="#__codelineno-11-3" id="__codelineno-11-3" name="__codelineno-11-3"></a><span class="w">  </span>--policy-name<span class="w"> </span>fw-policy-premium<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-4"><a href="#__codelineno-11-4" id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-5"><a href="#__codelineno-11-5" id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="w">  </span>--name<span class="w"> </span>app-allow-github<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-6"><a href="#__codelineno-11-6" id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="w">  </span>--priority<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-7"><a href="#__codelineno-11-7" id="__codelineno-11-7" name="__codelineno-11-7"></a><span class="w">  </span>--action<span class="w"> </span>Allow<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-8"><a href="#__codelineno-11-8" id="__codelineno-11-8" name="__codelineno-11-8"></a><span class="w">  </span>--rules<span class="w"> </span><span class="s1">'[{"name":"AllowGithub","sourceAddresses":["*"],"protocols":[{"protocolType":"Https","port":443}],"targetFqdns":["github.com"]}]'</span>
+</span><span id="__span-11-9"><a href="#__codelineno-11-9" id="__codelineno-11-9" name="__codelineno-11-9"></a>
+</span><span id="__span-11-10"><a href="#__codelineno-11-10" id="__codelineno-11-10" name="__codelineno-11-10"></a><span class="c1"># Network rule: solo permite TCP 443 a IP específica</span>
+</span><span id="__span-11-11"><a href="#__codelineno-11-11" id="__codelineno-11-11" name="__codelineno-11-11"></a>az<span class="w"> </span>network<span class="w"> </span>firewall<span class="w"> </span>policy<span class="w"> </span>rule-collection-group<span class="w"> </span>network-rule-collection<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-12"><a href="#__codelineno-11-12" id="__codelineno-11-12" name="__codelineno-11-12"></a><span class="w">  </span>--policy-name<span class="w"> </span>fw-policy-premium<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-13"><a href="#__codelineno-11-13" id="__codelineno-11-13" name="__codelineno-11-13"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-14"><a href="#__codelineno-11-14" id="__codelineno-11-14" name="__codelineno-11-14"></a><span class="w">  </span>--name<span class="w"> </span>net-allow-prod<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-15"><a href="#__codelineno-11-15" id="__codelineno-11-15" name="__codelineno-11-15"></a><span class="w">  </span>--priority<span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-16"><a href="#__codelineno-11-16" id="__codelineno-11-16" name="__codelineno-11-16"></a><span class="w">  </span>--action<span class="w"> </span>Allow<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-17"><a href="#__codelineno-11-17" id="__codelineno-11-17" name="__codelineno-11-17"></a><span class="w">  </span>--rules<span class="w"> </span><span class="s1">'[{"name":"AllowProd443","sourceAddresses":["10.0.0.0/24"],"destinationAddresses":["20.30.40.50"],"destinationPorts":["443"],"protocols":["TCP"]}]'</span>
+</span></code></pre></div></li>
+</ul>
+<h3 id="monitorizacion-y-logging"><a class="toclink" href="../../2025/09/15/azure-firewall-premium-inspecci%C3%B3n-tls-threat-intelligence-y-reglas-avanzadas/#monitorizacion-y-logging">Monitorización y logging</a></h3>
+<ul>
+<li>Integrar con Log Analytics:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a href="#__codelineno-12-1" id="__codelineno-12-1" name="__codelineno-12-1"></a>az<span class="w"> </span>monitor<span class="w"> </span>diagnostic-settings<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-2"><a href="#__codelineno-12-2" id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="w">  </span>--resource<span class="w"> </span>/subscriptions/<span class="nv">$SUB_ID</span>/resourceGroups/<span class="nv">$RESOURCE_GROUP</span>/providers/Microsoft.Network/azureFirewalls/<span class="nv">$FW_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-3"><a href="#__codelineno-12-3" id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="w">  </span>--workspace<span class="w"> </span><span class="nv">$LOG_ANALYTICS_ID</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-4"><a href="#__codelineno-12-4" id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="w">  </span>--name<span class="w"> </span>fw-logs<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-5"><a href="#__codelineno-12-5" id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="w">  </span>--logs<span class="w"> </span><span class="s1">'[{"category":"AzureFirewallApplicationRule","enabled":true},{"category":"AzureFirewallNetworkRule","enabled":true},{"category":"AzureFirewallDnsProxy","enabled":true}]'</span>
+</span></code></pre></div></li>
+<li>Queries KQL útiles:
+<div class="language-kusto highlight"><pre><span></span><code><span id="__span-13-1"><a href="#__codelineno-13-1" id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="c">// Top 10 destinos bloqueados</span>
+</span><span id="__span-13-2"><a href="#__codelineno-13-2" id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="n">AzureDiagnostics</span>
+</span><span id="__span-13-3"><a href="#__codelineno-13-3" id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="s">"AzureFirewallNetworkRule"</span>
+</span><span id="__span-13-4"><a href="#__codelineno-13-4" id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">action_s</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="s">"Deny"</span>
+</span><span id="__span-13-5"><a href="#__codelineno-13-5" id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="p">|</span><span class="w"> </span><span class="k">summarize</span><span class="w"> </span><span class="n">Count</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">count</span><span class="p">()</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">destination_ip_s</span>
+</span><span id="__span-13-6"><a href="#__codelineno-13-6" id="__codelineno-13-6" name="__codelineno-13-6"></a><span class="p">|</span><span class="w"> </span><span class="k">top</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Count</span><span class="w"> </span><span class="n">desc</span>
+</span><span id="__span-13-7"><a href="#__codelineno-13-7" id="__codelineno-13-7" name="__codelineno-13-7"></a>
+</span><span id="__span-13-8"><a href="#__codelineno-13-8" id="__codelineno-13-8" name="__codelineno-13-8"></a><span class="c">// Detección de ataques IDPS</span>
+</span><span id="__span-13-9"><a href="#__codelineno-13-9" id="__codelineno-13-9" name="__codelineno-13-9"></a><span class="n">AzureDiagnostics</span>
+</span><span id="__span-13-10"><a href="#__codelineno-13-10" id="__codelineno-13-10" name="__codelineno-13-10"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="s">"AzureFirewallIdpsSignature"</span>
+</span><span id="__span-13-11"><a href="#__codelineno-13-11" id="__codelineno-13-11" name="__codelineno-13-11"></a><span class="p">|</span><span class="w"> </span><span class="k">summarize</span><span class="w"> </span><span class="n">Count</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">count</span><span class="p">()</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">signature_name_s</span>
+</span><span id="__span-13-12"><a href="#__codelineno-13-12" id="__codelineno-13-12" name="__codelineno-13-12"></a><span class="p">|</span><span class="w"> </span><span class="k">top</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Count</span><span class="w"> </span><span class="n">desc</span>
+</span></code></pre></div></li>
+</ul>
+<h3 id="buenas-practicas"><a class="toclink" href="../../2025/09/15/azure-firewall-premium-inspecci%C3%B3n-tls-threat-intelligence-y-reglas-avanzadas/#buenas-practicas">Buenas prácticas</a></h3>
+<ul>
+<li>Usar TLS inspection solo para tráfico interno/confidencial</li>
+<li>Mantener certificados actualizados en Key Vault</li>
+<li>Threat Intelligence en modo "Deny" para entornos críticos</li>
+<li>Revisar logs y alertas semanalmente</li>
+<li>Segmentar reglas por entorno (dev, prod)</li>
+<li>Integrar con Sentinel para correlación de incidentes</li>
+</ul>
+<h3 id="costes"><a class="toclink" href="../../2025/09/15/azure-firewall-premium-inspecci%C3%B3n-tls-threat-intelligence-y-reglas-avanzadas/#costes">Costes</a></h3>
+<ul>
+<li>Firewall Premium: ~$1,500/mes por unidad</li>
+<li>Log Analytics: ~$2.30/GB</li>
+<li>Sentinel: ~$2.46/GB</li>
+</ul>
+<h3 id="referencias"><a class="toclink" href="../../2025/09/15/azure-firewall-premium-inspecci%C3%B3n-tls-threat-intelligence-y-reglas-avanzadas/#referencias">Referencias</a></h3>
+<ul>
+<li><a href="https://learn.microsoft.com/azure/firewall/premium-features">Azure Firewall Premium</a></li>
+<li><a href="https://learn.microsoft.com/azure/firewall/premium-features#tls-inspection">TLS Inspection</a></li>
+<li><a href="https://learn.microsoft.com/azure/firewall/threat-intel">Threat Intelligence</a></li>
+<li><a href="https://learn.microsoft.com/azure/firewall/log-analytics">Diagnostic Logging</a></li>
+<li><a href="https://learn.microsoft.com/azure/firewall/idps">IDPS</a></li>
+</ul>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2025-07-15 00:00:00+00:00">July 15, 2025</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="./">Azure Security</a></li>
+<li class="md-meta__item">
+            
+              11 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="microsoft-defender-for-cloud-cspm-governance-y-attack-paths"><a class="toclink" href="../../2025/07/15/microsoft-defender-for-cloud-cspm-governance-y-attack-paths/">Microsoft Defender for Cloud CSPM: Governance y Attack Paths</a></h2>
+<h3 id="resumen"><a class="toclink" href="../../2025/07/15/microsoft-defender-for-cloud-cspm-governance-y-attack-paths/#resumen">Resumen</a></h3>
+<p><strong>Defender CSPM (Cloud Security Posture Management)</strong> proporciona visibilidad avanzada de riesgos en entornos Azure, AWS y GCP mediante <strong>governance rules</strong> (asignación automática de owners y SLAs), <strong>attack path analysis</strong> (modelado de rutas de ataque explotables), <strong>Cloud Security Explorer</strong> (queries para detectar misconfiguraciones) y <strong>risk prioritization</strong> de recommendations. Plan Defender CSPM ~$12/recurso/mes.</p>
+<nav class="md-post__action">
+<a href="../../2025/07/15/microsoft-defender-for-cloud-cspm-governance-y-attack-paths/">
+          Continue reading
+        </a>
+</nav>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2025-02-21 00:00:00+00:00">February 21, 2025</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="./">Azure Security</a></li>
+<li class="md-meta__item">
+            
+              1 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="azure-firewall-vs-nsg-cuando-usar-cada-uno"><a class="toclink" href="../../2025/02/21/azure-firewall-vs-nsg-cu%C3%A1ndo-usar-cada-uno/">Azure Firewall vs NSG: Cuándo usar cada uno</a></h2>
+<h3 id="resumen"><a class="toclink" href="../../2025/02/21/azure-firewall-vs-nsg-cu%C3%A1ndo-usar-cada-uno/#resumen">Resumen</a></h3>
+<p>NSG filtra a nivel de subnet/NIC, Azure Firewall es un firewall centralizado con threat intelligence. No son excluyentes, se complementan.</p>
+<h3 id="introduccion"><a class="toclink" href="../../2025/02/21/azure-firewall-vs-nsg-cu%C3%A1ndo-usar-cada-uno/#introduccion">Introducción</a></h3>
+<p>[Contenido técnico detallado a desarrollar]</p>
+<h3 id="configuracion-basica"><a class="toclink" href="../../2025/02/21/azure-firewall-vs-nsg-cu%C3%A1ndo-usar-cada-uno/#configuracion-basica">Configuración básica</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1"># Comandos de ejemplo</span>
+</span><span id="__span-2-2"><a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="nv">RG</span><span class="o">=</span><span class="s2">"my-rg"</span>
+</span><span id="__span-2-3"><a href="#__codelineno-2-3" id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="nv">LOCATION</span><span class="o">=</span><span class="s2">"westeurope"</span>
+</span><span id="__span-2-4"><a href="#__codelineno-2-4" id="__codelineno-2-4" name="__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a href="#__codelineno-2-5" id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="c1"># Comandos Azure CLI</span>
+</span><span id="__span-2-6"><a href="#__codelineno-2-6" id="__codelineno-2-6" name="__codelineno-2-6"></a>az<span class="w"> </span>group<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span><span class="nv">$RG</span><span class="w"> </span>--location<span class="w"> </span><span class="nv">$LOCATION</span>
+</span></code></pre></div>
+<h3 id="casos-de-uso"><a class="toclink" href="../../2025/02/21/azure-firewall-vs-nsg-cu%C3%A1ndo-usar-cada-uno/#casos-de-uso">Casos de uso</a></h3>
+<ul>
+<li>Caso 1: [Descripción]</li>
+<li>Caso 2: [Descripción]  </li>
+<li>Caso 3: [Descripción]</li>
+</ul>
+<h3 id="buenas-practicas"><a class="toclink" href="../../2025/02/21/azure-firewall-vs-nsg-cu%C3%A1ndo-usar-cada-uno/#buenas-practicas">Buenas prácticas</a></h3>
+<ul>
+<li><strong>Práctica 1</strong>: Descripción</li>
+<li><strong>Práctica 2</strong>: Descripción</li>
+<li><strong>Práctica 3</strong>: Descripción</li>
+</ul>
+<h3 id="monitoreo-y-troubleshooting"><a class="toclink" href="../../2025/02/21/azure-firewall-vs-nsg-cu%C3%A1ndo-usar-cada-uno/#monitoreo-y-troubleshooting">Monitoreo y troubleshooting</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="c1"># Comandos de diagnóstico</span>
+</span><span id="__span-3-2"><a href="#__codelineno-3-2" id="__codelineno-3-2" name="__codelineno-3-2"></a>az<span class="w"> </span>monitor<span class="w"> </span>metrics<span class="w"> </span>list<span class="w"> </span>--resource<span class="w"> </span>...
+</span></code></pre></div>
+<h3 id="referencias"><a class="toclink" href="../../2025/02/21/azure-firewall-vs-nsg-cu%C3%A1ndo-usar-cada-uno/#referencias">Referencias</a></h3>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/azure/">Documentación oficial</a></li>
+</ul>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2025-02-01 00:00:00+00:00">February 1, 2025</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="./">Azure Security</a></li>
+<li class="md-meta__item">
+            
+              8 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="microsoft-sentinel-siem-cloud-native-para-tu-soc"><a class="toclink" href="../../2025/02/01/microsoft-sentinel-siem-cloud-native-para-tu-soc/">Microsoft Sentinel: SIEM cloud-native para tu SOC</a></h2>
+<h3 id="resumen"><a class="toclink" href="../../2025/02/01/microsoft-sentinel-siem-cloud-native-para-tu-soc/#resumen">Resumen</a></h3>
+<p><strong>Microsoft Sentinel</strong> es el SIEM (Security Information and Event Management) cloud-native de Azure que centraliza logs, detecta amenazas y automatiza respuestas. En este post verás cómo desplegar Sentinel, conectar data sources, crear reglas de detección y automatizar playbooks con Logic Apps.</p>
+<nav class="md-post__action">
+<a href="../../2025/02/01/microsoft-sentinel-siem-cloud-native-para-tu-soc/">
+          Continue reading
+        </a>
+</nav>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2025-01-28 00:00:00+00:00">January 28, 2025</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="./">Azure Security</a></li>
+<li class="md-meta__item">
+            
+              3 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="conditional-access-politicas-esenciales-para-zero-trust"><a class="toclink" href="../../2025/01/28/conditional-access-pol%C3%ADticas-esenciales-para-zero-trust/">Conditional Access: Políticas esenciales para Zero Trust</a></h2>
+<h3 id="resumen"><a class="toclink" href="../../2025/01/28/conditional-access-pol%C3%ADticas-esenciales-para-zero-trust/#resumen">Resumen</a></h3>
+<p>Conditional Access es el corazón de Zero Trust en Azure. aquí están las 5 políticas que deberías implementar HOY en tu tenant.</p>
+<h3 id="que-es-conditional-access"><a class="toclink" href="../../2025/01/28/conditional-access-pol%C3%ADticas-esenciales-para-zero-trust/#que-es-conditional-access">¿Qué es Conditional Access?</a></h3>
+<p>Conditional Access evalúa signals en tiempo real para decidir si permitir, bloquear o requerir MFA en un acceso:</p>
+<p><strong>Signals:</strong>
+- Usuario/grupo
+- Ubicación (IP ranges)
+- Dispositivo (managed, compliant)
+- Aplicación
+- Riesgo (Azure AD Identity Protection)</p>
+<p><strong>Decisiones:</strong>
+- Permitir
+- Bloquear
+- Requiere MFA
+- Requiere dispositivo compliant
+- Requiere hybrid Azure AD join</p>
+<h3 id="prerequisitos"><a class="toclink" href="../../2025/01/28/conditional-access-pol%C3%ADticas-esenciales-para-zero-trust/#prerequisitos">Prerequisitos</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a href="#__codelineno-13-1" id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="c1"># Verificar licencias (P1 mínimo)</span>
+</span><span id="__span-13-2"><a href="#__codelineno-13-2" id="__codelineno-13-2" name="__codelineno-13-2"></a>az<span class="w"> </span>ad<span class="w"> </span>signed-in-user<span class="w"> </span>show<span class="w"> </span>--query<span class="w"> </span><span class="s2">"assignedLicenses[].skuId"</span>
+</span><span id="__span-13-3"><a href="#__codelineno-13-3" id="__codelineno-13-3" name="__codelineno-13-3"></a>
+</span><span id="__span-13-4"><a href="#__codelineno-13-4" id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="c1"># Crear grupo de exclusión (break-glass accounts)</span>
+</span><span id="__span-13-5"><a href="#__codelineno-13-5" id="__codelineno-13-5" name="__codelineno-13-5"></a>az<span class="w"> </span>ad<span class="w"> </span>group<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-6"><a href="#__codelineno-13-6" id="__codelineno-13-6" name="__codelineno-13-6"></a><span class="w">  </span>--display-name<span class="w"> </span><span class="s2">"CA-Exclusion-Emergency"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-7"><a href="#__codelineno-13-7" id="__codelineno-13-7" name="__codelineno-13-7"></a><span class="w">  </span>--mail-nickname<span class="w"> </span><span class="s2">"ca-exclusion"</span>
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Break-glass accounts</p>
+<p>SIEMPRE excluye 2 cuentas de emergencia de todas las políticas CA. Si algo falla, necesitas acceso.</p>
+</div>
+<h3 id="politica-1-mfa-para-todos-los-admins"><a class="toclink" href="../../2025/01/28/conditional-access-pol%C3%ADticas-esenciales-para-zero-trust/#politica-1-mfa-para-todos-los-admins">Política 1: MFA para todos los admins</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a href="#__codelineno-14-1" id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="c1"># Esta política la creas desde el portal por ser más visual</span>
+</span><span id="__span-14-2"><a href="#__codelineno-14-2" id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="c1"># Portal → Azure AD → Security → Conditional Access</span>
+</span></code></pre></div>
+<p><strong>Configuración:</strong>
+- <strong>Usuarios</strong>: Todos los roles admin (Global Admin, Security Admin, etc.)
+- <strong>Cloud apps</strong>: Todas las aplicaciones
+- <strong>Condiciones</strong>: Ninguna
+- <strong>Grant</strong>: Require MFA
+- <strong>Estado</strong>: Report-only (primero testea)</p>
+<p>JSON de ejemplo (via API):</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-15-1"><a href="#__codelineno-15-1" id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="p">{</span>
+</span><span id="__span-15-2"><a href="#__codelineno-15-2" id="__codelineno-15-2" name="__codelineno-15-2"></a><span class="w">  </span><span class="nt">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CA001: Require MFA for administrators"</span><span class="p">,</span>
+</span><span id="__span-15-3"><a href="#__codelineno-15-3" id="__codelineno-15-3" name="__codelineno-15-3"></a><span class="w">  </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enabledForReportingButNotEnforced"</span><span class="p">,</span>
+</span><span id="__span-15-4"><a href="#__codelineno-15-4" id="__codelineno-15-4" name="__codelineno-15-4"></a><span class="w">  </span><span class="nt">"conditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-5"><a href="#__codelineno-15-5" id="__codelineno-15-5" name="__codelineno-15-5"></a><span class="w">    </span><span class="nt">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-6"><a href="#__codelineno-15-6" id="__codelineno-15-6" name="__codelineno-15-6"></a><span class="w">      </span><span class="nt">"includeRoles"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-15-7"><a href="#__codelineno-15-7" id="__codelineno-15-7" name="__codelineno-15-7"></a><span class="w">        </span><span class="s2">"62e90394-69f5-4237-9190-012177145e10"</span><span class="p">,</span><span class="w">  </span><span class="c1">// Global Admin</span>
+</span><span id="__span-15-8"><a href="#__codelineno-15-8" id="__codelineno-15-8" name="__codelineno-15-8"></a><span class="w">        </span><span class="s2">"194ae4cb-b126-40b2-bd5b-6091b380977d"</span><span class="w">   </span><span class="c1">// Security Admin</span>
+</span><span id="__span-15-9"><a href="#__codelineno-15-9" id="__codelineno-15-9" name="__codelineno-15-9"></a><span class="w">      </span><span class="p">],</span>
+</span><span id="__span-15-10"><a href="#__codelineno-15-10" id="__codelineno-15-10" name="__codelineno-15-10"></a><span class="w">      </span><span class="nt">"excludeGroups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"break-glass-group-id"</span><span class="p">]</span>
+</span><span id="__span-15-11"><a href="#__codelineno-15-11" id="__codelineno-15-11" name="__codelineno-15-11"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-15-12"><a href="#__codelineno-15-12" id="__codelineno-15-12" name="__codelineno-15-12"></a><span class="w">    </span><span class="nt">"applications"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-13"><a href="#__codelineno-15-13" id="__codelineno-15-13" name="__codelineno-15-13"></a><span class="w">      </span><span class="nt">"includeApplications"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"All"</span><span class="p">]</span>
+</span><span id="__span-15-14"><a href="#__codelineno-15-14" id="__codelineno-15-14" name="__codelineno-15-14"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-15-15"><a href="#__codelineno-15-15" id="__codelineno-15-15" name="__codelineno-15-15"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-15-16"><a href="#__codelineno-15-16" id="__codelineno-15-16" name="__codelineno-15-16"></a><span class="w">  </span><span class="nt">"grantControls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-17"><a href="#__codelineno-15-17" id="__codelineno-15-17" name="__codelineno-15-17"></a><span class="w">    </span><span class="nt">"operator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OR"</span><span class="p">,</span>
+</span><span id="__span-15-18"><a href="#__codelineno-15-18" id="__codelineno-15-18" name="__codelineno-15-18"></a><span class="w">    </span><span class="nt">"builtInControls"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"mfa"</span><span class="p">]</span>
+</span><span id="__span-15-19"><a href="#__codelineno-15-19" id="__codelineno-15-19" name="__codelineno-15-19"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-15-20"><a href="#__codelineno-15-20" id="__codelineno-15-20" name="__codelineno-15-20"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="politica-2-bloquear-legacy-authentication"><a class="toclink" href="../../2025/01/28/conditional-access-pol%C3%ADticas-esenciales-para-zero-trust/#politica-2-bloquear-legacy-authentication">Política 2: Bloquear legacy authentication</a></h3>
+<p>Legacy auth (IMAP, POP3, SMTP) no soporta MFA → vector de ataque.</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-16-1"><a href="#__codelineno-16-1" id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="p">{</span>
+</span><span id="__span-16-2"><a href="#__codelineno-16-2" id="__codelineno-16-2" name="__codelineno-16-2"></a><span class="w">  </span><span class="nt">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CA002: Block legacy authentication"</span><span class="p">,</span>
+</span><span id="__span-16-3"><a href="#__codelineno-16-3" id="__codelineno-16-3" name="__codelineno-16-3"></a><span class="w">  </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enabled"</span><span class="p">,</span>
+</span><span id="__span-16-4"><a href="#__codelineno-16-4" id="__codelineno-16-4" name="__codelineno-16-4"></a><span class="w">  </span><span class="nt">"conditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-5"><a href="#__codelineno-16-5" id="__codelineno-16-5" name="__codelineno-16-5"></a><span class="w">    </span><span class="nt">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-6"><a href="#__codelineno-16-6" id="__codelineno-16-6" name="__codelineno-16-6"></a><span class="w">      </span><span class="nt">"includeUsers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"All"</span><span class="p">],</span>
+</span><span id="__span-16-7"><a href="#__codelineno-16-7" id="__codelineno-16-7" name="__codelineno-16-7"></a><span class="w">      </span><span class="nt">"excludeGroups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"break-glass-group-id"</span><span class="p">]</span>
+</span><span id="__span-16-8"><a href="#__codelineno-16-8" id="__codelineno-16-8" name="__codelineno-16-8"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-16-9"><a href="#__codelineno-16-9" id="__codelineno-16-9" name="__codelineno-16-9"></a><span class="w">    </span><span class="nt">"applications"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-10"><a href="#__codelineno-16-10" id="__codelineno-16-10" name="__codelineno-16-10"></a><span class="w">      </span><span class="nt">"includeApplications"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"All"</span><span class="p">]</span>
+</span><span id="__span-16-11"><a href="#__codelineno-16-11" id="__codelineno-16-11" name="__codelineno-16-11"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-16-12"><a href="#__codelineno-16-12" id="__codelineno-16-12" name="__codelineno-16-12"></a><span class="w">    </span><span class="nt">"clientAppTypes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-16-13"><a href="#__codelineno-16-13" id="__codelineno-16-13" name="__codelineno-16-13"></a><span class="w">      </span><span class="s2">"exchangeActiveSync"</span><span class="p">,</span>
+</span><span id="__span-16-14"><a href="#__codelineno-16-14" id="__codelineno-16-14" name="__codelineno-16-14"></a><span class="w">      </span><span class="s2">"other"</span><span class="w">  </span><span class="c1">// Incluye IMAP, POP3, SMTP</span>
+</span><span id="__span-16-15"><a href="#__codelineno-16-15" id="__codelineno-16-15" name="__codelineno-16-15"></a><span class="w">    </span><span class="p">]</span>
+</span><span id="__span-16-16"><a href="#__codelineno-16-16" id="__codelineno-16-16" name="__codelineno-16-16"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-16-17"><a href="#__codelineno-16-17" id="__codelineno-16-17" name="__codelineno-16-17"></a><span class="w">  </span><span class="nt">"grantControls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-18"><a href="#__codelineno-16-18" id="__codelineno-16-18" name="__codelineno-16-18"></a><span class="w">    </span><span class="nt">"operator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OR"</span><span class="p">,</span>
+</span><span id="__span-16-19"><a href="#__codelineno-16-19" id="__codelineno-16-19" name="__codelineno-16-19"></a><span class="w">    </span><span class="nt">"builtInControls"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"block"</span><span class="p">]</span>
+</span><span id="__span-16-20"><a href="#__codelineno-16-20" id="__codelineno-16-20" name="__codelineno-16-20"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-16-21"><a href="#__codelineno-16-21" id="__codelineno-16-21" name="__codelineno-16-21"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="politica-3-requiere-managed-devices-para-apps-corporativas"><a class="toclink" href="../../2025/01/28/conditional-access-pol%C3%ADticas-esenciales-para-zero-trust/#politica-3-requiere-managed-devices-para-apps-corporativas">Política 3: Requiere managed devices para apps corporativas</a></h3>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-17-1"><a href="#__codelineno-17-1" id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="p">{</span>
+</span><span id="__span-17-2"><a href="#__codelineno-17-2" id="__codelineno-17-2" name="__codelineno-17-2"></a><span class="w">  </span><span class="nt">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CA003: Require compliant device for corporate apps"</span><span class="p">,</span>
+</span><span id="__span-17-3"><a href="#__codelineno-17-3" id="__codelineno-17-3" name="__codelineno-17-3"></a><span class="w">  </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enabled"</span><span class="p">,</span>
+</span><span id="__span-17-4"><a href="#__codelineno-17-4" id="__codelineno-17-4" name="__codelineno-17-4"></a><span class="w">  </span><span class="nt">"conditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-17-5"><a href="#__codelineno-17-5" id="__codelineno-17-5" name="__codelineno-17-5"></a><span class="w">    </span><span class="nt">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-17-6"><a href="#__codelineno-17-6" id="__codelineno-17-6" name="__codelineno-17-6"></a><span class="w">      </span><span class="nt">"includeUsers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"All"</span><span class="p">],</span>
+</span><span id="__span-17-7"><a href="#__codelineno-17-7" id="__codelineno-17-7" name="__codelineno-17-7"></a><span class="w">      </span><span class="nt">"excludeGroups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"break-glass-group-id"</span><span class="p">]</span>
+</span><span id="__span-17-8"><a href="#__codelineno-17-8" id="__codelineno-17-8" name="__codelineno-17-8"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-17-9"><a href="#__codelineno-17-9" id="__codelineno-17-9" name="__codelineno-17-9"></a><span class="w">    </span><span class="nt">"applications"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-17-10"><a href="#__codelineno-17-10" id="__codelineno-17-10" name="__codelineno-17-10"></a><span class="w">      </span><span class="nt">"includeApplications"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-17-11"><a href="#__codelineno-17-11" id="__codelineno-17-11" name="__codelineno-17-11"></a><span class="w">        </span><span class="s2">"00000003-0000-0000-c000-000000000000"</span><span class="p">,</span><span class="w">  </span><span class="c1">// Microsoft Graph</span>
+</span><span id="__span-17-12"><a href="#__codelineno-17-12" id="__codelineno-17-12" name="__codelineno-17-12"></a><span class="w">        </span><span class="s2">"Office365"</span>
+</span><span id="__span-17-13"><a href="#__codelineno-17-13" id="__codelineno-17-13" name="__codelineno-17-13"></a><span class="w">      </span><span class="p">]</span>
+</span><span id="__span-17-14"><a href="#__codelineno-17-14" id="__codelineno-17-14" name="__codelineno-17-14"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-17-15"><a href="#__codelineno-17-15" id="__codelineno-17-15" name="__codelineno-17-15"></a><span class="w">    </span><span class="nt">"platforms"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-17-16"><a href="#__codelineno-17-16" id="__codelineno-17-16" name="__codelineno-17-16"></a><span class="w">      </span><span class="nt">"includePlatforms"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"windows"</span><span class="p">,</span><span class="w"> </span><span class="s2">"macOS"</span><span class="p">,</span><span class="w"> </span><span class="s2">"iOS"</span><span class="p">,</span><span class="w"> </span><span class="s2">"android"</span><span class="p">]</span>
+</span><span id="__span-17-17"><a href="#__codelineno-17-17" id="__codelineno-17-17" name="__codelineno-17-17"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-17-18"><a href="#__codelineno-17-18" id="__codelineno-17-18" name="__codelineno-17-18"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-17-19"><a href="#__codelineno-17-19" id="__codelineno-17-19" name="__codelineno-17-19"></a><span class="w">  </span><span class="nt">"grantControls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-17-20"><a href="#__codelineno-17-20" id="__codelineno-17-20" name="__codelineno-17-20"></a><span class="w">    </span><span class="nt">"operator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OR"</span><span class="p">,</span>
+</span><span id="__span-17-21"><a href="#__codelineno-17-21" id="__codelineno-17-21" name="__codelineno-17-21"></a><span class="w">    </span><span class="nt">"builtInControls"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-17-22"><a href="#__codelineno-17-22" id="__codelineno-17-22" name="__codelineno-17-22"></a><span class="w">      </span><span class="s2">"compliantDevice"</span><span class="p">,</span>
+</span><span id="__span-17-23"><a href="#__codelineno-17-23" id="__codelineno-17-23" name="__codelineno-17-23"></a><span class="w">      </span><span class="s2">"domainJoinedDevice"</span>
+</span><span id="__span-17-24"><a href="#__codelineno-17-24" id="__codelineno-17-24" name="__codelineno-17-24"></a><span class="w">    </span><span class="p">]</span>
+</span><span id="__span-17-25"><a href="#__codelineno-17-25" id="__codelineno-17-25" name="__codelineno-17-25"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-17-26"><a href="#__codelineno-17-26" id="__codelineno-17-26" name="__codelineno-17-26"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="politica-4-bloquear-acceso-desde-paises-no-autorizados"><a class="toclink" href="../../2025/01/28/conditional-access-pol%C3%ADticas-esenciales-para-zero-trust/#politica-4-bloquear-acceso-desde-paises-no-autorizados">Política 4: Bloquear acceso desde países no autorizados</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a href="#__codelineno-18-1" id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="c1"># Crear Named Location</span>
+</span><span id="__span-18-2"><a href="#__codelineno-18-2" id="__codelineno-18-2" name="__codelineno-18-2"></a>az<span class="w"> </span>rest<span class="w"> </span>--method<span class="w"> </span>PUT<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-3"><a href="#__codelineno-18-3" id="__codelineno-18-3" name="__codelineno-18-3"></a><span class="w">  </span>--url<span class="w"> </span><span class="s1">'https://graph.microsoft.com/v1.0/identity/conditionalAccess/namedLocations'</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-4"><a href="#__codelineno-18-4" id="__codelineno-18-4" name="__codelineno-18-4"></a><span class="w">  </span>--body<span class="w"> </span><span class="s1">'{</span>
+</span><span id="__span-18-5"><a href="#__codelineno-18-5" id="__codelineno-18-5" name="__codelineno-18-5"></a><span class="s1">    "@odata.type": "#microsoft.graph.countryNamedLocation",</span>
+</span><span id="__span-18-6"><a href="#__codelineno-18-6" id="__codelineno-18-6" name="__codelineno-18-6"></a><span class="s1">    "displayName": "Blocked Countries",</span>
+</span><span id="__span-18-7"><a href="#__codelineno-18-7" id="__codelineno-18-7" name="__codelineno-18-7"></a><span class="s1">    "countriesAndRegions": ["KP", "IR", "SY"],</span>
+</span><span id="__span-18-8"><a href="#__codelineno-18-8" id="__codelineno-18-8" name="__codelineno-18-8"></a><span class="s1">    "includeUnknownCountriesAndRegions": false</span>
+</span><span id="__span-18-9"><a href="#__codelineno-18-9" id="__codelineno-18-9" name="__codelineno-18-9"></a><span class="s1">  }'</span>
+</span></code></pre></div>
+<p>Política:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-19-1"><a href="#__codelineno-19-1" id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="p">{</span>
+</span><span id="__span-19-2"><a href="#__codelineno-19-2" id="__codelineno-19-2" name="__codelineno-19-2"></a><span class="w">  </span><span class="nt">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CA004: Block access from blocked countries"</span><span class="p">,</span>
+</span><span id="__span-19-3"><a href="#__codelineno-19-3" id="__codelineno-19-3" name="__codelineno-19-3"></a><span class="w">  </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enabled"</span><span class="p">,</span>
+</span><span id="__span-19-4"><a href="#__codelineno-19-4" id="__codelineno-19-4" name="__codelineno-19-4"></a><span class="w">  </span><span class="nt">"conditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-19-5"><a href="#__codelineno-19-5" id="__codelineno-19-5" name="__codelineno-19-5"></a><span class="w">    </span><span class="nt">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-19-6"><a href="#__codelineno-19-6" id="__codelineno-19-6" name="__codelineno-19-6"></a><span class="w">      </span><span class="nt">"includeUsers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"All"</span><span class="p">],</span>
+</span><span id="__span-19-7"><a href="#__codelineno-19-7" id="__codelineno-19-7" name="__codelineno-19-7"></a><span class="w">      </span><span class="nt">"excludeGroups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"break-glass-group-id"</span><span class="p">,</span><span class="w"> </span><span class="s2">"travelers-group-id"</span><span class="p">]</span>
+</span><span id="__span-19-8"><a href="#__codelineno-19-8" id="__codelineno-19-8" name="__codelineno-19-8"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-19-9"><a href="#__codelineno-19-9" id="__codelineno-19-9" name="__codelineno-19-9"></a><span class="w">    </span><span class="nt">"applications"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-19-10"><a href="#__codelineno-19-10" id="__codelineno-19-10" name="__codelineno-19-10"></a><span class="w">      </span><span class="nt">"includeApplications"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"All"</span><span class="p">]</span>
+</span><span id="__span-19-11"><a href="#__codelineno-19-11" id="__codelineno-19-11" name="__codelineno-19-11"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-19-12"><a href="#__codelineno-19-12" id="__codelineno-19-12" name="__codelineno-19-12"></a><span class="w">    </span><span class="nt">"locations"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-19-13"><a href="#__codelineno-19-13" id="__codelineno-19-13" name="__codelineno-19-13"></a><span class="w">      </span><span class="nt">"includeLocations"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"blocked-countries-location-id"</span><span class="p">]</span>
+</span><span id="__span-19-14"><a href="#__codelineno-19-14" id="__codelineno-19-14" name="__codelineno-19-14"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-19-15"><a href="#__codelineno-19-15" id="__codelineno-19-15" name="__codelineno-19-15"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-19-16"><a href="#__codelineno-19-16" id="__codelineno-19-16" name="__codelineno-19-16"></a><span class="w">  </span><span class="nt">"grantControls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-19-17"><a href="#__codelineno-19-17" id="__codelineno-19-17" name="__codelineno-19-17"></a><span class="w">    </span><span class="nt">"operator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OR"</span><span class="p">,</span>
+</span><span id="__span-19-18"><a href="#__codelineno-19-18" id="__codelineno-19-18" name="__codelineno-19-18"></a><span class="w">    </span><span class="nt">"builtInControls"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"block"</span><span class="p">]</span>
+</span><span id="__span-19-19"><a href="#__codelineno-19-19" id="__codelineno-19-19" name="__codelineno-19-19"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-19-20"><a href="#__codelineno-19-20" id="__codelineno-19-20" name="__codelineno-19-20"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="politica-5-mfa-para-acceso-desde-fuera-de-red-corporativa"><a class="toclink" href="../../2025/01/28/conditional-access-pol%C3%ADticas-esenciales-para-zero-trust/#politica-5-mfa-para-acceso-desde-fuera-de-red-corporativa">Política 5: MFA para acceso desde fuera de red corporativa</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a href="#__codelineno-20-1" id="__codelineno-20-1" name="__codelineno-20-1"></a><span class="c1"># Crear Named Location para IPs corporativas</span>
+</span><span id="__span-20-2"><a href="#__codelineno-20-2" id="__codelineno-20-2" name="__codelineno-20-2"></a>az<span class="w"> </span>rest<span class="w"> </span>--method<span class="w"> </span>POST<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-3"><a href="#__codelineno-20-3" id="__codelineno-20-3" name="__codelineno-20-3"></a><span class="w">  </span>--url<span class="w"> </span><span class="s1">'https://graph.microsoft.com/v1.0/identity/conditionalAccess/namedLocations'</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-4"><a href="#__codelineno-20-4" id="__codelineno-20-4" name="__codelineno-20-4"></a><span class="w">  </span>--body<span class="w"> </span><span class="s1">'{</span>
+</span><span id="__span-20-5"><a href="#__codelineno-20-5" id="__codelineno-20-5" name="__codelineno-20-5"></a><span class="s1">    "@odata.type": "#microsoft.graph.ipNamedLocation",</span>
+</span><span id="__span-20-6"><a href="#__codelineno-20-6" id="__codelineno-20-6" name="__codelineno-20-6"></a><span class="s1">    "displayName": "Corporate Network",</span>
+</span><span id="__span-20-7"><a href="#__codelineno-20-7" id="__codelineno-20-7" name="__codelineno-20-7"></a><span class="s1">    "isTrusted": true,</span>
+</span><span id="__span-20-8"><a href="#__codelineno-20-8" id="__codelineno-20-8" name="__codelineno-20-8"></a><span class="s1">    "ipRanges": [</span>
+</span><span id="__span-20-9"><a href="#__codelineno-20-9" id="__codelineno-20-9" name="__codelineno-20-9"></a><span class="s1">      {"@odata.type": "#microsoft.graph.iPv4CidrRange", "cidrAddress": "203.0.113.0/24"},</span>
+</span><span id="__span-20-10"><a href="#__codelineno-20-10" id="__codelineno-20-10" name="__codelineno-20-10"></a><span class="s1">      {"@odata.type": "#microsoft.graph.iPv4CidrRange", "cidrAddress": "198.51.100.0/24"}</span>
+</span><span id="__span-20-11"><a href="#__codelineno-20-11" id="__codelineno-20-11" name="__codelineno-20-11"></a><span class="s1">    ]</span>
+</span><span id="__span-20-12"><a href="#__codelineno-20-12" id="__codelineno-20-12" name="__codelineno-20-12"></a><span class="s1">  }'</span>
+</span></code></pre></div>
+<p>Política:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-21-1"><a href="#__codelineno-21-1" id="__codelineno-21-1" name="__codelineno-21-1"></a><span class="p">{</span>
+</span><span id="__span-21-2"><a href="#__codelineno-21-2" id="__codelineno-21-2" name="__codelineno-21-2"></a><span class="w">  </span><span class="nt">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CA005: Require MFA for external access"</span><span class="p">,</span>
+</span><span id="__span-21-3"><a href="#__codelineno-21-3" id="__codelineno-21-3" name="__codelineno-21-3"></a><span class="w">  </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enabled"</span><span class="p">,</span>
+</span><span id="__span-21-4"><a href="#__codelineno-21-4" id="__codelineno-21-4" name="__codelineno-21-4"></a><span class="w">  </span><span class="nt">"conditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-21-5"><a href="#__codelineno-21-5" id="__codelineno-21-5" name="__codelineno-21-5"></a><span class="w">    </span><span class="nt">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-21-6"><a href="#__codelineno-21-6" id="__codelineno-21-6" name="__codelineno-21-6"></a><span class="w">      </span><span class="nt">"includeUsers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"All"</span><span class="p">],</span>
+</span><span id="__span-21-7"><a href="#__codelineno-21-7" id="__codelineno-21-7" name="__codelineno-21-7"></a><span class="w">      </span><span class="nt">"excludeGroups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"break-glass-group-id"</span><span class="p">]</span>
+</span><span id="__span-21-8"><a href="#__codelineno-21-8" id="__codelineno-21-8" name="__codelineno-21-8"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-21-9"><a href="#__codelineno-21-9" id="__codelineno-21-9" name="__codelineno-21-9"></a><span class="w">    </span><span class="nt">"applications"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-21-10"><a href="#__codelineno-21-10" id="__codelineno-21-10" name="__codelineno-21-10"></a><span class="w">      </span><span class="nt">"includeApplications"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"All"</span><span class="p">]</span>
+</span><span id="__span-21-11"><a href="#__codelineno-21-11" id="__codelineno-21-11" name="__codelineno-21-11"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-21-12"><a href="#__codelineno-21-12" id="__codelineno-21-12" name="__codelineno-21-12"></a><span class="w">    </span><span class="nt">"locations"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-21-13"><a href="#__codelineno-21-13" id="__codelineno-21-13" name="__codelineno-21-13"></a><span class="w">      </span><span class="nt">"includeLocations"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Any"</span><span class="p">],</span>
+</span><span id="__span-21-14"><a href="#__codelineno-21-14" id="__codelineno-21-14" name="__codelineno-21-14"></a><span class="w">      </span><span class="nt">"excludeLocations"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"corporate-network-location-id"</span><span class="p">]</span>
+</span><span id="__span-21-15"><a href="#__codelineno-21-15" id="__codelineno-21-15" name="__codelineno-21-15"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-21-16"><a href="#__codelineno-21-16" id="__codelineno-21-16" name="__codelineno-21-16"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-21-17"><a href="#__codelineno-21-17" id="__codelineno-21-17" name="__codelineno-21-17"></a><span class="w">  </span><span class="nt">"grantControls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-21-18"><a href="#__codelineno-21-18" id="__codelineno-21-18" name="__codelineno-21-18"></a><span class="w">    </span><span class="nt">"operator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OR"</span><span class="p">,</span>
+</span><span id="__span-21-19"><a href="#__codelineno-21-19" id="__codelineno-21-19" name="__codelineno-21-19"></a><span class="w">    </span><span class="nt">"builtInControls"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"mfa"</span><span class="p">]</span>
+</span><span id="__span-21-20"><a href="#__codelineno-21-20" id="__codelineno-21-20" name="__codelineno-21-20"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-21-21"><a href="#__codelineno-21-21" id="__codelineno-21-21" name="__codelineno-21-21"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="testing-con-report-only-mode"><a class="toclink" href="../../2025/01/28/conditional-access-pol%C3%ADticas-esenciales-para-zero-trust/#testing-con-report-only-mode">Testing con Report-Only mode</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a href="#__codelineno-22-1" id="__codelineno-22-1" name="__codelineno-22-1"></a><span class="c1"># Ver reportes de impacto</span>
+</span><span id="__span-22-2"><a href="#__codelineno-22-2" id="__codelineno-22-2" name="__codelineno-22-2"></a><span class="c1"># Portal → Azure AD → Sign-in logs → Conditional Access tab</span>
+</span></code></pre></div>
+<p>Analiza:
+- ¿Cuántos usuarios impactados?
+- ¿Algún servicio crítico bloqueado?
+- ¿Break-glass accounts funcionando?</p>
+<p>Después de 7-14 días de monitoring → cambiar a <code>enabled</code>.</p>
+<h3 id="monitoreo-continuo"><a class="toclink" href="../../2025/01/28/conditional-access-pol%C3%ADticas-esenciales-para-zero-trust/#monitoreo-continuo">Monitoreo continuo</a></h3>
+<p>Query en Log Analytics:</p>
+<div class="language-kusto highlight"><pre><span></span><code><span id="__span-23-1"><a href="#__codelineno-23-1" id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="n">SigninLogs</span>
+</span><span id="__span-23-2"><a href="#__codelineno-23-2" id="__codelineno-23-2" name="__codelineno-23-2"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">TimeGenerated</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="n">ago</span><span class="p">(</span><span class="mi">24</span><span class="n">h</span><span class="p">)</span>
+</span><span id="__span-23-3"><a href="#__codelineno-23-3" id="__codelineno-23-3" name="__codelineno-23-3"></a><span class="p">|</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">ConditionalAccessStatus</span><span class="w"> </span><span class="p">!=</span><span class="w"> </span><span class="s">"notApplied"</span>
+</span><span id="__span-23-4"><a href="#__codelineno-23-4" id="__codelineno-23-4" name="__codelineno-23-4"></a><span class="p">|</span><span class="w"> </span><span class="k">summarize</span><span class="w"> </span><span class="k">count</span><span class="p">()</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">ConditionalAccessStatus</span><span class="p">,</span><span class="w"> </span><span class="n">ConditionalAccessPolicies</span>
+</span><span id="__span-23-5"><a href="#__codelineno-23-5" id="__codelineno-23-5" name="__codelineno-23-5"></a><span class="p">|</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">count_</span><span class="w"> </span><span class="n">desc</span>
+</span></code></pre></div>
+<p>Alerta para fallos:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a href="#__codelineno-24-1" id="__codelineno-24-1" name="__codelineno-24-1"></a>az<span class="w"> </span>monitor<span class="w"> </span>scheduled-query<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-24-2"><a href="#__codelineno-24-2" id="__codelineno-24-2" name="__codelineno-24-2"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RG</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-24-3"><a href="#__codelineno-24-3" id="__codelineno-24-3" name="__codelineno-24-3"></a><span class="w">  </span>--name<span class="w"> </span>ca-policy-failures<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-24-4"><a href="#__codelineno-24-4" id="__codelineno-24-4" name="__codelineno-24-4"></a><span class="w">  </span>--scopes<span class="w"> </span>/subscriptions/<span class="o">{</span>sub-id<span class="o">}</span>/resourceGroups/<span class="nv">$RG</span>/providers/Microsoft.OperationalInsights/workspaces/my-law<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-24-5"><a href="#__codelineno-24-5" id="__codelineno-24-5" name="__codelineno-24-5"></a><span class="w">  </span>--condition<span class="w"> </span><span class="s2">"count 'SigninLogs | where ConditionalAccessStatus == \"failure\"' &gt; 10"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-24-6"><a href="#__codelineno-24-6" id="__codelineno-24-6" name="__codelineno-24-6"></a><span class="w">  </span>--window-size<span class="w"> </span>5m<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-24-7"><a href="#__codelineno-24-7" id="__codelineno-24-7" name="__codelineno-24-7"></a><span class="w">  </span>--evaluation-frequency<span class="w"> </span>5m<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-24-8"><a href="#__codelineno-24-8" id="__codelineno-24-8" name="__codelineno-24-8"></a><span class="w">  </span>--action<span class="w"> </span>/subscriptions/<span class="o">{</span>sub-id<span class="o">}</span>/resourceGroups/<span class="nv">$RG</span>/providers/Microsoft.Insights/actionGroups/security-team
+</span></code></pre></div>
+<h3 id="politica-avanzada-risk-based-con-identity-protection"><a class="toclink" href="../../2025/01/28/conditional-access-pol%C3%ADticas-esenciales-para-zero-trust/#politica-avanzada-risk-based-con-identity-protection">Política avanzada: Risk-based con Identity Protection</a></h3>
+<p>Requiere Azure AD P2:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-25-1"><a href="#__codelineno-25-1" id="__codelineno-25-1" name="__codelineno-25-1"></a><span class="p">{</span>
+</span><span id="__span-25-2"><a href="#__codelineno-25-2" id="__codelineno-25-2" name="__codelineno-25-2"></a><span class="w">  </span><span class="nt">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CA006: Block high risk sign-ins"</span><span class="p">,</span>
+</span><span id="__span-25-3"><a href="#__codelineno-25-3" id="__codelineno-25-3" name="__codelineno-25-3"></a><span class="w">  </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enabled"</span><span class="p">,</span>
+</span><span id="__span-25-4"><a href="#__codelineno-25-4" id="__codelineno-25-4" name="__codelineno-25-4"></a><span class="w">  </span><span class="nt">"conditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-25-5"><a href="#__codelineno-25-5" id="__codelineno-25-5" name="__codelineno-25-5"></a><span class="w">    </span><span class="nt">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-25-6"><a href="#__codelineno-25-6" id="__codelineno-25-6" name="__codelineno-25-6"></a><span class="w">      </span><span class="nt">"includeUsers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"All"</span><span class="p">],</span>
+</span><span id="__span-25-7"><a href="#__codelineno-25-7" id="__codelineno-25-7" name="__codelineno-25-7"></a><span class="w">      </span><span class="nt">"excludeGroups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"break-glass-group-id"</span><span class="p">]</span>
+</span><span id="__span-25-8"><a href="#__codelineno-25-8" id="__codelineno-25-8" name="__codelineno-25-8"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-25-9"><a href="#__codelineno-25-9" id="__codelineno-25-9" name="__codelineno-25-9"></a><span class="w">    </span><span class="nt">"applications"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-25-10"><a href="#__codelineno-25-10" id="__codelineno-25-10" name="__codelineno-25-10"></a><span class="w">      </span><span class="nt">"includeApplications"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"All"</span><span class="p">]</span>
+</span><span id="__span-25-11"><a href="#__codelineno-25-11" id="__codelineno-25-11" name="__codelineno-25-11"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-25-12"><a href="#__codelineno-25-12" id="__codelineno-25-12" name="__codelineno-25-12"></a><span class="w">    </span><span class="nt">"signInRiskLevels"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"high"</span><span class="p">]</span>
+</span><span id="__span-25-13"><a href="#__codelineno-25-13" id="__codelineno-25-13" name="__codelineno-25-13"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-25-14"><a href="#__codelineno-25-14" id="__codelineno-25-14" name="__codelineno-25-14"></a><span class="w">  </span><span class="nt">"grantControls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-25-15"><a href="#__codelineno-25-15" id="__codelineno-25-15" name="__codelineno-25-15"></a><span class="w">    </span><span class="nt">"operator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OR"</span><span class="p">,</span>
+</span><span id="__span-25-16"><a href="#__codelineno-25-16" id="__codelineno-25-16" name="__codelineno-25-16"></a><span class="w">    </span><span class="nt">"builtInControls"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"block"</span><span class="p">]</span>
+</span><span id="__span-25-17"><a href="#__codelineno-25-17" id="__codelineno-25-17" name="__codelineno-25-17"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-25-18"><a href="#__codelineno-25-18" id="__codelineno-25-18" name="__codelineno-25-18"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="buenas-practicas"><a class="toclink" href="../../2025/01/28/conditional-access-pol%C3%ADticas-esenciales-para-zero-trust/#buenas-practicas">Buenas prácticas</a></h3>
+<ul>
+<li><strong>Naming convention</strong>: <code>CA###: [Acción] for [Condición]</code></li>
+<li><strong>Report-only primero</strong>: Nunca actives sin testear</li>
+<li><strong>Exclusiones documentadas</strong>: Justifica cada grupo excluido</li>
+<li><strong>Review trimestral</strong>: Las políticas se vuelven obsoletas</li>
+<li><strong>Combinación de políticas</strong>: No crees una mega-política, divide por propósito</li>
+<li><strong>What If tool</strong>: Usa el simulador antes de activar</li>
+</ul>
+<div class="admonition danger">
+<p class="admonition-title">Errores comunes</p>
+<ul>
+<li>Bloquear sin break-glass accounts</li>
+<li>No testear en report-only mode</li>
+<li>Aplicar a "All apps" sin excluir Azure Management</li>
+<li>No documentar políticas</li>
+</ul>
+</div>
+<h3 id="referencias"><a class="toclink" href="../../2025/01/28/conditional-access-pol%C3%ADticas-esenciales-para-zero-trust/#referencias">Referencias</a></h3>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/entra/identity/conditional-access/overview">What is Conditional Access?</a></li>
+<li><a href="https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-conditional-access-policy-common">Conditional Access templates</a></li>
+<li><a href="https://learn.microsoft.com/en-us/entra/identity/conditional-access/plan-conditional-access">Plan a Conditional Access deployment</a></li>
+</ul>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2025-01-08 00:00:00+00:00">January 8, 2025</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="./">Azure Security</a></li>
+<li class="md-meta__item">
+            
+              4 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="azure-bastion-ssh-y-rdp-sin-exponer-ips-publicas"><a class="toclink" href="../../2025/01/08/azure-bastion-ssh-y-rdp-sin-exponer-ips-p%C3%BAblicas/">Azure Bastion: SSH y RDP sin exponer IPs públicas</a></h2>
+<h3 id="resumen"><a class="toclink" href="../../2025/01/08/azure-bastion-ssh-y-rdp-sin-exponer-ips-p%C3%BAblicas/#resumen">Resumen</a></h3>
+<p>Azure Bastion te permite conectarte a tus VMs sin asignarles IP pública. Funciona como jump server managed que accedes desde el portal de Azure. Ideal para cumplir con políticas de seguridad estrictas.</p>
+<h3 id="que-es-azure-bastion"><a class="toclink" href="../../2025/01/08/azure-bastion-ssh-y-rdp-sin-exponer-ips-p%C3%BAblicas/#que-es-azure-bastion">¿Qué es Azure Bastion?</a></h3>
+<p>Azure Bastion es un servicio PaaS que despliegas en tu VNet y proporciona:</p>
+<ul>
+<li>Conectividad RDP/SSH segura sobre SSL (puerto 443)</li>
+<li>Sin necesidad de IP pública en las VMs</li>
+<li>Sin agentes ni software cliente</li>
+<li>Protección contra port scanning y zero-day exploits</li>
+</ul>
+<h3 id="arquitectura"><a class="toclink" href="../../2025/01/08/azure-bastion-ssh-y-rdp-sin-exponer-ips-p%C3%BAblicas/#arquitectura">Arquitectura</a></h3>
+<pre class="mermaid"><code>graph LR
+    A[Usuario] --&gt;|HTTPS 443| B[Azure Bastion]
+    B --&gt;|Private IP| C[VM Linux SSH]
+    B --&gt;|Private IP| D[VM Windows RDP]
+    B -.subnet dedicado.- E[AzureBastionSubnet]
+</code></pre>
+<h3 id="despliegue-basico"><a class="toclink" href="../../2025/01/08/azure-bastion-ssh-y-rdp-sin-exponer-ips-p%C3%BAblicas/#despliegue-basico">Despliegue básico</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a href="#__codelineno-7-1" id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="c1"># Variables</span>
+</span><span id="__span-7-2"><a href="#__codelineno-7-2" id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="nv">RG</span><span class="o">=</span><span class="s2">"my-rg"</span>
+</span><span id="__span-7-3"><a href="#__codelineno-7-3" id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="nv">LOCATION</span><span class="o">=</span><span class="s2">"westeurope"</span>
+</span><span id="__span-7-4"><a href="#__codelineno-7-4" id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="nv">VNET_NAME</span><span class="o">=</span><span class="s2">"my-vnet"</span>
+</span><span id="__span-7-5"><a href="#__codelineno-7-5" id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="nv">BASTION_NAME</span><span class="o">=</span><span class="s2">"my-bastion"</span>
+</span><span id="__span-7-6"><a href="#__codelineno-7-6" id="__codelineno-7-6" name="__codelineno-7-6"></a>
+</span><span id="__span-7-7"><a href="#__codelineno-7-7" id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="c1"># Crear subnet específica para Bastion (nombre obligatorio)</span>
+</span><span id="__span-7-8"><a href="#__codelineno-7-8" id="__codelineno-7-8" name="__codelineno-7-8"></a>az<span class="w"> </span>network<span class="w"> </span>vnet<span class="w"> </span>subnet<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-9"><a href="#__codelineno-7-9" id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RG</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-10"><a href="#__codelineno-7-10" id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="w">  </span>--vnet-name<span class="w"> </span><span class="nv">$VNET_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-11"><a href="#__codelineno-7-11" id="__codelineno-7-11" name="__codelineno-7-11"></a><span class="w">  </span>--name<span class="w"> </span>AzureBastionSubnet<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-12"><a href="#__codelineno-7-12" id="__codelineno-7-12" name="__codelineno-7-12"></a><span class="w">  </span>--address-prefixes<span class="w"> </span><span class="m">10</span>.0.255.0/26
+</span><span id="__span-7-13"><a href="#__codelineno-7-13" id="__codelineno-7-13" name="__codelineno-7-13"></a>
+</span><span id="__span-7-14"><a href="#__codelineno-7-14" id="__codelineno-7-14" name="__codelineno-7-14"></a><span class="c1"># Crear IP pública para Bastion</span>
+</span><span id="__span-7-15"><a href="#__codelineno-7-15" id="__codelineno-7-15" name="__codelineno-7-15"></a>az<span class="w"> </span>network<span class="w"> </span>public-ip<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-16"><a href="#__codelineno-7-16" id="__codelineno-7-16" name="__codelineno-7-16"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RG</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-17"><a href="#__codelineno-7-17" id="__codelineno-7-17" name="__codelineno-7-17"></a><span class="w">  </span>--name<span class="w"> </span><span class="si">${</span><span class="nv">BASTION_NAME</span><span class="si">}</span>-pip<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-18"><a href="#__codelineno-7-18" id="__codelineno-7-18" name="__codelineno-7-18"></a><span class="w">  </span>--sku<span class="w"> </span>Standard<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-19"><a href="#__codelineno-7-19" id="__codelineno-7-19" name="__codelineno-7-19"></a><span class="w">  </span>--location<span class="w"> </span><span class="nv">$LOCATION</span>
+</span><span id="__span-7-20"><a href="#__codelineno-7-20" id="__codelineno-7-20" name="__codelineno-7-20"></a>
+</span><span id="__span-7-21"><a href="#__codelineno-7-21" id="__codelineno-7-21" name="__codelineno-7-21"></a><span class="c1"># Crear Azure Bastion</span>
+</span><span id="__span-7-22"><a href="#__codelineno-7-22" id="__codelineno-7-22" name="__codelineno-7-22"></a>az<span class="w"> </span>network<span class="w"> </span>bastion<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-23"><a href="#__codelineno-7-23" id="__codelineno-7-23" name="__codelineno-7-23"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RG</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-24"><a href="#__codelineno-7-24" id="__codelineno-7-24" name="__codelineno-7-24"></a><span class="w">  </span>--name<span class="w"> </span><span class="nv">$BASTION_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-25"><a href="#__codelineno-7-25" id="__codelineno-7-25" name="__codelineno-7-25"></a><span class="w">  </span>--public-ip-address<span class="w"> </span><span class="si">${</span><span class="nv">BASTION_NAME</span><span class="si">}</span>-pip<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-26"><a href="#__codelineno-7-26" id="__codelineno-7-26" name="__codelineno-7-26"></a><span class="w">  </span>--vnet-name<span class="w"> </span><span class="nv">$VNET_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-27"><a href="#__codelineno-7-27" id="__codelineno-7-27" name="__codelineno-7-27"></a><span class="w">  </span>--location<span class="w"> </span><span class="nv">$LOCATION</span>
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Requisitos de subnet</p>
+<ul>
+<li>El subnet DEBE llamarse <code>AzureBastionSubnet</code></li>
+<li>Mínimo /26 (64 IPs)</li>
+<li>No puede tener NSG restrictivo</li>
+</ul>
+</div>
+<h3 id="conexion-a-vms"><a class="toclink" href="../../2025/01/08/azure-bastion-ssh-y-rdp-sin-exponer-ips-p%C3%BAblicas/#conexion-a-vms">Conexión a VMs</a></h3>
+<h4 id="desde-el-portal"><a class="toclink" href="../../2025/01/08/azure-bastion-ssh-y-rdp-sin-exponer-ips-p%C3%BAblicas/#desde-el-portal">Desde el Portal</a></h4>
+<ol>
+<li>Ir a la VM → Connect → Bastion</li>
+<li>Introducir credenciales</li>
+<li>Conectar en el navegador</li>
+</ol>
+<h4 id="desde-cli-requiere-standard-sku"><a class="toclink" href="../../2025/01/08/azure-bastion-ssh-y-rdp-sin-exponer-ips-p%C3%BAblicas/#desde-cli-requiere-standard-sku">Desde CLI (requiere Standard SKU)</a></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a href="#__codelineno-8-1" id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="c1"># Conectar a VM Linux</span>
+</span><span id="__span-8-2"><a href="#__codelineno-8-2" id="__codelineno-8-2" name="__codelineno-8-2"></a>az<span class="w"> </span>network<span class="w"> </span>bastion<span class="w"> </span>ssh<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-3"><a href="#__codelineno-8-3" id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RG</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-4"><a href="#__codelineno-8-4" id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="w">  </span>--name<span class="w"> </span><span class="nv">$BASTION_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-5"><a href="#__codelineno-8-5" id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="w">  </span>--target-resource-id<span class="w"> </span>/subscriptions/<span class="o">{</span>sub-id<span class="o">}</span>/resourceGroups/<span class="nv">$RG</span>/providers/Microsoft.Compute/virtualMachines/my-linux-vm<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-6"><a href="#__codelineno-8-6" id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="w">  </span>--auth-type<span class="w"> </span>password<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-7"><a href="#__codelineno-8-7" id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="w">  </span>--username<span class="w"> </span>azureuser
+</span><span id="__span-8-8"><a href="#__codelineno-8-8" id="__codelineno-8-8" name="__codelineno-8-8"></a>
+</span><span id="__span-8-9"><a href="#__codelineno-8-9" id="__codelineno-8-9" name="__codelineno-8-9"></a><span class="c1"># Conectar a VM Windows (requiere native client)</span>
+</span><span id="__span-8-10"><a href="#__codelineno-8-10" id="__codelineno-8-10" name="__codelineno-8-10"></a>az<span class="w"> </span>network<span class="w"> </span>bastion<span class="w"> </span>rdp<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-11"><a href="#__codelineno-8-11" id="__codelineno-8-11" name="__codelineno-8-11"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RG</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-12"><a href="#__codelineno-8-12" id="__codelineno-8-12" name="__codelineno-8-12"></a><span class="w">  </span>--name<span class="w"> </span><span class="nv">$BASTION_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-13"><a href="#__codelineno-8-13" id="__codelineno-8-13" name="__codelineno-8-13"></a><span class="w">  </span>--target-resource-id<span class="w"> </span>/subscriptions/<span class="o">{</span>sub-id<span class="o">}</span>/resourceGroups/<span class="nv">$RG</span>/providers/Microsoft.Compute/virtualMachines/my-windows-vm
+</span></code></pre></div>
+<h3 id="skus-disponibles"><a class="toclink" href="../../2025/01/08/azure-bastion-ssh-y-rdp-sin-exponer-ips-p%C3%BAblicas/#skus-disponibles">SKUs disponibles</a></h3>
+<table>
+<thead>
+<tr>
+<th>SKU</th>
+<th>Características</th>
+<th>Precio aprox.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Basic</strong></td>
+<td>RDP/SSH desde portal</td>
+<td>~140€/mes</td>
+</tr>
+<tr>
+<td><strong>Standard</strong></td>
+<td>+ CLI access, file copy, IP-based connection</td>
+<td>~140€/mes + instancias</td>
+</tr>
+<tr>
+<td><strong>Premium</strong></td>
+<td>+ Kerberos auth, session recording</td>
+<td>En preview</td>
+</tr>
+</tbody>
+</table>
+<h3 id="standard-sku-funcionalidades-avanzadas"><a class="toclink" href="../../2025/01/08/azure-bastion-ssh-y-rdp-sin-exponer-ips-p%C3%BAblicas/#standard-sku-funcionalidades-avanzadas">Standard SKU: Funcionalidades avanzadas</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a href="#__codelineno-9-1" id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="c1"># Actualizar a Standard SKU y habilitar features</span>
+</span><span id="__span-9-2"><a href="#__codelineno-9-2" id="__codelineno-9-2" name="__codelineno-9-2"></a>az<span class="w"> </span>network<span class="w"> </span>bastion<span class="w"> </span>update<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-3"><a href="#__codelineno-9-3" id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RG</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-4"><a href="#__codelineno-9-4" id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="w">  </span>--name<span class="w"> </span><span class="nv">$BASTION_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-5"><a href="#__codelineno-9-5" id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="w">  </span>--sku<span class="w"> </span>Standard<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-6"><a href="#__codelineno-9-6" id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="w">  </span>--enable-tunneling<span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-7"><a href="#__codelineno-9-7" id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="w">  </span>--enable-ip-connect<span class="w"> </span><span class="nb">true</span>
+</span><span id="__span-9-8"><a href="#__codelineno-9-8" id="__codelineno-9-8" name="__codelineno-9-8"></a>
+</span><span id="__span-9-9"><a href="#__codelineno-9-9" id="__codelineno-9-9" name="__codelineno-9-9"></a><span class="c1"># Escalar instancias (2-50) para alta disponibilidad</span>
+</span><span id="__span-9-10"><a href="#__codelineno-9-10" id="__codelineno-9-10" name="__codelineno-9-10"></a>az<span class="w"> </span>network<span class="w"> </span>bastion<span class="w"> </span>update<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-11"><a href="#__codelineno-9-11" id="__codelineno-9-11" name="__codelineno-9-11"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RG</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-12"><a href="#__codelineno-9-12" id="__codelineno-9-12" name="__codelineno-9-12"></a><span class="w">  </span>--name<span class="w"> </span><span class="nv">$BASTION_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-13"><a href="#__codelineno-9-13" id="__codelineno-9-13" name="__codelineno-9-13"></a><span class="w">  </span>--scale-units<span class="w"> </span><span class="m">3</span>
+</span></code></pre></div>
+<p><strong>Nuevas capacidades con Standard:</strong>
+- <strong>Native client support</strong>: Conectar con tu cliente SSH/RDP local vía <code>az network bastion</code>
+- <strong>IP-based connection</strong>: Conectar a cualquier IP dentro de la VNet
+- <strong>File transfer</strong>: Upload/download archivos vía tunnel
+- <strong>Tunneling</strong>: Crear túneles SSH para port forwarding
+- <strong>Shareable link</strong>: Generar URLs para acceso temporal (requiere Premium)</p>
+<h3 id="copiar-archivos-standard-sku-con-tunneling"><a class="toclink" href="../../2025/01/08/azure-bastion-ssh-y-rdp-sin-exponer-ips-p%C3%BAblicas/#copiar-archivos-standard-sku-con-tunneling">Copiar archivos (Standard SKU con tunneling)</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a href="#__codelineno-10-1" id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="c1"># Crear tunnel SSH para file transfer</span>
+</span><span id="__span-10-2"><a href="#__codelineno-10-2" id="__codelineno-10-2" name="__codelineno-10-2"></a>az<span class="w"> </span>network<span class="w"> </span>bastion<span class="w"> </span>tunnel<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-3"><a href="#__codelineno-10-3" id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RG</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-4"><a href="#__codelineno-10-4" id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="w">  </span>--name<span class="w"> </span><span class="nv">$BASTION_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-5"><a href="#__codelineno-10-5" id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="w">  </span>--target-resource-id<span class="w"> </span>/subscriptions/<span class="o">{</span>sub<span class="o">}</span>/resourceGroups/<span class="nv">$RG</span>/providers/Microsoft.Compute/virtualMachines/my-vm<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-6"><a href="#__codelineno-10-6" id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="w">  </span>--resource-port<span class="w"> </span><span class="m">22</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-7"><a href="#__codelineno-10-7" id="__codelineno-10-7" name="__codelineno-10-7"></a><span class="w">  </span>--port<span class="w"> </span><span class="m">2222</span>
+</span><span id="__span-10-8"><a href="#__codelineno-10-8" id="__codelineno-10-8" name="__codelineno-10-8"></a>
+</span><span id="__span-10-9"><a href="#__codelineno-10-9" id="__codelineno-10-9" name="__codelineno-10-9"></a><span class="c1"># En otra terminal: upload archivo</span>
+</span><span id="__span-10-10"><a href="#__codelineno-10-10" id="__codelineno-10-10" name="__codelineno-10-10"></a>scp<span class="w"> </span>-P<span class="w"> </span><span class="m">2222</span><span class="w"> </span>local-file.txt<span class="w"> </span>azureuser@localhost:/home/azureuser/
+</span><span id="__span-10-11"><a href="#__codelineno-10-11" id="__codelineno-10-11" name="__codelineno-10-11"></a>
+</span><span id="__span-10-12"><a href="#__codelineno-10-12" id="__codelineno-10-12" name="__codelineno-10-12"></a><span class="c1"># Download archivo</span>
+</span><span id="__span-10-13"><a href="#__codelineno-10-13" id="__codelineno-10-13" name="__codelineno-10-13"></a>scp<span class="w"> </span>-P<span class="w"> </span><span class="m">2222</span><span class="w"> </span>azureuser@localhost:/home/azureuser/remote-file.txt<span class="w"> </span>./
+</span></code></pre></div>
+<p><strong>Tunnel para RDP:</strong>
+</p><div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a href="#__codelineno-11-1" id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="c1"># Crear tunnel RDP (puerto 3389)</span>
+</span><span id="__span-11-2"><a href="#__codelineno-11-2" id="__codelineno-11-2" name="__codelineno-11-2"></a>az<span class="w"> </span>network<span class="w"> </span>bastion<span class="w"> </span>tunnel<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-3"><a href="#__codelineno-11-3" id="__codelineno-11-3" name="__codelineno-11-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RG</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-4"><a href="#__codelineno-11-4" id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="w">  </span>--name<span class="w"> </span><span class="nv">$BASTION_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-5"><a href="#__codelineno-11-5" id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="w">  </span>--target-resource-id<span class="w"> </span>/subscriptions/<span class="o">{</span>sub<span class="o">}</span>/resourceGroups/<span class="nv">$RG</span>/providers/Microsoft.Compute/virtualMachines/my-windows-vm<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-6"><a href="#__codelineno-11-6" id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="w">  </span>--resource-port<span class="w"> </span><span class="m">3389</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-7"><a href="#__codelineno-11-7" id="__codelineno-11-7" name="__codelineno-11-7"></a><span class="w">  </span>--port<span class="w"> </span><span class="m">13389</span>
+</span><span id="__span-11-8"><a href="#__codelineno-11-8" id="__codelineno-11-8" name="__codelineno-11-8"></a>
+</span><span id="__span-11-9"><a href="#__codelineno-11-9" id="__codelineno-11-9" name="__codelineno-11-9"></a><span class="c1"># Conectar con cliente RDP local a localhost:13389</span>
+</span><span id="__span-11-10"><a href="#__codelineno-11-10" id="__codelineno-11-10" name="__codelineno-11-10"></a>mstsc<span class="w"> </span>/v:localhost:13389
+</span></code></pre></div><p></p>
+<h3 id="monitoreo"><a class="toclink" href="../../2025/01/08/azure-bastion-ssh-y-rdp-sin-exponer-ips-p%C3%BAblicas/#monitoreo">Monitoreo</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a href="#__codelineno-12-1" id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="c1"># Ver métricas de sesiones</span>
+</span><span id="__span-12-2"><a href="#__codelineno-12-2" id="__codelineno-12-2" name="__codelineno-12-2"></a>az<span class="w"> </span>monitor<span class="w"> </span>metrics<span class="w"> </span>list<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-3"><a href="#__codelineno-12-3" id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="w">  </span>--resource<span class="w"> </span>/subscriptions/<span class="o">{</span>sub-id<span class="o">}</span>/resourceGroups/<span class="nv">$RG</span>/providers/Microsoft.Network/bastionHosts/<span class="nv">$BASTION_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-4"><a href="#__codelineno-12-4" id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="w">  </span>--metric<span class="w"> </span><span class="s2">"Sessions"</span>
+</span><span id="__span-12-5"><a href="#__codelineno-12-5" id="__codelineno-12-5" name="__codelineno-12-5"></a>
+</span><span id="__span-12-6"><a href="#__codelineno-12-6" id="__codelineno-12-6" name="__codelineno-12-6"></a><span class="c1"># Diagnostic logs</span>
+</span><span id="__span-12-7"><a href="#__codelineno-12-7" id="__codelineno-12-7" name="__codelineno-12-7"></a>az<span class="w"> </span>monitor<span class="w"> </span>diagnostic-settings<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-8"><a href="#__codelineno-12-8" id="__codelineno-12-8" name="__codelineno-12-8"></a><span class="w">  </span>--resource<span class="w"> </span>/subscriptions/<span class="o">{</span>sub-id<span class="o">}</span>/resourceGroups/<span class="nv">$RG</span>/providers/Microsoft.Network/bastionHosts/<span class="nv">$BASTION_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-9"><a href="#__codelineno-12-9" id="__codelineno-12-9" name="__codelineno-12-9"></a><span class="w">  </span>--name<span class="w"> </span>bastion-logs<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-10"><a href="#__codelineno-12-10" id="__codelineno-12-10" name="__codelineno-12-10"></a><span class="w">  </span>--workspace<span class="w"> </span>/subscriptions/<span class="o">{</span>sub-id<span class="o">}</span>/resourceGroups/<span class="nv">$RG</span>/providers/Microsoft.OperationalInsights/workspaces/my-law<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-11"><a href="#__codelineno-12-11" id="__codelineno-12-11" name="__codelineno-12-11"></a><span class="w">  </span>--logs<span class="w"> </span><span class="s1">'[{"category": "BastionAuditLogs", "enabled": true}]'</span>
+</span></code></pre></div>
+<h3 id="buenas-practicas"><a class="toclink" href="../../2025/01/08/azure-bastion-ssh-y-rdp-sin-exponer-ips-p%C3%BAblicas/#buenas-practicas">Buenas prácticas</a></h3>
+<ul>
+<li><strong>NSG en subnets de VMs</strong>: Permite solo tráfico desde AzureBastionSubnet</li>
+<li><strong>JIT Access</strong>: Combina con Microsoft Defender for Cloud JIT</li>
+<li><strong>Session recording</strong>: Habilita en Premium SKU para compliance</li>
+<li><strong>Firewall rules</strong>: Bastion necesita acceso saliente a Internet (servicios Azure)</li>
+<li><strong>Disaster recovery</strong>: Despliega Bastion en múltiples regiones</li>
+</ul>
+<h3 id="restricciones-de-red-nsg"><a class="toclink" href="../../2025/01/08/azure-bastion-ssh-y-rdp-sin-exponer-ips-p%C3%BAblicas/#restricciones-de-red-nsg">Restricciones de red (NSG)</a></h3>
+<p>El subnet <code>AzureBastionSubnet</code> requiere reglas NSG específicas:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a href="#__codelineno-13-1" id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="c1"># Crear NSG para AzureBastionSubnet</span>
+</span><span id="__span-13-2"><a href="#__codelineno-13-2" id="__codelineno-13-2" name="__codelineno-13-2"></a>az<span class="w"> </span>network<span class="w"> </span>nsg<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-3"><a href="#__codelineno-13-3" id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RG</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-4"><a href="#__codelineno-13-4" id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="w">  </span>--name<span class="w"> </span><span class="si">${</span><span class="nv">BASTION_NAME</span><span class="si">}</span>-nsg
+</span><span id="__span-13-5"><a href="#__codelineno-13-5" id="__codelineno-13-5" name="__codelineno-13-5"></a>
+</span><span id="__span-13-6"><a href="#__codelineno-13-6" id="__codelineno-13-6" name="__codelineno-13-6"></a><span class="c1"># Inbound: HTTPS desde Internet</span>
+</span><span id="__span-13-7"><a href="#__codelineno-13-7" id="__codelineno-13-7" name="__codelineno-13-7"></a>az<span class="w"> </span>network<span class="w"> </span>nsg<span class="w"> </span>rule<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-8"><a href="#__codelineno-13-8" id="__codelineno-13-8" name="__codelineno-13-8"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RG</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-9"><a href="#__codelineno-13-9" id="__codelineno-13-9" name="__codelineno-13-9"></a><span class="w">  </span>--nsg-name<span class="w"> </span><span class="si">${</span><span class="nv">BASTION_NAME</span><span class="si">}</span>-nsg<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-10"><a href="#__codelineno-13-10" id="__codelineno-13-10" name="__codelineno-13-10"></a><span class="w">  </span>--name<span class="w"> </span>AllowHttpsInbound<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-11"><a href="#__codelineno-13-11" id="__codelineno-13-11" name="__codelineno-13-11"></a><span class="w">  </span>--priority<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-12"><a href="#__codelineno-13-12" id="__codelineno-13-12" name="__codelineno-13-12"></a><span class="w">  </span>--source-address-prefixes<span class="w"> </span>Internet<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-13"><a href="#__codelineno-13-13" id="__codelineno-13-13" name="__codelineno-13-13"></a><span class="w">  </span>--destination-port-ranges<span class="w"> </span><span class="m">443</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-14"><a href="#__codelineno-13-14" id="__codelineno-13-14" name="__codelineno-13-14"></a><span class="w">  </span>--protocol<span class="w"> </span>Tcp<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-15"><a href="#__codelineno-13-15" id="__codelineno-13-15" name="__codelineno-13-15"></a><span class="w">  </span>--access<span class="w"> </span>Allow<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-16"><a href="#__codelineno-13-16" id="__codelineno-13-16" name="__codelineno-13-16"></a><span class="w">  </span>--direction<span class="w"> </span>Inbound
+</span><span id="__span-13-17"><a href="#__codelineno-13-17" id="__codelineno-13-17" name="__codelineno-13-17"></a>
+</span><span id="__span-13-18"><a href="#__codelineno-13-18" id="__codelineno-13-18" name="__codelineno-13-18"></a><span class="c1"># Inbound: GatewayManager</span>
+</span><span id="__span-13-19"><a href="#__codelineno-13-19" id="__codelineno-13-19" name="__codelineno-13-19"></a>az<span class="w"> </span>network<span class="w"> </span>nsg<span class="w"> </span>rule<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-20"><a href="#__codelineno-13-20" id="__codelineno-13-20" name="__codelineno-13-20"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RG</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-21"><a href="#__codelineno-13-21" id="__codelineno-13-21" name="__codelineno-13-21"></a><span class="w">  </span>--nsg-name<span class="w"> </span><span class="si">${</span><span class="nv">BASTION_NAME</span><span class="si">}</span>-nsg<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-22"><a href="#__codelineno-13-22" id="__codelineno-13-22" name="__codelineno-13-22"></a><span class="w">  </span>--name<span class="w"> </span>AllowGatewayManager<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-23"><a href="#__codelineno-13-23" id="__codelineno-13-23" name="__codelineno-13-23"></a><span class="w">  </span>--priority<span class="w"> </span><span class="m">110</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-24"><a href="#__codelineno-13-24" id="__codelineno-13-24" name="__codelineno-13-24"></a><span class="w">  </span>--source-address-prefixes<span class="w"> </span>GatewayManager<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-25"><a href="#__codelineno-13-25" id="__codelineno-13-25" name="__codelineno-13-25"></a><span class="w">  </span>--destination-port-ranges<span class="w"> </span><span class="m">443</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-26"><a href="#__codelineno-13-26" id="__codelineno-13-26" name="__codelineno-13-26"></a><span class="w">  </span>--protocol<span class="w"> </span>Tcp<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-27"><a href="#__codelineno-13-27" id="__codelineno-13-27" name="__codelineno-13-27"></a><span class="w">  </span>--access<span class="w"> </span>Allow<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-28"><a href="#__codelineno-13-28" id="__codelineno-13-28" name="__codelineno-13-28"></a><span class="w">  </span>--direction<span class="w"> </span>Inbound
+</span><span id="__span-13-29"><a href="#__codelineno-13-29" id="__codelineno-13-29" name="__codelineno-13-29"></a>
+</span><span id="__span-13-30"><a href="#__codelineno-13-30" id="__codelineno-13-30" name="__codelineno-13-30"></a><span class="c1"># Inbound: Bastion internal communication</span>
+</span><span id="__span-13-31"><a href="#__codelineno-13-31" id="__codelineno-13-31" name="__codelineno-13-31"></a>az<span class="w"> </span>network<span class="w"> </span>nsg<span class="w"> </span>rule<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-32"><a href="#__codelineno-13-32" id="__codelineno-13-32" name="__codelineno-13-32"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RG</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-33"><a href="#__codelineno-13-33" id="__codelineno-13-33" name="__codelineno-13-33"></a><span class="w">  </span>--nsg-name<span class="w"> </span><span class="si">${</span><span class="nv">BASTION_NAME</span><span class="si">}</span>-nsg<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-34"><a href="#__codelineno-13-34" id="__codelineno-13-34" name="__codelineno-13-34"></a><span class="w">  </span>--name<span class="w"> </span>AllowBastionHostCommunication<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-35"><a href="#__codelineno-13-35" id="__codelineno-13-35" name="__codelineno-13-35"></a><span class="w">  </span>--priority<span class="w"> </span><span class="m">120</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-36"><a href="#__codelineno-13-36" id="__codelineno-13-36" name="__codelineno-13-36"></a><span class="w">  </span>--source-address-prefixes<span class="w"> </span>VirtualNetwork<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-37"><a href="#__codelineno-13-37" id="__codelineno-13-37" name="__codelineno-13-37"></a><span class="w">  </span>--destination-port-ranges<span class="w"> </span><span class="m">8080</span><span class="w"> </span><span class="m">5701</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-38"><a href="#__codelineno-13-38" id="__codelineno-13-38" name="__codelineno-13-38"></a><span class="w">  </span>--protocol<span class="w"> </span>Tcp<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-39"><a href="#__codelineno-13-39" id="__codelineno-13-39" name="__codelineno-13-39"></a><span class="w">  </span>--access<span class="w"> </span>Allow<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-40"><a href="#__codelineno-13-40" id="__codelineno-13-40" name="__codelineno-13-40"></a><span class="w">  </span>--direction<span class="w"> </span>Inbound
+</span><span id="__span-13-41"><a href="#__codelineno-13-41" id="__codelineno-13-41" name="__codelineno-13-41"></a>
+</span><span id="__span-13-42"><a href="#__codelineno-13-42" id="__codelineno-13-42" name="__codelineno-13-42"></a><span class="c1"># Outbound: SSH/RDP a VMs</span>
+</span><span id="__span-13-43"><a href="#__codelineno-13-43" id="__codelineno-13-43" name="__codelineno-13-43"></a>az<span class="w"> </span>network<span class="w"> </span>nsg<span class="w"> </span>rule<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-44"><a href="#__codelineno-13-44" id="__codelineno-13-44" name="__codelineno-13-44"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RG</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-45"><a href="#__codelineno-13-45" id="__codelineno-13-45" name="__codelineno-13-45"></a><span class="w">  </span>--nsg-name<span class="w"> </span><span class="si">${</span><span class="nv">BASTION_NAME</span><span class="si">}</span>-nsg<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-46"><a href="#__codelineno-13-46" id="__codelineno-13-46" name="__codelineno-13-46"></a><span class="w">  </span>--name<span class="w"> </span>AllowSshRdpOutbound<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-47"><a href="#__codelineno-13-47" id="__codelineno-13-47" name="__codelineno-13-47"></a><span class="w">  </span>--priority<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-48"><a href="#__codelineno-13-48" id="__codelineno-13-48" name="__codelineno-13-48"></a><span class="w">  </span>--destination-address-prefixes<span class="w"> </span>VirtualNetwork<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-49"><a href="#__codelineno-13-49" id="__codelineno-13-49" name="__codelineno-13-49"></a><span class="w">  </span>--destination-port-ranges<span class="w"> </span><span class="m">22</span><span class="w"> </span><span class="m">3389</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-50"><a href="#__codelineno-13-50" id="__codelineno-13-50" name="__codelineno-13-50"></a><span class="w">  </span>--protocol<span class="w"> </span>Tcp<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-51"><a href="#__codelineno-13-51" id="__codelineno-13-51" name="__codelineno-13-51"></a><span class="w">  </span>--access<span class="w"> </span>Allow<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-52"><a href="#__codelineno-13-52" id="__codelineno-13-52" name="__codelineno-13-52"></a><span class="w">  </span>--direction<span class="w"> </span>Outbound
+</span><span id="__span-13-53"><a href="#__codelineno-13-53" id="__codelineno-13-53" name="__codelineno-13-53"></a>
+</span><span id="__span-13-54"><a href="#__codelineno-13-54" id="__codelineno-13-54" name="__codelineno-13-54"></a><span class="c1"># Outbound: Azure Cloud (servicios de Azure)</span>
+</span><span id="__span-13-55"><a href="#__codelineno-13-55" id="__codelineno-13-55" name="__codelineno-13-55"></a>az<span class="w"> </span>network<span class="w"> </span>nsg<span class="w"> </span>rule<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-56"><a href="#__codelineno-13-56" id="__codelineno-13-56" name="__codelineno-13-56"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RG</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-57"><a href="#__codelineno-13-57" id="__codelineno-13-57" name="__codelineno-13-57"></a><span class="w">  </span>--nsg-name<span class="w"> </span><span class="si">${</span><span class="nv">BASTION_NAME</span><span class="si">}</span>-nsg<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-58"><a href="#__codelineno-13-58" id="__codelineno-13-58" name="__codelineno-13-58"></a><span class="w">  </span>--name<span class="w"> </span>AllowAzureCloudOutbound<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-59"><a href="#__codelineno-13-59" id="__codelineno-13-59" name="__codelineno-13-59"></a><span class="w">  </span>--priority<span class="w"> </span><span class="m">110</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-60"><a href="#__codelineno-13-60" id="__codelineno-13-60" name="__codelineno-13-60"></a><span class="w">  </span>--destination-address-prefixes<span class="w"> </span>AzureCloud<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-61"><a href="#__codelineno-13-61" id="__codelineno-13-61" name="__codelineno-13-61"></a><span class="w">  </span>--destination-port-ranges<span class="w"> </span><span class="m">443</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-62"><a href="#__codelineno-13-62" id="__codelineno-13-62" name="__codelineno-13-62"></a><span class="w">  </span>--protocol<span class="w"> </span>Tcp<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-63"><a href="#__codelineno-13-63" id="__codelineno-13-63" name="__codelineno-13-63"></a><span class="w">  </span>--access<span class="w"> </span>Allow<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-64"><a href="#__codelineno-13-64" id="__codelineno-13-64" name="__codelineno-13-64"></a><span class="w">  </span>--direction<span class="w"> </span>Outbound
+</span><span id="__span-13-65"><a href="#__codelineno-13-65" id="__codelineno-13-65" name="__codelineno-13-65"></a>
+</span><span id="__span-13-66"><a href="#__codelineno-13-66" id="__codelineno-13-66" name="__codelineno-13-66"></a><span class="c1"># Asociar NSG al subnet</span>
+</span><span id="__span-13-67"><a href="#__codelineno-13-67" id="__codelineno-13-67" name="__codelineno-13-67"></a>az<span class="w"> </span>network<span class="w"> </span>vnet<span class="w"> </span>subnet<span class="w"> </span>update<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-68"><a href="#__codelineno-13-68" id="__codelineno-13-68" name="__codelineno-13-68"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RG</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-69"><a href="#__codelineno-13-69" id="__codelineno-13-69" name="__codelineno-13-69"></a><span class="w">  </span>--vnet-name<span class="w"> </span><span class="nv">$VNET_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-70"><a href="#__codelineno-13-70" id="__codelineno-13-70" name="__codelineno-13-70"></a><span class="w">  </span>--name<span class="w"> </span>AzureBastionSubnet<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-71"><a href="#__codelineno-13-71" id="__codelineno-13-71" name="__codelineno-13-71"></a><span class="w">  </span>--network-security-group<span class="w"> </span><span class="si">${</span><span class="nv">BASTION_NAME</span><span class="si">}</span>-nsg
+</span></code></pre></div>
+<h3 id="costos"><a class="toclink" href="../../2025/01/08/azure-bastion-ssh-y-rdp-sin-exponer-ips-p%C3%BAblicas/#costos">Costos</a></h3>
+<p>Ejemplo en West Europe:
+- Basic: ~€140/mes (fijo)
+- Standard: ~€140/mes + ~€9/instancia adicional/mes
+- Tráfico outbound: Estándar Azure</p>
+<div class="admonition tip">
+<p class="admonition-title">Ahorro</p>
+<p>Si solo necesitas acceso ocasional, considera apagar/encender Bastion. Pagas solo por las horas que está running.</p>
+</div>
+<h3 id="alternativas"><a class="toclink" href="../../2025/01/08/azure-bastion-ssh-y-rdp-sin-exponer-ips-p%C3%BAblicas/#alternativas">Alternativas</a></h3>
+<ul>
+<li><strong>Azure VPN Gateway</strong>: Para acceso permanente desde on-premises</li>
+<li><strong>Azure Virtual WAN</strong>: Para topologías hub-spoke complejas</li>
+<li><strong>Just-in-Time Access</strong>: Para exposición temporal de puertos</li>
+</ul>
+<h3 id="referencias"><a class="toclink" href="../../2025/01/08/azure-bastion-ssh-y-rdp-sin-exponer-ips-p%C3%BAblicas/#referencias">Referencias</a></h3>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/azure/bastion/bastion-overview">What is Azure Bastion?</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/bastion/configuration-settings">Azure Bastion configuration settings</a></li>
+</ul>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2025-01-05 00:00:00+00:00">January 5, 2025</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="./">Azure Security</a></li>
+<li class="md-meta__item">
+            
+              4 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="rotacion-automatica-de-secretos-en-azure-key-vault"><a class="toclink" href="../../2025/01/05/rotaci%C3%B3n-autom%C3%A1tica-de-secretos-en-azure-key-vault/">Rotación automática de secretos en Azure Key Vault</a></h2>
+<h3 id="resumen"><a class="toclink" href="../../2025/01/05/rotaci%C3%B3n-autom%C3%A1tica-de-secretos-en-azure-key-vault/#resumen">Resumen</a></h3>
+<p>Rotar secretos manualmente es error-prone y tedioso. Azure Key Vault soporta rotación automatizada mediante Event Grid + Azure Functions. Aquí te muestro cómo implementarla paso a paso.</p>
+<h3 id="por-que-rotar-secretos"><a class="toclink" href="../../2025/01/05/rotaci%C3%B3n-autom%C3%A1tica-de-secretos-en-azure-key-vault/#por-que-rotar-secretos">¿Por qué rotar secretos?</a></h3>
+<ul>
+<li><strong>Compliance</strong>: PCI-DSS, SOC2 exigen rotación periódica</li>
+<li><strong>Seguridad</strong>: Limita ventana de exposición si hay leak</li>
+<li><strong>Best practice</strong>: NIST recomienda rotación cada 90 días</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Keys vs Secrets</p>
+<ul>
+<li><strong>Keys criptográficas</strong>: Tienen rotación nativa con rotation policy</li>
+<li><strong>Secrets</strong> (passwords, API keys): Requieren Event Grid + Function App</li>
+</ul>
+<p>Este artículo cubre <strong>secrets</strong>. Para keys, ver <a href="https://learn.microsoft.com/en-us/azure/key-vault/keys/how-to-configure-key-rotation">Configure key rotation</a>.</p>
+</div>
+<h3 id="arquitectura-de-rotacion-automatica"><a class="toclink" href="../../2025/01/05/rotaci%C3%B3n-autom%C3%A1tica-de-secretos-en-azure-key-vault/#arquitectura-de-rotacion-automatica">Arquitectura de rotación automática</a></h3>
+<p>Azure Key Vault usa Event Grid para notificar cuando un secreto está cerca de expirar:</p>
+<pre class="mermaid"><code>graph LR
+    A[Key Vault Secret] --&gt;|30 días antes expiración| B[Event Grid]
+    B --&gt;|SecretNearExpiry event| C[Function App]
+    C --&gt;|Genera nuevo secret| D[Servicio Externo/SQL]
+    C --&gt;|Actualiza secreto| A
+</code></pre>
+<p><strong>Proceso:</strong>
+1. Key Vault publica evento <code>SecretNearExpiry</code> 30 días antes de expiración
+2. Event Grid llama a Function App vía HTTP POST
+3. Function genera nuevo secreto y actualiza el servicio
+4. Function actualiza Key Vault con nueva versión del secreto</p>
+<h3 id="implementacion-rotar-sql-server-password"><a class="toclink" href="../../2025/01/05/rotaci%C3%B3n-autom%C3%A1tica-de-secretos-en-azure-key-vault/#implementacion-rotar-sql-server-password">Implementación: Rotar SQL Server password</a></h3>
+<h4 id="1-crear-secreto-con-fecha-de-expiracion"><a class="toclink" href="../../2025/01/05/rotaci%C3%B3n-autom%C3%A1tica-de-secretos-en-azure-key-vault/#1-crear-secreto-con-fecha-de-expiracion">1. Crear secreto con fecha de expiración</a></h4>
+<h4 id="1-crear-secreto-con-fecha-de-expiracion_1"><a class="toclink" href="../../2025/01/05/rotaci%C3%B3n-autom%C3%A1tica-de-secretos-en-azure-key-vault/#1-crear-secreto-con-fecha-de-expiracion_1">1. Crear secreto con fecha de expiración</a></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a href="#__codelineno-6-1" id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="c1"># Variables</span>
+</span><span id="__span-6-2"><a href="#__codelineno-6-2" id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="nv">RG</span><span class="o">=</span><span class="s2">"my-rg"</span>
+</span><span id="__span-6-3"><a href="#__codelineno-6-3" id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="nv">KV_NAME</span><span class="o">=</span><span class="s2">"my-keyvault"</span>
+</span><span id="__span-6-4"><a href="#__codelineno-6-4" id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="nv">SECRET_NAME</span><span class="o">=</span><span class="s2">"sql-admin-password"</span>
+</span><span id="__span-6-5"><a href="#__codelineno-6-5" id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="nv">SQL_SERVER</span><span class="o">=</span><span class="s2">"my-sql-server"</span>
+</span><span id="__span-6-6"><a href="#__codelineno-6-6" id="__codelineno-6-6" name="__codelineno-6-6"></a>
+</span><span id="__span-6-7"><a href="#__codelineno-6-7" id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="c1"># Crear secreto con expiración 90 días</span>
+</span><span id="__span-6-8"><a href="#__codelineno-6-8" id="__codelineno-6-8" name="__codelineno-6-8"></a><span class="nv">EXPIRY_DATE</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>-u<span class="w"> </span>-d<span class="w"> </span><span class="s2">"+90 days"</span><span class="w"> </span>+<span class="s1">'%Y-%m-%dT%H:%M:%SZ'</span><span class="k">)</span>
+</span><span id="__span-6-9"><a href="#__codelineno-6-9" id="__codelineno-6-9" name="__codelineno-6-9"></a>
+</span><span id="__span-6-10"><a href="#__codelineno-6-10" id="__codelineno-6-10" name="__codelineno-6-10"></a>az<span class="w"> </span>keyvault<span class="w"> </span>secret<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-11"><a href="#__codelineno-6-11" id="__codelineno-6-11" name="__codelineno-6-11"></a><span class="w">  </span>--vault-name<span class="w"> </span><span class="nv">$KV_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-12"><a href="#__codelineno-6-12" id="__codelineno-6-12" name="__codelineno-6-12"></a><span class="w">  </span>--name<span class="w"> </span><span class="nv">$SECRET_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-13"><a href="#__codelineno-6-13" id="__codelineno-6-13" name="__codelineno-6-13"></a><span class="w">  </span>--value<span class="w"> </span><span class="s2">"InitialP@ssw0rd!"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-14"><a href="#__codelineno-6-14" id="__codelineno-6-14" name="__codelineno-6-14"></a><span class="w">  </span>--expires<span class="w"> </span><span class="nv">$EXPIRY_DATE</span>
+</span></code></pre></div>
+<h4 id="2-desplegar-function-app-de-rotacion"><a class="toclink" href="../../2025/01/05/rotaci%C3%B3n-autom%C3%A1tica-de-secretos-en-azure-key-vault/#2-desplegar-function-app-de-rotacion">2. Desplegar Function App de rotación</a></h4>
+<p>Usar template oficial de Microsoft:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a href="#__codelineno-7-1" id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="c1"># Deploy ARM template con Function App preconfigurada</span>
+</span><span id="__span-7-2"><a href="#__codelineno-7-2" id="__codelineno-7-2" name="__codelineno-7-2"></a>az<span class="w"> </span>deployment<span class="w"> </span>group<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-3"><a href="#__codelineno-7-3" id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RG</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-4"><a href="#__codelineno-7-4" id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="w">  </span>--template-uri<span class="w"> </span>https://raw.githubusercontent.com/Azure-Samples/KeyVault-Rotation-SQLPassword-Csharp/main/ARM-Templates/Function/azuredeploy.json<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-5"><a href="#__codelineno-7-5" id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="w">  </span>--parameters<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-6"><a href="#__codelineno-7-6" id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="w">    </span><span class="nv">sqlServerName</span><span class="o">=</span><span class="nv">$SQL_SERVER</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-7"><a href="#__codelineno-7-7" id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="w">    </span><span class="nv">keyVaultName</span><span class="o">=</span><span class="nv">$KV_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-8"><a href="#__codelineno-7-8" id="__codelineno-7-8" name="__codelineno-7-8"></a><span class="w">    </span><span class="nv">functionAppName</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">KV_NAME</span><span class="si">}</span><span class="s2">-rotation-func"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-9"><a href="#__codelineno-7-9" id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="w">    </span><span class="nv">secretName</span><span class="o">=</span><span class="nv">$SECRET_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-10"><a href="#__codelineno-7-10" id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="w">    </span><span class="nv">repoUrl</span><span class="o">=</span><span class="s2">"https://github.com/Azure-Samples/KeyVault-Rotation-SQLPassword-Csharp.git"</span>
+</span></code></pre></div>
+<p>Este template despliega:
+- Function App con managed identity
+- Event Grid subscription a <code>SecretNearExpiry</code>
+- Access policy de Key Vault para la función
+- Código de rotación preconfigura do</p>
+<h4 id="3-codigo-de-la-funcion-incluido-en-el-template"><a class="toclink" href="../../2025/01/05/rotaci%C3%B3n-autom%C3%A1tica-de-secretos-en-azure-key-vault/#3-codigo-de-la-funcion-incluido-en-el-template">3. Código de la función (incluido en el template)</a></h4>
+<h4 id="3-codigo-de-la-funcion-incluido-en-el-template_1"><a class="toclink" href="../../2025/01/05/rotaci%C3%B3n-autom%C3%A1tica-de-secretos-en-azure-key-vault/#3-codigo-de-la-funcion-incluido-en-el-template_1">3. Código de la función (incluido en el template)</a></h4>
+<p>La función C# incluida en el template maneja:
+- Recibe evento <code>SecretNearExpiry</code> de Event Grid
+- Extrae nombre del secreto y versión
+- Genera nuevo password aleatorio
+- Actualiza SQL Server con nuevo password
+- Crea nueva versión del secreto en Key Vault</p>
+<div class="language-csharp highlight"><pre><span></span><code><span id="__span-8-1"><a href="#__codelineno-8-1" id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="c1">// Código simplificado (el template incluye implementación completa)</span>
+</span><span id="__span-8-2"><a href="#__codelineno-8-2" id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="na">[FunctionName("AKVSQLRotation")]</span>
+</span><span id="__span-8-3"><a href="#__codelineno-8-3" id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Run</span><span class="p">([</span><span class="n">EventGridTrigger</span><span class="p">]</span><span class="n">EventGridEvent</span><span class="w"> </span><span class="n">eventGridEvent</span><span class="p">)</span>
+</span><span id="__span-8-4"><a href="#__codelineno-8-4" id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="p">{</span>
+</span><span id="__span-8-5"><a href="#__codelineno-8-5" id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">secretName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">eventGridEvent</span><span class="p">.</span><span class="n">Subject</span><span class="p">;</span>
+</span><span id="__span-8-6"><a href="#__codelineno-8-6" id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">keyVaultName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ExtractVaultName</span><span class="p">(</span><span class="n">eventGridEvent</span><span class="p">.</span><span class="n">Topic</span><span class="p">);</span>
+</span><span id="__span-8-7"><a href="#__codelineno-8-7" id="__codelineno-8-7" name="__codelineno-8-7"></a>
+</span><span id="__span-8-8"><a href="#__codelineno-8-8" id="__codelineno-8-8" name="__codelineno-8-8"></a><span class="w">    </span><span class="c1">// Rotar password</span>
+</span><span id="__span-8-9"><a href="#__codelineno-8-9" id="__codelineno-8-9" name="__codelineno-8-9"></a><span class="w">    </span><span class="n">SecretRotator</span><span class="p">.</span><span class="n">RotateSecret</span><span class="p">(</span><span class="n">log</span><span class="p">,</span><span class="w"> </span><span class="n">secretName</span><span class="p">,</span><span class="w"> </span><span class="n">keyVaultName</span><span class="p">);</span>
+</span><span id="__span-8-10"><a href="#__codelineno-8-10" id="__codelineno-8-10" name="__codelineno-8-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="implementacion-rotar-storage-account-keys"><a class="toclink" href="../../2025/01/05/rotaci%C3%B3n-autom%C3%A1tica-de-secretos-en-azure-key-vault/#implementacion-rotar-storage-account-keys">Implementación: Rotar Storage Account keys</a></h3>
+<p>Para servicios con <strong>dos sets de credenciales</strong> (primary/secondary keys):</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a href="#__codelineno-9-1" id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="c1"># Deploy template para Storage Account rotation</span>
+</span><span id="__span-9-2"><a href="#__codelineno-9-2" id="__codelineno-9-2" name="__codelineno-9-2"></a>az<span class="w"> </span>deployment<span class="w"> </span>group<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-3"><a href="#__codelineno-9-3" id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RG</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-4"><a href="#__codelineno-9-4" id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="w">  </span>--template-uri<span class="w"> </span>https://raw.githubusercontent.com/Azure-Samples/KeyVault-Rotation-StorageAccountKey-PowerShell/master/ARM-Templates/Function/azuredeploy.json<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-5"><a href="#__codelineno-9-5" id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="w">  </span>--parameters<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-6"><a href="#__codelineno-9-6" id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="w">    </span><span class="nv">storageAccountName</span><span class="o">=</span><span class="nv">$STORAGE_ACCOUNT</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-7"><a href="#__codelineno-9-7" id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="w">    </span><span class="nv">keyVaultName</span><span class="o">=</span><span class="nv">$KV_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-8"><a href="#__codelineno-9-8" id="__codelineno-9-8" name="__codelineno-9-8"></a><span class="w">    </span><span class="nv">functionAppName</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">KV_NAME</span><span class="si">}</span><span class="s2">-storage-rotation"</span>
+</span><span id="__span-9-9"><a href="#__codelineno-9-9" id="__codelineno-9-9" name="__codelineno-9-9"></a>
+</span><span id="__span-9-10"><a href="#__codelineno-9-10" id="__codelineno-9-10" name="__codelineno-9-10"></a><span class="c1"># Crear secret con metadata para rotación</span>
+</span><span id="__span-9-11"><a href="#__codelineno-9-11" id="__codelineno-9-11" name="__codelineno-9-11"></a><span class="nv">EXPIRY_DATE</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>-u<span class="w"> </span>-d<span class="w"> </span><span class="s2">"+60 days"</span><span class="w"> </span>+<span class="s1">'%Y-%m-%dT%H:%M:%SZ'</span><span class="k">)</span>
+</span><span id="__span-9-12"><a href="#__codelineno-9-12" id="__codelineno-9-12" name="__codelineno-9-12"></a><span class="nv">STORAGE_KEY</span><span class="o">=</span><span class="k">$(</span>az<span class="w"> </span>storage<span class="w"> </span>account<span class="w"> </span>keys<span class="w"> </span>list<span class="w"> </span>-n<span class="w"> </span><span class="nv">$STORAGE_ACCOUNT</span><span class="w"> </span>--query<span class="w"> </span><span class="s2">"[0].value"</span><span class="w"> </span>-o<span class="w"> </span>tsv<span class="k">)</span>
+</span><span id="__span-9-13"><a href="#__codelineno-9-13" id="__codelineno-9-13" name="__codelineno-9-13"></a>
+</span><span id="__span-9-14"><a href="#__codelineno-9-14" id="__codelineno-9-14" name="__codelineno-9-14"></a>az<span class="w"> </span>keyvault<span class="w"> </span>secret<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-15"><a href="#__codelineno-9-15" id="__codelineno-9-15" name="__codelineno-9-15"></a><span class="w">  </span>--vault-name<span class="w"> </span><span class="nv">$KV_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-16"><a href="#__codelineno-9-16" id="__codelineno-9-16" name="__codelineno-9-16"></a><span class="w">  </span>--name<span class="w"> </span>storageKey<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-17"><a href="#__codelineno-9-17" id="__codelineno-9-17" name="__codelineno-9-17"></a><span class="w">  </span>--value<span class="w"> </span><span class="s2">"</span><span class="nv">$STORAGE_KEY</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-18"><a href="#__codelineno-9-18" id="__codelineno-9-18" name="__codelineno-9-18"></a><span class="w">  </span>--tags<span class="w"> </span><span class="nv">CredentialId</span><span class="o">=</span>key1<span class="w"> </span><span class="nv">ProviderAddress</span><span class="o">=</span><span class="s2">"/subscriptions/{sub}/resourceGroups/</span><span class="nv">$RG</span><span class="s2">/providers/Microsoft.Storage/storageAccounts/</span><span class="nv">$STORAGE_ACCOUNT</span><span class="s2">"</span><span class="w"> </span><span class="nv">ValidityPeriodDays</span><span class="o">=</span><span class="m">60</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-19"><a href="#__codelineno-9-19" id="__codelineno-9-19" name="__codelineno-9-19"></a><span class="w">  </span>--expires<span class="w"> </span><span class="nv">$EXPIRY_DATE</span>
+</span></code></pre></div>
+<p><strong>Estrategia dual-key:</strong>
+1. Key1 almacenada en Key Vault
+2. Evento <code>SecretNearExpiry</code> activa rotación
+3. Function regenera Key2 en Storage Account
+4. Actualiza secreto en Key Vault con Key2
+5. Próxima rotación alterna a Key1</p>
+<h3 id="monitoreo-de-rotaciones"><a class="toclink" href="../../2025/01/05/rotaci%C3%B3n-autom%C3%A1tica-de-secretos-en-azure-key-vault/#monitoreo-de-rotaciones">Monitoreo de rotaciones</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a href="#__codelineno-10-1" id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="c1"># Ver versiones de un secreto</span>
+</span><span id="__span-10-2"><a href="#__codelineno-10-2" id="__codelineno-10-2" name="__codelineno-10-2"></a>az<span class="w"> </span>keyvault<span class="w"> </span>secret<span class="w"> </span>list-versions<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-3"><a href="#__codelineno-10-3" id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="w">  </span>--vault-name<span class="w"> </span><span class="nv">$KV_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-4"><a href="#__codelineno-10-4" id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="w">  </span>--name<span class="w"> </span><span class="nv">$SECRET_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-5"><a href="#__codelineno-10-5" id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="w">  </span>--query<span class="w"> </span><span class="s2">"[].{Version:id, Created:attributes.created, Expires:attributes.expires}"</span>
+</span><span id="__span-10-6"><a href="#__codelineno-10-6" id="__codelineno-10-6" name="__codelineno-10-6"></a>
+</span><span id="__span-10-7"><a href="#__codelineno-10-7" id="__codelineno-10-7" name="__codelineno-10-7"></a><span class="c1"># Ver última actualización</span>
+</span><span id="__span-10-8"><a href="#__codelineno-10-8" id="__codelineno-10-8" name="__codelineno-10-8"></a>az<span class="w"> </span>keyvault<span class="w"> </span>secret<span class="w"> </span>show<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-9"><a href="#__codelineno-10-9" id="__codelineno-10-9" name="__codelineno-10-9"></a><span class="w">  </span>--vault-name<span class="w"> </span><span class="nv">$KV_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-10"><a href="#__codelineno-10-10" id="__codelineno-10-10" name="__codelineno-10-10"></a><span class="w">  </span>--name<span class="w"> </span><span class="nv">$SECRET_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-11"><a href="#__codelineno-10-11" id="__codelineno-10-11" name="__codelineno-10-11"></a><span class="w">  </span>--query<span class="w"> </span><span class="s2">"attributes.{Updated:updated, Expires:expires, Enabled:enabled}"</span>
+</span><span id="__span-10-12"><a href="#__codelineno-10-12" id="__codelineno-10-12" name="__codelineno-10-12"></a>
+</span><span id="__span-10-13"><a href="#__codelineno-10-13" id="__codelineno-10-13" name="__codelineno-10-13"></a><span class="c1"># Ver logs de rotación en Function App</span>
+</span><span id="__span-10-14"><a href="#__codelineno-10-14" id="__codelineno-10-14" name="__codelineno-10-14"></a>az<span class="w"> </span>monitor<span class="w"> </span>app-insights<span class="w"> </span>query<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-15"><a href="#__codelineno-10-15" id="__codelineno-10-15" name="__codelineno-10-15"></a><span class="w">  </span>--app<span class="w"> </span><span class="si">${</span><span class="nv">KV_NAME</span><span class="si">}</span>-rotation-func<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-16"><a href="#__codelineno-10-16" id="__codelineno-10-16" name="__codelineno-10-16"></a><span class="w">  </span>--analytics-query<span class="w"> </span><span class="s2">"traces | where message contains 'Rotation' | top 10 by timestamp desc"</span>
+</span></code></pre></div>
+<h3 id="notificaciones-por-email"><a class="toclink" href="../../2025/01/05/rotaci%C3%B3n-autom%C3%A1tica-de-secretos-en-azure-key-vault/#notificaciones-por-email">Notificaciones por email</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a href="#__codelineno-11-1" id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="c1"># Action Group para alertas</span>
+</span><span id="__span-11-2"><a href="#__codelineno-11-2" id="__codelineno-11-2" name="__codelineno-11-2"></a>az<span class="w"> </span>monitor<span class="w"> </span>action-group<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-3"><a href="#__codelineno-11-3" id="__codelineno-11-3" name="__codelineno-11-3"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RG</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-4"><a href="#__codelineno-11-4" id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="w">  </span>--name<span class="w"> </span>secret-rotation-alerts<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-5"><a href="#__codelineno-11-5" id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="w">  </span>--short-name<span class="w"> </span>SecRot<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-6"><a href="#__codelineno-11-6" id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="w">  </span>--email-receiver<span class="w"> </span>EmailAdmin<span class="w"> </span>admin@company.com
+</span><span id="__span-11-7"><a href="#__codelineno-11-7" id="__codelineno-11-7" name="__codelineno-11-7"></a>
+</span><span id="__span-11-8"><a href="#__codelineno-11-8" id="__codelineno-11-8" name="__codelineno-11-8"></a><span class="c1"># Alert rule</span>
+</span><span id="__span-11-9"><a href="#__codelineno-11-9" id="__codelineno-11-9" name="__codelineno-11-9"></a>az<span class="w"> </span>monitor<span class="w"> </span>metrics<span class="w"> </span>alert<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-10"><a href="#__codelineno-11-10" id="__codelineno-11-10" name="__codelineno-11-10"></a><span class="w">  </span>--resource-group<span class="w"> </span><span class="nv">$RG</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-11"><a href="#__codelineno-11-11" id="__codelineno-11-11" name="__codelineno-11-11"></a><span class="w">  </span>--name<span class="w"> </span>secret-rotation-failed<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-12"><a href="#__codelineno-11-12" id="__codelineno-11-12" name="__codelineno-11-12"></a><span class="w">  </span>--scopes<span class="w"> </span>/subscriptions/<span class="o">{</span>sub-id<span class="o">}</span>/resourceGroups/<span class="nv">$RG</span>/providers/Microsoft.KeyVault/vaults/<span class="nv">$KV_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-13"><a href="#__codelineno-11-13" id="__codelineno-11-13" name="__codelineno-11-13"></a><span class="w">  </span>--condition<span class="w"> </span><span class="s2">"count SecretRotationFailed &gt; 0"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-14"><a href="#__codelineno-11-14" id="__codelineno-11-14" name="__codelineno-11-14"></a><span class="w">  </span>--action<span class="w"> </span>secret-rotation-alerts
+</span></code></pre></div>
+<h3 id="buenas-practicas"><a class="toclink" href="../../2025/01/05/rotaci%C3%B3n-autom%C3%A1tica-de-secretos-en-azure-key-vault/#buenas-practicas">Buenas prácticas</a></h3>
+<ul>
+<li><strong>Overlap period</strong>: Mantén versión anterior válida 7-30 días</li>
+<li><strong>Testing</strong>: Rota primero en entorno de dev/staging</li>
+<li><strong>Documentación</strong>: Registra qué servicios usan cada secreto</li>
+<li><strong>Backup</strong>: Exporta secretos críticos a offline storage encriptado</li>
+<li><strong>Notificaciones</strong>: Configura alertas para rotaciones fallidas</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Secretos hardcodeados</p>
+<p>La rotación no sirve de nada si tienes secretos hardcodeados en código o config files. Usa referencias a Key Vault (<code>@Microsoft.KeyVault(SecretUri=...)</code> en App Settings).</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Templates oficiales</p>
+<p>Microsoft proporciona templates ARM completos para diferentes escenarios:
+- <a href="https://github.com/Azure-Samples/KeyVault-Rotation-SQLPassword-Csharp">SQL password rotation</a>
+- <a href="https://github.com/Azure-Samples/KeyVault-Rotation-StorageAccountKey-PowerShell">Storage Account keys rotation</a>
+- Adaptables para otros servicios (Cosmos DB, Redis, APIs externas)</p>
+</div>
+<h3 id="referencias"><a class="toclink" href="../../2025/01/05/rotaci%C3%B3n-autom%C3%A1tica-de-secretos-en-azure-key-vault/#referencias">Referencias</a></h3>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/azure/key-vault/secrets/tutorial-rotation">Automate secret rotation (single credential)</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/key-vault/secrets/tutorial-rotation-dual">Automate secret rotation (dual credentials)</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/key-vault/general/autorotation">Understanding autorotation in Key Vault</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/key-vault/general/event-grid-overview">Key Vault Event Grid integration</a></li>
+</ul>
+</div>
+</article>
+<nav class="md-pagination">
+</nav>
+</div>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2023-now Rafael Fernández
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://www.linkedin.com/in/rafaelfernandezd/" rel="noopener" target="_blank" title="LinkedIn">
+<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"></path></svg>
+</a>
+<a class="md-social__link" href="https://github.com/rfernandezdo" rel="noopener" target="_blank" title="GitHub">
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="https://rfernandezdo.github.io/feed_rss_created.xml" rel="noopener" target="_blank" title="RSS feed">
+<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M64 32C28.7 32 0 60.7 0 96v320c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64zm32 104c0-13.3 10.7-24 24-24 137 0 248 111 248 248 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-110.5-89.5-200-200-200-13.3 0-24-10.7-24-24m0 96c0-13.3 10.7-24 24-24 83.9 0 152 68.1 152 152 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-57.4-46.6-104-104-104-13.3 0-24-10.7-24-24m0 120a32 32 0 1 1 64 0 32 32 0 1 1-64 0"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tabs", "navigation.tabs.sticky", "navigation.expand", "navigation.sections", "navigation.top", "navigation.tracking", "toc.integrate", "toc.nested", "toc.smoothscroll", "footer", "content.code.copy", "content.code.select", "content.code.annotate", "content.tooltips"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../javascripts/tablesort.js"></script>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.mermaidConfig = {default: {
+    startOnLoad: false
+}};</script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

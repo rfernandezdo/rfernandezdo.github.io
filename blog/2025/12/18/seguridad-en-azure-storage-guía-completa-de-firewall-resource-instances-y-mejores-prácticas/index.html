@@ -1,0 +1,3086 @@
+<!DOCTYPE html><html class="no-js" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width,initial-scale=1" name="viewport">
+<meta content="A blog about Azure, DevOps and other stuff" name="description">
+<meta content="Rafael Fernández" name="author">
+<link href="https://rfernandezdo.github.io/blog/2025/12/18/seguridad-en-azure-storage-gu%C3%ADa-completa-de-firewall-resource-instances-y-mejores-pr%C3%A1cticas/" rel="canonical">
+<link href="../../../11/20/autenticaci%C3%B3n-python-en-m%C3%A1quinas-azure-arc-gu%C3%ADa-pr%C3%A1ctica/" rel="prev">
+<link href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=es&amp;_x_tr_hl=es&amp;_x_tr_pto=wapp" hreflang="en" rel="alternate">
+<link href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=en&amp;_x_tr_hl=en&amp;_x_tr_pto=wapp" hreflang="es" rel="alternate">
+<link href="../../../../../feed_rss_created.xml" rel="alternate" title="RSS feed" type="application/rss+xml">
+<link href="../../../../../feed_rss_updated.xml" rel="alternate" title="RSS feed of updated content" type="application/rss+xml">
+<link href="../../../../../assets/images/favicon.png" rel="icon">
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.1" name="generator">
+<title>Seguridad en Azure Storage: Guía Completa de Firewall, Resource Instances y Mejores Prácticas - Un Rinconcito donde contar lo que quiera</title>
+<link href="../../../../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet">
+<link href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet">
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<meta content="website" property="og:type">
+<meta content="Seguridad en Azure Storage: Guía Completa de Firewall, Resource Instances y Mejores Prácticas - Un Rinconcito donde contar lo que quiera" property="og:title">
+<meta content="A blog about Azure, DevOps and other stuff" property="og:description">
+<meta content="https://rfernandezdo.github.io/assets/images/social/blog/2025/12/18/seguridad-en-azure-storage-gu%C3%ADa-completa-de-firewall-resource-instances-y-mejores-pr%C3%A1cticas.png" property="og:image">
+<meta content="image/png" property="og:image:type">
+<meta content="1200" property="og:image:width">
+<meta content="630" property="og:image:height">
+<meta content="https://rfernandezdo.github.io/blog/2025/12/18/seguridad-en-azure-storage-gu%C3%ADa-completa-de-firewall-resource-instances-y-mejores-pr%C3%A1cticas/" property="og:url">
+<meta content="summary_large_image" property="twitter:card">
+<meta content="Seguridad en Azure Storage: Guía Completa de Firewall, Resource Instances y Mejores Prácticas - Un Rinconcito donde contar lo que quiera" property="twitter:title">
+<meta content="A blog about Azure, DevOps and other stuff" property="twitter:description">
+<meta content="https://rfernandezdo.github.io/assets/images/social/blog/2025/12/18/seguridad-en-azure-storage-gu%C3%ADa-completa-de-firewall-resource-instances-y-mejores-pr%C3%A1cticas.png" property="twitter:image">
+<link href="../../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+<body data-md-color-accent="blue" data-md-color-primary="blue" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox">
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox">
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#seguridad-en-azure-storage-guia-completa-de-firewall-resource-instances-y-mejores-practicas">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Un Rinconcito donde contar lo que quiera" class="md-header__button md-logo" data-md-component="logo" href="../../../../.." title="Un Rinconcito donde contar lo que quiera">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Un Rinconcito donde contar lo que quiera
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Seguridad en Azure Storage: Guía Completa de Firewall, Resource Instances y Mejores Prácticas
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="blue" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio">
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="black" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio">
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="Select language" class="md-header__button md-icon">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=es&amp;_x_tr_hl=es&amp;_x_tr_pto=wapp" hreflang="en">
+              English
+            </a>
+</li>
+<li class="md-select__item">
+<a class="md-select__link" href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=en&amp;_x_tr_hl=en&amp;_x_tr_pto=wapp" hreflang="es">
+              Spanish
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text">
+<label class="md-search__icon md-icon" for="__search">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../../../">
+          
+  
+  
+  Blog
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../..">
+        
+  
+  
+    
+  
+  About
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../../contributions/">
+        
+  
+  
+    
+  
+  Contributions
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../../Azure/Security/MCSB/Readme/">
+          
+  
+  
+  Azure
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../../Tools/Federated_Identity_Credentials_Report/README-federated-identity-credentials/">
+          
+  
+  
+  Tools
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden="">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Un Rinconcito donde contar lo que quiera" class="md-nav__button md-logo" data-md-component="logo" href="../../../../.." title="Un Rinconcito donde contar lo que quiera">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    Un Rinconcito donde contar lo que quiera
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_1" type="checkbox">
+<label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_1_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Blog
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active">
+<a class="md-nav__link" href="../../../../">
+<span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../tags/">
+<span class="md-ellipsis">
+    
+  
+    Posts by Tags
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_1_3" type="checkbox">
+<label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Archive
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Archive
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    2025/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../11/">
+<span class="md-ellipsis">
+    
+  
+    2025/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../10/">
+<span class="md-ellipsis">
+    
+  
+    2025/10
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../09/">
+<span class="md-ellipsis">
+    
+  
+    2025/09
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../08/">
+<span class="md-ellipsis">
+    
+  
+    2025/08
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../07/">
+<span class="md-ellipsis">
+    
+  
+    2025/07
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../06/">
+<span class="md-ellipsis">
+    
+  
+    2025/06
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../05/">
+<span class="md-ellipsis">
+    
+  
+    2025/05
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../04/">
+<span class="md-ellipsis">
+    
+  
+    2025/04
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../03/">
+<span class="md-ellipsis">
+    
+  
+    2025/03
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../02/">
+<span class="md-ellipsis">
+    
+  
+    2025/02
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../01/">
+<span class="md-ellipsis">
+    
+  
+    2025/01
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/12/">
+<span class="md-ellipsis">
+    
+  
+    2024/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/11/">
+<span class="md-ellipsis">
+    
+  
+    2024/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/10/">
+<span class="md-ellipsis">
+    
+  
+    2024/10
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/09/">
+<span class="md-ellipsis">
+    
+  
+    2024/09
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/06/">
+<span class="md-ellipsis">
+    
+  
+    2024/06
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/05/">
+<span class="md-ellipsis">
+    
+  
+    2024/05
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/04/">
+<span class="md-ellipsis">
+    
+  
+    2024/04
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/03/">
+<span class="md-ellipsis">
+    
+  
+    2024/03
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2024/02/">
+<span class="md-ellipsis">
+    
+  
+    2024/02
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2023/12/">
+<span class="md-ellipsis">
+    
+  
+    2023/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2023/11/">
+<span class="md-ellipsis">
+    
+  
+    2023/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../2023/10/">
+<span class="md-ellipsis">
+    
+  
+    2023/10
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_1_4" type="checkbox">
+<label class="md-nav__link" for="__nav_1_4" id="__nav_1_4_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Categories
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Categories
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure/">
+<span class="md-ellipsis">
+    
+  
+    Azure
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-ad/">
+<span class="md-ellipsis">
+    
+  
+    Azure AD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-automation/">
+<span class="md-ellipsis">
+    
+  
+    Azure Automation
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-devops/">
+<span class="md-ellipsis">
+    
+  
+    Azure DevOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-frameworks/">
+<span class="md-ellipsis">
+    
+  
+    Azure Frameworks
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-governance/">
+<span class="md-ellipsis">
+    
+  
+    Azure Governance
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-networking/">
+<span class="md-ellipsis">
+    
+  
+    Azure Networking
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-security/">
+<span class="md-ellipsis">
+    
+  
+    Azure Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-services/">
+<span class="md-ellipsis">
+    
+  
+    Azure Services
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/azure-updates/">
+<span class="md-ellipsis">
+    
+  
+    Azure Updates
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/caf/">
+<span class="md-ellipsis">
+    
+  
+    CAF
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/cicd/">
+<span class="md-ellipsis">
+    
+  
+    CI/CD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/devops/">
+<span class="md-ellipsis">
+    
+  
+    DevOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/development/">
+<span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/drift-detection/">
+<span class="md-ellipsis">
+    
+  
+    Drift Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/english/">
+<span class="md-ellipsis">
+    
+  
+    English
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/enterprise-policy-as-code/">
+<span class="md-ellipsis">
+    
+  
+    Enterprise Policy as Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/finops/">
+<span class="md-ellipsis">
+    
+  
+    FinOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/firewall/">
+<span class="md-ellipsis">
+    
+  
+    Firewall
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/gtd/">
+<span class="md-ellipsis">
+    
+  
+    GTD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/git/">
+<span class="md-ellipsis">
+    
+  
+    Git
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/github-actions/">
+<span class="md-ellipsis">
+    
+  
+    GitHub Actions
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/hashicorp/">
+<span class="md-ellipsis">
+    
+  
+    HashiCorp
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/hello_world/">
+<span class="md-ellipsis">
+    
+  
+    Hello_World
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/infrastructure-as-code/">
+<span class="md-ellipsis">
+    
+  
+    Infrastructure as Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/learning/">
+<span class="md-ellipsis">
+    
+  
+    Learning
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/m365/">
+<span class="md-ellipsis">
+    
+  
+    M365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/microsoft-365/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft 365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/microsoft-entra/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/microsoft-entra-external-id/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra External ID
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/microsoft-entra-id/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra ID
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/networking/">
+<span class="md-ellipsis">
+    
+  
+    Networking
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/outlook/">
+<span class="md-ellipsis">
+    
+  
+    Outlook
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/pim/">
+<span class="md-ellipsis">
+    
+  
+    PIM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/power-automate/">
+<span class="md-ellipsis">
+    
+  
+    Power Automate
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/power-bi/">
+<span class="md-ellipsis">
+    
+  
+    Power BI
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/productividad/">
+<span class="md-ellipsis">
+    
+  
+    Productividad
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/productividad--microsoft-365/">
+<span class="md-ellipsis">
+    
+  
+    Productividad / Microsoft 365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/security/">
+<span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/seguridad/">
+<span class="md-ellipsis">
+    
+  
+    Seguridad
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/snowflake/">
+<span class="md-ellipsis">
+    
+  
+    Snowflake
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/terraform/">
+<span class="md-ellipsis">
+    
+  
+    Terraform
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/threat-intelligence/">
+<span class="md-ellipsis">
+    
+  
+    Threat Intelligence
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/tools/">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/troubleshooting/">
+<span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/visual-studio-code/">
+<span class="md-ellipsis">
+    
+  
+    Visual Studio Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/viva-insights/">
+<span class="md-ellipsis">
+    
+  
+    Viva Insights
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/windows/">
+<span class="md-ellipsis">
+    
+  
+    Windows
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../..">
+<span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../contributions/">
+<span class="md-ellipsis">
+    
+  
+    Contributions
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4" type="checkbox">
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Azure
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Azure
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Security
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1_1" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1_1" id="__nav_4_1_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    MCSB v1
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_4_1_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    MCSB v1
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Readme/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Readme
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Asset%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Asset Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Backup%20and%20Recovery/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Backup and Recovery
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Data%20Protection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Data Protection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/DevOps%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - DevOps Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Endpoint%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Endpoint Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Governance%20and%20Strategy/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Governance and Strategy
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Identity%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Identity Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Incident%20Response/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Incident Response
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Logging%20and%20Threat%20Detection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Logging and Threat Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Network%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Network Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Posture%20and%20Vulnerability%20Mgmt/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Posture and Vulnerability Mgmt
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSB/Privileged%20Access/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Privileged Access
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1_2" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1_2" id="__nav_4_1_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_4_1_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    MCSB v2
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Index/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Cloud Security Benchmark v2
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Network%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Network Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Identity%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Identity Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Privileged%20Access/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Privileged Access
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Data%20Protection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Data Protection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Asset%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Asset Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Logging%20and%20Threat%20Detection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Logging and Threat Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Incident%20Response/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Incident Response
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Posture%20and%20Vulnerability%20Manag/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Posture and Vulnerability Manag
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Endpoint%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Endpoint Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Backup%20and%20Recovery/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Backup and Recovery
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Azure/Security/MCSBv2/Artificial%20Intelligence%20Securit/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Artificial Intelligence Securit
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5" type="checkbox">
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Tools
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5_1" type="checkbox">
+<label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Federated Identity Credentials Report
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_1_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Federated Identity Credentials Report
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Tools/Federated_Identity_Credentials_Report/README-federated-identity-credentials/">
+<span class="md-ellipsis">
+    
+  
+    Script de Reporte para Federated Identity Credentials
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5_2" type="checkbox">
+<label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Analyze Virtual Network Flows
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Analyze Virtual Network Flows
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Tools/Analyze_Virtual_Network_Flows/">
+<span class="md-ellipsis">
+    
+  
+    Analyze-VNETFlowLogs
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content md-content--post" data-md-component="content">
+<div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner md-post">
+<nav class="md-nav md-nav--primary">
+<div class="md-post__back">
+<div class="md-nav__title md-nav__container">
+<a class="md-nav__link" href="../../../../">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+<span class="md-ellipsis">
+                    Back to index
+                  </span>
+</a>
+</div>
+</div>
+<div class="md-post__authors md-typeset">
+<div class="md-profile md-post__profile">
+<span class="md-author md-author--long">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+<span class="md-profile__description">
+<strong>
+                        
+                          Rafael Fernández
+                        
+                      </strong>
+<br>
+                      Creator
+                    </span>
+</div>
+</div>
+<ul class="md-post__meta md-nav__list">
+<li class="md-nav__item md-nav__item--section">
+<div class="md-post__title">
+<span class="md-ellipsis">
+                    Metadata
+                  </span>
+</div>
+<nav class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<div class="md-nav__link">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"></path></svg>
+<time class="md-ellipsis" datetime="2025-12-18 00:00:00+00:00">December 18, 2025</time>
+</div>
+</li>
+<li class="md-nav__item">
+<div class="md-nav__link">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"></path></svg>
+<span class="md-ellipsis">
+                            in
+                            
+                              <a href="../../../../category/azure-services/">Azure Services</a></span>
+</div>
+</li>
+<li class="md-nav__item">
+<div class="md-nav__link">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"></path></svg>
+<span class="md-ellipsis">
+                            
+                              11 min read
+                            
+                          </span>
+</div>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#introduccion">
+<span class="md-ellipsis">
+      
+        Introducción
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#conceptos-fundamentales">
+<span class="md-ellipsis">
+      
+        Conceptos Fundamentales
+      
+    </span>
+</a>
+<nav aria-label="Conceptos Fundamentales" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#que-es-el-firewall-de-storage-account">
+<span class="md-ellipsis">
+      
+        ¿Qué es el Firewall de Storage Account?
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tipos-de-reglas-de-red">
+<span class="md-ellipsis">
+      
+        Tipos de Reglas de Red
+      
+    </span>
+</a>
+<nav aria-label="Tipos de Reglas de Red" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-virtual-network-rules">
+<span class="md-ellipsis">
+      
+        1. Virtual Network Rules
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-ip-network-rules">
+<span class="md-ellipsis">
+      
+        2. IP Network Rules
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-resource-instance-rules">
+<span class="md-ellipsis">
+      
+        3. Resource Instance Rules ⭐
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-trusted-service-exceptions">
+<span class="md-ellipsis">
+      
+        4. Trusted Service Exceptions
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#resource-instances-control-granular">
+<span class="md-ellipsis">
+      
+        Resource Instances: Control Granular
+      
+    </span>
+</a>
+<nav aria-label="Resource Instances: Control Granular" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#que-son-las-resource-instances">
+<span class="md-ellipsis">
+      
+        ¿Qué son las Resource Instances?
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#comparacion-trusted-services-vs-resource-instances">
+<span class="md-ellipsis">
+      
+        Comparación: Trusted Services vs Resource Instances
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ejemplo-practico">
+<span class="md-ellipsis">
+      
+        Ejemplo Práctico
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#requerimientos-para-resource-instances">
+<span class="md-ellipsis">
+      
+        Requerimientos para Resource Instances
+      
+    </span>
+</a>
+<nav aria-label="Requerimientos para Resource Instances" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#checklist-de-requerimientos">
+<span class="md-ellipsis">
+      
+        ✅ Checklist de Requerimientos
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuracion-completa-paso-a-paso">
+<span class="md-ellipsis">
+      
+        Configuración Completa Paso a Paso
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#excepciones-bypass-logging-y-metrics">
+<span class="md-ellipsis">
+      
+        Excepciones (Bypass): Logging y Metrics
+      
+    </span>
+</a>
+<nav aria-label="Excepciones (Bypass): Logging y Metrics" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tipos-de-excepciones">
+<span class="md-ellipsis">
+      
+        Tipos de Excepciones
+      
+    </span>
+</a>
+<nav aria-label="Tipos de Excepciones" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-allow-azure-services-on-the-trusted-services-list">
+<span class="md-ellipsis">
+      
+        1. Allow Azure services on the trusted services list
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-allow-read-access-to-storage-logging">
+<span class="md-ellipsis">
+      
+        2. Allow read access to storage logging
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-allow-read-access-to-storage-metrics">
+<span class="md-ellipsis">
+      
+        3. Allow read access to storage metrics
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#como-configurar-excepciones-en-el-portal">
+<span class="md-ellipsis">
+      
+        Cómo Configurar Excepciones en el Portal
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuracion-recomendada-sin-private-endpoints">
+<span class="md-ellipsis">
+      
+        Configuración Recomendada sin Private Endpoints
+      
+    </span>
+</a>
+<nav aria-label="Configuración Recomendada sin Private Endpoints" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuracion-de-produccion">
+<span class="md-ellipsis">
+      
+        🎯 Configuración de Producción
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#arquitectura-visual">
+<span class="md-ellipsis">
+      
+        Arquitectura Visual
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#alcance-del-firewall-todos-los-servicios">
+<span class="md-ellipsis">
+      
+        Alcance del Firewall: Todos los Servicios
+      
+    </span>
+</a>
+<nav aria-label="Alcance del Firewall: Todos los Servicios" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#servicios-afectados">
+<span class="md-ellipsis">
+      
+        Servicios Afectados
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#control-granular-por-servicio">
+<span class="md-ellipsis">
+      
+        Control Granular por Servicio
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#validacion-de-configuracion">
+<span class="md-ellipsis">
+      
+        Validación de Configuración
+      
+    </span>
+</a>
+<nav aria-label="Validación de Configuración" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#script-de-validacion-completa">
+<span class="md-ellipsis">
+      
+        Script de Validación Completa
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mejores-practicas">
+<span class="md-ellipsis">
+      
+        Mejores Prácticas
+      
+    </span>
+</a>
+<nav aria-label="Mejores Prácticas" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#recomendaciones-de-seguridad">
+<span class="md-ellipsis">
+      
+        ✅ Recomendaciones de Seguridad
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#errores-comunes-a-evitar">
+<span class="md-ellipsis">
+      
+        ⚠️ Errores Comunes a Evitar
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#casos-especiales-servicios-que-requieren-trusted-services">
+<span class="md-ellipsis">
+      
+        Casos Especiales: Servicios que Requieren Trusted Services
+      
+    </span>
+</a>
+<nav aria-label="Casos Especiales: Servicios que Requieren Trusted Services" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#azure-backup">
+<span class="md-ellipsis">
+      
+        Azure Backup
+      
+    </span>
+</a>
+<nav aria-label="Azure Backup" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuracion-para-azure-backup">
+<span class="md-ellipsis">
+      
+        Configuración para Azure Backup
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#otros-servicios-que-pueden-requerir-trusted-services">
+<span class="md-ellipsis">
+      
+        Otros Servicios que Pueden Requerir Trusted Services
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#estrategia-recomendada-con-azure-backup">
+<span class="md-ellipsis">
+      
+        Estrategia Recomendada con Azure Backup
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ejemplo-de-configuracion-real-con-azure-backup">
+<span class="md-ellipsis">
+      
+        Ejemplo de Configuración Real con Azure Backup
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#troubleshooting">
+<span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+</a>
+<nav aria-label="Troubleshooting" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#error-403-acceso-denegado">
+<span class="md-ellipsis">
+      
+        Error 403: Acceso Denegado
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#verificar-acceso-por-servicio">
+<span class="md-ellipsis">
+      
+        Verificar Acceso por Servicio
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cuando-usar-private-endpoints">
+<span class="md-ellipsis">
+      
+        Cuándo Usar Private Endpoints
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#conclusion">
+<span class="md-ellipsis">
+      
+        Conclusión
+      
+    </span>
+</a>
+<nav aria-label="Conclusión" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuracion-resumida-optima">
+<span class="md-ellipsis">
+      
+        Configuración Resumida Óptima
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#referencias">
+<span class="md-ellipsis">
+      
+        Referencias
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag" href="../../../../tags/#tag:azure-storage-account">Azure Storage Account</a>
+</nav>
+<h1 id="seguridad-en-azure-storage-guia-completa-de-firewall-resource-instances-y-mejores-practicas">Seguridad en Azure Storage: Guía Completa de Firewall, Resource Instances y Mejores Prácticas</h1>
+<h2 id="introduccion">Introducción</h2>
+<p>La seguridad de las cuentas de almacenamiento en Azure es crítica para proteger tus datos. En este artículo profundizaremos en las diferentes opciones de firewall disponibles cuando no se usa Azure private endpoint, con especial énfasis en <strong>Resource Instances</strong>, <strong>Trusted Services</strong> y las configuraciones recomendadas cuando no se utilizan Private Endpoints.</p>
+<h2 id="conceptos-fundamentales">Conceptos Fundamentales</h2>
+<h3 id="que-es-el-firewall-de-storage-account">¿Qué es el Firewall de Storage Account?</h3>
+<p>El firewall de Azure Storage Account es una capa de seguridad que controla el acceso al <strong>endpoint público</strong> de tu cuenta de almacenamiento. Es importante entender que:</p>
+<ul>
+<li><strong>Un solo firewall</strong> protege TODOS los servicios (Blob, Files, Queue, Table)</li>
+<li>Las reglas aplican a nivel de <strong>Storage Account</strong>, no por servicio individual</li>
+<li>El firewall controla <strong>quién</strong> puede conectarse, mientras que RBAC controla <strong>qué</strong> puede hacer</li>
+</ul>
+<pre class="mermaid"><code>graph TD
+    A[Cliente/Servicio] --&gt;|Intenta acceder| B{Firewall}
+    B --&gt;|✅ Permitido| C{RBAC}
+    B --&gt;|❌ Bloqueado| D[403 Forbidden]
+    C --&gt;|✅ Con permisos| E[Acceso a datos]
+    C --&gt;|❌ Sin permisos| F[403 Unauthorized]
+</code></pre>
+<h2 id="tipos-de-reglas-de-red">Tipos de Reglas de Red</h2>
+<p>Azure Storage ofrece <strong>cuatro tipos</strong> de reglas de red que puedes configurar:</p>
+<h3 id="1-virtual-network-rules">1. Virtual Network Rules</h3>
+<p>Permiten tráfico desde subnets específicas dentro de Azure Virtual Networks.</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-0-1"><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c"># Agregar regla de VNet</span>
+</span><span id="__span-0-2"><a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="nb">Add-AzStorageAccountNetworkRule</span> <span class="p">`</span>
+</span><span id="__span-0-3"><a href="#__codelineno-0-3" id="__codelineno-0-3" name="__codelineno-0-3"></a>    <span class="n">-ResourceGroupName</span> <span class="s2">"myRG"</span> <span class="p">`</span>
+</span><span id="__span-0-4"><a href="#__codelineno-0-4" id="__codelineno-0-4" name="__codelineno-0-4"></a>    <span class="n">-Name</span> <span class="s2">"mystorageaccount"</span> <span class="p">`</span>
+</span><span id="__span-0-5"><a href="#__codelineno-0-5" id="__codelineno-0-5" name="__codelineno-0-5"></a>    <span class="n">-VirtualNetworkResourceId</span> <span class="s2">"/subscriptions/xxx/resourceGroups/rg/providers/Microsoft.Network/virtualNetworks/vnet/subnets/subnet"</span>
+</span></code></pre></div>
+<p><strong>Límite:</strong> Máximo 400 reglas por Storage Account</p>
+<h3 id="2-ip-network-rules">2. IP Network Rules</h3>
+<p>Permiten tráfico desde rangos de IP públicas específicas.</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-1-1"><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="c"># Agregar regla de IP</span>
+</span><span id="__span-1-2"><a href="#__codelineno-1-2" id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="nb">Add-AzStorageAccountNetworkRule</span> <span class="p">`</span>
+</span><span id="__span-1-3"><a href="#__codelineno-1-3" id="__codelineno-1-3" name="__codelineno-1-3"></a>    <span class="n">-ResourceGroupName</span> <span class="s2">"myRG"</span> <span class="p">`</span>
+</span><span id="__span-1-4"><a href="#__codelineno-1-4" id="__codelineno-1-4" name="__codelineno-1-4"></a>    <span class="n">-Name</span> <span class="s2">"mystorageaccount"</span> <span class="p">`</span>
+</span><span id="__span-1-5"><a href="#__codelineno-1-5" id="__codelineno-1-5" name="__codelineno-1-5"></a>    <span class="n">-IPAddressOrRange</span> <span class="s2">"203.0.113.0/24"</span>
+</span></code></pre></div>
+<p><strong>Límite:</strong> Máximo 400 reglas por Storage Account</p>
+<h3 id="3-resource-instance-rules">3. Resource Instance Rules ⭐</h3>
+<p>Permiten tráfico desde <strong>recursos Azure específicos</strong> identificados por su Resource ID.</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-2-1"><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c"># Agregar Resource Instance</span>
+</span><span id="__span-2-2"><a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="nb">Add-AzStorageAccountNetworkRule</span> <span class="p">`</span>
+</span><span id="__span-2-3"><a href="#__codelineno-2-3" id="__codelineno-2-3" name="__codelineno-2-3"></a>    <span class="n">-ResourceGroupName</span> <span class="s2">"myRG"</span> <span class="p">`</span>
+</span><span id="__span-2-4"><a href="#__codelineno-2-4" id="__codelineno-2-4" name="__codelineno-2-4"></a>    <span class="n">-Name</span> <span class="s2">"mystorageaccount"</span> <span class="p">`</span>
+</span><span id="__span-2-5"><a href="#__codelineno-2-5" id="__codelineno-2-5" name="__codelineno-2-5"></a>    <span class="n">-TenantId</span> <span class="s2">"your-tenant-id"</span> <span class="p">`</span>
+</span><span id="__span-2-6"><a href="#__codelineno-2-6" id="__codelineno-2-6" name="__codelineno-2-6"></a>    <span class="n">-ResourceId</span> <span class="s2">"/subscriptions/xxx/resourceGroups/rg/providers/Microsoft.Synapse/workspaces/myworkspace"</span>
+</span></code></pre></div>
+<p><strong>Límite:</strong> Máximo 200 reglas por Storage Account</p>
+<h3 id="4-trusted-service-exceptions">4. Trusted Service Exceptions</h3>
+<p>Permiten tráfico desde servicios de Microsoft en la lista de confianza.</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-3-1"><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="c"># Habilitar Trusted Services</span>
+</span><span id="__span-3-2"><a href="#__codelineno-3-2" id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="nb">Update-AzStorageAccountNetworkRuleSet</span> <span class="p">`</span>
+</span><span id="__span-3-3"><a href="#__codelineno-3-3" id="__codelineno-3-3" name="__codelineno-3-3"></a>    <span class="n">-ResourceGroupName</span> <span class="s2">"myRG"</span> <span class="p">`</span>
+</span><span id="__span-3-4"><a href="#__codelineno-3-4" id="__codelineno-3-4" name="__codelineno-3-4"></a>    <span class="n">-Name</span> <span class="s2">"mystorageaccount"</span> <span class="p">`</span>
+</span><span id="__span-3-5"><a href="#__codelineno-3-5" id="__codelineno-3-5" name="__codelineno-3-5"></a>    <span class="n">-Bypass</span> <span class="n">AzureServices</span><span class="p">,</span><span class="n">Logging</span><span class="p">,</span><span class="n">Metrics</span>
+</span></code></pre></div>
+<p><strong>Límite:</strong> Sin límite (es un flag de configuración)</p>
+<h2 id="resource-instances-control-granular">Resource Instances: Control Granular</h2>
+<h3 id="que-son-las-resource-instances">¿Qué son las Resource Instances?</h3>
+<p>Las <strong>Resource Instance Rules</strong> son la forma más segura de permitir acceso a servicios Azure cuando no usas Private Endpoints. A diferencia de Trusted Services (que permite CUALQUIER instancia de un servicio en tu tenant), Resource Instances te permite especificar <strong>exactamente qué recurso</strong> puede acceder.</p>
+<h3 id="comparacion-trusted-services-vs-resource-instances">Comparación: Trusted Services vs Resource Instances</h3>
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th>Trusted Services</th>
+<th>Resource Instances</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Granularidad</strong></td>
+<td>❌ Cualquier instancia del tenant</td>
+<td>✅ Solo recursos específicos</td>
+</tr>
+<tr>
+<td><strong>Seguridad</strong></td>
+<td>⚠️ Permisivo</td>
+<td>✅ Restrictivo</td>
+</tr>
+<tr>
+<td><strong>Principio de menor privilegio</strong></td>
+<td>❌ No cumple</td>
+<td>✅ Cumple completamente</td>
+</tr>
+<tr>
+<td><strong>Auditoría</strong></td>
+<td>❌ Difícil rastrear</td>
+<td>✅ Trazabilidad completa</td>
+</tr>
+<tr>
+<td><strong>Compliance</strong></td>
+<td>⚠️ Puede tener problemas</td>
+<td>✅ SOC2, ISO27001 friendly</td>
+</tr>
+<tr>
+<td><strong>Zero Trust</strong></td>
+<td>❌ No alineado</td>
+<td>✅ Completamente alineado</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ejemplo-practico">Ejemplo Práctico</h3>
+<p>Imagina que tienes múltiples Azure Synapse Workspaces en tu tenant:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">❌ Con Trusted Services</label><label for="__tabbed_1_2">✅ Con Resource Instances</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-4-1"><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="nb">Update-AzStorageAccountNetworkRuleSet</span> <span class="p">`</span>
+</span><span id="__span-4-2"><a href="#__codelineno-4-2" id="__codelineno-4-2" name="__codelineno-4-2"></a>    <span class="n">-Bypass</span> <span class="n">AzureServices</span>
+</span><span id="__span-4-3"><a href="#__codelineno-4-3" id="__codelineno-4-3" name="__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a href="#__codelineno-4-4" id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="c"># Resultado:</span>
+</span><span id="__span-4-5"><a href="#__codelineno-4-5" id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="c"># ✅ prod-synapse → Acceso permitido</span>
+</span><span id="__span-4-6"><a href="#__codelineno-4-6" id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="c"># ✅ dev-synapse → Acceso permitido</span>
+</span><span id="__span-4-7"><a href="#__codelineno-4-7" id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="c"># ✅ test-synapse → Acceso permitido</span>
+</span><span id="__span-4-8"><a href="#__codelineno-4-8" id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="c"># ✅ Cualquier otro Synapse creado → Acceso permitido</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-5-1"><a href="#__codelineno-5-1" id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="nb">Add-AzStorageAccountNetworkRule</span> <span class="p">`</span>
+</span><span id="__span-5-2"><a href="#__codelineno-5-2" id="__codelineno-5-2" name="__codelineno-5-2"></a>    <span class="n">-TenantId</span> <span class="s2">"xxx"</span> <span class="p">`</span>
+</span><span id="__span-5-3"><a href="#__codelineno-5-3" id="__codelineno-5-3" name="__codelineno-5-3"></a>    <span class="n">-ResourceId</span> <span class="s2">"/subscriptions/xxx/.../Microsoft.Synapse/workspaces/prod-synapse"</span>
+</span><span id="__span-5-4"><a href="#__codelineno-5-4" id="__codelineno-5-4" name="__codelineno-5-4"></a>
+</span><span id="__span-5-5"><a href="#__codelineno-5-5" id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="c"># Resultado:</span>
+</span><span id="__span-5-6"><a href="#__codelineno-5-6" id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="c"># ✅ prod-synapse → Acceso permitido</span>
+</span><span id="__span-5-7"><a href="#__codelineno-5-7" id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="c"># ❌ dev-synapse → Bloqueado</span>
+</span><span id="__span-5-8"><a href="#__codelineno-5-8" id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="c"># ❌ test-synapse → Bloqueado</span>
+</span><span id="__span-5-9"><a href="#__codelineno-5-9" id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="c"># ❌ Cualquier otro Synapse → Bloqueado</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<h2 id="requerimientos-para-resource-instances">Requerimientos para Resource Instances</h2>
+<p>Para usar Resource Instances correctamente, necesitas cumplir varios requisitos:</p>
+<h3 id="checklist-de-requerimientos">✅ Checklist de Requerimientos</h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"><span class="task-list-indicator"></span></label> <strong>Managed Identity</strong>: El recurso debe tener System-Assigned Managed Identity habilitada</li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"><span class="task-list-indicator"></span></label> <strong>Mismo Tenant</strong>: Recurso y Storage Account en el mismo Microsoft Entra tenant</li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"><span class="task-list-indicator"></span></label> <strong>Firewall Restrictivo</strong>: Storage Account con <code>DefaultAction: Deny</code></li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"><span class="task-list-indicator"></span></label> <strong>Permisos para configurar</strong>: Rol Storage Account Contributor o superior</li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"><span class="task-list-indicator"></span></label> <strong>Resource ID completo</strong>: Necesitas el Resource ID del recurso Azure</li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"><span class="task-list-indicator"></span></label> <strong>Rol RBAC asignado</strong>: La Managed Identity necesita roles de acceso a datos</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Importante</p>
+<p>La Resource Instance Rule solo da acceso al <strong>endpoint público</strong>, NO a los datos. Debes asignar roles RBAC a la Managed Identity del recurso.</p>
+</div>
+<h3 id="configuracion-completa-paso-a-paso">Configuración Completa Paso a Paso</h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-6-1"><a href="#__codelineno-6-1" id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="c"># Variables</span>
+</span><span id="__span-6-2"><a href="#__codelineno-6-2" id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="nv">$rgName</span> <span class="p">=</span> <span class="s2">"myResourceGroup"</span>
+</span><span id="__span-6-3"><a href="#__codelineno-6-3" id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="nv">$storageAccount</span> <span class="p">=</span> <span class="s2">"mystorageaccount"</span>
+</span><span id="__span-6-4"><a href="#__codelineno-6-4" id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="nv">$synapseWorkspaceName</span> <span class="p">=</span> <span class="s2">"prod-synapse"</span>
+</span><span id="__span-6-5"><a href="#__codelineno-6-5" id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="nv">$synapseRG</span> <span class="p">=</span> <span class="s2">"synapse-rg"</span>
+</span><span id="__span-6-6"><a href="#__codelineno-6-6" id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="nv">$tenantId</span> <span class="p">=</span> <span class="s2">"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"</span>
+</span><span id="__span-6-7"><a href="#__codelineno-6-7" id="__codelineno-6-7" name="__codelineno-6-7"></a>
+</span><span id="__span-6-8"><a href="#__codelineno-6-8" id="__codelineno-6-8" name="__codelineno-6-8"></a><span class="c"># 1. Obtener Resource ID del Synapse Workspace</span>
+</span><span id="__span-6-9"><a href="#__codelineno-6-9" id="__codelineno-6-9" name="__codelineno-6-9"></a><span class="nv">$synapseResourceId</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-AzSynapseWorkspace</span> <span class="p">`</span>
+</span><span id="__span-6-10"><a href="#__codelineno-6-10" id="__codelineno-6-10" name="__codelineno-6-10"></a>    <span class="n">-ResourceGroupName</span> <span class="nv">$synapseRG</span> <span class="p">`</span>
+</span><span id="__span-6-11"><a href="#__codelineno-6-11" id="__codelineno-6-11" name="__codelineno-6-11"></a>    <span class="n">-Name</span> <span class="nv">$synapseWorkspaceName</span><span class="p">).</span><span class="n">Id</span>
+</span><span id="__span-6-12"><a href="#__codelineno-6-12" id="__codelineno-6-12" name="__codelineno-6-12"></a>
+</span><span id="__span-6-13"><a href="#__codelineno-6-13" id="__codelineno-6-13" name="__codelineno-6-13"></a><span class="c"># 2. Configurar firewall restrictivo</span>
+</span><span id="__span-6-14"><a href="#__codelineno-6-14" id="__codelineno-6-14" name="__codelineno-6-14"></a><span class="nb">Update-AzStorageAccountNetworkRuleSet</span> <span class="p">`</span>
+</span><span id="__span-6-15"><a href="#__codelineno-6-15" id="__codelineno-6-15" name="__codelineno-6-15"></a>    <span class="n">-ResourceGroupName</span> <span class="nv">$rgName</span> <span class="p">`</span>
+</span><span id="__span-6-16"><a href="#__codelineno-6-16" id="__codelineno-6-16" name="__codelineno-6-16"></a>    <span class="n">-Name</span> <span class="nv">$storageAccount</span> <span class="p">`</span>
+</span><span id="__span-6-17"><a href="#__codelineno-6-17" id="__codelineno-6-17" name="__codelineno-6-17"></a>    <span class="n">-DefaultAction</span> <span class="n">Deny</span> <span class="p">`</span>
+</span><span id="__span-6-18"><a href="#__codelineno-6-18" id="__codelineno-6-18" name="__codelineno-6-18"></a>    <span class="n">-Bypass</span> <span class="n">Logging</span><span class="p">,</span><span class="n">Metrics</span>
+</span><span id="__span-6-19"><a href="#__codelineno-6-19" id="__codelineno-6-19" name="__codelineno-6-19"></a>
+</span><span id="__span-6-20"><a href="#__codelineno-6-20" id="__codelineno-6-20" name="__codelineno-6-20"></a><span class="c"># 3. Agregar Resource Instance Rule</span>
+</span><span id="__span-6-21"><a href="#__codelineno-6-21" id="__codelineno-6-21" name="__codelineno-6-21"></a><span class="nb">Add-AzStorageAccountNetworkRule</span> <span class="p">`</span>
+</span><span id="__span-6-22"><a href="#__codelineno-6-22" id="__codelineno-6-22" name="__codelineno-6-22"></a>    <span class="n">-ResourceGroupName</span> <span class="nv">$rgName</span> <span class="p">`</span>
+</span><span id="__span-6-23"><a href="#__codelineno-6-23" id="__codelineno-6-23" name="__codelineno-6-23"></a>    <span class="n">-Name</span> <span class="nv">$storageAccount</span> <span class="p">`</span>
+</span><span id="__span-6-24"><a href="#__codelineno-6-24" id="__codelineno-6-24" name="__codelineno-6-24"></a>    <span class="n">-TenantId</span> <span class="nv">$tenantId</span> <span class="p">`</span>
+</span><span id="__span-6-25"><a href="#__codelineno-6-25" id="__codelineno-6-25" name="__codelineno-6-25"></a>    <span class="n">-ResourceId</span> <span class="nv">$synapseResourceId</span>
+</span><span id="__span-6-26"><a href="#__codelineno-6-26" id="__codelineno-6-26" name="__codelineno-6-26"></a>
+</span><span id="__span-6-27"><a href="#__codelineno-6-27" id="__codelineno-6-27" name="__codelineno-6-27"></a><span class="c"># 4. Obtener Managed Identity Object ID</span>
+</span><span id="__span-6-28"><a href="#__codelineno-6-28" id="__codelineno-6-28" name="__codelineno-6-28"></a><span class="nv">$workspace</span> <span class="p">=</span> <span class="nb">Get-AzSynapseWorkspace</span> <span class="p">`</span>
+</span><span id="__span-6-29"><a href="#__codelineno-6-29" id="__codelineno-6-29" name="__codelineno-6-29"></a>    <span class="n">-ResourceGroupName</span> <span class="nv">$synapseRG</span> <span class="p">`</span>
+</span><span id="__span-6-30"><a href="#__codelineno-6-30" id="__codelineno-6-30" name="__codelineno-6-30"></a>    <span class="n">-Name</span> <span class="nv">$synapseWorkspaceName</span>
+</span><span id="__span-6-31"><a href="#__codelineno-6-31" id="__codelineno-6-31" name="__codelineno-6-31"></a><span class="nv">$principalId</span> <span class="p">=</span> <span class="nv">$workspace</span><span class="p">.</span><span class="n">Identity</span><span class="p">.</span><span class="n">PrincipalId</span>
+</span><span id="__span-6-32"><a href="#__codelineno-6-32" id="__codelineno-6-32" name="__codelineno-6-32"></a>
+</span><span id="__span-6-33"><a href="#__codelineno-6-33" id="__codelineno-6-33" name="__codelineno-6-33"></a><span class="c"># 5. Asignar rol RBAC para acceso a datos</span>
+</span><span id="__span-6-34"><a href="#__codelineno-6-34" id="__codelineno-6-34" name="__codelineno-6-34"></a><span class="nb">New-AzRoleAssignment</span> <span class="p">`</span>
+</span><span id="__span-6-35"><a href="#__codelineno-6-35" id="__codelineno-6-35" name="__codelineno-6-35"></a>    <span class="n">-ObjectId</span> <span class="nv">$principalId</span> <span class="p">`</span>
+</span><span id="__span-6-36"><a href="#__codelineno-6-36" id="__codelineno-6-36" name="__codelineno-6-36"></a>    <span class="n">-RoleDefinitionName</span> <span class="s2">"Storage Blob Data Contributor"</span> <span class="p">`</span>
+</span><span id="__span-6-37"><a href="#__codelineno-6-37" id="__codelineno-6-37" name="__codelineno-6-37"></a>    <span class="n">-Scope</span> <span class="s2">"/subscriptions/</span><span class="p">$((</span><span class="nb">Get-AzContext</span><span class="p">).</span><span class="n">Subscription</span><span class="p">.</span><span class="n">Id</span><span class="p">)</span><span class="s2">/resourceGroups/$rgName/providers/Microsoft.Storage/storageAccounts/$storageAccount"</span>
+</span><span id="__span-6-38"><a href="#__codelineno-6-38" id="__codelineno-6-38" name="__codelineno-6-38"></a>
+</span><span id="__span-6-39"><a href="#__codelineno-6-39" id="__codelineno-6-39" name="__codelineno-6-39"></a><span class="nb">Write-Host</span> <span class="s2">"✅ Configuración completa!"</span> <span class="n">-ForegroundColor</span> <span class="n">Green</span>
+</span></code></pre></div>
+<h2 id="excepciones-bypass-logging-y-metrics">Excepciones (Bypass): Logging y Metrics</h2>
+<p>Las <strong>Exceptions</strong> son configuraciones especiales que permiten que ciertos servicios bypaseen el firewall.</p>
+<h3 id="tipos-de-excepciones">Tipos de Excepciones</h3>
+<h4 id="1-allow-azure-services-on-the-trusted-services-list">1. Allow Azure services on the trusted services list</h4>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-7-1"><a href="#__codelineno-7-1" id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="nt">Bypass</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AzureServices</span>
+</span><span id="__span-7-2"><a href="#__codelineno-7-2" id="__codelineno-7-2" name="__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a href="#__codelineno-7-3" id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="l l-Scalar l-Scalar-Plain">¿Qué hace?</span>
+</span><span id="__span-7-4"><a href="#__codelineno-7-4" id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">- Permite TODOS los servicios de la lista de Trusted Services</span>
+</span><span id="__span-7-5"><a href="#__codelineno-7-5" id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">- Incluye</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Azure Backup, Synapse, SQL, Stream Analytics, etc.</span>
+</span><span id="__span-7-6"><a href="#__codelineno-7-6" id="__codelineno-7-6" name="__codelineno-7-6"></a>
+</span><span id="__span-7-7"><a href="#__codelineno-7-7" id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="nt">⚠️ Recomendación</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Usar Resource Instances en su lugar</span>
+</span></code></pre></div>
+<h4 id="2-allow-read-access-to-storage-logging">2. Allow read access to storage logging</h4>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-8-1"><a href="#__codelineno-8-1" id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="nt">Bypass</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Logging</span>
+</span><span id="__span-8-2"><a href="#__codelineno-8-2" id="__codelineno-8-2" name="__codelineno-8-2"></a>
+</span><span id="__span-8-3"><a href="#__codelineno-8-3" id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="l l-Scalar l-Scalar-Plain">¿Qué hace?</span>
+</span><span id="__span-8-4"><a href="#__codelineno-8-4" id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">- Permite leer el contenedor especial "$logs"</span>
+</span><span id="__span-8-5"><a href="#__codelineno-8-5" id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">- Solo para diagnósticos de Azure Monitor</span>
+</span><span id="__span-8-6"><a href="#__codelineno-8-6" id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">- NO da acceso a tus datos de aplicación</span>
+</span><span id="__span-8-7"><a href="#__codelineno-8-7" id="__codelineno-8-7" name="__codelineno-8-7"></a>
+</span><span id="__span-8-8"><a href="#__codelineno-8-8" id="__codelineno-8-8" name="__codelineno-8-8"></a><span class="nt">✅ Recomendación</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SIEMPRE habilitado</span>
+</span></code></pre></div>
+<h4 id="3-allow-read-access-to-storage-metrics">3. Allow read access to storage metrics</h4>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-9-1"><a href="#__codelineno-9-1" id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="nt">Bypass</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Metrics</span>
+</span><span id="__span-9-2"><a href="#__codelineno-9-2" id="__codelineno-9-2" name="__codelineno-9-2"></a>
+</span><span id="__span-9-3"><a href="#__codelineno-9-3" id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="l l-Scalar l-Scalar-Plain">¿Qué hace?</span>
+</span><span id="__span-9-4"><a href="#__codelineno-9-4" id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">- Permite leer las tablas "$Metrics*"</span>
+</span><span id="__span-9-5"><a href="#__codelineno-9-5" id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">- Solo para métricas de Azure Monitor</span>
+</span><span id="__span-9-6"><a href="#__codelineno-9-6" id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">- NO da acceso a tus datos de aplicación</span>
+</span><span id="__span-9-7"><a href="#__codelineno-9-7" id="__codelineno-9-7" name="__codelineno-9-7"></a>
+</span><span id="__span-9-8"><a href="#__codelineno-9-8" id="__codelineno-9-8" name="__codelineno-9-8"></a><span class="nt">✅ Recomendación</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SIEMPRE habilitado</span>
+</span></code></pre></div>
+<h3 id="como-configurar-excepciones-en-el-portal">Cómo Configurar Excepciones en el Portal</h3>
+<ol>
+<li>Ve a tu Storage Account</li>
+<li>Navega a: <strong>Security + networking</strong> → <strong>Networking</strong></li>
+<li>Click en <strong>View</strong> junto a "Virtual networks, IP addresses, and exceptions"</li>
+<li>Scroll down hasta la sección <strong>Exceptions</strong></li>
+<li>Marca/desmarca los checkboxes según necesites:</li>
+<li>☐ Allow Azure services on the trusted services list</li>
+<li>☑️ Allow read access to storage logging</li>
+<li>☑️ Allow read access to storage metrics</li>
+<li>Click en <strong>Save</strong></li>
+</ol>
+<h2 id="configuracion-recomendada-sin-private-endpoints">Configuración Recomendada sin Private Endpoints</h2>
+<p>Esta es la configuración óptima para máxima seguridad sin el costo adicional de Private Endpoints:</p>
+<h3 id="configuracion-de-produccion">🎯 Configuración de Producción</h3>
+<div class="admonition info">
+<p class="admonition-title">Nota sobre Azure Backup</p>
+<p>Si usas <strong>Azure Backup para discos no administrados</strong>, necesitarás habilitar <code>AzureServices</code> en el Bypass. Ver <a href="#casos-especiales-servicios-que-requieren-trusted-services">sección de Azure Backup</a> para más detalles.</p>
+</div>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-10-1"><a href="#__codelineno-10-1" id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="c"># 1. Configurar firewall restrictivo con excepciones de lectura</span>
+</span><span id="__span-10-2"><a href="#__codelineno-10-2" id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="nb">Update-AzStorageAccountNetworkRuleSet</span> <span class="p">`</span>
+</span><span id="__span-10-3"><a href="#__codelineno-10-3" id="__codelineno-10-3" name="__codelineno-10-3"></a>    <span class="n">-ResourceGroupName</span> <span class="s2">"myRG"</span> <span class="p">`</span>
+</span><span id="__span-10-4"><a href="#__codelineno-10-4" id="__codelineno-10-4" name="__codelineno-10-4"></a>    <span class="n">-Name</span> <span class="s2">"mystorageaccount"</span> <span class="p">`</span>
+</span><span id="__span-10-5"><a href="#__codelineno-10-5" id="__codelineno-10-5" name="__codelineno-10-5"></a>    <span class="n">-DefaultAction</span> <span class="n">Deny</span> <span class="p">`</span>
+</span><span id="__span-10-6"><a href="#__codelineno-10-6" id="__codelineno-10-6" name="__codelineno-10-6"></a>    <span class="n">-Bypass</span> <span class="n">Logging</span><span class="p">,</span><span class="n">Metrics</span>  <span class="c"># SIN AzureServices (a menos que uses Azure Backup)</span>
+</span><span id="__span-10-7"><a href="#__codelineno-10-7" id="__codelineno-10-7" name="__codelineno-10-7"></a>
+</span><span id="__span-10-8"><a href="#__codelineno-10-8" id="__codelineno-10-8" name="__codelineno-10-8"></a><span class="c"># 2. Agregar Resource Instances específicas</span>
+</span><span id="__span-10-9"><a href="#__codelineno-10-9" id="__codelineno-10-9" name="__codelineno-10-9"></a><span class="nv">$resources</span> <span class="p">=</span> <span class="p">@(</span>
+</span><span id="__span-10-10"><a href="#__codelineno-10-10" id="__codelineno-10-10" name="__codelineno-10-10"></a>    <span class="s2">"/subscriptions/xxx/resourceGroups/rg1/providers/Microsoft.Synapse/workspaces/prod-synapse"</span><span class="p">,</span>
+</span><span id="__span-10-11"><a href="#__codelineno-10-11" id="__codelineno-10-11" name="__codelineno-10-11"></a>    <span class="s2">"/subscriptions/xxx/resourceGroups/rg1/providers/Microsoft.DataFactory/factories/prod-adf"</span><span class="p">,</span>
+</span><span id="__span-10-12"><a href="#__codelineno-10-12" id="__codelineno-10-12" name="__codelineno-10-12"></a>    <span class="s2">"/subscriptions/xxx/resourceGroups/rg1/providers/Microsoft.Databricks/workspaces/prod-dbx"</span>
+</span><span id="__span-10-13"><a href="#__codelineno-10-13" id="__codelineno-10-13" name="__codelineno-10-13"></a><span class="p">)</span>
+</span><span id="__span-10-14"><a href="#__codelineno-10-14" id="__codelineno-10-14" name="__codelineno-10-14"></a>
+</span><span id="__span-10-15"><a href="#__codelineno-10-15" id="__codelineno-10-15" name="__codelineno-10-15"></a><span class="k">foreach</span> <span class="p">(</span><span class="nv">$resourceId</span> <span class="k">in</span> <span class="nv">$resources</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-10-16"><a href="#__codelineno-10-16" id="__codelineno-10-16" name="__codelineno-10-16"></a>    <span class="nb">Add-AzStorageAccountNetworkRule</span> <span class="p">`</span>
+</span><span id="__span-10-17"><a href="#__codelineno-10-17" id="__codelineno-10-17" name="__codelineno-10-17"></a>        <span class="n">-ResourceGroupName</span> <span class="s2">"myRG"</span> <span class="p">`</span>
+</span><span id="__span-10-18"><a href="#__codelineno-10-18" id="__codelineno-10-18" name="__codelineno-10-18"></a>        <span class="n">-Name</span> <span class="s2">"mystorageaccount"</span> <span class="p">`</span>
+</span><span id="__span-10-19"><a href="#__codelineno-10-19" id="__codelineno-10-19" name="__codelineno-10-19"></a>        <span class="n">-TenantId</span> <span class="s2">"your-tenant-id"</span> <span class="p">`</span>
+</span><span id="__span-10-20"><a href="#__codelineno-10-20" id="__codelineno-10-20" name="__codelineno-10-20"></a>        <span class="n">-ResourceId</span> <span class="nv">$resourceId</span>
+</span><span id="__span-10-21"><a href="#__codelineno-10-21" id="__codelineno-10-21" name="__codelineno-10-21"></a><span class="p">}</span>
+</span><span id="__span-10-22"><a href="#__codelineno-10-22" id="__codelineno-10-22" name="__codelineno-10-22"></a>
+</span><span id="__span-10-23"><a href="#__codelineno-10-23" id="__codelineno-10-23" name="__codelineno-10-23"></a><span class="c"># 3. Agregar IPs de oficina/VPN (opcional)</span>
+</span><span id="__span-10-24"><a href="#__codelineno-10-24" id="__codelineno-10-24" name="__codelineno-10-24"></a><span class="nv">$officeIPs</span> <span class="p">=</span> <span class="p">@(</span><span class="s2">"203.0.113.10"</span><span class="p">,</span> <span class="s2">"198.51.100.0/24"</span><span class="p">)</span>
+</span><span id="__span-10-25"><a href="#__codelineno-10-25" id="__codelineno-10-25" name="__codelineno-10-25"></a><span class="k">foreach</span> <span class="p">(</span><span class="nv">$ip</span> <span class="k">in</span> <span class="nv">$officeIPs</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-10-26"><a href="#__codelineno-10-26" id="__codelineno-10-26" name="__codelineno-10-26"></a>    <span class="nb">Add-AzStorageAccountNetworkRule</span> <span class="p">`</span>
+</span><span id="__span-10-27"><a href="#__codelineno-10-27" id="__codelineno-10-27" name="__codelineno-10-27"></a>        <span class="n">-ResourceGroupName</span> <span class="s2">"myRG"</span> <span class="p">`</span>
+</span><span id="__span-10-28"><a href="#__codelineno-10-28" id="__codelineno-10-28" name="__codelineno-10-28"></a>        <span class="n">-Name</span> <span class="s2">"mystorageaccount"</span> <span class="p">`</span>
+</span><span id="__span-10-29"><a href="#__codelineno-10-29" id="__codelineno-10-29" name="__codelineno-10-29"></a>        <span class="n">-IPAddressOrRange</span> <span class="nv">$ip</span>
+</span><span id="__span-10-30"><a href="#__codelineno-10-30" id="__codelineno-10-30" name="__codelineno-10-30"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="arquitectura-visual">Arquitectura Visual</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a href="#__codelineno-11-1" id="__codelineno-11-1" name="__codelineno-11-1"></a>┌─────────────────────────────────────────────────────────────┐
+</span><span id="__span-11-2"><a href="#__codelineno-11-2" id="__codelineno-11-2" name="__codelineno-11-2"></a>│         Storage Account Firewall Configuration              │
+</span><span id="__span-11-3"><a href="#__codelineno-11-3" id="__codelineno-11-3" name="__codelineno-11-3"></a>├─────────────────────────────────────────────────────────────┤
+</span><span id="__span-11-4"><a href="#__codelineno-11-4" id="__codelineno-11-4" name="__codelineno-11-4"></a>│                                                             │
+</span><span id="__span-11-5"><a href="#__codelineno-11-5" id="__codelineno-11-5" name="__codelineno-11-5"></a>│ Public network access: Selected networks                    │
+</span><span id="__span-11-6"><a href="#__codelineno-11-6" id="__codelineno-11-6" name="__codelineno-11-6"></a>│ Default Action: DENY                                        │
+</span><span id="__span-11-7"><a href="#__codelineno-11-7" id="__codelineno-11-7" name="__codelineno-11-7"></a>│                                                             │
+</span><span id="__span-11-8"><a href="#__codelineno-11-8" id="__codelineno-11-8" name="__codelineno-11-8"></a>│ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━│
+</span><span id="__span-11-9"><a href="#__codelineno-11-9" id="__codelineno-11-9" name="__codelineno-11-9"></a>│                                                             │
+</span><span id="__span-11-10"><a href="#__codelineno-11-10" id="__codelineno-11-10" name="__codelineno-11-10"></a>│ Exceptions (Bypass):                                        │
+</span><span id="__span-11-11"><a href="#__codelineno-11-11" id="__codelineno-11-11" name="__codelineno-11-11"></a>│   ☐ AzureServices (NO - demasiado permisivo)               │
+</span><span id="__span-11-12"><a href="#__codelineno-11-12" id="__codelineno-11-12" name="__codelineno-11-12"></a>│   ☑️ Logging (SÍ - para troubleshooting)                   │
+</span><span id="__span-11-13"><a href="#__codelineno-11-13" id="__codelineno-11-13" name="__codelineno-11-13"></a>│   ☑️ Metrics (SÍ - para monitoreo)                         │
+</span><span id="__span-11-14"><a href="#__codelineno-11-14" id="__codelineno-11-14" name="__codelineno-11-14"></a>│                                                             │
+</span><span id="__span-11-15"><a href="#__codelineno-11-15" id="__codelineno-11-15" name="__codelineno-11-15"></a>│ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━│
+</span><span id="__span-11-16"><a href="#__codelineno-11-16" id="__codelineno-11-16" name="__codelineno-11-16"></a>│                                                             │
+</span><span id="__span-11-17"><a href="#__codelineno-11-17" id="__codelineno-11-17" name="__codelineno-11-17"></a>│ Resource Instances (granular):                             │
+</span><span id="__span-11-18"><a href="#__codelineno-11-18" id="__codelineno-11-18" name="__codelineno-11-18"></a>│   ✅ prod-synapse                                           │
+</span><span id="__span-11-19"><a href="#__codelineno-11-19" id="__codelineno-11-19" name="__codelineno-11-19"></a>│   ✅ prod-adf                                               │
+</span><span id="__span-11-20"><a href="#__codelineno-11-20" id="__codelineno-11-20" name="__codelineno-11-20"></a>│   ✅ prod-databricks                                        │
+</span><span id="__span-11-21"><a href="#__codelineno-11-21" id="__codelineno-11-21" name="__codelineno-11-21"></a>│                                                             │
+</span><span id="__span-11-22"><a href="#__codelineno-11-22" id="__codelineno-11-22" name="__codelineno-11-22"></a>│ VNet Rules: [subnets específicas]                          │
+</span><span id="__span-11-23"><a href="#__codelineno-11-23" id="__codelineno-11-23" name="__codelineno-11-23"></a>│ IP Rules: [oficinas, VPN]                                  │
+</span><span id="__span-11-24"><a href="#__codelineno-11-24" id="__codelineno-11-24" name="__codelineno-11-24"></a>│                                                             │
+</span><span id="__span-11-25"><a href="#__codelineno-11-25" id="__codelineno-11-25" name="__codelineno-11-25"></a>└─────────────────────────────────────────────────────────────┘
+</span></code></pre></div>
+<h2 id="alcance-del-firewall-todos-los-servicios">Alcance del Firewall: Todos los Servicios</h2>
+<div class="admonition important">
+<p class="admonition-title">Concepto Clave</p>
+<p>El firewall de Storage Account protege <strong>TODOS</strong> los servicios, no puedes configurarlo por servicio individual.</p>
+</div>
+<h3 id="servicios-afectados">Servicios Afectados</h3>
+<p>El firewall aplica a todos estos endpoints:</p>
+<ul>
+<li>🔵 <strong>Blob Storage</strong>: <code>https://{account}.blob.core.windows.net</code></li>
+<li>📁 <strong>File Storage</strong>: <code>https://{account}.file.core.windows.net</code></li>
+<li>📮 <strong>Queue Storage</strong>: <code>https://{account}.queue.core.windows.net</code></li>
+<li>📊 <strong>Table Storage</strong>: <code>https://{account}.table.core.windows.net</code></li>
+</ul>
+<h3 id="control-granular-por-servicio">Control Granular por Servicio</h3>
+<p>Si necesitas que un recurso acceda solo a Blob pero no a Files, usa <strong>RBAC</strong>:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-12-1"><a href="#__codelineno-12-1" id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="c"># Firewall: Permite conexión al endpoint (todos los servicios)</span>
+</span><span id="__span-12-2"><a href="#__codelineno-12-2" id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="nb">Add-AzStorageAccountNetworkRule</span> <span class="n">-ResourceId</span> <span class="nv">$resourceId</span>
+</span><span id="__span-12-3"><a href="#__codelineno-12-3" id="__codelineno-12-3" name="__codelineno-12-3"></a>
+</span><span id="__span-12-4"><a href="#__codelineno-12-4" id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="c"># RBAC: Controla acceso específico por servicio</span>
+</span><span id="__span-12-5"><a href="#__codelineno-12-5" id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="nb">New-AzRoleAssignment</span> <span class="p">`</span>
+</span><span id="__span-12-6"><a href="#__codelineno-12-6" id="__codelineno-12-6" name="__codelineno-12-6"></a>    <span class="n">-ObjectId</span> <span class="nv">$principalId</span> <span class="p">`</span>
+</span><span id="__span-12-7"><a href="#__codelineno-12-7" id="__codelineno-12-7" name="__codelineno-12-7"></a>    <span class="n">-RoleDefinitionName</span> <span class="s2">"Storage Blob Data Contributor"</span> <span class="p">`</span>  <span class="c"># Solo Blob</span>
+</span><span id="__span-12-8"><a href="#__codelineno-12-8" id="__codelineno-12-8" name="__codelineno-12-8"></a>    <span class="n">-Scope</span> <span class="nv">$storageAccountScope</span>
+</span><span id="__span-12-9"><a href="#__codelineno-12-9" id="__codelineno-12-9" name="__codelineno-12-9"></a>
+</span><span id="__span-12-10"><a href="#__codelineno-12-10" id="__codelineno-12-10" name="__codelineno-12-10"></a><span class="c"># No asignas roles para Files, Queues o Tables</span>
+</span><span id="__span-12-11"><a href="#__codelineno-12-11" id="__codelineno-12-11" name="__codelineno-12-11"></a><span class="c"># → Aunque el firewall permita conexión, no tiene permisos RBAC</span>
+</span></code></pre></div>
+<h2 id="validacion-de-configuracion">Validación de Configuración</h2>
+<h3 id="script-de-validacion-completa">Script de Validación Completa</h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-13-1"><a href="#__codelineno-13-1" id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="k">function</span> <span class="nb">Test-StorageAccountSecurityConfig</span> <span class="p">{</span>
+</span><span id="__span-13-2"><a href="#__codelineno-13-2" id="__codelineno-13-2" name="__codelineno-13-2"></a>    <span class="k">param</span><span class="p">(</span>
+</span><span id="__span-13-3"><a href="#__codelineno-13-3" id="__codelineno-13-3" name="__codelineno-13-3"></a>        <span class="no">[string]</span><span class="nv">$ResourceGroupName</span><span class="p">,</span>
+</span><span id="__span-13-4"><a href="#__codelineno-13-4" id="__codelineno-13-4" name="__codelineno-13-4"></a>        <span class="no">[string]</span><span class="nv">$StorageAccountName</span>
+</span><span id="__span-13-5"><a href="#__codelineno-13-5" id="__codelineno-13-5" name="__codelineno-13-5"></a>    <span class="p">)</span>
+</span><span id="__span-13-6"><a href="#__codelineno-13-6" id="__codelineno-13-6" name="__codelineno-13-6"></a>
+</span><span id="__span-13-7"><a href="#__codelineno-13-7" id="__codelineno-13-7" name="__codelineno-13-7"></a>    <span class="nv">$rules</span> <span class="p">=</span> <span class="nb">Get-AzStorageAccountNetworkRuleSet</span> <span class="p">`</span>
+</span><span id="__span-13-8"><a href="#__codelineno-13-8" id="__codelineno-13-8" name="__codelineno-13-8"></a>        <span class="n">-ResourceGroupName</span> <span class="nv">$ResourceGroupName</span> <span class="p">`</span>
+</span><span id="__span-13-9"><a href="#__codelineno-13-9" id="__codelineno-13-9" name="__codelineno-13-9"></a>        <span class="n">-Name</span> <span class="nv">$StorageAccountName</span>
+</span><span id="__span-13-10"><a href="#__codelineno-13-10" id="__codelineno-13-10" name="__codelineno-13-10"></a>
+</span><span id="__span-13-11"><a href="#__codelineno-13-11" id="__codelineno-13-11" name="__codelineno-13-11"></a>    <span class="nb">Write-Host</span> <span class="s2">"</span><span class="se">`n</span><span class="s2">🔍 VALIDACIÓN DE CONFIGURACIÓN ÓPTIMA"</span> <span class="n">-ForegroundColor</span> <span class="n">Cyan</span>
+</span><span id="__span-13-12"><a href="#__codelineno-13-12" id="__codelineno-13-12" name="__codelineno-13-12"></a>    <span class="nb">Write-Host</span> <span class="s2">"═══════════════════════════════════════</span><span class="se">`n</span><span class="s2">"</span> <span class="n">-ForegroundColor</span> <span class="n">Cyan</span>
+</span><span id="__span-13-13"><a href="#__codelineno-13-13" id="__codelineno-13-13" name="__codelineno-13-13"></a>
+</span><span id="__span-13-14"><a href="#__codelineno-13-14" id="__codelineno-13-14" name="__codelineno-13-14"></a>    <span class="nv">$score</span> <span class="p">=</span> <span class="n">0</span>
+</span><span id="__span-13-15"><a href="#__codelineno-13-15" id="__codelineno-13-15" name="__codelineno-13-15"></a>    <span class="nv">$maxScore</span> <span class="p">=</span> <span class="n">5</span>
+</span><span id="__span-13-16"><a href="#__codelineno-13-16" id="__codelineno-13-16" name="__codelineno-13-16"></a>
+</span><span id="__span-13-17"><a href="#__codelineno-13-17" id="__codelineno-13-17" name="__codelineno-13-17"></a>    <span class="c"># Check 1: DefaultAction</span>
+</span><span id="__span-13-18"><a href="#__codelineno-13-18" id="__codelineno-13-18" name="__codelineno-13-18"></a>    <span class="k">if</span> <span class="p">(</span><span class="nv">$rules</span><span class="p">.</span><span class="n">DefaultAction</span> <span class="o">-eq</span> <span class="s2">"Deny"</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-13-19"><a href="#__codelineno-13-19" id="__codelineno-13-19" name="__codelineno-13-19"></a>        <span class="nb">Write-Host</span> <span class="s2">"✅ DefaultAction: Deny (Correcto)"</span> <span class="n">-ForegroundColor</span> <span class="n">Green</span>
+</span><span id="__span-13-20"><a href="#__codelineno-13-20" id="__codelineno-13-20" name="__codelineno-13-20"></a>        <span class="nv">$score</span><span class="p">++</span>
+</span><span id="__span-13-21"><a href="#__codelineno-13-21" id="__codelineno-13-21" name="__codelineno-13-21"></a>    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span id="__span-13-22"><a href="#__codelineno-13-22" id="__codelineno-13-22" name="__codelineno-13-22"></a>        <span class="nb">Write-Host</span> <span class="s2">"❌ DefaultAction: Allow (Cambiar a Deny)"</span> <span class="n">-ForegroundColor</span> <span class="n">Red</span>
+</span><span id="__span-13-23"><a href="#__codelineno-13-23" id="__codelineno-13-23" name="__codelineno-13-23"></a>    <span class="p">}</span>
+</span><span id="__span-13-24"><a href="#__codelineno-13-24" id="__codelineno-13-24" name="__codelineno-13-24"></a>
+</span><span id="__span-13-25"><a href="#__codelineno-13-25" id="__codelineno-13-25" name="__codelineno-13-25"></a>    <span class="c"># Check 2: Bypass óptimo</span>
+</span><span id="__span-13-26"><a href="#__codelineno-13-26" id="__codelineno-13-26" name="__codelineno-13-26"></a>    <span class="k">if</span> <span class="p">(</span><span class="nv">$rules</span><span class="p">.</span><span class="n">Bypass</span> <span class="o">-notlike</span> <span class="s2">"*AzureServices*"</span> <span class="o">-and</span> 
+</span><span id="__span-13-27"><a href="#__codelineno-13-27" id="__codelineno-13-27" name="__codelineno-13-27"></a>        <span class="nv">$rules</span><span class="p">.</span><span class="n">Bypass</span> <span class="o">-like</span> <span class="s2">"*Logging*"</span> <span class="o">-and</span> 
+</span><span id="__span-13-28"><a href="#__codelineno-13-28" id="__codelineno-13-28" name="__codelineno-13-28"></a>        <span class="nv">$rules</span><span class="p">.</span><span class="n">Bypass</span> <span class="o">-like</span> <span class="s2">"*Metrics*"</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-13-29"><a href="#__codelineno-13-29" id="__codelineno-13-29" name="__codelineno-13-29"></a>        <span class="nb">Write-Host</span> <span class="s2">"✅ Bypass: Logging,Metrics (Óptimo)"</span> <span class="n">-ForegroundColor</span> <span class="n">Green</span>
+</span><span id="__span-13-30"><a href="#__codelineno-13-30" id="__codelineno-13-30" name="__codelineno-13-30"></a>        <span class="nv">$score</span><span class="p">++</span>
+</span><span id="__span-13-31"><a href="#__codelineno-13-31" id="__codelineno-13-31" name="__codelineno-13-31"></a>    <span class="p">}</span> <span class="k">elseif</span> <span class="p">(</span><span class="nv">$rules</span><span class="p">.</span><span class="n">Bypass</span> <span class="o">-like</span> <span class="s2">"*AzureServices*"</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-13-32"><a href="#__codelineno-13-32" id="__codelineno-13-32" name="__codelineno-13-32"></a>        <span class="nb">Write-Host</span> <span class="s2">"⚠️  Bypass incluye AzureServices (Considerar usar Resource Instances)"</span> <span class="n">-ForegroundColor</span> <span class="n">Yellow</span>
+</span><span id="__span-13-33"><a href="#__codelineno-13-33" id="__codelineno-13-33" name="__codelineno-13-33"></a>    <span class="p">}</span>
+</span><span id="__span-13-34"><a href="#__codelineno-13-34" id="__codelineno-13-34" name="__codelineno-13-34"></a>
+</span><span id="__span-13-35"><a href="#__codelineno-13-35" id="__codelineno-13-35" name="__codelineno-13-35"></a>    <span class="c"># Check 3: Resource Instances</span>
+</span><span id="__span-13-36"><a href="#__codelineno-13-36" id="__codelineno-13-36" name="__codelineno-13-36"></a>    <span class="k">if</span> <span class="p">(</span><span class="nv">$rules</span><span class="p">.</span><span class="n">ResourceAccessRules</span><span class="p">.</span><span class="n">Count</span> <span class="o">-gt</span> <span class="n">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-13-37"><a href="#__codelineno-13-37" id="__codelineno-13-37" name="__codelineno-13-37"></a>        <span class="nb">Write-Host</span> <span class="s2">"✅ Resource Instances: </span><span class="p">$(</span><span class="nv">$rules</span><span class="p">.</span><span class="n">ResourceAccessRules</span><span class="p">.</span><span class="n">Count</span><span class="p">)</span><span class="s2"> configuradas"</span> <span class="n">-ForegroundColor</span> <span class="n">Green</span>
+</span><span id="__span-13-38"><a href="#__codelineno-13-38" id="__codelineno-13-38" name="__codelineno-13-38"></a>        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$rule</span> <span class="k">in</span> <span class="nv">$rules</span><span class="p">.</span><span class="n">ResourceAccessRules</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-13-39"><a href="#__codelineno-13-39" id="__codelineno-13-39" name="__codelineno-13-39"></a>            <span class="nv">$resourceName</span> <span class="p">=</span> <span class="nv">$rule</span><span class="p">.</span><span class="n">ResourceId</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="s1">'/'</span><span class="p">)[-</span><span class="n">1</span><span class="p">]</span>
+</span><span id="__span-13-40"><a href="#__codelineno-13-40" id="__codelineno-13-40" name="__codelineno-13-40"></a>            <span class="nb">Write-Host</span> <span class="s2">"   → $resourceName"</span> <span class="n">-ForegroundColor</span> <span class="n">Gray</span>
+</span><span id="__span-13-41"><a href="#__codelineno-13-41" id="__codelineno-13-41" name="__codelineno-13-41"></a>        <span class="p">}</span>
+</span><span id="__span-13-42"><a href="#__codelineno-13-42" id="__codelineno-13-42" name="__codelineno-13-42"></a>        <span class="nv">$score</span><span class="p">++</span>
+</span><span id="__span-13-43"><a href="#__codelineno-13-43" id="__codelineno-13-43" name="__codelineno-13-43"></a>    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span id="__span-13-44"><a href="#__codelineno-13-44" id="__codelineno-13-44" name="__codelineno-13-44"></a>        <span class="nb">Write-Host</span> <span class="s2">"⚠️  No hay Resource Instances configuradas"</span> <span class="n">-ForegroundColor</span> <span class="n">Yellow</span>
+</span><span id="__span-13-45"><a href="#__codelineno-13-45" id="__codelineno-13-45" name="__codelineno-13-45"></a>    <span class="p">}</span>
+</span><span id="__span-13-46"><a href="#__codelineno-13-46" id="__codelineno-13-46" name="__codelineno-13-46"></a>
+</span><span id="__span-13-47"><a href="#__codelineno-13-47" id="__codelineno-13-47" name="__codelineno-13-47"></a>    <span class="c"># Check 4: VNet Rules</span>
+</span><span id="__span-13-48"><a href="#__codelineno-13-48" id="__codelineno-13-48" name="__codelineno-13-48"></a>    <span class="k">if</span> <span class="p">(</span><span class="nv">$rules</span><span class="p">.</span><span class="n">VirtualNetworkRules</span><span class="p">.</span><span class="n">Count</span> <span class="o">-gt</span> <span class="n">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-13-49"><a href="#__codelineno-13-49" id="__codelineno-13-49" name="__codelineno-13-49"></a>        <span class="nb">Write-Host</span> <span class="s2">"✅ VNet Rules: </span><span class="p">$(</span><span class="nv">$rules</span><span class="p">.</span><span class="n">VirtualNetworkRules</span><span class="p">.</span><span class="n">Count</span><span class="p">)</span><span class="s2">"</span> <span class="n">-ForegroundColor</span> <span class="n">Green</span>
+</span><span id="__span-13-50"><a href="#__codelineno-13-50" id="__codelineno-13-50" name="__codelineno-13-50"></a>        <span class="nv">$score</span><span class="p">++</span>
+</span><span id="__span-13-51"><a href="#__codelineno-13-51" id="__codelineno-13-51" name="__codelineno-13-51"></a>    <span class="p">}</span>
+</span><span id="__span-13-52"><a href="#__codelineno-13-52" id="__codelineno-13-52" name="__codelineno-13-52"></a>
+</span><span id="__span-13-53"><a href="#__codelineno-13-53" id="__codelineno-13-53" name="__codelineno-13-53"></a>    <span class="c"># Check 5: IP Rules</span>
+</span><span id="__span-13-54"><a href="#__codelineno-13-54" id="__codelineno-13-54" name="__codelineno-13-54"></a>    <span class="k">if</span> <span class="p">(</span><span class="nv">$rules</span><span class="p">.</span><span class="n">IpRules</span><span class="p">.</span><span class="n">Count</span> <span class="o">-gt</span> <span class="n">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-13-55"><a href="#__codelineno-13-55" id="__codelineno-13-55" name="__codelineno-13-55"></a>        <span class="nb">Write-Host</span> <span class="s2">"✅ IP Rules: </span><span class="p">$(</span><span class="nv">$rules</span><span class="p">.</span><span class="n">IpRules</span><span class="p">.</span><span class="n">Count</span><span class="p">)</span><span class="s2">"</span> <span class="n">-ForegroundColor</span> <span class="n">Green</span>
+</span><span id="__span-13-56"><a href="#__codelineno-13-56" id="__codelineno-13-56" name="__codelineno-13-56"></a>        <span class="nv">$score</span><span class="p">++</span>
+</span><span id="__span-13-57"><a href="#__codelineno-13-57" id="__codelineno-13-57" name="__codelineno-13-57"></a>    <span class="p">}</span>
+</span><span id="__span-13-58"><a href="#__codelineno-13-58" id="__codelineno-13-58" name="__codelineno-13-58"></a>
+</span><span id="__span-13-59"><a href="#__codelineno-13-59" id="__codelineno-13-59" name="__codelineno-13-59"></a>    <span class="c"># Resumen</span>
+</span><span id="__span-13-60"><a href="#__codelineno-13-60" id="__codelineno-13-60" name="__codelineno-13-60"></a>    <span class="nb">Write-Host</span> <span class="s2">"</span><span class="se">`n</span><span class="s2">════════════════════════════════════════"</span> <span class="n">-ForegroundColor</span> <span class="n">Cyan</span>
+</span><span id="__span-13-61"><a href="#__codelineno-13-61" id="__codelineno-13-61" name="__codelineno-13-61"></a>    <span class="nb">Write-Host</span> <span class="s2">"Puntaje de Seguridad: $score/$maxScore"</span> <span class="n">-ForegroundColor</span> <span class="p">$(</span>
+</span><span id="__span-13-62"><a href="#__codelineno-13-62" id="__codelineno-13-62" name="__codelineno-13-62"></a>        <span class="k">if</span> <span class="p">(</span><span class="nv">$score</span> <span class="o">-eq</span> <span class="nv">$maxScore</span><span class="p">)</span> <span class="p">{</span> <span class="s2">"Green"</span> <span class="p">}</span> 
+</span><span id="__span-13-63"><a href="#__codelineno-13-63" id="__codelineno-13-63" name="__codelineno-13-63"></a>        <span class="k">elseif</span> <span class="p">(</span><span class="nv">$score</span> <span class="o">-ge</span> <span class="n">3</span><span class="p">)</span> <span class="p">{</span> <span class="s2">"Yellow"</span> <span class="p">}</span> 
+</span><span id="__span-13-64"><a href="#__codelineno-13-64" id="__codelineno-13-64" name="__codelineno-13-64"></a>        <span class="k">else</span> <span class="p">{</span> <span class="s2">"Red"</span> <span class="p">}</span>
+</span><span id="__span-13-65"><a href="#__codelineno-13-65" id="__codelineno-13-65" name="__codelineno-13-65"></a>    <span class="p">)</span>
+</span><span id="__span-13-66"><a href="#__codelineno-13-66" id="__codelineno-13-66" name="__codelineno-13-66"></a>
+</span><span id="__span-13-67"><a href="#__codelineno-13-67" id="__codelineno-13-67" name="__codelineno-13-67"></a>    <span class="k">if</span> <span class="p">(</span><span class="nv">$score</span> <span class="o">-ge</span> <span class="n">4</span> <span class="o">-and</span> <span class="nv">$rules</span><span class="p">.</span><span class="n">Bypass</span> <span class="o">-notlike</span> <span class="s2">"*AzureServices*"</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-13-68"><a href="#__codelineno-13-68" id="__codelineno-13-68" name="__codelineno-13-68"></a>        <span class="nb">Write-Host</span> <span class="s2">"🎉 CONFIGURACIÓN ÓPTIMA"</span> <span class="n">-ForegroundColor</span> <span class="n">Green</span>
+</span><span id="__span-13-69"><a href="#__codelineno-13-69" id="__codelineno-13-69" name="__codelineno-13-69"></a>    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span id="__span-13-70"><a href="#__codelineno-13-70" id="__codelineno-13-70" name="__codelineno-13-70"></a>        <span class="nb">Write-Host</span> <span class="s2">"⚠️  Revisar configuración según recomendaciones"</span> <span class="n">-ForegroundColor</span> <span class="n">Yellow</span>
+</span><span id="__span-13-71"><a href="#__codelineno-13-71" id="__codelineno-13-71" name="__codelineno-13-71"></a>    <span class="p">}</span>
+</span><span id="__span-13-72"><a href="#__codelineno-13-72" id="__codelineno-13-72" name="__codelineno-13-72"></a><span class="p">}</span>
+</span><span id="__span-13-73"><a href="#__codelineno-13-73" id="__codelineno-13-73" name="__codelineno-13-73"></a>
+</span><span id="__span-13-74"><a href="#__codelineno-13-74" id="__codelineno-13-74" name="__codelineno-13-74"></a><span class="c"># Uso</span>
+</span><span id="__span-13-75"><a href="#__codelineno-13-75" id="__codelineno-13-75" name="__codelineno-13-75"></a><span class="nb">Test-StorageAccountSecurityConfig</span> <span class="n">-ResourceGroupName</span> <span class="s2">"myRG"</span> <span class="n">-StorageAccountName</span> <span class="s2">"mystorageaccount"</span>
+</span></code></pre></div>
+<h2 id="mejores-practicas">Mejores Prácticas</h2>
+<h3 id="recomendaciones-de-seguridad">✅ Recomendaciones de Seguridad</h3>
+<ol>
+<li><strong>Usa Resource Instances en lugar de Trusted Services</strong></li>
+<li>Mayor control y trazabilidad</li>
+<li>Cumple con Zero Trust</li>
+<li>
+<p>Mejor para compliance</p>
+</li>
+<li>
+<p><strong>Siempre habilita Logging y Metrics</strong></p>
+</li>
+<li>Necesario para troubleshooting</li>
+<li>No expone tus datos</li>
+<li>
+<p>Bajo riesgo de seguridad</p>
+</li>
+<li>
+<p><strong>Aplica el principio de menor privilegio</strong></p>
+</li>
+<li>Firewall: Solo recursos que realmente necesitan acceso</li>
+<li>
+<p>RBAC: Solo los permisos mínimos necesarios</p>
+</li>
+<li>
+<p><strong>Documenta tus Resource Instances</strong></p>
+</li>
+<li>Mantén un registro de qué recurso accede y por qué</li>
+<li>
+<p>Facilita auditorías y compliance</p>
+</li>
+<li>
+<p><strong>Revisa periódicamente las reglas</strong></p>
+</li>
+<li>Elimina recursos que ya no existen</li>
+<li>Verifica que las reglas siguen siendo necesarias</li>
+</ol>
+<h3 id="errores-comunes-a-evitar">⚠️ Errores Comunes a Evitar</h3>
+<div class="admonition danger">
+<p class="admonition-title">No hagas esto</p>
+<ul>
+<li>❌ Dejar <code>DefaultAction: Allow</code> en producción</li>
+<li>❌ Usar solo Trusted Services por conveniencia</li>
+<li>❌ Olvidar asignar roles RBAC después de crear Resource Instance</li>
+<li>❌ No documentar para qué sirve cada regla</li>
+<li>❌ Deshabilitar Logging y Metrics</li>
+</ul>
+</div>
+<h2 id="casos-especiales-servicios-que-requieren-trusted-services">Casos Especiales: Servicios que Requieren Trusted Services</h2>
+<p>Algunos servicios de Azure <strong>NO soportan Resource Instances</strong> y requieren que tengas habilitado <code>Bypass: AzureServices</code>. Es importante conocer estos casos para planificar tu estrategia de seguridad.</p>
+<h3 id="azure-backup">Azure Backup</h3>
+<p><strong>Azure Backup</strong> es uno de los servicios más importantes que requiere Trusted Services para ciertos escenarios:</p>
+<div class="admonition warning">
+<p class="admonition-title">Azure Backup y Trusted Services</p>
+<p>Azure Backup necesita <code>Bypass: AzureServices</code> habilitado para:</p>
+<ul>
+<li><strong>Backup de discos no administrados</strong> (unmanaged disks) en VMs</li>
+<li><strong>Restore de VMs</strong> con discos no administrados</li>
+<li>Algunos escenarios de backup de Azure Files</li>
+</ul>
+<p><strong>NO necesita</strong> Trusted Services para:</p>
+<ul>
+<li>Backup de discos administrados (managed disks) - Azure los gestiona automáticamente</li>
+</ul>
+</div>
+<h4 id="configuracion-para-azure-backup">Configuración para Azure Backup</h4>
+<p>Si usas Azure Backup, tienes dos opciones:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">Opción 1: Trusted Services (Menos Seguro)</label><label for="__tabbed_2_2">Opción 2: Híbrida (Más Seguro)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-14-1"><a href="#__codelineno-14-1" id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="c"># Habilitar Trusted Services para Azure Backup</span>
+</span><span id="__span-14-2"><a href="#__codelineno-14-2" id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="nb">Update-AzStorageAccountNetworkRuleSet</span> <span class="p">`</span>
+</span><span id="__span-14-3"><a href="#__codelineno-14-3" id="__codelineno-14-3" name="__codelineno-14-3"></a>    <span class="n">-ResourceGroupName</span> <span class="s2">"myRG"</span> <span class="p">`</span>
+</span><span id="__span-14-4"><a href="#__codelineno-14-4" id="__codelineno-14-4" name="__codelineno-14-4"></a>    <span class="n">-Name</span> <span class="s2">"mystorageaccount"</span> <span class="p">`</span>
+</span><span id="__span-14-5"><a href="#__codelineno-14-5" id="__codelineno-14-5" name="__codelineno-14-5"></a>    <span class="n">-DefaultAction</span> <span class="n">Deny</span> <span class="p">`</span>
+</span><span id="__span-14-6"><a href="#__codelineno-14-6" id="__codelineno-14-6" name="__codelineno-14-6"></a>    <span class="n">-Bypass</span> <span class="n">AzureServices</span><span class="p">,</span><span class="n">Logging</span><span class="p">,</span><span class="n">Metrics</span>
+</span><span id="__span-14-7"><a href="#__codelineno-14-7" id="__codelineno-14-7" name="__codelineno-14-7"></a>
+</span><span id="__span-14-8"><a href="#__codelineno-14-8" id="__codelineno-14-8" name="__codelineno-14-8"></a><span class="c"># ⚠️ Esto permite acceso a TODOS los servicios trusted</span>
+</span><span id="__span-14-9"><a href="#__codelineno-14-9" id="__codelineno-14-9" name="__codelineno-14-9"></a><span class="c"># No solo Azure Backup</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-15-1"><a href="#__codelineno-15-1" id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="c"># Combinar Trusted Services + Resource Instances</span>
+</span><span id="__span-15-2"><a href="#__codelineno-15-2" id="__codelineno-15-2" name="__codelineno-15-2"></a><span class="nb">Update-AzStorageAccountNetworkRuleSet</span> <span class="p">`</span>
+</span><span id="__span-15-3"><a href="#__codelineno-15-3" id="__codelineno-15-3" name="__codelineno-15-3"></a>    <span class="n">-ResourceGroupName</span> <span class="s2">"myRG"</span> <span class="p">`</span>
+</span><span id="__span-15-4"><a href="#__codelineno-15-4" id="__codelineno-15-4" name="__codelineno-15-4"></a>    <span class="n">-Name</span> <span class="s2">"mystorageaccount"</span> <span class="p">`</span>
+</span><span id="__span-15-5"><a href="#__codelineno-15-5" id="__codelineno-15-5" name="__codelineno-15-5"></a>    <span class="n">-DefaultAction</span> <span class="n">Deny</span> <span class="p">`</span>
+</span><span id="__span-15-6"><a href="#__codelineno-15-6" id="__codelineno-15-6" name="__codelineno-15-6"></a>    <span class="n">-Bypass</span> <span class="n">AzureServices</span><span class="p">,</span><span class="n">Logging</span><span class="p">,</span><span class="n">Metrics</span>  <span class="c"># Para Azure Backup</span>
+</span><span id="__span-15-7"><a href="#__codelineno-15-7" id="__codelineno-15-7" name="__codelineno-15-7"></a>
+</span><span id="__span-15-8"><a href="#__codelineno-15-8" id="__codelineno-15-8" name="__codelineno-15-8"></a><span class="c"># Agregar Resource Instances para otros servicios</span>
+</span><span id="__span-15-9"><a href="#__codelineno-15-9" id="__codelineno-15-9" name="__codelineno-15-9"></a><span class="nb">Add-AzStorageAccountNetworkRule</span> <span class="p">`</span>
+</span><span id="__span-15-10"><a href="#__codelineno-15-10" id="__codelineno-15-10" name="__codelineno-15-10"></a>    <span class="n">-TenantId</span> <span class="s2">"xxx"</span> <span class="p">`</span>
+</span><span id="__span-15-11"><a href="#__codelineno-15-11" id="__codelineno-15-11" name="__codelineno-15-11"></a>    <span class="n">-ResourceId</span> <span class="s2">"/subscriptions/xxx/.../Microsoft.Synapse/workspaces/prod-synapse"</span>
+</span><span id="__span-15-12"><a href="#__codelineno-15-12" id="__codelineno-15-12" name="__codelineno-15-12"></a>
+</span><span id="__span-15-13"><a href="#__codelineno-15-13" id="__codelineno-15-13" name="__codelineno-15-13"></a><span class="c"># Resultado:</span>
+</span><span id="__span-15-14"><a href="#__codelineno-15-14" id="__codelineno-15-14" name="__codelineno-15-14"></a><span class="c"># ✅ Azure Backup funciona (via Trusted Services)</span>
+</span><span id="__span-15-15"><a href="#__codelineno-15-15" id="__codelineno-15-15" name="__codelineno-15-15"></a><span class="c"># ✅ Synapse tiene acceso controlado (via Resource Instance)</span>
+</span><span id="__span-15-16"><a href="#__codelineno-15-16" id="__codelineno-15-16" name="__codelineno-15-16"></a><span class="c"># ⚠️ Otros servicios trusted también tienen acceso</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<h3 id="otros-servicios-que-pueden-requerir-trusted-services">Otros Servicios que Pueden Requerir Trusted Services</h3>
+<table>
+<thead>
+<tr>
+<th>Servicio</th>
+<th>¿Soporta Resource Instances?</th>
+<th>Notas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Azure Backup</strong></td>
+<td>❌ Solo vía Trusted Services</td>
+<td>Para discos no administrados</td>
+</tr>
+<tr>
+<td><strong>Azure Site Recovery</strong></td>
+<td>❌ Solo vía Trusted Services</td>
+<td>Replicación y DR</td>
+</tr>
+<tr>
+<td><strong>Azure Import/Export</strong></td>
+<td>❌ Solo vía Trusted Services</td>
+<td>Transferencia masiva de datos</td>
+</tr>
+<tr>
+<td><strong>Azure DevTest Labs</strong></td>
+<td>❌ Solo vía Trusted Services</td>
+<td>Creación de imágenes</td>
+</tr>
+<tr>
+<td><strong>Azure Event Grid</strong></td>
+<td>⚠️ Depende del escenario</td>
+<td>Algunos casos necesitan Trusted Services</td>
+</tr>
+<tr>
+<td><strong>Azure Synapse</strong></td>
+<td>✅ Soporta Resource Instances</td>
+<td><strong>Recomendado</strong> usar Resource Instances</td>
+</tr>
+<tr>
+<td><strong>Azure Data Factory</strong></td>
+<td>✅ Soporta Resource Instances</td>
+<td><strong>Recomendado</strong> usar Resource Instances</td>
+</tr>
+<tr>
+<td><strong>Azure Databricks</strong></td>
+<td>✅ Soporta Resource Instances</td>
+<td><strong>Recomendado</strong> usar Resource Instances</td>
+</tr>
+<tr>
+<td><strong>Azure SQL Database</strong></td>
+<td>✅ Soporta Resource Instances</td>
+<td><strong>Recomendado</strong> usar Resource Instances</td>
+</tr>
+<tr>
+<td><strong>Azure Stream Analytics</strong></td>
+<td>✅ Soporta Resource Instances</td>
+<td><strong>Recomendado</strong> usar Resource Instances</td>
+</tr>
+</tbody>
+</table>
+<h3 id="estrategia-recomendada-con-azure-backup">Estrategia Recomendada con Azure Backup</h3>
+<p>Si necesitas usar Azure Backup pero quieres mantener la máxima seguridad:</p>
+<ol>
+<li>
+<p><strong>Evalúa si realmente necesitas Trusted Services</strong>
+</p><div class="language-powershell highlight"><pre><span></span><code><span id="__span-16-1"><a href="#__codelineno-16-1" id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="c"># ¿Usas discos no administrados?</span>
+</span><span id="__span-16-2"><a href="#__codelineno-16-2" id="__codelineno-16-2" name="__codelineno-16-2"></a><span class="nb">Get-AzVM</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span><span class="nv">$_</span><span class="p">.</span><span class="n">StorageProfile</span><span class="p">.</span><span class="n">OsDisk</span><span class="p">.</span><span class="n">ManagedDisk</span> <span class="o">-eq</span> <span class="nv">$null</span><span class="p">}</span>
+</span><span id="__span-16-3"><a href="#__codelineno-16-3" id="__codelineno-16-3" name="__codelineno-16-3"></a>
+</span><span id="__span-16-4"><a href="#__codelineno-16-4" id="__codelineno-16-4" name="__codelineno-16-4"></a><span class="c"># Si el resultado está vacío, NO necesitas Trusted Services para Backup</span>
+</span></code></pre></div><p></p>
+</li>
+<li>
+<p><strong>Migra a Managed Disks si es posible</strong></p>
+</li>
+<li>Los managed disks NO requieren Trusted Services</li>
+<li>Mejor rendimiento y gestión</li>
+<li>
+<p>Recomendado por Microsoft</p>
+</li>
+<li>
+<p><strong>Si DEBES usar Trusted Services, documéntalo</strong>
+</p><div class="language-yaml highlight"><pre><span></span><code><span id="__span-17-1"><a href="#__codelineno-17-1" id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="nt">Storage Account</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mystorageaccount</span>
+</span><span id="__span-17-2"><a href="#__codelineno-17-2" id="__codelineno-17-2" name="__codelineno-17-2"></a><span class="nt">Bypass</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AzureServices</span>
+</span><span id="__span-17-3"><a href="#__codelineno-17-3" id="__codelineno-17-3" name="__codelineno-17-3"></a><span class="nt">Motivo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Azure Backup de VMs con discos no administrados</span>
+</span><span id="__span-17-4"><a href="#__codelineno-17-4" id="__codelineno-17-4" name="__codelineno-17-4"></a><span class="nt">VMs afectadas</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-17-5"><a href="#__codelineno-17-5" id="__codelineno-17-5" name="__codelineno-17-5"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vm-legacy-01</span>
+</span><span id="__span-17-6"><a href="#__codelineno-17-6" id="__codelineno-17-6" name="__codelineno-17-6"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vm-legacy-02</span>
+</span><span id="__span-17-7"><a href="#__codelineno-17-7" id="__codelineno-17-7" name="__codelineno-17-7"></a><span class="nt">Plan de migración</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Q2 2026</span>
+</span></code></pre></div><p></p>
+</li>
+<li>
+<p><strong>Usa Resource Instances para todo lo demás</strong></p>
+</li>
+<li>Synapse, Data Factory, Databricks → Resource Instances</li>
+<li>Solo Azure Backup usa Trusted Services</li>
+<li>Documenta qué servicios usan cada método</li>
+</ol>
+<h3 id="ejemplo-de-configuracion-real-con-azure-backup">Ejemplo de Configuración Real con Azure Backup</h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-18-1"><a href="#__codelineno-18-1" id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="c"># Escenario: Necesitas Azure Backup + Synapse + Data Factory</span>
+</span><span id="__span-18-2"><a href="#__codelineno-18-2" id="__codelineno-18-2" name="__codelineno-18-2"></a>
+</span><span id="__span-18-3"><a href="#__codelineno-18-3" id="__codelineno-18-3" name="__codelineno-18-3"></a><span class="nv">$rgName</span> <span class="p">=</span> <span class="s2">"myResourceGroup"</span>
+</span><span id="__span-18-4"><a href="#__codelineno-18-4" id="__codelineno-18-4" name="__codelineno-18-4"></a><span class="nv">$storageAccount</span> <span class="p">=</span> <span class="s2">"mystorageaccount"</span>
+</span><span id="__span-18-5"><a href="#__codelineno-18-5" id="__codelineno-18-5" name="__codelineno-18-5"></a><span class="nv">$tenantId</span> <span class="p">=</span> <span class="s2">"your-tenant-id"</span>
+</span><span id="__span-18-6"><a href="#__codelineno-18-6" id="__codelineno-18-6" name="__codelineno-18-6"></a>
+</span><span id="__span-18-7"><a href="#__codelineno-18-7" id="__codelineno-18-7" name="__codelineno-18-7"></a><span class="c"># 1. Configurar con Trusted Services (requerido para Azure Backup)</span>
+</span><span id="__span-18-8"><a href="#__codelineno-18-8" id="__codelineno-18-8" name="__codelineno-18-8"></a><span class="nb">Update-AzStorageAccountNetworkRuleSet</span> <span class="p">`</span>
+</span><span id="__span-18-9"><a href="#__codelineno-18-9" id="__codelineno-18-9" name="__codelineno-18-9"></a>    <span class="n">-ResourceGroupName</span> <span class="nv">$rgName</span> <span class="p">`</span>
+</span><span id="__span-18-10"><a href="#__codelineno-18-10" id="__codelineno-18-10" name="__codelineno-18-10"></a>    <span class="n">-Name</span> <span class="nv">$storageAccount</span> <span class="p">`</span>
+</span><span id="__span-18-11"><a href="#__codelineno-18-11" id="__codelineno-18-11" name="__codelineno-18-11"></a>    <span class="n">-DefaultAction</span> <span class="n">Deny</span> <span class="p">`</span>
+</span><span id="__span-18-12"><a href="#__codelineno-18-12" id="__codelineno-18-12" name="__codelineno-18-12"></a>    <span class="n">-Bypass</span> <span class="n">AzureServices</span><span class="p">,</span><span class="n">Logging</span><span class="p">,</span><span class="n">Metrics</span>
+</span><span id="__span-18-13"><a href="#__codelineno-18-13" id="__codelineno-18-13" name="__codelineno-18-13"></a>
+</span><span id="__span-18-14"><a href="#__codelineno-18-14" id="__codelineno-18-14" name="__codelineno-18-14"></a><span class="nb">Write-Host</span> <span class="s2">"✅ Trusted Services habilitado (Azure Backup)"</span> <span class="n">-ForegroundColor</span> <span class="n">Yellow</span>
+</span><span id="__span-18-15"><a href="#__codelineno-18-15" id="__codelineno-18-15" name="__codelineno-18-15"></a>
+</span><span id="__span-18-16"><a href="#__codelineno-18-16" id="__codelineno-18-16" name="__codelineno-18-16"></a><span class="c"># 2. Agregar Resource Instances para control granular de otros servicios</span>
+</span><span id="__span-18-17"><a href="#__codelineno-18-17" id="__codelineno-18-17" name="__codelineno-18-17"></a><span class="c"># Aunque Trusted Services está habilitado, esto añade trazabilidad</span>
+</span><span id="__span-18-18"><a href="#__codelineno-18-18" id="__codelineno-18-18" name="__codelineno-18-18"></a><span class="nv">$resources</span> <span class="p">=</span> <span class="p">@(</span>
+</span><span id="__span-18-19"><a href="#__codelineno-18-19" id="__codelineno-18-19" name="__codelineno-18-19"></a>    <span class="s2">"/subscriptions/xxx/resourceGroups/rg1/providers/Microsoft.Synapse/workspaces/prod-synapse"</span><span class="p">,</span>
+</span><span id="__span-18-20"><a href="#__codelineno-18-20" id="__codelineno-18-20" name="__codelineno-18-20"></a>    <span class="s2">"/subscriptions/xxx/resourceGroups/rg1/providers/Microsoft.DataFactory/factories/prod-adf"</span>
+</span><span id="__span-18-21"><a href="#__codelineno-18-21" id="__codelineno-18-21" name="__codelineno-18-21"></a><span class="p">)</span>
+</span><span id="__span-18-22"><a href="#__codelineno-18-22" id="__codelineno-18-22" name="__codelineno-18-22"></a>
+</span><span id="__span-18-23"><a href="#__codelineno-18-23" id="__codelineno-18-23" name="__codelineno-18-23"></a><span class="k">foreach</span> <span class="p">(</span><span class="nv">$resourceId</span> <span class="k">in</span> <span class="nv">$resources</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-18-24"><a href="#__codelineno-18-24" id="__codelineno-18-24" name="__codelineno-18-24"></a>    <span class="nb">Add-AzStorageAccountNetworkRule</span> <span class="p">`</span>
+</span><span id="__span-18-25"><a href="#__codelineno-18-25" id="__codelineno-18-25" name="__codelineno-18-25"></a>        <span class="n">-ResourceGroupName</span> <span class="nv">$rgName</span> <span class="p">`</span>
+</span><span id="__span-18-26"><a href="#__codelineno-18-26" id="__codelineno-18-26" name="__codelineno-18-26"></a>        <span class="n">-Name</span> <span class="nv">$storageAccount</span> <span class="p">`</span>
+</span><span id="__span-18-27"><a href="#__codelineno-18-27" id="__codelineno-18-27" name="__codelineno-18-27"></a>        <span class="n">-TenantId</span> <span class="nv">$tenantId</span> <span class="p">`</span>
+</span><span id="__span-18-28"><a href="#__codelineno-18-28" id="__codelineno-18-28" name="__codelineno-18-28"></a>        <span class="n">-ResourceId</span> <span class="nv">$resourceId</span>
+</span><span id="__span-18-29"><a href="#__codelineno-18-29" id="__codelineno-18-29" name="__codelineno-18-29"></a>
+</span><span id="__span-18-30"><a href="#__codelineno-18-30" id="__codelineno-18-30" name="__codelineno-18-30"></a>    <span class="nb">Write-Host</span> <span class="s2">"✅ Resource Instance agregada: </span><span class="p">$(</span><span class="nv">$resourceId</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="s1">'/'</span><span class="p">)[-</span><span class="n">1</span><span class="p">])</span><span class="s2">"</span> <span class="n">-ForegroundColor</span> <span class="n">Green</span>
+</span><span id="__span-18-31"><a href="#__codelineno-18-31" id="__codelineno-18-31" name="__codelineno-18-31"></a><span class="p">}</span>
+</span><span id="__span-18-32"><a href="#__codelineno-18-32" id="__codelineno-18-32" name="__codelineno-18-32"></a>
+</span><span id="__span-18-33"><a href="#__codelineno-18-33" id="__codelineno-18-33" name="__codelineno-18-33"></a><span class="c"># 3. Documentar en tags</span>
+</span><span id="__span-18-34"><a href="#__codelineno-18-34" id="__codelineno-18-34" name="__codelineno-18-34"></a><span class="nv">$tags</span> <span class="p">=</span> <span class="p">@{</span>
+</span><span id="__span-18-35"><a href="#__codelineno-18-35" id="__codelineno-18-35" name="__codelineno-18-35"></a>    <span class="s2">"FirewallConfig"</span> <span class="p">=</span> <span class="s2">"TrustedServices+ResourceInstances"</span>
+</span><span id="__span-18-36"><a href="#__codelineno-18-36" id="__codelineno-18-36" name="__codelineno-18-36"></a>    <span class="s2">"TrustedServicesReason"</span> <span class="p">=</span> <span class="s2">"Azure Backup - Unmanaged Disks"</span>
+</span><span id="__span-18-37"><a href="#__codelineno-18-37" id="__codelineno-18-37" name="__codelineno-18-37"></a>    <span class="s2">"MigrationPlan"</span> <span class="p">=</span> <span class="s2">"Move to Managed Disks by Q2-2026"</span>
+</span><span id="__span-18-38"><a href="#__codelineno-18-38" id="__codelineno-18-38" name="__codelineno-18-38"></a><span class="p">}</span>
+</span><span id="__span-18-39"><a href="#__codelineno-18-39" id="__codelineno-18-39" name="__codelineno-18-39"></a>
+</span><span id="__span-18-40"><a href="#__codelineno-18-40" id="__codelineno-18-40" name="__codelineno-18-40"></a><span class="nb">Update-AzStorageAccount</span> <span class="p">`</span>
+</span><span id="__span-18-41"><a href="#__codelineno-18-41" id="__codelineno-18-41" name="__codelineno-18-41"></a>    <span class="n">-ResourceGroupName</span> <span class="nv">$rgName</span> <span class="p">`</span>
+</span><span id="__span-18-42"><a href="#__codelineno-18-42" id="__codelineno-18-42" name="__codelineno-18-42"></a>    <span class="n">-Name</span> <span class="nv">$storageAccount</span> <span class="p">`</span>
+</span><span id="__span-18-43"><a href="#__codelineno-18-43" id="__codelineno-18-43" name="__codelineno-18-43"></a>    <span class="n">-Tag</span> <span class="nv">$tags</span>
+</span><span id="__span-18-44"><a href="#__codelineno-18-44" id="__codelineno-18-44" name="__codelineno-18-44"></a>
+</span><span id="__span-18-45"><a href="#__codelineno-18-45" id="__codelineno-18-45" name="__codelineno-18-45"></a><span class="nb">Write-Host</span> <span class="s2">"✅ Configuración documentada en tags"</span> <span class="n">-ForegroundColor</span> <span class="n">Green</span>
+</span></code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Mejora Continua</p>
+<p><strong>Planifica la eliminación de Trusted Services:</strong></p>
+<ol>
+<li>Identifica VMs con discos no administrados</li>
+<li>Crea un plan de migración a managed disks</li>
+<li>Una vez migrado, deshabilita Trusted Services</li>
+<li>Usa solo Resource Instances para máxima seguridad</li>
+</ol>
+</div>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="error-403-acceso-denegado">Error 403: Acceso Denegado</h3>
+<p>Si recibes errores 403, verifica en este orden:</p>
+<ol>
+<li>
+<p><strong>Firewall</strong>: ¿El recurso tiene una Resource Instance Rule?
+   </p><div class="language-powershell highlight"><pre><span></span><code><span id="__span-19-1"><a href="#__codelineno-19-1" id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="p">(</span><span class="nb">Get-AzStorageAccountNetworkRuleSet</span> <span class="n">-ResourceGroupName</span> <span class="s2">"rg"</span> <span class="n">-Name</span> <span class="s2">"sa"</span><span class="p">).</span><span class="n">ResourceAccessRules</span>
+</span></code></pre></div><p></p>
+</li>
+<li>
+<p><strong>RBAC</strong>: ¿La Managed Identity tiene roles asignados?
+   </p><div class="language-powershell highlight"><pre><span></span><code><span id="__span-20-1"><a href="#__codelineno-20-1" id="__codelineno-20-1" name="__codelineno-20-1"></a><span class="nb">Get-AzRoleAssignment</span> <span class="n">-ObjectId</span> <span class="nv">$principalId</span> <span class="n">-Scope</span> <span class="nv">$storageScope</span>
+</span></code></pre></div><p></p>
+</li>
+<li>
+<p><strong>Managed Identity</strong>: ¿Está habilitada?
+   </p><div class="language-powershell highlight"><pre><span></span><code><span id="__span-21-1"><a href="#__codelineno-21-1" id="__codelineno-21-1" name="__codelineno-21-1"></a><span class="nv">$workspace</span> <span class="p">=</span> <span class="nb">Get-AzSynapseWorkspace</span> <span class="n">-Name</span> <span class="s2">"myworkspace"</span>
+</span><span id="__span-21-2"><a href="#__codelineno-21-2" id="__codelineno-21-2" name="__codelineno-21-2"></a><span class="nv">$workspace</span><span class="p">.</span><span class="n">Identity</span><span class="p">.</span><span class="nb">Type</span>
+</span></code></pre></div><p></p>
+</li>
+<li>
+<p><strong>Tenant</strong>: ¿Ambos recursos están en el mismo tenant?
+   </p><div class="language-powershell highlight"><pre><span></span><code><span id="__span-22-1"><a href="#__codelineno-22-1" id="__codelineno-22-1" name="__codelineno-22-1"></a><span class="p">(</span><span class="nb">Get-AzResource</span> <span class="n">-ResourceId</span> <span class="nv">$resourceId</span><span class="p">).</span><span class="n">TenantId</span>
+</span></code></pre></div><p></p>
+</li>
+</ol>
+<h3 id="verificar-acceso-por-servicio">Verificar Acceso por Servicio</h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-23-1"><a href="#__codelineno-23-1" id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="nv">$ctx</span> <span class="p">=</span> <span class="nb">New-AzStorageContext</span> <span class="n">-StorageAccountName</span> <span class="s2">"sa"</span> <span class="n">-UseConnectedAccount</span>
+</span><span id="__span-23-2"><a href="#__codelineno-23-2" id="__codelineno-23-2" name="__codelineno-23-2"></a>
+</span><span id="__span-23-3"><a href="#__codelineno-23-3" id="__codelineno-23-3" name="__codelineno-23-3"></a><span class="c"># Probar Blob</span>
+</span><span id="__span-23-4"><a href="#__codelineno-23-4" id="__codelineno-23-4" name="__codelineno-23-4"></a><span class="k">try</span> <span class="p">{</span>
+</span><span id="__span-23-5"><a href="#__codelineno-23-5" id="__codelineno-23-5" name="__codelineno-23-5"></a>    <span class="nb">Get-AzStorageContainer</span> <span class="n">-Context</span> <span class="nv">$ctx</span> <span class="n">-MaxCount</span> <span class="n">1</span>
+</span><span id="__span-23-6"><a href="#__codelineno-23-6" id="__codelineno-23-6" name="__codelineno-23-6"></a>    <span class="nb">Write-Host</span> <span class="s2">"✅ Blob: Accesible"</span>
+</span><span id="__span-23-7"><a href="#__codelineno-23-7" id="__codelineno-23-7" name="__codelineno-23-7"></a><span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+</span><span id="__span-23-8"><a href="#__codelineno-23-8" id="__codelineno-23-8" name="__codelineno-23-8"></a>    <span class="nb">Write-Host</span> <span class="s2">"❌ Blob: </span><span class="p">$(</span><span class="nv">$_</span><span class="p">.</span><span class="n">Exception</span><span class="p">.</span><span class="n">Message</span><span class="p">)</span><span class="s2">"</span>
+</span><span id="__span-23-9"><a href="#__codelineno-23-9" id="__codelineno-23-9" name="__codelineno-23-9"></a><span class="p">}</span>
+</span><span id="__span-23-10"><a href="#__codelineno-23-10" id="__codelineno-23-10" name="__codelineno-23-10"></a>
+</span><span id="__span-23-11"><a href="#__codelineno-23-11" id="__codelineno-23-11" name="__codelineno-23-11"></a><span class="c"># Probar Queue</span>
+</span><span id="__span-23-12"><a href="#__codelineno-23-12" id="__codelineno-23-12" name="__codelineno-23-12"></a><span class="k">try</span> <span class="p">{</span>
+</span><span id="__span-23-13"><a href="#__codelineno-23-13" id="__codelineno-23-13" name="__codelineno-23-13"></a>    <span class="nb">Get-AzStorageQueue</span> <span class="n">-Context</span> <span class="nv">$ctx</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-First</span> <span class="n">1</span>
+</span><span id="__span-23-14"><a href="#__codelineno-23-14" id="__codelineno-23-14" name="__codelineno-23-14"></a>    <span class="nb">Write-Host</span> <span class="s2">"✅ Queue: Accesible"</span>
+</span><span id="__span-23-15"><a href="#__codelineno-23-15" id="__codelineno-23-15" name="__codelineno-23-15"></a><span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+</span><span id="__span-23-16"><a href="#__codelineno-23-16" id="__codelineno-23-16" name="__codelineno-23-16"></a>    <span class="nb">Write-Host</span> <span class="s2">"❌ Queue: </span><span class="p">$(</span><span class="nv">$_</span><span class="p">.</span><span class="n">Exception</span><span class="p">.</span><span class="n">Message</span><span class="p">)</span><span class="s2">"</span>
+</span><span id="__span-23-17"><a href="#__codelineno-23-17" id="__codelineno-23-17" name="__codelineno-23-17"></a><span class="p">}</span>
+</span></code></pre></div>
+<h2 id="cuando-usar-private-endpoints">Cuándo Usar Private Endpoints</h2>
+<p>Considera usar Private Endpoints en lugar de o además de las configuraciones de firewall cuando:</p>
+<ul>
+<li>✅ Necesitas cumplimiento estricto de compliance</li>
+<li>✅ No quieres exponer endpoints públicos en absoluto</li>
+<li>✅ Requieres conectividad desde On-Premises vía ExpressRoute</li>
+<li>✅ La latencia es crítica y necesitas tráfico privado</li>
+<li>✅ Presupuesto disponible (hay costos adicionales)</li>
+</ul>
+<p>La configuración con Resource Instances es suficiente cuando:</p>
+<ul>
+<li>✅ Los recursos están en Azure (no on-premises)</li>
+<li>✅ El endpoint público con firewall es aceptable</li>
+<li>✅ Quieres balancear seguridad y costos</li>
+<li>✅ No hay requisitos de red privada obligatorios</li>
+</ul>
+<h2 id="conclusion">Conclusión</h2>
+<p>La seguridad de Azure Storage Account requiere una configuración cuidadosa del firewall. Las principales conclusiones son:</p>
+<ol>
+<li><strong>Resource Instances &gt; Trusted Services</strong> para control granular</li>
+<li><strong>Siempre habilita Logging y Metrics</strong> para observabilidad</li>
+<li><strong>Combina Firewall + RBAC</strong> para defensa en profundidad</li>
+<li><strong>Un firewall protege todos los servicios</strong> (Blob, Files, Queue, Table)</li>
+<li><strong>Sin Private Endpoints, usa Resource Instances</strong> como mejor práctica</li>
+<li><strong>Azure Backup requiere Trusted Services</strong> para discos no administrados (considera migrar a managed disks)</li>
+</ol>
+<h3 id="configuracion-resumida-optima">Configuración Resumida Óptima</h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio"><input id="__tabbed_3_2" name="__tabbed_3" type="radio"><div class="tabbed-labels"><label for="__tabbed_3_1">Sin Azure Backup</label><label for="__tabbed_3_2">Con Azure Backup</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-24-1"><a href="#__codelineno-24-1" id="__codelineno-24-1" name="__codelineno-24-1"></a><span class="c"># La configuración perfecta para producción sin Private Endpoints</span>
+</span><span id="__span-24-2"><a href="#__codelineno-24-2" id="__codelineno-24-2" name="__codelineno-24-2"></a><span class="nb">Update-AzStorageAccountNetworkRuleSet</span> <span class="p">`</span>
+</span><span id="__span-24-3"><a href="#__codelineno-24-3" id="__codelineno-24-3" name="__codelineno-24-3"></a>    <span class="n">-DefaultAction</span> <span class="n">Deny</span> <span class="p">`</span>
+</span><span id="__span-24-4"><a href="#__codelineno-24-4" id="__codelineno-24-4" name="__codelineno-24-4"></a>    <span class="n">-Bypass</span> <span class="n">Logging</span><span class="p">,</span><span class="n">Metrics</span>  <span class="c"># NO AzureServices</span>
+</span><span id="__span-24-5"><a href="#__codelineno-24-5" id="__codelineno-24-5" name="__codelineno-24-5"></a>
+</span><span id="__span-24-6"><a href="#__codelineno-24-6" id="__codelineno-24-6" name="__codelineno-24-6"></a><span class="c"># Agregar solo recursos específicos necesarios</span>
+</span><span id="__span-24-7"><a href="#__codelineno-24-7" id="__codelineno-24-7" name="__codelineno-24-7"></a><span class="nb">Add-AzStorageAccountNetworkRule</span> <span class="n">-ResourceId</span> <span class="nv">$specificResourceId</span>
+</span><span id="__span-24-8"><a href="#__codelineno-24-8" id="__codelineno-24-8" name="__codelineno-24-8"></a>
+</span><span id="__span-24-9"><a href="#__codelineno-24-9" id="__codelineno-24-9" name="__codelineno-24-9"></a><span class="c"># Asignar roles RBAC mínimos necesarios</span>
+</span><span id="__span-24-10"><a href="#__codelineno-24-10" id="__codelineno-24-10" name="__codelineno-24-10"></a><span class="nb">New-AzRoleAssignment</span> <span class="n">-ObjectId</span> <span class="nv">$principalId</span> <span class="n">-RoleDefinitionName</span> <span class="s2">"Storage Blob Data Reader"</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-25-1"><a href="#__codelineno-25-1" id="__codelineno-25-1" name="__codelineno-25-1"></a><span class="c"># Si necesitas Azure Backup para discos no administrados</span>
+</span><span id="__span-25-2"><a href="#__codelineno-25-2" id="__codelineno-25-2" name="__codelineno-25-2"></a><span class="nb">Update-AzStorageAccountNetworkRuleSet</span> <span class="p">`</span>
+</span><span id="__span-25-3"><a href="#__codelineno-25-3" id="__codelineno-25-3" name="__codelineno-25-3"></a>    <span class="n">-DefaultAction</span> <span class="n">Deny</span> <span class="p">`</span>
+</span><span id="__span-25-4"><a href="#__codelineno-25-4" id="__codelineno-25-4" name="__codelineno-25-4"></a>    <span class="n">-Bypass</span> <span class="n">AzureServices</span><span class="p">,</span><span class="n">Logging</span><span class="p">,</span><span class="n">Metrics</span>  <span class="c"># Requerido para Azure Backup</span>
+</span><span id="__span-25-5"><a href="#__codelineno-25-5" id="__codelineno-25-5" name="__codelineno-25-5"></a>
+</span><span id="__span-25-6"><a href="#__codelineno-25-6" id="__codelineno-25-6" name="__codelineno-25-6"></a><span class="c"># Agregar Resource Instances para trazabilidad de otros servicios</span>
+</span><span id="__span-25-7"><a href="#__codelineno-25-7" id="__codelineno-25-7" name="__codelineno-25-7"></a><span class="nb">Add-AzStorageAccountNetworkRule</span> <span class="n">-ResourceId</span> <span class="nv">$specificResourceId</span>
+</span><span id="__span-25-8"><a href="#__codelineno-25-8" id="__codelineno-25-8" name="__codelineno-25-8"></a>
+</span><span id="__span-25-9"><a href="#__codelineno-25-9" id="__codelineno-25-9" name="__codelineno-25-9"></a><span class="c"># Asignar roles RBAC</span>
+</span><span id="__span-25-10"><a href="#__codelineno-25-10" id="__codelineno-25-10" name="__codelineno-25-10"></a><span class="nb">New-AzRoleAssignment</span> <span class="n">-ObjectId</span> <span class="nv">$principalId</span> <span class="n">-RoleDefinitionName</span> <span class="s2">"Storage Blob Data Reader"</span>
+</span><span id="__span-25-11"><a href="#__codelineno-25-11" id="__codelineno-25-11" name="__codelineno-25-11"></a>
+</span><span id="__span-25-12"><a href="#__codelineno-25-12" id="__codelineno-25-12" name="__codelineno-25-12"></a><span class="c"># Documentar y planificar migración a Managed Disks</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<h2 id="referencias">Referencias</h2>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/azure/storage/common/storage-network-security">Azure Storage network security</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/storage/common/storage-network-security-resource-instances">Resource instance network rules</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/storage/common/storage-network-security-trusted-azure-services">Trusted Azure services</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/storage/common/storage-network-security-manage-exceptions">Manage network security exceptions</a></li>
+</ul>
+<hr>
+<div class="admonition tip">
+<p class="admonition-title">¿Necesitas ayuda?</p>
+<p>Si tienes dudas sobre la configuración de seguridad de tu Storage Account, revisa la documentación oficial o abre un caso de soporte con Microsoft Azure.</p>
+</div>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2023-now Rafael Fernández
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://www.linkedin.com/in/rafaelfernandezd/" rel="noopener" target="_blank" title="LinkedIn">
+<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"></path></svg>
+</a>
+<a class="md-social__link" href="https://github.com/rfernandezdo" rel="noopener" target="_blank" title="GitHub">
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="https://rfernandezdo.github.io/feed_rss_created.xml" rel="noopener" target="_blank" title="RSS feed">
+<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M64 32C28.7 32 0 60.7 0 96v320c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64zm32 104c0-13.3 10.7-24 24-24 137 0 248 111 248 248 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-110.5-89.5-200-200-200-13.3 0-24-10.7-24-24m0 96c0-13.3 10.7-24 24-24 83.9 0 152 68.1 152 152 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-57.4-46.6-104-104-104-13.3 0-24-10.7-24-24m0 120a32 32 0 1 1 64 0 32 32 0 1 1-64 0"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tabs", "navigation.tabs.sticky", "navigation.expand", "navigation.sections", "navigation.top", "navigation.tracking", "toc.integrate", "toc.nested", "toc.smoothscroll", "footer", "content.code.copy", "content.code.select", "content.code.annotate", "content.tooltips"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../../../javascripts/tablesort.js"></script>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.mermaidConfig = {default: {
+    startOnLoad: false
+}};</script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

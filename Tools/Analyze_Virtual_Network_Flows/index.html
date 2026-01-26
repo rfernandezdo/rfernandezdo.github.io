@@ -1,0 +1,4624 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A blog about Azure, DevOps and other stuff">
+      
+      
+        <meta name="author" content="Rafael Fernández">
+      
+      
+        <link rel="canonical" href="https://rfernandezdo.github.io/Tools/Analyze_Virtual_Network_Flows/">
+      
+      
+        <link rel="prev" href="../Federated_Identity_Credentials_Report/README-federated-identity-credentials/">
+      
+      
+      
+        
+          <link rel="alternate" href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=es&amp;_x_tr_hl=es&amp;_x_tr_pto=wapp" hreflang="en">
+        
+          <link rel="alternate" href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=en&amp;_x_tr_hl=en&amp;_x_tr_pto=wapp" hreflang="es">
+        
+      
+      
+        <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../../feed_rss_updated.xml">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Analyze-VNETFlowLogs - Un Rinconcito donde contar lo que quiera</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  
+<meta property="og:type" content="website">
+<meta property="og:title" content="Analyze-VNETFlowLogs - Un Rinconcito donde contar lo que quiera">
+<meta property="og:description" content="A blog about Azure, DevOps and other stuff">
+<meta property="og:image" content="https://rfernandezdo.github.io/assets/images/social/Tools/Analyze_Virtual_Network_Flows/index.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://rfernandezdo.github.io/Tools/Analyze_Virtual_Network_Flows/">
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:title" content="Analyze-VNETFlowLogs - Un Rinconcito donde contar lo que quiera">
+<meta property="twitter:description" content="A blog about Azure, DevOps and other stuff">
+<meta property="twitter:image" content="https://rfernandezdo.github.io/assets/images/social/Tools/Analyze_Virtual_Network_Flows/index.png">
+<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#analyze-vnetflowlogs" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Un Rinconcito donde contar lo que quiera" class="md-header__button md-logo" aria-label="Un Rinconcito donde contar lo que quiera" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Un Rinconcito donde contar lo que quiera
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Analyze-VNETFlowLogs
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="blue" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=es&amp;_x_tr_hl=es&amp;_x_tr_pto=wapp" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=en&amp;_x_tr_hl=en&amp;_x_tr_pto=wapp" hreflang="es" class="md-select__link">
+              Spanish
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../blog/" class="md-tabs__link">
+          
+  
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../contributions/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Contributions
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Azure/Security/MCSB/Readme/" class="md-tabs__link">
+          
+  
+  
+  Azure
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../Federated_Identity_Credentials_Report/README-federated-identity-credentials/" class="md-tabs__link">
+          
+  
+  
+  Tools
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Un Rinconcito donde contar lo que quiera" class="md-nav__button md-logo" aria-label="Un Rinconcito donde contar lo que quiera" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+
+    </a>
+    Un Rinconcito donde contar lo que quiera
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1">
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Blog
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Posts by Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_3">
+        
+          
+          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Archive
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Archive
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2025/12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2025/12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2025/11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2025/11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2025/10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2025/10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2025/09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2025/09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2025/08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2025/08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2025/07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2025/07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2025/06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2025/06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2025/05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2025/05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2025/04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2025/04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2025/03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2025/03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2025/02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2025/02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2025/01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2025/01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2024/12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2024/12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2024/11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2024/11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2024/10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2024/10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2024/09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2024/09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2024/06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2024/06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2024/05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2024/05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2024/04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2024/04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2024/03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2024/03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2024/02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2024/02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2023/12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2023/12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2023/11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2023/11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2023/10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2023/10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_4">
+        
+          
+          <label class="md-nav__link" for="__nav_1_4" id="__nav_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Categories
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Categories
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/azure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Azure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/azure-ad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Azure AD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/azure-automation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Azure Automation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/azure-devops/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Azure DevOps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/azure-frameworks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Azure Frameworks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/azure-governance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Azure Governance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/azure-networking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Azure Networking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/azure-security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Azure Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/azure-services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Azure Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/azure-updates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Azure Updates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/caf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CAF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/cicd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/devops/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DevOps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/drift-detection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drift Detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/english/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    English
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/enterprise-policy-as-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enterprise Policy as Code
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/finops/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FinOps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/firewall/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Firewall
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/gtd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GTD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/github-actions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GitHub Actions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/hashicorp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HashiCorp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/hello_world/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hello_World
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/infrastructure-as-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Infrastructure as Code
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/m365/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    M365
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/microsoft-365/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microsoft 365
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/microsoft-entra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microsoft Entra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/microsoft-entra-external-id/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microsoft Entra External ID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/microsoft-entra-id/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microsoft Entra ID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/networking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/outlook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Outlook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/pim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PIM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/power-automate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Power Automate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/power-bi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Power BI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/productividad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Productividad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/productividad--microsoft-365/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Productividad / Microsoft 365
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/seguridad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Seguridad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/snowflake/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Snowflake
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/terraform/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Terraform
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/threat-intelligence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Threat Intelligence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/visual-studio-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visual Studio Code
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/viva-insights/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Viva Insights
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/windows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Azure
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Azure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_1">
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Security
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_1_1">
+        
+          
+          <label class="md-nav__link" for="__nav_4_1_1" id="__nav_4_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCSB v1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    MCSB v1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Azure/Security/MCSB/Readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Azure/Security/MCSB/Asset%20Management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Asset Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Azure/Security/MCSB/Backup%20and%20Recovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Backup and Recovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Azure/Security/MCSB/Data%20Protection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Data Protection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Azure/Security/MCSB/DevOps%20Security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCSB_v1 - DevOps Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Azure/Security/MCSB/Endpoint%20Security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Endpoint Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Azure/Security/MCSB/Governance%20and%20Strategy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Governance and Strategy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Azure/Security/MCSB/Identity%20Management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Identity Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Azure/Security/MCSB/Incident%20Response/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Incident Response
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Azure/Security/MCSB/Logging%20and%20Threat%20Detection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Logging and Threat Detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Azure/Security/MCSB/Network%20Security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Network Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Azure/Security/MCSB/Posture%20and%20Vulnerability%20Mgmt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Posture and Vulnerability Mgmt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Azure/Security/MCSB/Privileged%20Access/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Privileged Access
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_1_2">
+        
+          
+          <label class="md-nav__link" for="__nav_4_1_2" id="__nav_4_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCSB v2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    MCSB v2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Azure/Security/MCSBv2/Index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microsoft Cloud Security Benchmark v2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Azure/Security/MCSBv2/Network%20Security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCSB v2 - Network Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Azure/Security/MCSBv2/Identity%20Management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCSB v2 - Identity Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Azure/Security/MCSBv2/Privileged%20Access/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCSB v2 - Privileged Access
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Azure/Security/MCSBv2/Data%20Protection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCSB v2 - Data Protection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Azure/Security/MCSBv2/Asset%20Management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCSB v2 - Asset Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Azure/Security/MCSBv2/Logging%20and%20Threat%20Detection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCSB v2 - Logging and Threat Detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Azure/Security/MCSBv2/Incident%20Response/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCSB v2 - Incident Response
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Azure/Security/MCSBv2/Posture%20and%20Vulnerability%20Manag/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCSB v2 - Posture and Vulnerability Manag
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Azure/Security/MCSBv2/Endpoint%20Security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCSB v2 - Endpoint Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Azure/Security/MCSBv2/Backup%20and%20Recovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCSB v2 - Backup and Recovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Azure/Security/MCSBv2/Artificial%20Intelligence%20Securit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCSB v2 - Artificial Intelligence Securit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tools
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_1">
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Federated Identity Credentials Report
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Federated Identity Credentials Report
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Federated_Identity_Credentials_Report/README-federated-identity-credentials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Script de Reporte para Federated Identity Credentials
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analyze Virtual Network Flows
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Analyze Virtual Network Flows
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analyze-VNETFlowLogs
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analyze-VNETFlowLogs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#contenido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contenido
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requisitos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requisitos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#descarga-opcional-de-logs-download-flowlogsps1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descarga opcional de logs (Download-FlowLogs.ps1)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uso-rapido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uso rápido
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#salidas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Salidas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codigos-de-salida" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Códigos de salida
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejemplos-de-ejecucion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplos de ejecución
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitaciones-y-recomendaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitaciones y recomendaciones
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autor-y-licencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Autor y licencia
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#historial-de-cambios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Historial de cambios
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="analyze-vnetflowlogs">Analyze-VNETFlowLogs</h1>
+<p>Analizador de logs de flujo de Azure (VNet). Este script PowerShell procesa archivos JSON generados por Azure Network Watcher (flow logs) y genera un análisis en consola con detección de anomalías y, opcionalmente, exporta resultados a CSV.</p>
+<h2 id="contenido">Contenido</h2>
+<ul>
+<li><a href="Analyze-VNETFlowLogs.ps1"><code>Analyze-VNETFlowLogs.ps1</code></a> — Script principal que realiza el análisis.</li>
+<li><a href="Download-FlowLogs.ps1"><code>Download-FlowLogs.ps1</code></a> — Descarga y normaliza Flow Logs (estructura por fecha, rutas largas).</li>
+</ul>
+<p>Puedes leer un artículo que explica VNet flow logs y muestra cómo usar esta herramienta en:
+- <a href="../../blog/posts/2025/20250925_Analyze_VNet_Flows.md">Analizando VNet Flow Logs en Azure</a></p>
+<h2 id="requisitos">Requisitos</h2>
+<ul>
+<li>PowerShell 5.1 o superior (Windows PowerShell o PowerShell Core / pwsh).</li>
+<li>Archivos JSON con formato de Azure flow logs v2 (cada archivo contiene un array <code>records</code>, y dentro <code>flowRecords.flows[].flowGroups[].flowTuples</code>).</li>
+</ul>
+<p>Nota: este script está diseñado para procesar Virtual Network (VNet) flow logs tal y como los documenta
+Microsoft. Para más detalles sobre el formato y cómo habilitar VNet flow logs en Azure, consulta la
+documentación oficial:</p>
+<p>https://learn.microsoft.com/azure/network-watcher/vnet-flow-logs-overview</p>
+<h2 id="descarga-opcional-de-logs-download-flowlogsps1">Descarga opcional de logs (Download-FlowLogs.ps1)</h2>
+<p>Si tus Flow Logs están aún en la cuenta de almacenamiento, puedes usar <code>Download-FlowLogs.ps1</code> para:</p>
+<ul>
+<li>Descargar todos los blobs del contenedor (por defecto <code>insights-logs-flowlogflowevent</code>).</li>
+<li>Evitar problemas de rutas largas en Windows (hash automático con <code>-AutoShorten</code>).</li>
+<li>Reorganizar los archivos JSON en jerarquía <code>YYYY-MM-DD/HH/FlowLog_&lt;timestamp&gt;_original.json</code>.</li>
+<li>Preparar un set homogéneo sobre el cual aplicar el analizador.</li>
+</ul>
+<p>Parámetros clave:
+- <code>-StorageAccount</code> (obligatorio)
+- <code>-ContainerName</code> (default: <code>insights-logs-flowlogflowevent</code>)
+- <code>-DownloadPath</code> (default: <code>./FlowLogs</code>)
+- <code>-AutoShorten</code> (switch): acorta rutas largas mediante hashing
+- <code>-Force</code> (switch): omite confirmaciones</p>
+<p>Autenticación soportada:
+1. Account Key: si existe variable <code>AZ_STORAGE_KEY</code> o se puede descubrir la clave intentando resolver el resource group y listando keys.
+2. Azure AD Login (<code>--auth-mode login</code>): fallback automático si no hay clave.</p>
+<p>Variables de entorno soportadas:
+- <code>AZ_STORAGE_KEY</code>: clave de la storage account
+- <code>AZ_RESOURCE_GROUP</code>: pista para descubrir la key si no se definió manualmente</p>
+<p>Ejemplo descarga + análisis:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-0-1"><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c"># Descargar y organizar logs de flujo</span>
+</span><span id="__span-0-2"><a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="n">pwsh</span> <span class="o">-File</span> <span class="p">./</span><span class="n">Analyze_Virtual_Network_Flows</span><span class="p">/</span><span class="n">Download-FlowLogs</span><span class="p">.</span><span class="n">ps1</span> <span class="p">`</span>
+</span><span id="__span-0-3"><a href="#__codelineno-0-3" id="__codelineno-0-3" name="__codelineno-0-3"></a>  <span class="n">-StorageAccount</span> <span class="n">mystorageacct</span> <span class="p">`</span>
+</span><span id="__span-0-4"><a href="#__codelineno-0-4" id="__codelineno-0-4" name="__codelineno-0-4"></a>  <span class="n">-DownloadPath</span> <span class="p">./</span><span class="n">FlowLogs</span> <span class="p">`</span>
+</span><span id="__span-0-5"><a href="#__codelineno-0-5" id="__codelineno-0-5" name="__codelineno-0-5"></a>  <span class="n">-AutoShorten</span> <span class="n">-Force</span>
+</span><span id="__span-0-6"><a href="#__codelineno-0-6" id="__codelineno-0-6" name="__codelineno-0-6"></a>
+</span><span id="__span-0-7"><a href="#__codelineno-0-7" id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="c"># Analizar todos los JSON descargados</span>
+</span><span id="__span-0-8"><a href="#__codelineno-0-8" id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="n">pwsh</span> <span class="o">-File</span> <span class="p">./</span><span class="n">Analyze_Virtual_Network_Flows</span><span class="p">/</span><span class="n">Analyze-VNETFlowLogs</span><span class="p">.</span><span class="n">ps1</span> <span class="p">`</span>
+</span><span id="__span-0-9"><a href="#__codelineno-0-9" id="__codelineno-0-9" name="__codelineno-0-9"></a>  <span class="n">-LogFiles</span> <span class="s2">"./FlowLogs/**/*.json"</span> <span class="p">`</span>
+</span><span id="__span-0-10"><a href="#__codelineno-0-10" id="__codelineno-0-10" name="__codelineno-0-10"></a>  <span class="n">-ExportCSV</span> <span class="n">-OutputPath</span> <span class="p">./</span><span class="n">reports</span> <span class="n">-ShowGraphs</span>
+</span></code></pre></div>
+<p>Si ya tienes los JSON localmente (AzCopy, etc.) puedes omitir el paso de descarga.</p>
+<h2 id="uso-rapido">Uso rápido</h2>
+<p>Abrir PowerShell o pwsh y ejecutar el script con uno o varios archivos (acepta wildcards):</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="c1"># Ejecutar contra todos los JSON en un directorio y exportar CSV</span>
+</span><span id="__span-1-2"><a href="#__codelineno-1-2" id="__codelineno-1-2" name="__codelineno-1-2"></a>pwsh<span class="w"> </span>-File<span class="w"> </span>./Analyze_Virtual_Network_Flows/Analyze-VNETFlowLogs.ps1<span class="w"> </span>-LogFiles<span class="w"> </span><span class="s2">"./samples/*.json"</span><span class="w"> </span>-ExportCSV<span class="w"> </span>-OutputPath<span class="w"> </span><span class="s2">"./reports"</span>
+</span><span id="__span-1-3"><a href="#__codelineno-1-3" id="__codelineno-1-3" name="__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a href="#__codelineno-1-4" id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="c1"># Analizar un único archivo y mostrar gráficos en consola</span>
+</span><span id="__span-1-5"><a href="#__codelineno-1-5" id="__codelineno-1-5" name="__codelineno-1-5"></a>pwsh<span class="w"> </span>-File<span class="w"> </span>./Analyze_Virtual_Network_Flows/Analyze-VNETFlowLogs.ps1<span class="w"> </span>-LogFiles<span class="w"> </span><span class="s2">"./flowlog.json"</span><span class="w"> </span>-ShowGraphs
+</span><span id="__span-1-6"><a href="#__codelineno-1-6" id="__codelineno-1-6" name="__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a href="#__codelineno-1-7" id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="c1"># Analizar y centrarse en IPs específicas</span>
+</span><span id="__span-1-8"><a href="#__codelineno-1-8" id="__codelineno-1-8" name="__codelineno-1-8"></a>pwsh<span class="w"> </span>-File<span class="w"> </span>./Analyze_Virtual_Network_Flows/Analyze-VNETFlowLogs.ps1<span class="w"> </span>-LogFiles<span class="w"> </span><span class="s2">"./flowlog.json"</span><span class="w"> </span>-SpecificIPs<span class="w"> </span>@<span class="o">(</span><span class="s2">"10.0.0.5"</span>,<span class="s2">"192.168.1.10"</span><span class="o">)</span>
+</span></code></pre></div>
+<blockquote>
+<p>Nota: en sistemas Linux/macOS con <code>pwsh</code>, use <code>pwsh</code> en lugar de <code>powershell</code>.</p>
+</blockquote>
+<h2 id="salidas">Salidas</h2>
+<ul>
+<li>Salida por consola con secciones: resumen, top IPs, puertos, reglas, conexiones problemáticas y detección de anomalías.</li>
+<li>Si se usa <code>-ExportCSV</code>: dos ficheros CSV generados en <code>-OutputPath</code> (o directorio actual):</li>
+<li><code>VNetFlowAnalysis_Details_&lt;timestamp&gt;.csv</code> — detalle de todos los flows.</li>
+<li><code>VNetFlowAnalysis_Summary_&lt;timestamp&gt;.csv</code> — métricas agregadas.</li>
+</ul>
+<h2 id="codigos-de-salida">Códigos de salida</h2>
+<ul>
+<li>0 — ejecución correcta.</li>
+<li>1 — error (por ejemplo: no se encontraron archivos, o excepción durante el análisis).</li>
+</ul>
+<h2 id="ejemplos-de-ejecucion">Ejemplos de ejecución</h2>
+<div class="language-pwsh highlight"><pre><span></span><code><span id="__span-2-1"><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a> <span class="n">Analyze-VNETFlowLogs</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-LogFiles</span> <span class="n">samples</span><span class="p">/</span><span class="n">sample-flowlog</span><span class="p">.</span><span class="n">json</span> <span class="n">-ExportCSV</span> <span class="n">-OutputPath</span> <span class="n">reports</span> <span class="n">-ShowGraphs</span>
+</span><span id="__span-2-2"><a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="err">🔍</span> <span class="n">Archivos</span> <span class="n">a</span> <span class="n">procesar</span><span class="p">:</span>
+</span><span id="__span-2-3"><a href="#__codelineno-2-3" id="__codelineno-2-3" name="__codelineno-2-3"></a>   <span class="n">samples</span><span class="p">/</span><span class="n">sample-flowlog</span><span class="p">.</span><span class="n">json</span>
+</span><span id="__span-2-4"><a href="#__codelineno-2-4" id="__codelineno-2-4" name="__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a href="#__codelineno-2-5" id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="p">======================================================</span>
+</span><span id="__span-2-6"><a href="#__codelineno-2-6" id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="p">=</span>  <span class="n">INICIANDO</span> <span class="n">ANÁLISIS</span> <span class="n">DE</span> <span class="n">LOGS</span> <span class="n">DE</span> <span class="n">FLUJO</span> <span class="n">DE</span> <span class="n">AZURE</span> <span class="n">VNET</span> <span class="p">=</span>
+</span><span id="__span-2-7"><a href="#__codelineno-2-7" id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="p">======================================================</span>
+</span><span id="__span-2-8"><a href="#__codelineno-2-8" id="__codelineno-2-8" name="__codelineno-2-8"></a>
+</span><span id="__span-2-9"><a href="#__codelineno-2-9" id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="err">📁</span> <span class="n">Procesando</span> <span class="n">archivo</span><span class="p">:</span> <span class="n">samples</span><span class="p">/</span><span class="n">sample-flowlog</span><span class="p">.</span><span class="n">json</span>
+</span><span id="__span-2-10"><a href="#__codelineno-2-10" id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="err">✅</span> <span class="n">Procesado</span><span class="p">:</span> <span class="n">7</span> <span class="n">flows</span> <span class="n">de</span> <span class="n">2</span> <span class="n">records</span>
+</span><span id="__span-2-11"><a href="#__codelineno-2-11" id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="p">=====================</span>
+</span><span id="__span-2-12"><a href="#__codelineno-2-12" id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="p">=</span>  <span class="n">RESUMEN</span> <span class="n">GENERAL</span>  <span class="p">=</span>
+</span><span id="__span-2-13"><a href="#__codelineno-2-13" id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="p">=====================</span>
+</span><span id="__span-2-14"><a href="#__codelineno-2-14" id="__codelineno-2-14" name="__codelineno-2-14"></a>
+</span><span id="__span-2-15"><a href="#__codelineno-2-15" id="__codelineno-2-15" name="__codelineno-2-15"></a><span class="err">📊</span> <span class="n">Archivos</span> <span class="n">procesados</span><span class="p">:</span> <span class="n">1</span>
+</span><span id="__span-2-16"><a href="#__codelineno-2-16" id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="err">📊</span> <span class="n">Total</span> <span class="n">de</span> <span class="n">records</span><span class="p">:</span> <span class="n">2</span>
+</span><span id="__span-2-17"><a href="#__codelineno-2-17" id="__codelineno-2-17" name="__codelineno-2-17"></a><span class="err">📊</span> <span class="n">Total</span> <span class="n">de</span> <span class="n">flows</span><span class="p">:</span> <span class="n">7</span>
+</span><span id="__span-2-18"><a href="#__codelineno-2-18" id="__codelineno-2-18" name="__codelineno-2-18"></a><span class="err">⏰</span> <span class="n">Período</span> <span class="n">analizado</span><span class="p">:</span> <span class="n">09</span><span class="p">/</span><span class="n">30</span><span class="p">/</span><span class="n">2025</span> <span class="n">12</span><span class="p">:</span><span class="n">00</span><span class="p">:</span><span class="n">00</span> <span class="p">-</span> <span class="n">09</span><span class="p">/</span><span class="n">30</span><span class="p">/</span><span class="n">2025</span> <span class="n">12</span><span class="p">:</span><span class="n">10</span><span class="p">:</span><span class="n">00</span>
+</span><span id="__span-2-19"><a href="#__codelineno-2-19" id="__codelineno-2-19" name="__codelineno-2-19"></a>
+</span><span id="__span-2-20"><a href="#__codelineno-2-20" id="__codelineno-2-20" name="__codelineno-2-20"></a><span class="p">---</span> <span class="n">ESTADÍSTICAS</span> <span class="n">POR</span> <span class="n">ARCHIVO</span> <span class="p">---</span>
+</span><span id="__span-2-21"><a href="#__codelineno-2-21" id="__codelineno-2-21" name="__codelineno-2-21"></a><span class="err">📄</span> <span class="n">sample-flowlog</span><span class="p">.</span><span class="n">json</span><span class="p">:</span>
+</span><span id="__span-2-22"><a href="#__codelineno-2-22" id="__codelineno-2-22" name="__codelineno-2-22"></a>   <span class="n">Records</span><span class="p">:</span> <span class="n">2</span>
+</span><span id="__span-2-23"><a href="#__codelineno-2-23" id="__codelineno-2-23" name="__codelineno-2-23"></a>   <span class="n">Flows</span><span class="p">:</span> <span class="n">7</span>
+</span><span id="__span-2-24"><a href="#__codelineno-2-24" id="__codelineno-2-24" name="__codelineno-2-24"></a>   <span class="n">Período</span><span class="p">:</span> <span class="n">09</span><span class="p">/</span><span class="n">30</span><span class="p">/</span><span class="n">2025</span> <span class="n">12</span><span class="p">:</span><span class="n">00</span><span class="p">:</span><span class="n">00</span> <span class="p">-</span> <span class="n">09</span><span class="p">/</span><span class="n">30</span><span class="p">/</span><span class="n">2025</span> <span class="n">12</span><span class="p">:</span><span class="n">10</span><span class="p">:</span><span class="n">00</span>
+</span><span id="__span-2-25"><a href="#__codelineno-2-25" id="__codelineno-2-25" name="__codelineno-2-25"></a>
+</span><span id="__span-2-26"><a href="#__codelineno-2-26" id="__codelineno-2-26" name="__codelineno-2-26"></a><span class="p">=====================================</span>
+</span><span id="__span-2-27"><a href="#__codelineno-2-27" id="__codelineno-2-27" name="__codelineno-2-27"></a><span class="p">=</span>  <span class="n">ANÁLISIS</span> <span class="n">DE</span> <span class="n">PATRONES</span> <span class="n">DE</span> <span class="n">TRÁFICO</span>  <span class="p">=</span>
+</span><span id="__span-2-28"><a href="#__codelineno-2-28" id="__codelineno-2-28" name="__codelineno-2-28"></a><span class="p">=====================================</span>
+</span><span id="__span-2-29"><a href="#__codelineno-2-29" id="__codelineno-2-29" name="__codelineno-2-29"></a>
+</span><span id="__span-2-30"><a href="#__codelineno-2-30" id="__codelineno-2-30" name="__codelineno-2-30"></a>
+</span><span id="__span-2-31"><a href="#__codelineno-2-31" id="__codelineno-2-31" name="__codelineno-2-31"></a><span class="p">---</span> <span class="n">ESTADÍSTICAS</span> <span class="n">GENERALES</span> <span class="p">---</span>
+</span><span id="__span-2-32"><a href="#__codelineno-2-32" id="__codelineno-2-32" name="__codelineno-2-32"></a><span class="err">🔢</span> <span class="n">Total</span> <span class="n">de</span> <span class="n">flows</span><span class="p">:</span> <span class="n">7</span>
+</span><span id="__span-2-33"><a href="#__codelineno-2-33" id="__codelineno-2-33" name="__codelineno-2-33"></a><span class="err">🖥️</span>  <span class="n">IPs</span> <span class="n">de</span> <span class="n">origen</span> <span class="n">únicas</span><span class="p">:</span> <span class="n">3</span>
+</span><span id="__span-2-34"><a href="#__codelineno-2-34" id="__codelineno-2-34" name="__codelineno-2-34"></a><span class="err">🌐</span> <span class="n">IPs</span> <span class="n">de</span> <span class="n">destino</span> <span class="n">únicas</span><span class="p">:</span> <span class="n">4</span>
+</span><span id="__span-2-35"><a href="#__codelineno-2-35" id="__codelineno-2-35" name="__codelineno-2-35"></a><span class="err">📊</span> <span class="n">Total</span> <span class="n">de</span> <span class="n">bytes</span> <span class="n">transferidos</span><span class="p">:</span> <span class="n">0</span><span class="p">.</span><span class="n">01</span> <span class="n">MB</span>
+</span><span id="__span-2-36"><a href="#__codelineno-2-36" id="__codelineno-2-36" name="__codelineno-2-36"></a><span class="err">📦</span> <span class="n">Total</span> <span class="n">de</span> <span class="n">paquetes</span><span class="p">:</span> <span class="n">37</span>
+</span><span id="__span-2-37"><a href="#__codelineno-2-37" id="__codelineno-2-37" name="__codelineno-2-37"></a>
+</span><span id="__span-2-38"><a href="#__codelineno-2-38" id="__codelineno-2-38" name="__codelineno-2-38"></a><span class="p">---</span> <span class="n">ANÁLISIS</span> <span class="n">DE</span> <span class="n">PROTOCOLOS</span> <span class="p">---</span>
+</span><span id="__span-2-39"><a href="#__codelineno-2-39" id="__codelineno-2-39" name="__codelineno-2-39"></a><span class="n">UDP</span> <span class="p">:</span> <span class="n">1</span> <span class="n">flows</span> <span class="p">(</span><span class="n">14</span><span class="p">.</span><span class="n">3</span><span class="p">%)</span>
+</span><span id="__span-2-40"><a href="#__codelineno-2-40" id="__codelineno-2-40" name="__codelineno-2-40"></a><span class="n">TCP</span> <span class="p">:</span> <span class="n">6</span> <span class="n">flows</span> <span class="p">(</span><span class="n">85</span><span class="p">.</span><span class="n">7</span><span class="p">%)</span>
+</span><span id="__span-2-41"><a href="#__codelineno-2-41" id="__codelineno-2-41" name="__codelineno-2-41"></a>
+</span><span id="__span-2-42"><a href="#__codelineno-2-42" id="__codelineno-2-42" name="__codelineno-2-42"></a><span class="err">📊</span> <span class="n">Distribución</span> <span class="n">de</span> <span class="n">Protocolos</span>
+</span><span id="__span-2-43"><a href="#__codelineno-2-43" id="__codelineno-2-43" name="__codelineno-2-43"></a><span class="err">────────────────────────────────────────────────────────────</span>
+</span><span id="__span-2-44"><a href="#__codelineno-2-44" id="__codelineno-2-44" name="__codelineno-2-44"></a><span class="n">TCP</span>                  <span class="err">│██████████████████████████████████████████████████</span> <span class="n">6</span>
+</span><span id="__span-2-45"><a href="#__codelineno-2-45" id="__codelineno-2-45" name="__codelineno-2-45"></a><span class="n">UDP</span>                  <span class="err">│████████</span> <span class="n">1</span>
+</span><span id="__span-2-46"><a href="#__codelineno-2-46" id="__codelineno-2-46" name="__codelineno-2-46"></a>
+</span><span id="__span-2-47"><a href="#__codelineno-2-47" id="__codelineno-2-47" name="__codelineno-2-47"></a>
+</span><span id="__span-2-48"><a href="#__codelineno-2-48" id="__codelineno-2-48" name="__codelineno-2-48"></a><span class="p">---</span> <span class="n">ANÁLISIS</span> <span class="n">DE</span> <span class="n">ACCIONES</span> <span class="n">DE</span> <span class="n">SEGURIDAD</span> <span class="p">---</span>
+</span><span id="__span-2-49"><a href="#__codelineno-2-49" id="__codelineno-2-49" name="__codelineno-2-49"></a><span class="n">BLOQUEADO</span><span class="p">/</span><span class="n">INICIADO</span> <span class="p">(</span><span class="k">Begin</span><span class="p">)</span> <span class="p">:</span> <span class="n">4</span> <span class="n">flows</span> <span class="p">(</span><span class="n">57</span><span class="p">.</span><span class="n">1</span><span class="p">%)</span>
+</span><span id="__span-2-50"><a href="#__codelineno-2-50" id="__codelineno-2-50" name="__codelineno-2-50"></a><span class="n">DENEGADO</span> <span class="p">(</span><span class="n">Denied</span><span class="p">)</span> <span class="p">:</span> <span class="n">1</span> <span class="n">flows</span> <span class="p">(</span><span class="n">14</span><span class="p">.</span><span class="n">3</span><span class="p">%)</span>
+</span><span id="__span-2-51"><a href="#__codelineno-2-51" id="__codelineno-2-51" name="__codelineno-2-51"></a><span class="n">PERMITIDO</span> <span class="p">(</span><span class="n">Established</span><span class="p">)</span> <span class="p">:</span> <span class="n">2</span> <span class="n">flows</span> <span class="p">(</span><span class="n">28</span><span class="p">.</span><span class="n">6</span><span class="p">%)</span>
+</span><span id="__span-2-52"><a href="#__codelineno-2-52" id="__codelineno-2-52" name="__codelineno-2-52"></a>
+</span><span id="__span-2-53"><a href="#__codelineno-2-53" id="__codelineno-2-53" name="__codelineno-2-53"></a><span class="err">📊</span> <span class="n">Distribución</span> <span class="n">de</span> <span class="n">Acciones</span>
+</span><span id="__span-2-54"><a href="#__codelineno-2-54" id="__codelineno-2-54" name="__codelineno-2-54"></a><span class="err">────────────────────────────────────────────────────────────</span>
+</span><span id="__span-2-55"><a href="#__codelineno-2-55" id="__codelineno-2-55" name="__codelineno-2-55"></a><span class="n">BLOQUEADO</span><span class="p">/</span><span class="n">INICIADO</span> <span class="p">(</span><span class="k">Begin</span><span class="p">)</span> <span class="err">│██████████████████████████████████████████████████</span> <span class="n">4</span>
+</span><span id="__span-2-56"><a href="#__codelineno-2-56" id="__codelineno-2-56" name="__codelineno-2-56"></a><span class="n">PERMITIDO</span> <span class="p">(</span><span class="n">Established</span><span class="p">)</span> <span class="err">│█████████████████████████</span> <span class="n">2</span>
+</span><span id="__span-2-57"><a href="#__codelineno-2-57" id="__codelineno-2-57" name="__codelineno-2-57"></a><span class="n">DENEGADO</span> <span class="p">(</span><span class="n">Denied</span><span class="p">)</span>    <span class="err">│████████████</span> <span class="n">1</span>
+</span><span id="__span-2-58"><a href="#__codelineno-2-58" id="__codelineno-2-58" name="__codelineno-2-58"></a>
+</span><span id="__span-2-59"><a href="#__codelineno-2-59" id="__codelineno-2-59" name="__codelineno-2-59"></a>
+</span><span id="__span-2-60"><a href="#__codelineno-2-60" id="__codelineno-2-60" name="__codelineno-2-60"></a><span class="p">---</span> <span class="n">ANÁLISIS</span> <span class="n">DE</span> <span class="n">DIRECCIONES</span> <span class="p">---</span>
+</span><span id="__span-2-61"><a href="#__codelineno-2-61" id="__codelineno-2-61" name="__codelineno-2-61"></a><span class="n">ENTRANTE</span> <span class="p">(</span><span class="n">Inbound</span><span class="p">)</span> <span class="p">:</span> <span class="n">1</span> <span class="n">flows</span> <span class="p">(</span><span class="n">14</span><span class="p">.</span><span class="n">3</span><span class="p">%)</span>
+</span><span id="__span-2-62"><a href="#__codelineno-2-62" id="__codelineno-2-62" name="__codelineno-2-62"></a><span class="n">SALIENTE</span> <span class="p">(</span><span class="n">Outbound</span><span class="p">)</span> <span class="p">:</span> <span class="n">6</span> <span class="n">flows</span> <span class="p">(</span><span class="n">85</span><span class="p">.</span><span class="n">7</span><span class="p">%)</span>
+</span><span id="__span-2-63"><a href="#__codelineno-2-63" id="__codelineno-2-63" name="__codelineno-2-63"></a>
+</span><span id="__span-2-64"><a href="#__codelineno-2-64" id="__codelineno-2-64" name="__codelineno-2-64"></a><span class="p">---</span> <span class="n">TOP</span> <span class="n">15</span> <span class="n">IPs</span> <span class="n">DE</span> <span class="n">ORIGEN</span> <span class="p">---</span>
+</span><span id="__span-2-65"><a href="#__codelineno-2-65" id="__codelineno-2-65" name="__codelineno-2-65"></a><span class="n">10</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">6</span>             <span class="p">:</span> <span class="n">4</span> <span class="n">flows</span>
+</span><span id="__span-2-66"><a href="#__codelineno-2-66" id="__codelineno-2-66" name="__codelineno-2-66"></a><span class="n">10</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">5</span>             <span class="p">:</span> <span class="n">2</span> <span class="n">flows</span>
+</span><span id="__span-2-67"><a href="#__codelineno-2-67" id="__codelineno-2-67" name="__codelineno-2-67"></a><span class="n">192</span><span class="p">.</span><span class="n">168</span><span class="p">.</span><span class="n">1</span><span class="p">.</span><span class="n">10</span>         <span class="p">:</span> <span class="n">1</span> <span class="n">flows</span>
+</span><span id="__span-2-68"><a href="#__codelineno-2-68" id="__codelineno-2-68" name="__codelineno-2-68"></a>
+</span><span id="__span-2-69"><a href="#__codelineno-2-69" id="__codelineno-2-69" name="__codelineno-2-69"></a><span class="err">📊</span> <span class="n">Top</span> <span class="n">IPs</span> <span class="n">de</span> <span class="n">Origen</span>
+</span><span id="__span-2-70"><a href="#__codelineno-2-70" id="__codelineno-2-70" name="__codelineno-2-70"></a><span class="err">────────────────────────────────────────────────────────────</span>
+</span><span id="__span-2-71"><a href="#__codelineno-2-71" id="__codelineno-2-71" name="__codelineno-2-71"></a><span class="n">10</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">6</span>             <span class="err">│██████████████████████████████████████████████████</span> <span class="n">4</span>
+</span><span id="__span-2-72"><a href="#__codelineno-2-72" id="__codelineno-2-72" name="__codelineno-2-72"></a><span class="n">10</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">5</span>             <span class="err">│█████████████████████████</span> <span class="n">2</span>
+</span><span id="__span-2-73"><a href="#__codelineno-2-73" id="__codelineno-2-73" name="__codelineno-2-73"></a><span class="n">192</span><span class="p">.</span><span class="n">168</span><span class="p">.</span><span class="n">1</span><span class="p">.</span><span class="n">10</span>         <span class="err">│████████████</span> <span class="n">1</span>
+</span><span id="__span-2-74"><a href="#__codelineno-2-74" id="__codelineno-2-74" name="__codelineno-2-74"></a>
+</span><span id="__span-2-75"><a href="#__codelineno-2-75" id="__codelineno-2-75" name="__codelineno-2-75"></a>
+</span><span id="__span-2-76"><a href="#__codelineno-2-76" id="__codelineno-2-76" name="__codelineno-2-76"></a><span class="p">---</span> <span class="n">TOP</span> <span class="n">15</span> <span class="n">IPs</span> <span class="n">DE</span> <span class="n">DESTINO</span> <span class="n">CON</span> <span class="n">IDENTIFICACIÓN</span> <span class="p">---</span>
+</span><span id="__span-2-77"><a href="#__codelineno-2-77" id="__codelineno-2-77" name="__codelineno-2-77"></a><span class="n">203</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">113</span><span class="p">.</span><span class="n">10</span>         <span class="p">:</span> <span class="n">4</span> <span class="n">flows</span> <span class="p">-</span> <span class="n">HTTPS</span> <span class="p">(</span><span class="n">Unknown</span><span class="p">/</span><span class="n">Public</span><span class="p">)</span>
+</span><span id="__span-2-78"><a href="#__codelineno-2-78" id="__codelineno-2-78" name="__codelineno-2-78"></a><span class="n">10</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">5</span>             <span class="p">:</span> <span class="n">1</span> <span class="n">flows</span> <span class="p">-</span> <span class="n">HTTPS</span> <span class="p">(</span><span class="n">RFC1918</span> <span class="n">Private</span><span class="p">)</span>
+</span><span id="__span-2-79"><a href="#__codelineno-2-79" id="__codelineno-2-79" name="__codelineno-2-79"></a><span class="n">8</span><span class="p">.</span><span class="n">8</span><span class="p">.</span><span class="n">8</span><span class="p">.</span><span class="n">8</span>              <span class="p">:</span> <span class="n">1</span> <span class="n">flows</span> <span class="p">-</span> <span class="n">HTTPS</span> <span class="p">(</span><span class="n">Google</span> <span class="n">DNS</span><span class="p">)</span>
+</span><span id="__span-2-80"><a href="#__codelineno-2-80" id="__codelineno-2-80" name="__codelineno-2-80"></a><span class="n">93</span><span class="p">.</span><span class="n">184</span><span class="p">.</span><span class="n">216</span><span class="p">.</span><span class="n">34</span>        <span class="p">:</span> <span class="n">1</span> <span class="n">flows</span> <span class="p">-</span> <span class="n">HTTPS</span> <span class="p">(</span><span class="n">Unknown</span><span class="p">/</span><span class="n">Public</span><span class="p">)</span>
+</span><span id="__span-2-81"><a href="#__codelineno-2-81" id="__codelineno-2-81" name="__codelineno-2-81"></a>
+</span><span id="__span-2-82"><a href="#__codelineno-2-82" id="__codelineno-2-82" name="__codelineno-2-82"></a><span class="err">📊</span> <span class="n">Top</span> <span class="n">IPs</span> <span class="n">de</span> <span class="n">Destino</span>
+</span><span id="__span-2-83"><a href="#__codelineno-2-83" id="__codelineno-2-83" name="__codelineno-2-83"></a><span class="err">────────────────────────────────────────────────────────────</span>
+</span><span id="__span-2-84"><a href="#__codelineno-2-84" id="__codelineno-2-84" name="__codelineno-2-84"></a><span class="n">203</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">113</span><span class="p">.</span><span class="n">10</span>         <span class="err">│██████████████████████████████████████████████████</span> <span class="n">4</span>
+</span><span id="__span-2-85"><a href="#__codelineno-2-85" id="__codelineno-2-85" name="__codelineno-2-85"></a><span class="n">10</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">5</span>             <span class="err">│████████████</span> <span class="n">1</span>
+</span><span id="__span-2-86"><a href="#__codelineno-2-86" id="__codelineno-2-86" name="__codelineno-2-86"></a><span class="n">8</span><span class="p">.</span><span class="n">8</span><span class="p">.</span><span class="n">8</span><span class="p">.</span><span class="n">8</span>              <span class="err">│████████████</span> <span class="n">1</span>
+</span><span id="__span-2-87"><a href="#__codelineno-2-87" id="__codelineno-2-87" name="__codelineno-2-87"></a><span class="n">93</span><span class="p">.</span><span class="n">184</span><span class="p">.</span><span class="n">216</span><span class="p">.</span><span class="n">34</span>        <span class="err">│████████████</span> <span class="n">1</span>
+</span><span id="__span-2-88"><a href="#__codelineno-2-88" id="__codelineno-2-88" name="__codelineno-2-88"></a>
+</span><span id="__span-2-89"><a href="#__codelineno-2-89" id="__codelineno-2-89" name="__codelineno-2-89"></a>
+</span><span id="__span-2-90"><a href="#__codelineno-2-90" id="__codelineno-2-90" name="__codelineno-2-90"></a><span class="p">---</span> <span class="n">TOP</span> <span class="n">15</span> <span class="n">PUERTOS</span> <span class="n">DE</span> <span class="n">DESTINO</span> <span class="p">---</span>
+</span><span id="__span-2-91"><a href="#__codelineno-2-91" id="__codelineno-2-91" name="__codelineno-2-91"></a><span class="n">Puerto</span> <span class="n">22</span>       <span class="p">:</span> <span class="n">1</span> <span class="n">flows</span> <span class="p">-</span> <span class="n">SSH</span> <span class="p">(</span><span class="n">Unknown</span><span class="p">/</span><span class="n">Public</span><span class="p">)</span>
+</span><span id="__span-2-92"><a href="#__codelineno-2-92" id="__codelineno-2-92" name="__codelineno-2-92"></a><span class="n">Puerto</span> <span class="n">23</span>       <span class="p">:</span> <span class="n">1</span> <span class="n">flows</span> <span class="p">-</span> <span class="n">Telnet</span> <span class="p">(</span><span class="n">Unknown</span><span class="p">/</span><span class="n">Public</span><span class="p">)</span>
+</span><span id="__span-2-93"><a href="#__codelineno-2-93" id="__codelineno-2-93" name="__codelineno-2-93"></a><span class="n">Puerto</span> <span class="n">25</span>       <span class="p">:</span> <span class="n">1</span> <span class="n">flows</span> <span class="p">-</span> <span class="n">SMTP</span> <span class="p">(</span><span class="n">Unknown</span><span class="p">/</span><span class="n">Public</span><span class="p">)</span>
+</span><span id="__span-2-94"><a href="#__codelineno-2-94" id="__codelineno-2-94" name="__codelineno-2-94"></a><span class="n">Puerto</span> <span class="n">3389</span>     <span class="p">:</span> <span class="n">1</span> <span class="n">flows</span> <span class="p">-</span> <span class="n">RDP</span> <span class="p">(</span><span class="n">Unknown</span><span class="p">/</span><span class="n">Public</span><span class="p">)</span>
+</span><span id="__span-2-95"><a href="#__codelineno-2-95" id="__codelineno-2-95" name="__codelineno-2-95"></a><span class="n">Puerto</span> <span class="n">4444</span>     <span class="p">:</span> <span class="n">1</span> <span class="n">flows</span> <span class="p">-</span> <span class="n">Port</span><span class="p">-</span><span class="n">4444</span> <span class="p">(</span><span class="n">Unknown</span><span class="p">/</span><span class="n">Public</span><span class="p">)</span>
+</span><span id="__span-2-96"><a href="#__codelineno-2-96" id="__codelineno-2-96" name="__codelineno-2-96"></a><span class="n">Puerto</span> <span class="n">53</span>       <span class="p">:</span> <span class="n">1</span> <span class="n">flows</span> <span class="p">-</span> <span class="n">DNS</span> <span class="p">(</span><span class="n">Unknown</span><span class="p">/</span><span class="n">Public</span><span class="p">)</span>
+</span><span id="__span-2-97"><a href="#__codelineno-2-97" id="__codelineno-2-97" name="__codelineno-2-97"></a><span class="n">Puerto</span> <span class="n">80</span>       <span class="p">:</span> <span class="n">1</span> <span class="n">flows</span> <span class="p">-</span> <span class="n">HTTP</span> <span class="p">(</span><span class="n">Unknown</span><span class="p">/</span><span class="n">Public</span><span class="p">)</span>
+</span><span id="__span-2-98"><a href="#__codelineno-2-98" id="__codelineno-2-98" name="__codelineno-2-98"></a>
+</span><span id="__span-2-99"><a href="#__codelineno-2-99" id="__codelineno-2-99" name="__codelineno-2-99"></a><span class="err">📊</span> <span class="n">Top</span> <span class="n">Puertos</span> <span class="n">de</span> <span class="n">Destino</span>
+</span><span id="__span-2-100"><a href="#__codelineno-2-100" id="__codelineno-2-100" name="__codelineno-2-100"></a><span class="err">────────────────────────────────────────────────────────────</span>
+</span><span id="__span-2-101"><a href="#__codelineno-2-101" id="__codelineno-2-101" name="__codelineno-2-101"></a><span class="n">Port</span><span class="p">-</span><span class="n">25</span>              <span class="err">│██████████████████████████████████████████████████</span> <span class="n">1</span>
+</span><span id="__span-2-102"><a href="#__codelineno-2-102" id="__codelineno-2-102" name="__codelineno-2-102"></a><span class="n">Port</span><span class="p">-</span><span class="n">3389</span>            <span class="err">│██████████████████████████████████████████████████</span> <span class="n">1</span>
+</span><span id="__span-2-103"><a href="#__codelineno-2-103" id="__codelineno-2-103" name="__codelineno-2-103"></a><span class="n">Port</span><span class="p">-</span><span class="n">22</span>              <span class="err">│██████████████████████████████████████████████████</span> <span class="n">1</span>
+</span><span id="__span-2-104"><a href="#__codelineno-2-104" id="__codelineno-2-104" name="__codelineno-2-104"></a><span class="n">Port</span><span class="p">-</span><span class="n">53</span>              <span class="err">│██████████████████████████████████████████████████</span> <span class="n">1</span>
+</span><span id="__span-2-105"><a href="#__codelineno-2-105" id="__codelineno-2-105" name="__codelineno-2-105"></a><span class="n">Port</span><span class="p">-</span><span class="n">23</span>              <span class="err">│██████████████████████████████████████████████████</span> <span class="n">1</span>
+</span><span id="__span-2-106"><a href="#__codelineno-2-106" id="__codelineno-2-106" name="__codelineno-2-106"></a><span class="n">Port</span><span class="p">-</span><span class="n">80</span>              <span class="err">│██████████████████████████████████████████████████</span> <span class="n">1</span>
+</span><span id="__span-2-107"><a href="#__codelineno-2-107" id="__codelineno-2-107" name="__codelineno-2-107"></a><span class="n">Port</span><span class="p">-</span><span class="n">4444</span>            <span class="err">│██████████████████████████████████████████████████</span> <span class="n">1</span>
+</span><span id="__span-2-108"><a href="#__codelineno-2-108" id="__codelineno-2-108" name="__codelineno-2-108"></a>
+</span><span id="__span-2-109"><a href="#__codelineno-2-109" id="__codelineno-2-109" name="__codelineno-2-109"></a>
+</span><span id="__span-2-110"><a href="#__codelineno-2-110" id="__codelineno-2-110" name="__codelineno-2-110"></a><span class="p">---</span> <span class="n">ANÁLISIS</span> <span class="n">DE</span> <span class="n">REGLAS</span> <span class="n">DE</span> <span class="n">SEGURIDAD</span> <span class="p">---</span>
+</span><span id="__span-2-111"><a href="#__codelineno-2-111" id="__codelineno-2-111" name="__codelineno-2-111"></a><span class="n">Allow-DNS</span>                                <span class="p">:</span> <span class="n">5</span> <span class="n">flows</span>
+</span><span id="__span-2-112"><a href="#__codelineno-2-112" id="__codelineno-2-112" name="__codelineno-2-112"></a><span class="n">Allow-HTTP</span>                               <span class="p">:</span> <span class="n">2</span> <span class="n">flows</span>
+</span><span id="__span-2-113"><a href="#__codelineno-2-113" id="__codelineno-2-113" name="__codelineno-2-113"></a><span class="p">==========================================</span>
+</span><span id="__span-2-114"><a href="#__codelineno-2-114" id="__codelineno-2-114" name="__codelineno-2-114"></a><span class="p">=</span>  <span class="n">ANÁLISIS</span> <span class="n">DE</span> <span class="n">CONEXIONES</span> <span class="n">PROBLEMÁTICAS</span>  <span class="p">=</span>
+</span><span id="__span-2-115"><a href="#__codelineno-2-115" id="__codelineno-2-115" name="__codelineno-2-115"></a><span class="p">==========================================</span>
+</span><span id="__span-2-116"><a href="#__codelineno-2-116" id="__codelineno-2-116" name="__codelineno-2-116"></a>
+</span><span id="__span-2-117"><a href="#__codelineno-2-117" id="__codelineno-2-117" name="__codelineno-2-117"></a>
+</span><span id="__span-2-118"><a href="#__codelineno-2-118" id="__codelineno-2-118" name="__codelineno-2-118"></a><span class="p">---</span> <span class="n">CONEXIONES</span> <span class="n">SIN</span> <span class="n">COMPLETAR</span> <span class="p">(</span><span class="k">BEGIN</span> <span class="n">SIN</span> <span class="n">ESTABLISHED</span><span class="p">)</span> <span class="p">---</span>
+</span><span id="__span-2-119"><a href="#__codelineno-2-119" id="__codelineno-2-119" name="__codelineno-2-119"></a><span class="err">🔍</span> <span class="n">Analizando</span> <span class="n">conexiones</span> <span class="k">BEGIN</span><span class="p">...</span>
+</span><span id="__span-2-120"><a href="#__codelineno-2-120" id="__codelineno-2-120" name="__codelineno-2-120"></a><span class="err">📊</span> <span class="n">Encontradas</span> <span class="n">4</span> <span class="n">conexiones</span> <span class="k">BEGIN</span><span class="p">.</span> <span class="n">Agrupando</span><span class="p">...</span>
+</span><span id="__span-2-121"><a href="#__codelineno-2-121" id="__codelineno-2-121" name="__codelineno-2-121"></a><span class="err">🔍</span> <span class="n">Verificando</span> <span class="n">cuáles</span> <span class="n">no</span> <span class="n">tienen</span> <span class="n">ESTABLISHED</span> <span class="n">correspondiente</span><span class="p">...</span>
+</span><span id="__span-2-122"><a href="#__codelineno-2-122" id="__codelineno-2-122" name="__codelineno-2-122"></a><span class="err">✅</span> <span class="n">Análisis</span> <span class="n">de</span> <span class="n">conexiones</span> <span class="n">sin</span> <span class="n">completar</span> <span class="n">finalizado</span><span class="p">.</span>
+</span><span id="__span-2-123"><a href="#__codelineno-2-123" id="__codelineno-2-123" name="__codelineno-2-123"></a><span class="err">🔄</span> <span class="n">10</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">6</span> <span class="err">→</span>  <span class="n">203</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">113</span><span class="p">.</span><span class="n">10</span><span class="p">:</span> <span class="n">22</span> <span class="p">-</span> <span class="n">1</span> <span class="n">intentos</span> <span class="n">sin</span> <span class="n">completar</span> <span class="p">-</span> <span class="n">Port</span><span class="p">-</span> <span class="n">22</span> <span class="p">(</span><span class="n">Unknown</span><span class="p">/</span><span class="n">Public</span><span class="p">)</span>
+</span><span id="__span-2-124"><a href="#__codelineno-2-124" id="__codelineno-2-124" name="__codelineno-2-124"></a><span class="err">🔄</span> <span class="n">10</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">6</span> <span class="err">→</span>  <span class="n">203</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">113</span><span class="p">.</span><span class="n">10</span><span class="p">:</span> <span class="n">23</span> <span class="p">-</span> <span class="n">1</span> <span class="n">intentos</span> <span class="n">sin</span> <span class="n">completar</span> <span class="p">-</span> <span class="n">Port</span><span class="p">-</span> <span class="n">23</span> <span class="p">(</span><span class="n">Unknown</span><span class="p">/</span><span class="n">Public</span><span class="p">)</span>
+</span><span id="__span-2-125"><a href="#__codelineno-2-125" id="__codelineno-2-125" name="__codelineno-2-125"></a><span class="err">🔄</span> <span class="n">10</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">6</span> <span class="err">→</span>  <span class="n">203</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">113</span><span class="p">.</span><span class="n">10</span><span class="p">:</span> <span class="n">25</span> <span class="p">-</span> <span class="n">1</span> <span class="n">intentos</span> <span class="n">sin</span> <span class="n">completar</span> <span class="p">-</span> <span class="n">Port</span><span class="p">-</span> <span class="n">25</span> <span class="p">(</span><span class="n">Unknown</span><span class="p">/</span><span class="n">Public</span><span class="p">)</span>
+</span><span id="__span-2-126"><a href="#__codelineno-2-126" id="__codelineno-2-126" name="__codelineno-2-126"></a><span class="err">🔄</span> <span class="n">10</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">6</span> <span class="err">→</span>  <span class="n">203</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">113</span><span class="p">.</span><span class="n">10</span><span class="p">:</span> <span class="n">4444</span> <span class="p">-</span> <span class="n">1</span> <span class="n">intentos</span> <span class="n">sin</span> <span class="n">completar</span> <span class="p">-</span> <span class="n">Port</span><span class="p">-</span> <span class="n">4444</span> <span class="p">(</span><span class="n">Unknown</span><span class="p">/</span><span class="n">Public</span><span class="p">)</span>
+</span><span id="__span-2-127"><a href="#__codelineno-2-127" id="__codelineno-2-127" name="__codelineno-2-127"></a>
+</span><span id="__span-2-128"><a href="#__codelineno-2-128" id="__codelineno-2-128" name="__codelineno-2-128"></a><span class="p">---</span> <span class="n">CONEXIONES</span> <span class="n">DENEGADAS</span> <span class="p">(</span><span class="n">DENIED</span><span class="p">)</span> <span class="p">---</span>
+</span><span id="__span-2-129"><a href="#__codelineno-2-129" id="__codelineno-2-129" name="__codelineno-2-129"></a><span class="err">🚫</span> <span class="n">192</span><span class="p">.</span><span class="n">168</span><span class="p">.</span><span class="n">1</span><span class="p">.</span><span class="n">10</span> <span class="err">→</span>  <span class="n">10</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">5</span><span class="p">:</span> <span class="n">3389</span> <span class="p">-</span> <span class="n">1</span> <span class="n">denegaciones</span> <span class="p">-</span> <span class="n">Port</span><span class="p">-</span> <span class="n">3389</span> <span class="p">(</span><span class="n">Unknown</span><span class="p">/</span><span class="n">Public</span><span class="p">)</span>
+</span><span id="__span-2-130"><a href="#__codelineno-2-130" id="__codelineno-2-130" name="__codelineno-2-130"></a>
+</span><span id="__span-2-131"><a href="#__codelineno-2-131" id="__codelineno-2-131" name="__codelineno-2-131"></a><span class="p">---</span> <span class="n">CONEXIONES</span> <span class="n">CON</span> <span class="n">DROPS</span> <span class="p">(</span><span class="n">PÉRDIDA</span> <span class="n">DE</span> <span class="n">PAQUETES</span><span class="p">)</span> <span class="p">---</span>
+</span><span id="__span-2-132"><a href="#__codelineno-2-132" id="__codelineno-2-132" name="__codelineno-2-132"></a><span class="err">✅</span> <span class="n">No</span> <span class="n">se</span> <span class="n">detectaron</span> <span class="n">patrones</span> <span class="n">de</span> <span class="n">drops</span> <span class="n">significativos</span>
+</span><span id="__span-2-133"><a href="#__codelineno-2-133" id="__codelineno-2-133" name="__codelineno-2-133"></a>
+</span><span id="__span-2-134"><a href="#__codelineno-2-134" id="__codelineno-2-134" name="__codelineno-2-134"></a><span class="p">---</span> <span class="n">CONEXIONES</span> <span class="n">CON</span> <span class="n">REINTENTOS</span> <span class="n">EXCESIVOS</span> <span class="p">---</span>
+</span><span id="__span-2-135"><a href="#__codelineno-2-135" id="__codelineno-2-135" name="__codelineno-2-135"></a><span class="err">✅</span> <span class="n">No</span> <span class="n">se</span> <span class="n">detectaron</span> <span class="n">reintentos</span> <span class="n">excesivos</span>
+</span><span id="__span-2-136"><a href="#__codelineno-2-136" id="__codelineno-2-136" name="__codelineno-2-136"></a>
+</span><span id="__span-2-137"><a href="#__codelineno-2-137" id="__codelineno-2-137" name="__codelineno-2-137"></a><span class="p">---</span> <span class="n">CONEXIONES</span> <span class="n">ASIMÉTRICAS</span> <span class="p">(</span><span class="n">UNA</span> <span class="n">DIRECCIÓN</span><span class="p">)</span> <span class="p">---</span>
+</span><span id="__span-2-138"><a href="#__codelineno-2-138" id="__codelineno-2-138" name="__codelineno-2-138"></a><span class="err">🔍</span> <span class="n">Analizando</span> <span class="n">conexiones</span> <span class="n">asimétricas</span><span class="p">...</span>
+</span><span id="__span-2-139"><a href="#__codelineno-2-139" id="__codelineno-2-139" name="__codelineno-2-139"></a><span class="err">📊</span> <span class="n">Analizando</span> <span class="n">0</span> <span class="n">pares</span> <span class="n">de</span> <span class="n">conexiones</span><span class="p">...</span>
+</span><span id="__span-2-140"><a href="#__codelineno-2-140" id="__codelineno-2-140" name="__codelineno-2-140"></a><span class="err">✅</span> <span class="n">Análisis</span> <span class="n">de</span> <span class="n">conexiones</span> <span class="n">asimétricas</span> <span class="n">completado</span><span class="p">.</span>
+</span><span id="__span-2-141"><a href="#__codelineno-2-141" id="__codelineno-2-141" name="__codelineno-2-141"></a><span class="err">✅</span> <span class="n">No</span> <span class="n">se</span> <span class="n">detectaron</span> <span class="n">conexiones</span> <span class="n">asimétricas</span> <span class="n">significativas</span>
+</span><span id="__span-2-142"><a href="#__codelineno-2-142" id="__codelineno-2-142" name="__codelineno-2-142"></a><span class="p">===================================================</span>
+</span><span id="__span-2-143"><a href="#__codelineno-2-143" id="__codelineno-2-143" name="__codelineno-2-143"></a><span class="p">=</span>  <span class="n">DETECCIÓN</span> <span class="n">DE</span> <span class="n">ANOMALÍAS</span> <span class="n">Y</span> <span class="n">PATRONES</span> <span class="n">SOSPECHOSOS</span>  <span class="p">=</span>
+</span><span id="__span-2-144"><a href="#__codelineno-2-144" id="__codelineno-2-144" name="__codelineno-2-144"></a><span class="p">===================================================</span>
+</span><span id="__span-2-145"><a href="#__codelineno-2-145" id="__codelineno-2-145" name="__codelineno-2-145"></a>
+</span><span id="__span-2-146"><a href="#__codelineno-2-146" id="__codelineno-2-146" name="__codelineno-2-146"></a>
+</span><span id="__span-2-147"><a href="#__codelineno-2-147" id="__codelineno-2-147" name="__codelineno-2-147"></a><span class="p">---</span> <span class="n">CONEXIONES</span> <span class="n">DE</span> <span class="n">ALTO</span> <span class="n">VOLUMEN</span> <span class="p">(</span><span class="n">Top</span> <span class="n">1</span><span class="p">%)</span> <span class="p">---</span>
+</span><span id="__span-2-148"><a href="#__codelineno-2-148" id="__codelineno-2-148" name="__codelineno-2-148"></a><span class="err">🚨</span> <span class="n">10</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">6</span> <span class="err">→</span> <span class="n">203</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">113</span><span class="p">.</span><span class="n">10</span><span class="p">:</span><span class="n">25</span> <span class="p">-</span> <span class="n">0</span><span class="p">.</span><span class="n">08</span> <span class="n">KB</span>
+</span><span id="__span-2-149"><a href="#__codelineno-2-149" id="__codelineno-2-149" name="__codelineno-2-149"></a>
+</span><span id="__span-2-150"><a href="#__codelineno-2-150" id="__codelineno-2-150" name="__codelineno-2-150"></a><span class="p">---</span> <span class="n">PUERTOS</span> <span class="n">INUSUALES</span> <span class="p">---</span>
+</span><span id="__span-2-151"><a href="#__codelineno-2-151" id="__codelineno-2-151" name="__codelineno-2-151"></a><span class="err">🔍</span> <span class="n">Puerto</span> <span class="n">23</span> <span class="p">:</span> <span class="n">1</span> <span class="n">conexiones</span>
+</span><span id="__span-2-152"><a href="#__codelineno-2-152" id="__codelineno-2-152" name="__codelineno-2-152"></a><span class="err">🔍</span> <span class="n">Puerto</span> <span class="n">4444</span> <span class="p">:</span> <span class="n">1</span> <span class="n">conexiones</span>
+</span><span id="__span-2-153"><a href="#__codelineno-2-153" id="__codelineno-2-153" name="__codelineno-2-153"></a>
+</span><span id="__span-2-154"><a href="#__codelineno-2-154" id="__codelineno-2-154" name="__codelineno-2-154"></a><span class="p">---</span> <span class="n">IPs</span> <span class="n">CON</span> <span class="n">MUCHAS</span> <span class="n">CONEXIONES</span> <span class="n">BLOQUEADAS</span> <span class="p">---</span>
+</span><span id="__span-2-155"><a href="#__codelineno-2-155" id="__codelineno-2-155" name="__codelineno-2-155"></a><span class="err">✅</span> <span class="n">No</span> <span class="n">se</span> <span class="n">detectaron</span> <span class="n">IPs</span> <span class="n">con</span> <span class="n">patrones</span> <span class="n">sospechosos</span> <span class="n">de</span> <span class="n">bloqueo</span>
+</span><span id="__span-2-156"><a href="#__codelineno-2-156" id="__codelineno-2-156" name="__codelineno-2-156"></a>
+</span><span id="__span-2-157"><a href="#__codelineno-2-157" id="__codelineno-2-157" name="__codelineno-2-157"></a><span class="p">---</span> <span class="n">POSIBLE</span> <span class="n">PORT</span> <span class="n">SCANNING</span> <span class="p">---</span>
+</span><span id="__span-2-158"><a href="#__codelineno-2-158" id="__codelineno-2-158" name="__codelineno-2-158"></a><span class="err">✅</span> <span class="n">No</span> <span class="n">se</span> <span class="n">detectaron</span> <span class="n">patrones</span> <span class="n">de</span> <span class="n">port</span> <span class="n">scanning</span>
+</span><span id="__span-2-159"><a href="#__codelineno-2-159" id="__codelineno-2-159" name="__codelineno-2-159"></a><span class="p">===========================</span>
+</span><span id="__span-2-160"><a href="#__codelineno-2-160" id="__codelineno-2-160" name="__codelineno-2-160"></a><span class="p">=</span>  <span class="n">EXPORTANDO</span> <span class="n">RESULTADOS</span>  <span class="p">=</span>
+</span><span id="__span-2-161"><a href="#__codelineno-2-161" id="__codelineno-2-161" name="__codelineno-2-161"></a><span class="p">===========================</span>
+</span><span id="__span-2-162"><a href="#__codelineno-2-162" id="__codelineno-2-162" name="__codelineno-2-162"></a>
+</span><span id="__span-2-163"><a href="#__codelineno-2-163" id="__codelineno-2-163" name="__codelineno-2-163"></a><span class="err">📄</span> <span class="n">Flows</span> <span class="n">detallados</span> <span class="n">exportados</span> <span class="n">a</span><span class="p">:</span> <span class="n">reports</span><span class="p">/</span><span class="n">VNetFlowAnalysis_Details_20251001_170752</span><span class="p">.</span><span class="n">csv</span>
+</span><span id="__span-2-164"><a href="#__codelineno-2-164" id="__codelineno-2-164" name="__codelineno-2-164"></a><span class="err">📊</span> <span class="n">Resumen</span> <span class="n">exportado</span> <span class="n">a</span><span class="p">:</span> <span class="n">reports</span><span class="p">/</span><span class="n">VNetFlowAnalysis_Summary_20251001_170752</span><span class="p">.</span><span class="n">csv</span>
+</span><span id="__span-2-165"><a href="#__codelineno-2-165" id="__codelineno-2-165" name="__codelineno-2-165"></a><span class="p">=========================</span>
+</span><span id="__span-2-166"><a href="#__codelineno-2-166" id="__codelineno-2-166" name="__codelineno-2-166"></a><span class="p">=</span>  <span class="n">ANÁLISIS</span> <span class="n">COMPLETADO</span>  <span class="p">=</span>
+</span><span id="__span-2-167"><a href="#__codelineno-2-167" id="__codelineno-2-167" name="__codelineno-2-167"></a><span class="p">=========================</span>
+</span><span id="__span-2-168"><a href="#__codelineno-2-168" id="__codelineno-2-168" name="__codelineno-2-168"></a>
+</span><span id="__span-2-169"><a href="#__codelineno-2-169" id="__codelineno-2-169" name="__codelineno-2-169"></a><span class="err">🎯</span> <span class="n">Se</span> <span class="n">analizaron</span> <span class="n">7</span> <span class="n">flows</span> <span class="n">de</span> <span class="n">1</span> <span class="n">archivo</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</span><span id="__span-2-170"><a href="#__codelineno-2-170" id="__codelineno-2-170" name="__codelineno-2-170"></a><span class="err">⏱️</span>  <span class="n">Período</span> <span class="n">total</span> <span class="n">analizado</span><span class="p">:</span> <span class="n">09</span><span class="p">/</span><span class="n">30</span><span class="p">/</span><span class="n">2025</span> <span class="n">12</span><span class="p">:</span><span class="n">00</span><span class="p">:</span><span class="n">00</span> <span class="p">-</span> <span class="n">09</span><span class="p">/</span><span class="n">30</span><span class="p">/</span><span class="n">2025</span> <span class="n">12</span><span class="p">:</span><span class="n">10</span><span class="p">:</span><span class="n">00</span>
+</span></code></pre></div>
+<h2 id="limitaciones-y-recomendaciones">Limitaciones y recomendaciones</h2>
+<ul>
+<li>El script acumula los flows en memoria para facilitar el análisis; para conjuntos de datos muy grandes (muchos GB o millones de registros) puede consumir mucha memoria.</li>
+<li>Recomiendo filtrar previamente por fecha/rango o procesar archivos por lotes.</li>
+<li>Las gráficas en consola usan caracteres Unicode (bloques). Si la terminal no los soporta, activar/desactivar <code>-ShowGraphs</code> según convenga.</li>
+<li>Si el formato de <code>flowTuple</code> difiere de lo esperado, actualiza la función <code>Parse-FlowTuple</code> en el script o avísame para adaptar la documentación.</li>
+</ul>
+<h2 id="autor-y-licencia">Autor y licencia</h2>
+<p>Autor: Rafael Fernández (@rfernandezdo)</p>
+<h2 id="historial-de-cambios">Historial de cambios</h2>
+<ul>
+<li>v1.1 (2025-10-01): Añadida documentación ampliada y README.</li>
+<li>v1.0 (2025-09-24): Versión inicial del script.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2023-now Rafael Fernández
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/in/rafaelfernandezd/" target="_blank" rel="noopener" title="LinkedIn" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"></path></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/rfernandezdo" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://rfernandezdo.github.io/feed_rss_created.xml" target="_blank" rel="noopener" title="RSS feed" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M64 32C28.7 32 0 60.7 0 96v320c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64zm32 104c0-13.3 10.7-24 24-24 137 0 248 111 248 248 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-110.5-89.5-200-200-200-13.3 0-24-10.7-24-24m0 96c0-13.3 10.7-24 24-24 83.9 0 152 68.1 152 152 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-57.4-46.6-104-104-104-13.3 0-24-10.7-24-24m0 120a32 32 0 1 1 64 0 32 32 0 1 1-64 0"></path></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tabs", "navigation.tabs.sticky", "navigation.expand", "navigation.sections", "navigation.top", "navigation.tracking", "toc.integrate", "toc.nested", "toc.smoothscroll", "footer", "content.code.copy", "content.code.select", "content.code.annotate", "content.tooltips"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+      
+        <script src="../../javascripts/tablesort.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

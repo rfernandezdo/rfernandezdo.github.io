@@ -1,0 +1,3203 @@
+<!DOCTYPE html><html class="no-js" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width,initial-scale=1" name="viewport">
+<meta content="A blog about Azure, DevOps and other stuff" name="description">
+<meta content="Rafael Fernández" name="author">
+<link href="https://rfernandezdo.github.io/blog/page/12/" rel="canonical">
+<link href="../../tags/" rel="next">
+<link href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=es&amp;_x_tr_hl=es&amp;_x_tr_pto=wapp" hreflang="en" rel="alternate">
+<link href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=en&amp;_x_tr_hl=en&amp;_x_tr_pto=wapp" hreflang="es" rel="alternate">
+<link href="../../../feed_rss_created.xml" rel="alternate" title="RSS feed" type="application/rss+xml">
+<link href="../../../feed_rss_updated.xml" rel="alternate" title="RSS feed of updated content" type="application/rss+xml">
+<link href="../../../assets/images/favicon.png" rel="icon">
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.1" name="generator">
+<title>Blog - Un Rinconcito donde contar lo que quiera</title>
+<link href="../../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet">
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet">
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<meta content="website" property="og:type">
+<meta content="Blog - Un Rinconcito donde contar lo que quiera" property="og:title">
+<meta content="A blog about Azure, DevOps and other stuff" property="og:description">
+<meta content="https://rfernandezdo.github.io/assets/images/social/blog/page/12/index.png" property="og:image">
+<meta content="image/png" property="og:image:type">
+<meta content="1200" property="og:image:width">
+<meta content="630" property="og:image:height">
+<meta content="https://rfernandezdo.github.io/blog/page/12/" property="og:url">
+<meta content="summary_large_image" property="twitter:card">
+<meta content="Blog - Un Rinconcito donde contar lo que quiera" property="twitter:title">
+<meta content="A blog about Azure, DevOps and other stuff" property="twitter:description">
+<meta content="https://rfernandezdo.github.io/assets/images/social/blog/page/12/index.png" property="twitter:image">
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+<body data-md-color-accent="blue" data-md-color-primary="blue" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox">
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox">
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#blog">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Un Rinconcito donde contar lo que quiera" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="Un Rinconcito donde contar lo que quiera">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Un Rinconcito donde contar lo que quiera
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Blog
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="blue" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio">
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="blue" data-md-color-media="" data-md-color-primary="black" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio">
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="Select language" class="md-header__button md-icon">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=es&amp;_x_tr_hl=es&amp;_x_tr_pto=wapp" hreflang="en">
+              English
+            </a>
+</li>
+<li class="md-select__item">
+<a class="md-select__link" href="https://rfernandezdo-github-io.translate.goog/?_x_tr_sl=auto&amp;_x_tr_tl=en&amp;_x_tr_hl=en&amp;_x_tr_pto=wapp" hreflang="es">
+              Spanish
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text">
+<label class="md-search__icon md-icon" for="__search">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+  Blog
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+        
+  
+  
+    
+  
+  About
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../contributions/">
+        
+  
+  
+    
+  
+  Contributions
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../Azure/Security/MCSB/Readme/">
+          
+  
+  
+  Azure
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../Tools/Federated_Identity_Credentials_Report/README-federated-identity-credentials/">
+          
+  
+  
+  Tools
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Un Rinconcito donde contar lo que quiera" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="Un Rinconcito donde contar lo que quiera">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    Un Rinconcito donde contar lo que quiera
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_1" type="checkbox">
+<label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_1_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Blog
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox">
+<a class="md-nav__link md-nav__link--active" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../tags/">
+<span class="md-ellipsis">
+    
+  
+    Posts by Tags
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_1_3" type="checkbox">
+<label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Archive
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Archive
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/12/">
+<span class="md-ellipsis">
+    
+  
+    2025/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/11/">
+<span class="md-ellipsis">
+    
+  
+    2025/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/10/">
+<span class="md-ellipsis">
+    
+  
+    2025/10
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/09/">
+<span class="md-ellipsis">
+    
+  
+    2025/09
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/08/">
+<span class="md-ellipsis">
+    
+  
+    2025/08
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/07/">
+<span class="md-ellipsis">
+    
+  
+    2025/07
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/06/">
+<span class="md-ellipsis">
+    
+  
+    2025/06
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/05/">
+<span class="md-ellipsis">
+    
+  
+    2025/05
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/04/">
+<span class="md-ellipsis">
+    
+  
+    2025/04
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/03/">
+<span class="md-ellipsis">
+    
+  
+    2025/03
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/02/">
+<span class="md-ellipsis">
+    
+  
+    2025/02
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2025/01/">
+<span class="md-ellipsis">
+    
+  
+    2025/01
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/12/">
+<span class="md-ellipsis">
+    
+  
+    2024/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/11/">
+<span class="md-ellipsis">
+    
+  
+    2024/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/10/">
+<span class="md-ellipsis">
+    
+  
+    2024/10
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/09/">
+<span class="md-ellipsis">
+    
+  
+    2024/09
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/06/">
+<span class="md-ellipsis">
+    
+  
+    2024/06
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/05/">
+<span class="md-ellipsis">
+    
+  
+    2024/05
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/04/">
+<span class="md-ellipsis">
+    
+  
+    2024/04
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/03/">
+<span class="md-ellipsis">
+    
+  
+    2024/03
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2024/02/">
+<span class="md-ellipsis">
+    
+  
+    2024/02
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2023/12/">
+<span class="md-ellipsis">
+    
+  
+    2023/12
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2023/11/">
+<span class="md-ellipsis">
+    
+  
+    2023/11
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2023/10/">
+<span class="md-ellipsis">
+    
+  
+    2023/10
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_1_4" type="checkbox">
+<label class="md-nav__link" for="__nav_1_4" id="__nav_1_4_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Categories
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Categories
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure/">
+<span class="md-ellipsis">
+    
+  
+    Azure
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure-ad/">
+<span class="md-ellipsis">
+    
+  
+    Azure AD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure-automation/">
+<span class="md-ellipsis">
+    
+  
+    Azure Automation
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure-devops/">
+<span class="md-ellipsis">
+    
+  
+    Azure DevOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure-frameworks/">
+<span class="md-ellipsis">
+    
+  
+    Azure Frameworks
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure-governance/">
+<span class="md-ellipsis">
+    
+  
+    Azure Governance
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure-networking/">
+<span class="md-ellipsis">
+    
+  
+    Azure Networking
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure-security/">
+<span class="md-ellipsis">
+    
+  
+    Azure Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure-services/">
+<span class="md-ellipsis">
+    
+  
+    Azure Services
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/azure-updates/">
+<span class="md-ellipsis">
+    
+  
+    Azure Updates
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/caf/">
+<span class="md-ellipsis">
+    
+  
+    CAF
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/cicd/">
+<span class="md-ellipsis">
+    
+  
+    CI/CD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/devops/">
+<span class="md-ellipsis">
+    
+  
+    DevOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/development/">
+<span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/drift-detection/">
+<span class="md-ellipsis">
+    
+  
+    Drift Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/english/">
+<span class="md-ellipsis">
+    
+  
+    English
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/enterprise-policy-as-code/">
+<span class="md-ellipsis">
+    
+  
+    Enterprise Policy as Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/finops/">
+<span class="md-ellipsis">
+    
+  
+    FinOps
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/firewall/">
+<span class="md-ellipsis">
+    
+  
+    Firewall
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/gtd/">
+<span class="md-ellipsis">
+    
+  
+    GTD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/git/">
+<span class="md-ellipsis">
+    
+  
+    Git
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/github-actions/">
+<span class="md-ellipsis">
+    
+  
+    GitHub Actions
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/hashicorp/">
+<span class="md-ellipsis">
+    
+  
+    HashiCorp
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/hello_world/">
+<span class="md-ellipsis">
+    
+  
+    Hello_World
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/infrastructure-as-code/">
+<span class="md-ellipsis">
+    
+  
+    Infrastructure as Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/learning/">
+<span class="md-ellipsis">
+    
+  
+    Learning
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/m365/">
+<span class="md-ellipsis">
+    
+  
+    M365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/microsoft-365/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft 365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/microsoft-entra/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/microsoft-entra-external-id/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra External ID
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/microsoft-entra-id/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Entra ID
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/networking/">
+<span class="md-ellipsis">
+    
+  
+    Networking
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/outlook/">
+<span class="md-ellipsis">
+    
+  
+    Outlook
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/pim/">
+<span class="md-ellipsis">
+    
+  
+    PIM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/power-automate/">
+<span class="md-ellipsis">
+    
+  
+    Power Automate
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/power-bi/">
+<span class="md-ellipsis">
+    
+  
+    Power BI
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/productividad/">
+<span class="md-ellipsis">
+    
+  
+    Productividad
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/productividad--microsoft-365/">
+<span class="md-ellipsis">
+    
+  
+    Productividad / Microsoft 365
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/security/">
+<span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/seguridad/">
+<span class="md-ellipsis">
+    
+  
+    Seguridad
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/snowflake/">
+<span class="md-ellipsis">
+    
+  
+    Snowflake
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/terraform/">
+<span class="md-ellipsis">
+    
+  
+    Terraform
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/threat-intelligence/">
+<span class="md-ellipsis">
+    
+  
+    Threat Intelligence
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/tools/">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/troubleshooting/">
+<span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/visual-studio-code/">
+<span class="md-ellipsis">
+    
+  
+    Visual Studio Code
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/viva-insights/">
+<span class="md-ellipsis">
+    
+  
+    Viva Insights
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../category/windows/">
+<span class="md-ellipsis">
+    
+  
+    Windows
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../contributions/">
+<span class="md-ellipsis">
+    
+  
+    Contributions
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4" type="checkbox">
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Azure
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Azure
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Security
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1_1" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1_1" id="__nav_4_1_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    MCSB v1
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_4_1_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    MCSB v1
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Readme/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Readme
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Asset%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Asset Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Backup%20and%20Recovery/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Backup and Recovery
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Data%20Protection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Data Protection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/DevOps%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - DevOps Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Endpoint%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Endpoint Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Governance%20and%20Strategy/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Governance and Strategy
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Identity%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Identity Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Incident%20Response/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Incident Response
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Logging%20and%20Threat%20Detection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Logging and Threat Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Network%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Network Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Posture%20and%20Vulnerability%20Mgmt/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Posture and Vulnerability Mgmt
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSB/Privileged%20Access/">
+<span class="md-ellipsis">
+    
+  
+    MCSB_v1 - Privileged Access
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4_1_2" type="checkbox">
+<label class="md-nav__link" for="__nav_4_1_2" id="__nav_4_1_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_1_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_4_1_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    MCSB v2
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Index/">
+<span class="md-ellipsis">
+    
+  
+    Microsoft Cloud Security Benchmark v2
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Network%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Network Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Identity%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Identity Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Privileged%20Access/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Privileged Access
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Data%20Protection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Data Protection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Asset%20Management/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Asset Management
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Logging%20and%20Threat%20Detection/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Logging and Threat Detection
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Incident%20Response/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Incident Response
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Posture%20and%20Vulnerability%20Manag/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Posture and Vulnerability Manag
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Endpoint%20Security/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Endpoint Security
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Backup%20and%20Recovery/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Backup and Recovery
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Azure/Security/MCSBv2/Artificial%20Intelligence%20Securit/">
+<span class="md-ellipsis">
+    
+  
+    MCSB v2 - Artificial Intelligence Securit
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5" type="checkbox">
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Tools
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5_1" type="checkbox">
+<label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Federated Identity Credentials Report
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_1_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Federated Identity Credentials Report
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Tools/Federated_Identity_Credentials_Report/README-federated-identity-credentials/">
+<span class="md-ellipsis">
+    
+  
+    Script de Reporte para Federated Identity Credentials
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5_2" type="checkbox">
+<label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Analyze Virtual Network Flows
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Analyze Virtual Network Flows
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Tools/Analyze_Virtual_Network_Flows/">
+<span class="md-ellipsis">
+    
+  
+    Analyze-VNETFlowLogs
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<div class="md-content__inner">
+<header class="md-typeset">
+<h1 id="blog">Blog</h1>
+</header>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-06-12 00:00:00+00:00">June 12, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/microsoft-entra-id/">Microsoft Entra ID</a></li>
+<li class="md-meta__item">
+            
+              8 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="microsoft-entra-id-privileged-identity-management"><a class="toclink" href="../../2024/06/12/microsoft-entra-id-privileged-identity-management/">Microsoft Entra ID Privileged Identity Management</a></h2>
+<p>In this post, I will show you how to use Microsoft Entra ID Privileged Identity Management (PIM) to manage and monitor access to privileged roles in your organization.</p>
+<h3 id="what-is-microsoft-entra-id-privileged-identity-management"><a class="toclink" href="../../2024/06/12/microsoft-entra-id-privileged-identity-management/#what-is-microsoft-entra-id-privileged-identity-management">What is Microsoft Entra ID Privileged Identity Management?</a></h3>
+<p>Microsoft Entra ID Privileged Identity Management (PIM) is a service that helps you manage, control, and monitor access within your organization. It provides just-in-time privileged access to Azure AD and Azure resources, along with access reviews and monitoring capabilities.</p>
+<h3 id="reasons-to-use-microsoft-entra-id-pim"><a class="toclink" href="../../2024/06/12/microsoft-entra-id-privileged-identity-management/#reasons-to-use-microsoft-entra-id-pim">Reasons to Use Microsoft Entra ID PIM</a></h3>
+<p>There are several reasons to use Microsoft Entra ID PIM:</p>
+<ul>
+<li><strong>Security</strong>: Microsoft Entra ID PIM helps you reduce the risk of unauthorized access to privileged roles.</li>
+<li><strong>Compliance</strong>: Microsoft Entra ID PIM helps you meet compliance requirements by providing access reviews and monitoring capabilities.</li>
+<li><strong>Efficiency</strong>: Microsoft Entra ID PIM provides just-in-time access to privileged roles, reducing the risk of unauthorized access.</li>
+<li><strong>Monitoring</strong>: Microsoft Entra ID PIM provides monitoring and alerts that help you detect and respond to suspicious activities.</li>
+<li><strong>Traceability</strong>: Microsoft Entra ID PIM provides an audit trail of all access requests and approvals, helping you track who has access to privileged roles.</li>
+</ul>
+<p>Maybe you can't use Microsoft Entra ID PIM to log all changess that the users do in the system, but you can use <a href="https://techcommunity.microsoft.com/t5/azure-governance-and-management/announcing-the-general-availability-of-change-actor/ba-p/4171801">Actor Change</a> for that.</p>
+<h3 id="key-features-of-microsoft-entra-id-pim"><a class="toclink" href="../../2024/06/12/microsoft-entra-id-privileged-identity-management/#key-features-of-microsoft-entra-id-pim">Key Features of Microsoft Entra ID PIM</a></h3>
+<p>Microsoft Entra ID PIM offers several key features that help you manage and monitor access to privileged roles:</p>
+<ul>
+<li>Provide just-in-time privileged access to Microsoft Entra ID and Azure resources.</li>
+<li>Assign time-bound access to resources using start and end dates.</li>
+<li>Require approval to activate privileged roles.</li>
+<li>Enforce multifactor authentication to activate any role.</li>
+<li>Use justification to understand why users activate.</li>
+<li>Get notifications when users activate privileged roles.</li>
+<li>Conduct access reviews to ensure users still need roles.</li>
+<li>Download audit history for internal or external audit.</li>
+<li>Prevent removal of the last active Global Administrator and Privileged Role Administrator role assignments.</li>
+</ul>
+<h3 id="how-to-use-microsoft-entra-id-pim"><a class="toclink" href="../../2024/06/12/microsoft-entra-id-privileged-identity-management/#how-to-use-microsoft-entra-id-pim">How to Use Microsoft Entra ID PIM</a></h3>
+<p>We can manage three types of "things" in Microsoft Entra ID PIM:</p>
+<ul>
+<li><strong>Microsoft Entra roles.</strong> Microsoft Entra roles are also referred to as directory roles. They include built-in and custom roles to manage Microsoft Entra ID and other Microsoft 365 online services.</li>
+<li><strong>PIM for Groups.</strong> To set up just-in-time access to the member and owner role of a Microsoft Entra security group. PIM for Groups provides an alternative way to set up PIM for Microsoft Entra roles and Azure roles. It also allows you to set up PIM for other permissions across Microsoft online services like Intune, Azure Key Vaults, and Microsoft Entra ID Protection.</li>
+<li><strong>Azure roles.</strong> Azure's role-based access control roles that grant access to management groups, subscriptions, resource groups, and resources.</li>
+</ul>
+<h4 id="microsoft-entra-id-roles"><a class="toclink" href="../../2024/06/12/microsoft-entra-id-privileged-identity-management/#microsoft-entra-id-roles">Microsoft Entra ID roles</a></h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you want to use groups, you need create eligible groups, for now the maximum number of eligible groups is 500.</p>
+</div>
+<p>In the Microsoft Entra ID portal, you can manage Microsoft Entra ID roles by selecting the "Roles" tab. Here you can see all the roles that are available to you, as well as the roles that you have activated.</p>
+<p>You can made the following actions:</p>
+<ul>
+<li><strong>Assign</strong>: Create assignments for Microsoft Entra ID roles, update existing assignments to ensure that users have just-in-time access to privileged roles.</li>
+<li><strong>Activate</strong>: Activate your eligible assignments to get just-in-time access to privileged roles. </li>
+<li><strong>Approve</strong>: List, approve, or deny activation requests for Microsoft Entra ID roles.</li>
+<li><strong>Audit</strong>: View and export a history of all assignments and activations done in PIM so you can identify attacks and stay compliant.</li>
+</ul>
+<p>Ok, let's see how to assign a role to a group.</p>
+<p>In the "Roles" tab, click on the role that you want to assign. </p>
+<p>In Role settings, edit the settings for the role, modify Activation, Assignment, and Notification settings and then click "Update. These are the default settings:</p>
+<p><strong>Activation</strong></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>State</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Activation maximum duration (hours)</th>
+<th>8 hour(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>On activation, require</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Require justification on activation</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Require ticket information on activation</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Require approval to activate</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Approvers</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Assignment</strong></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>State</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Allow permanent eligible assignment</th>
+<th>Yes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Expire eligible assignments after</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Allow permanent active assignment</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Expire active assignments after</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Require Azure Multi-Factor Authentication on active assignment</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Require justification on active assignment</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Send notifications when members are assigned as eligible to this role:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Default recipients</th>
+<th>Additional recipients</th>
+<th>Critical emails only</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Role assignment alert</th>
+<th>Admin</th>
+<th>None</th>
+<th>False</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Notification to the assigned user (assignee)</td>
+<td>Assignee</td>
+<td>None</td>
+<td>False</td>
+</tr>
+<tr>
+<td>Request to approve a role assignment renewal/extension</td>
+<td>Approver</td>
+<td>None</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Send notifications when members are assigned as active to this role:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Default recipients</th>
+<th>Additional recipients</th>
+<th>Critical emails only</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Role assignment alert</th>
+<th>Admin</th>
+<th>None</th>
+<th>False</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Notification to the assigned user (assignee)</td>
+<td>Assignee</td>
+<td>None</td>
+<td>False</td>
+</tr>
+<tr>
+<td>Request to approve a role assignment renewal/extension</td>
+<td>Approver</td>
+<td>None</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Send notifications when eligible members activate this role:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Default recipients</th>
+<th>Additional recipients</th>
+<th>Critical emails only</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Role activation alert</th>
+<th>Admin</th>
+<th>None</th>
+<th>False</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Notification to activated user (requestor)</td>
+<td>Requestor</td>
+<td>None</td>
+<td>False</td>
+</tr>
+<tr>
+<td>Request to approve an activation</td>
+<td>Approver</td>
+<td>None</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+<p>In the "Assignments" tab, click on "Add assignments". In Membership, select the scope type: Application, Device, Directory, Group, Service Principal or User (It's dependes of each role)  and select the identity related that you want to assign the role to. We are going to select Directory and a eligible group,  and then click "Next". </p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>App registrations are supported in PIM for Microsoft Entra ID roles but only in active assignments. </p>
+</div>
+<p>In the "Settings" tab, you can set the Assigment type: Eligible or I need to do something to activate and Active or I don't need to do nothing to activate my role. You can configure too if you want that the duration of the assignment is permanent or if you want to expire the assignment after a certain period of time. Once you're done, click "Assign".</p>
+<p>You can set the activation settings, assignment settings, and notification settings for the assignment. Once you're done, click "Assign".</p>
+<h4 id="pim-for-groups"><a class="toclink" href="../../2024/06/12/microsoft-entra-id-privileged-identity-management/#pim-for-groups">PIM for Groups</a></h4>
+<p>In the Microsoft Entra ID portal, you can manage PIM for Groups by selecting the "Groups" tab. </p>
+<p>First you need to discover the groups that you want to manage. In the "Groups" tab, click on "Discover groups". In the "Discover groups" pane, you can search for groups by name. Once you've found the group you want to manage, click on "Add to PIM".</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>You must be an owner of the group or have Microsoft Entra role that allows to discover and manage group in PIM.</p>
+</div>
+<p>Now, in the "Groups" tab, you can see all the groups that you have discovered.</p>
+<p>In the "Groups" tab, click on the group that you want to manage. You can made the following actions under manage:</p>
+<ul>
+<li><strong>Assign</strong>: Create assignments for the member and owner role of the group, update existing assignments to ensure that users have just-in-time access to privileged roles.</li>
+<li><strong>Activate</strong>: Activate your eligible assignments to get just-in-time access to privileged roles.</li>
+<li><strong>Approve</strong>: List, approve, or deny activation requests for the member and owner role of the group.</li>
+<li><strong>Audit</strong>: View and export a history of all assignments and activations done in PIM so you can identify attacks and stay compliant.</li>
+</ul>
+<p>Ok, let's see how to assign a role to a group.</p>
+<p>In the "Groups" tab, click on the group that you want to assign a role to. </p>
+<p>In Role settings, edit the settings for the role, modify Activation, Assignment, and Notification settings for members or users, these settings are the same that we saw in the Microsoft Entra ID roles section.</p>
+<p>In the "Assignments" tab, click on "Add assignments". In Select role, select the scope type: Member or Owner and in Select members select the identity related that you want to assign the role to or groupm, if you select a group, you doesn't need a eligible group,  and then click "Next".</p>
+<p>In the "Settings" tab, you can set the Assigment type: Eligible or I need to do something to activate and Active or I don't need to do nothing to activate my role. You can configure too if you want that the duration of the assignment is permanent or if you want to expire the assignment after a certain period of time. Once you're done, click "Assign".</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>App registrations are supported in PIM for Groups but only in active assignments. I think that this is very useful for IaC for example because you can assign a role to a service principal and you can activate the role when you need it.</p>
+</div>
+<p>Example of a sequence diagram of the activation process for a group:</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant User
+    participant PIM
+    participant Approver
+    participant MFA
+    participant Group
+
+    User-&gt;&gt;PIM: Logs in
+    User-&gt;&gt;PIM: Navigates to PIM and selects "My roles"
+    User-&gt;&gt;PIM: Selects eligible group
+    User-&gt;&gt;PIM: Requests activation
+    PIM-&gt;&gt;MFA: Requests multi-factor authentication
+    MFA--&gt;&gt;User: MFA request
+    User-&gt;&gt;MFA: Provides MFA credentials
+    MFA--&gt;&gt;PIM: MFA confirmation
+    PIM-&gt;&gt;User: Requests justification
+    User-&gt;&gt;PIM: Provides justification
+    PIM-&gt;&gt;Approver: Sends approval request
+    Approver--&gt;&gt;PIM: Approval
+    PIM--&gt;&gt;User: Activation confirmation
+    PIM-&gt;&gt;Group: Activates temporary membership
+    Group--&gt;&gt;PIM: Activation confirmation
+    PIM--&gt;&gt;User: Access granted
+</code></pre>
+<h4 id="azure-roles"><a class="toclink" href="../../2024/06/12/microsoft-entra-id-privileged-identity-management/#azure-roles">Azure roles</a></h4>
+<p>In the Microsoft Entra ID portal, you can manage Azure roles by selecting the "Azure resources" tab. Here you can see all the Azure roles that are available to you by scope, as well as the roles that you have activated.</p>
+<p>First you need to select the Azure resource that you want to manage: Management groups, Subscriptions, Resource groups or Resources and follow Manage Resource.</p>
+<p>Once here, same as the other sections, you can made the following actions for this scope:</p>
+<ul>
+<li><strong>Assign</strong>: Create assignments for the member and owner role of the group, update existing assignments to ensure that users have just-in-time access to privileged roles.</li>
+<li><strong>Activate</strong>: Activate your eligible assignments to get just-in-time access to privileged roles.</li>
+<li><strong>Approve</strong>: List, approve, or deny activation requests for the member and owner role of the group.</li>
+<li><strong>Audit</strong>: View and export a history of all assignments and activations done in PIM so you can identify attacks and stay compliant.</li>
+</ul>
+<p>Ok, let's see how to assign a role to a identity in a scope.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>We already have a scope selected</p>
+</div>
+<p>In the "Assignments" tab, click on "Add assignments". In Select role, select the role that you want to assign and in Select members select the identity related that you want to assign the role to or group, if you select a group, you doesn't need a eligible group,  and then click "Next".</p>
+<p>In the "Settings" tab, you can set the Assigment type: Eligible or I need to do something to activate and Active or I don't need to do nothing to activate my role. You can configure too if you want that the duration of the assignment is permanent or if you want to expire the assignment after a certain period of time. Once you're done, click "Assign".</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>App registrations are supported in PIM for Azure roles but only in active assignments. I think that this is very useful for IaC for example because you can assign a role to a service principal and you can activate the role when you need it.</p>
+</div>
+<p>Don't forget review settings for the role, modify Activation, Assignment, and Notification settings for members or users, these settings are the same that we saw in the Microsoft Entra ID roles section.</p>
+<h3 id="conclusion"><a class="toclink" href="../../2024/06/12/microsoft-entra-id-privileged-identity-management/#conclusion">Conclusion</a></h3>
+<p>Microsoft Entra ID Privileged Identity Management (PIM) is a powerful service that helps you manage and monitor access to privileged roles in your organization. By using Microsoft Entra ID PIM, you can reduce the risk of unauthorized access, meet compliance requirements, and improve the efficiency of your organization. I hope this post has helped you understand how to use Microsoft Entra ID PIM and how it can benefit your organization.</p>
+<p>If you want to play with Microsoft Enter ID PIM, you can use a test on a new tenant or the current one if you haven't used it before.</p>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-06-11 00:00:00+00:00">June 11, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/azure-services/">Azure Services</a>, 
+              <a class="md-meta__link" href="../../category/power-bi/">Power BI</a></li>
+<li class="md-meta__item">
+            
+              4 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="securely-connect-power-bi-to-data-sources-with-a-vnet-data-gateway"><a class="toclink" href="../../2024/06/11/securely-connect-power-bi-to-data-sources-with-a-vnet-data-gateway/">Securely connect Power BI to data sources with a VNet data gateway</a></h2>
+<p>In this post, I will show you how to securely connect Power BI to your Azure data services using a Virtual Network (VNet) data gateway.</p>
+<h3 id="what-is-a-virtual-network-vnet-data-gateway"><a class="toclink" href="../../2024/06/11/securely-connect-power-bi-to-data-sources-with-a-vnet-data-gateway/#what-is-a-virtual-network-vnet-data-gateway">What is a Virtual Network (VNet) data gateway?</a></h3>
+<p>The virtual network (VNet) data gateway helps you to connect from Microsoft Cloud services to your Azure data services within a VNet without the need of an on-premises data gateway. The VNet data gateway securely communicates with the data source, executes queries, and transmits results back to the service.</p>
+<h3 id="the-role-of-a-vnet-data-gateway"><a class="toclink" href="../../2024/06/11/securely-connect-power-bi-to-data-sources-with-a-vnet-data-gateway/#the-role-of-a-vnet-data-gateway">The Role of a VNet Data Gateway</a></h3>
+<p>A VNet data gateway acts as a bridge that allows for the secure flow of data between the Power Platform and external data sources that reside within a virtual network. This includes services such as SQL databases, file storage solutions, and other cloud-based resources. The gateway ensures that data can be transferred securely and reliably, without exposing the network to potential threats or breaches.</p>
+<h3 id="how-it-works"><a class="toclink" href="../../2024/06/11/securely-connect-power-bi-to-data-sources-with-a-vnet-data-gateway/#how-it-works">How It Works</a></h3>
+<pre class="mermaid"><code>graph LR
+    User([User]) --&gt;|Semantic Models| SM[Semantic Models]
+    User --&gt;|"Dataflows (Gen2)"| DF["Dataflows (Gen2)"]
+    User --&gt;|Paginated Reports| PR[Paginated Reports]
+    SM --&gt; PPVS[Power Platform VNET Service]
+    DF --&gt; PPVS
+    PR --&gt; PPVS
+    PPVS --&gt; MCVG[Managed Container<br>for VNet Gateway]
+    MCVG --&gt;|Interfaces with| SQLDB[(SQL Databases)]
+    MCVG --&gt;|Interfaces with| FS[(File Storage)]
+    MCVG --&gt;|Interfaces with| CS[(Cloud Services)]
+    MCVG -.-&gt;|Secured by| SEC{{Security Features}}
+
+    subgraph VNET_123
+    SQLDB
+    FS
+    CS
+    SEC
+    end
+
+    classDef filled fill:#f96,stroke:#333,stroke-width:2px;
+    classDef user fill:#bbf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5;
+    class User user
+    class SM,DF,PR,PPVS,MCVG,SQLDB,FS,CS,SEC filled
+</code></pre>
+<p>The process begins with a user leveraging Power Platform services like Semantic Models, Dataflows (Gen2), and Paginated Reports. These services are designed to handle various data-related tasks, from analysis to visualization. They connect to the Power Platform VNET Service, which is the heart of the operation, orchestrating the flow of data through the managed container for the VNet gateway.</p>
+<p>This managed container is a secure environment specifically designed for the VNet gateway’s operations. It’s isolated from the public internet, ensuring that the data remains protected within the confines of the virtual network. Within this secure environment, the VNet gateway interfaces with the necessary external resources, such as SQL databases and cloud storage, all while maintaining strict security protocols symbolized by the padlock icon in our diagram.</p>
+<p>If you need to connect to services on others VNets, you can use <a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-peering-overview">VNet peering</a> to connect the VNets, and maybe access to on-premises resources using <a href="https://docs.microsoft.com/en-us/azure/expressroute/expressroute-introduction">ExpressRoute</a> or other VPN solutions.</p>
+<h3 id="the-benefits"><a class="toclink" href="../../2024/06/11/securely-connect-power-bi-to-data-sources-with-a-vnet-data-gateway/#the-benefits">The Benefits</a></h3>
+<p>By utilizing a VNet data gateway, organizations can enjoy several benefits:</p>
+<ul>
+<li>Enhanced Security: The gateway provides a secure path for data, safeguarding sensitive information and complying with organizational security policies.</li>
+<li>Network Isolation: The managed container and the virtual network setup ensure that the data does not traverse public internet spaces, reducing exposure to vulnerabilities.</li>
+<li>Seamless Integration: The gateway facilitates smooth integration between Power Platform services and external data sources, enabling efficient data processing and analysis.</li>
+</ul>
+<h3 id="getting-started"><a class="toclink" href="../../2024/06/11/securely-connect-power-bi-to-data-sources-with-a-vnet-data-gateway/#getting-started">Getting Started</a></h3>
+<p>To set up a VNet data gateway, follow these steps:</p>
+<h4 id="register-microsoftpowerplatform-as-a-resource-provider"><a class="toclink" href="../../2024/06/11/securely-connect-power-bi-to-data-sources-with-a-vnet-data-gateway/#register-microsoftpowerplatform-as-a-resource-provider">Register Microsoft.PowerPlatform as a resource provider</a></h4>
+<p>Before you can create a VNet data gateway, you need to register the Microsoft.PowerPlatform resource provider. This can be done using the Azure portal or the Azure CLI.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a>az provider register --namespace Microsoft.PowerPlatform
+</span></code></pre></div>
+<h4 id="associate-the-subnet-to-microsoft-power-platform"><a class="toclink" href="../../2024/06/11/securely-connect-power-bi-to-data-sources-with-a-vnet-data-gateway/#associate-the-subnet-to-microsoft-power-platform">Associate the subnet to Microsoft Power Platform</a></h4>
+<p>Create a VNet in your Azure subscription and a subnet where the VNet data gateway will be deployed. Next, you need to delegate subnet to service <strong>Microsoft.PowerPlatform/vnetaccesslinks</strong>. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>This subnet can't be shared with other services.</li>
+<li>Five IP addresses are reserved in the subnet for basic functionality. You need to reserve additional IP addresses for the VNet data gateway, add more IPs for future gateways.</li>
+<li>You need a role with the Microsoft.Network/virtualNetworks/subnets/join/action permission</li>
+</ul>
+</div>
+<p>This can be done using the Azure portal or the Azure CLI.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a href="#__codelineno-5-1" id="__codelineno-5-1" name="__codelineno-5-1"></a># Create a VNet and address prefix 10.0.0.0/24
+</span><span id="__span-5-2"><a href="#__codelineno-5-2" id="__codelineno-5-2" name="__codelineno-5-2"></a>az network vnet create --name MyVNet --resource-group MyResourceGroup --location eastus --address-prefixes 10.0.0.0/24
+</span><span id="__span-5-3"><a href="#__codelineno-5-3" id="__codelineno-5-3" name="__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a href="#__codelineno-5-4" id="__codelineno-5-4" name="__codelineno-5-4"></a>
+</span><span id="__span-5-5"><a href="#__codelineno-5-5" id="__codelineno-5-5" name="__codelineno-5-5"></a># Create a Netwrok Security Group
+</span><span id="__span-5-6"><a href="#__codelineno-5-6" id="__codelineno-5-6" name="__codelineno-5-6"></a>az network nsg create --name MyNsg --resource-group MyResourceGroup --location eastus
+</span><span id="__span-5-7"><a href="#__codelineno-5-7" id="__codelineno-5-7" name="__codelineno-5-7"></a>
+</span><span id="__span-5-8"><a href="#__codelineno-5-8" id="__codelineno-5-8" name="__codelineno-5-8"></a># Create a subnet with delegation to Microsoft.PowerPlatform/vnetaccesslinks and associate the NSG
+</span><span id="__span-5-9"><a href="#__codelineno-5-9" id="__codelineno-5-9" name="__codelineno-5-9"></a>az network vnet subnet create --name MySubnet --vnet-name MyVNet --resource-group MyResourceGroup --address-prefixes 10.0.0.1/27 --network-security-group MyNsg --delegations Microsoft.PowerPlatform/vnetaccesslinks
+</span></code></pre></div>
+<h4 id="create-a-vnet-data-gateway"><a class="toclink" href="../../2024/06/11/securely-connect-power-bi-to-data-sources-with-a-vnet-data-gateway/#create-a-vnet-data-gateway">Create a VNet data gateway</a></h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A Microsoft Power Platform User with with Microsoft.Network/virtualNetworks/subnets/join/action permission on the VNet is required. Network Contributor role is not necessary.</p>
+</div>
+<ol>
+<li>Sign in to the <a href="https://app.powerbi.com/">Power BI homepage</a>.</li>
+<li>In the top navigation bar, select the settings gear icon on the right.</li>
+<li>From the drop down, select the Manage connections and gateways page, in Resources and extensions.</li>
+<li>Select <strong>Create a virtual network data gateway.</strong>.</li>
+<li>Select the license capacity, subscription, resource group, VNet and the Subnet. Only subnets that are delegated to Microsoft Power Platform are displayed in the drop-down list. VNET data gateways require a <a href="https://learn.microsoft.com/en-us/power-bi/enterprise/service-premium-what-is">Power BI Premium capacity</a> license (A4 SKU or higher or any P SKU) or <a href="https://learn.microsoft.com/en-us/fabric/enterprise/buy-subscription">Fabric license</a> to be used (any SKU).</li>
+<li>By default, we provide a unique name for this data gateway, but you could optionally update it.</li>
+<li>Select <strong>Save</strong>. This VNet data gateway is now displayed in your <strong>Virtual network data gateways</strong> tab. A VNet data gateway is a managed gateway that could be used for controlling access to this resource for Power platform users.</li>
+</ol>
+<h3 id="conclusion"><a class="toclink" href="../../2024/06/11/securely-connect-power-bi-to-data-sources-with-a-vnet-data-gateway/#conclusion">Conclusion</a></h3>
+<p>The VNet data gateway is a powerful tool that enables secure data transfer between the Power Platform and external data sources residing within a virtual network. By leveraging this gateway, organizations can ensure that their data remains protected and compliant with security standards, all while facilitating seamless integration and analysis of data. If you are looking to enhance the security and reliability of your data connections, consider implementing a VNet data gateway in your environment.</p>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-06-10 00:00:00+00:00">June 10, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/devops/">DevOps</a></li>
+<li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="implementing-policy-as-code-with-open-policy-agent"><a class="toclink" href="../../2024/06/10/implementing-policy-as-code-with-open-policy-agent/">Implementing policy as code with Open Policy Agent</a></h2>
+<p>In this post, I will show you how to implement policy as code with Open Policy Agent (OPA) and Azure.</p>
+<h3 id="what-is-open-policy-agent"><a class="toclink" href="../../2024/06/10/implementing-policy-as-code-with-open-policy-agent/#what-is-open-policy-agent">What is Open Policy Agent?</a></h3>
+<p>Open Policy Agent (OPA) is an open-source, general-purpose policy engine that enables you to define and enforce policies across your cloud-native stack. OPA provides a high-level declarative language called Rego that you can use to write policies that are easy to understand and maintain.</p>
+<h3 id="why-use-open-policy-agent"><a class="toclink" href="../../2024/06/10/implementing-policy-as-code-with-open-policy-agent/#why-use-open-policy-agent">Why use Open Policy Agent?</a></h3>
+<p>There are several reasons to use OPA:</p>
+<ul>
+<li><strong>Consistency</strong>: OPA allows you to define policies in a single place and enforce them consistently across your cloud-native stack.</li>
+<li><strong>Flexibility</strong>: OPA provides a flexible policy language that allows you to define policies that are tailored to your specific requirements.</li>
+<li><strong>Auditability</strong>: OPA provides a transparent and auditable way to enforce policies, making it easy to understand why a policy decision was made.</li>
+<li><strong>Integration</strong>: OPA integrates with a wide range of cloud-native tools and platforms, making it easy to enforce policies across your entire stack.</li>
+</ul>
+<h3 id="getting-started-with-open-policy-agent"><a class="toclink" href="../../2024/06/10/implementing-policy-as-code-with-open-policy-agent/#getting-started-with-open-policy-agent">Getting started with Open Policy Agent</a></h3>
+<p>To get started with OPA, you need to install the OPA CLI and write some policies in Rego.</p>
+<p>You can install the OPA CLI by downloading the binary from the <a href="https://github.com/open-policy-agent/opa/releases">OPA GitHub releases page</a>, you can check the <a href="https://www.openpolicyagent.org/docs/latest/#running-opa">installation guide</a> for more details.</p>
+<p>Once you have installed the OPA CLI, you can write policies in Rego. Rego is a high-level declarative language that allows you to define policies in a clear and concise way.</p>
+<p>Here's a simple example of a policy that enforces a naming convention for Azure resources:</p>
+<div class="language-rego highlight"><pre><span></span><code><span id="__span-1-1"><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">package</span><span class="w"> </span><span class="n">azure</span><span class="p">.</span><span class="n">resources</span>
+</span><span id="__span-1-2"><a href="#__codelineno-1-2" id="__codelineno-1-2" name="__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a href="#__codelineno-1-3" id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="k">default</span><span class="w"> </span><span class="n">allow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">false</span>
+</span><span id="__span-1-4"><a href="#__codelineno-1-4" id="__codelineno-1-4" name="__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a href="#__codelineno-1-5" id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="n">allow</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-6"><a href="#__codelineno-1-6" id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="w">    </span><span class="nb">input</span><span class="p">.</span><span class="n">resource</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"Microsoft.Compute/virtualMachines"</span>
+</span><span id="__span-1-7"><a href="#__codelineno-1-7" id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="w">    </span><span class="nb">input</span><span class="p">.</span><span class="n">resource</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"my-vm"</span>
+</span><span id="__span-1-8"><a href="#__codelineno-1-8" id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>This policy allows resources of type <code>Microsoft.Compute/virtualMachines</code> with the name <code>my-vm</code>. You can write more complex policies that enforce a wide range of requirements, such as resource tagging, network security, and access control.</p>
+<h3 id="integrating-open-policy-agent-with-azure"><a class="toclink" href="../../2024/06/10/implementing-policy-as-code-with-open-policy-agent/#integrating-open-policy-agent-with-azure">Integrating Open Policy Agent with Azure</a></h3>
+<p>To integrate OPA with Azure, you can use the Azure Policy service, which allows you to define and enforce policies across your Azure resources. You can use OPA to define custom policies that are not supported by Azure Policy out of the box, or to enforce policies across multiple cloud providers.</p>
+<h3 id="conclusion"><a class="toclink" href="../../2024/06/10/implementing-policy-as-code-with-open-policy-agent/#conclusion">Conclusion</a></h3>
+<p>Open Policy Agent is a powerful tool that allows you to define and enforce policies across your cloud-native stack. By using OPA, you can ensure that your infrastructure is secure, compliant, and consistent, and that your policies are easy to understand and maintain. I hope this post has given you a good introduction to OPA and how you can use it to implement policy as code in your cloud-native environment.</p>
+<h3 id="additional-resources"><a class="toclink" href="../../2024/06/10/implementing-policy-as-code-with-open-policy-agent/#additional-resources">Additional resources</a></h3>
+<p>I have created a <a href="https://github.com/rfernandezdo/rego-examples">GitHub repository</a> with some examples of policies written in Rego that you can use as a starting point for your own policies.</p>
+<h3 id="references"><a class="toclink" href="../../2024/06/10/implementing-policy-as-code-with-open-policy-agent/#references">References</a></h3>
+<ul>
+<li><a href="https://www.openpolicyagent.org/">Open Policy Agent</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/governance/policy/overview">Azure Policy</a></li>
+<li><a href="https://www.openpolicyagent.org/docs/latest/policy-language/">Rego language</a></li>
+</ul>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-06-09 00:00:00+00:00">June 9, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/azure-services/">Azure Services</a>, 
+              <a class="md-meta__link" href="../../category/finops/">FinOps</a></li>
+<li class="md-meta__item">
+            
+              4 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="finops-for-azure-optimizing-your-cloud-spend"><a class="toclink" href="../../2024/06/09/finops-for-azure-optimizing-your-cloud-spend/">FinOps for Azure: Optimizing Your Cloud Spend</a></h2>
+<p>In the cloud era, optimizing cloud spend has become a critical aspect of financial management. FinOps, a set of financial operations practices, empowers organizations to get the most out of their Azure investment. This blog post dives into the core principles of FinOps, explores the benefits it offers, and outlines practical strategies for implementing FinOps in your Azure environment.</p>
+<h3 id="understanding-the-cloud-cost-challenge"><a class="toclink" href="../../2024/06/09/finops-for-azure-optimizing-your-cloud-spend/#understanding-the-cloud-cost-challenge">Understanding the Cloud Cost Challenge</a></h3>
+<p>Traditional IT expenditure followed a capital expenditure (capex) model, where businesses purchased hardware and software upfront. Cloud computing introduces a paradigm shift with the operational expenditure (opex) model. Here, businesses pay for resources as they consume them, leading to variable and unpredictable costs.</p>
+<p>FinOps tackles this challenge by providing a framework for managing cloud finances. It encompasses three key pillars:</p>
+<ul>
+<li><strong>People:</strong> Establish a FinOps team or designate individuals responsible for overseeing cloud costs. This team should possess a blend of cloud technical expertise, financial acumen, and business process knowledge.</li>
+<li><strong>Process:</strong>  Define processes for budgeting, forecasting, and monitoring cloud expenses. This involves setting spending limits, creating chargeback models for different departments, and regularly reviewing cost reports.</li>
+<li><strong>Tools:</strong> Leverage Azure Cost Management, a suite of tools that provides granular insights into your Azure spending. It enables cost allocation by resource, service, department, or any other relevant dimension.</li>
+</ul>
+<p>It's essential to adopt a FinOps mindset that encourages collaboration between finance, IT, and business teams to drive cost efficiency and value realization in the cloud.</p>
+<p>It's important to note that FinOps is not just about cost-cutting; it's about optimizing cloud spending to align with business objectives and maximize ROI.</p>
+<h3 id="azure-cost-management-optimizing-your-azure-spending"><a class="toclink" href="../../2024/06/09/finops-for-azure-optimizing-your-cloud-spend/#azure-cost-management-optimizing-your-azure-spending">Azure Cost Management: Optimizing Your Azure Spending</a></h3>
+<p>Azure Cost Management empowers you to analyze your Azure spending patterns and identify cost-saving opportunities. Here's a glimpse into its key functionalities:</p>
+<ul>
+<li><strong>Cost Views:</strong> Generate comprehensive reports that categorize your Azure spending by various attributes like resource group, service, or department.</li>
+<li><strong>Cost Alerts:</strong> Set up proactive alerts to notify you when your spending exceeds predefined thresholds.</li>
+<li><strong>Reservations:</strong> Purchase reserved instances of frequently used Azure resources for significant upfront discounts.</li>
+<li><strong>Recommendations:</strong> Azure Cost Management analyzes your usage patterns and recommends potential cost-saving measures, such as rightsizing resources or leveraging spot instances.</li>
+</ul>
+<h3 id="the-power-of-tags-and-azure-policy"><a class="toclink" href="../../2024/06/09/finops-for-azure-optimizing-your-cloud-spend/#the-power-of-tags-and-azure-policy">The Power of Tags and Azure Policy</a></h3>
+<p>Tags are metadata labels that you can attach to your Azure resources to categorize and track them effectively. They play a pivotal role in FinOps by enabling you to:</p>
+<ul>
+<li>Associate costs with specific departments, projects, or applications.</li>
+<li>Identify unused or underutilized resources for potential cost savings.</li>
+<li>Simplify cost allocation and chargeback processes.</li>
+</ul>
+<p>Azure Policy helps enforce tagging standards and governance rules across your Azure environment. You can define policies that mandate specific tags for all resources, ensuring consistent cost allocation and data accuracy.</p>
+<h3 id="benefits-of-implementing-finops"><a class="toclink" href="../../2024/06/09/finops-for-azure-optimizing-your-cloud-spend/#benefits-of-implementing-finops">Benefits of Implementing FinOps</a></h3>
+<p>A well-defined FinOps strategy empowers you to:</p>
+<ul>
+<li><strong>Gain Visibility into Cloud Spending:</strong>  Obtain a clear picture of your Azure expenditures, enabling informed budgeting and cost control decisions.</li>
+<li><strong>Optimize Cloud Costs:</strong> Identify and eliminate wasteful spending through cost-saving recommendations and proactive measures.</li>
+<li><strong>Improve Cloud Governance:</strong>  Enforce tagging policies and spending limits to ensure responsible cloud resource utilization.</li>
+<li><strong>Align Cloud Spending with Business Value:</strong>  Make data-driven decisions about cloud investments that support your business objectives.</li>
+</ul>
+<h3 id="getting-started-with-finops-in-azure"><a class="toclink" href="../../2024/06/09/finops-for-azure-optimizing-your-cloud-spend/#getting-started-with-finops-in-azure">Getting Started with FinOps in Azure</a></h3>
+<p>Implementing FinOps doesn't necessitate a complex overhaul. Here's a recommended approach:</p>
+<ol>
+<li><strong>Establish a FinOps Team:</strong>  Assemble a cross-functional team comprising representatives from finance, IT, and business departments.</li>
+<li><strong>Set Clear Goals and Objectives:</strong>  Define your FinOps goals, whether it's reducing costs by a specific percentage or improving budget forecasting accuracy.</li>
+<li><strong>Leverage Azure Cost Management:</strong>  Start by exploring Azure Cost Management to understand your current spending patterns.</li>
+<li><strong>Implement Basic Tagging Standards:</strong>  Enforce basic tagging policies to categorize your Azure resources for cost allocation purposes.</li>
+<li><strong>Continuously Monitor and Refine:</strong>  Regularly review your cloud cost reports and identify areas for further optimization.</li>
+</ol>
+<p>By following these steps and embracing a FinOps culture, you can effectively manage your Azure expenses and derive maximum value from your cloud investment.</p>
+<h3 id="toolchain-for-finops-in-azure"><a class="toclink" href="../../2024/06/09/finops-for-azure-optimizing-your-cloud-spend/#toolchain-for-finops-in-azure">Toolchain for FinOps in Azure</a></h3>
+<p>To streamline your FinOps practices in Azure, consider leveraging the following tools:</p>
+<pre class="mermaid"><code>graph LR
+A[Financial Operations Practices] --&gt; B{Cloud Spend Optimization}
+B --&gt; C{Cost Visibility}
+B --&gt; D{Cost Optimization}
+B --&gt; E{Governance}
+C --&gt; F{Azure Cost Management}
+D --&gt; G{Azure Advisor}
+E --&gt; H{Azure Policy}
+F --&gt; I{Cost Views}
+F --&gt; J{Cost Alerts}
+G --&gt; K{Cost Recommendations}
+H --&gt; L{Tag Enforcement}
+</code></pre>
+<p>This toolchain combines Azure Cost Management, Azure Advisor, and Azure Policy to provide a comprehensive suite of capabilities for managing your Azure spending effectively.</p>
+<p><strong>Highly recommended</strong>, you can check <a href="https://microsoft.github.io/finops-toolkit/">FinOps toolkit</a>, it's a set of tools and best practices to help you implement FinOps in your organization, it includes tools for cost allocation, budgeting, and forecasting, as well as best practices for FinOps implementation.</p>
+<h3 id="conclusion"><a class="toclink" href="../../2024/06/09/finops-for-azure-optimizing-your-cloud-spend/#conclusion">Conclusion</a></h3>
+<p>FinOps is an essential practice for organizations leveraging Azure. It empowers you to make informed decisions about your cloud finances, optimize spending, and achieve your business goals. As an Azure Solutions Architect, I recommend that you establish a FinOps practice within your organization to unlock the full potential of Azure and achieve financial efficiency in the cloud.</p>
+<p>This blog post provides a foundational understanding of FinOps in Azure. </p>
+<p>By embracing FinOps, you can transform your cloud cost management practices and drive business success in the cloud era.</p>
+<h3 id="references"><a class="toclink" href="../../2024/06/09/finops-for-azure-optimizing-your-cloud-spend/#references">References</a></h3>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=YHUptdFtozQ">Thanks John Savill</a></li>
+<li><a href="https://microsoft.github.io/finops-toolkit/">FinOps toolkit</a></li>
+</ul>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-05-07 00:00:00+00:00">May 7, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/devops/">DevOps</a></li>
+<li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="repository-strategy-how-to-test-branching-strategy-in-local-repository"><a class="toclink" href="../../2024/05/07/repository-strategy-how-to-test-branching-strategy-in-local-repository/">Repository Strategy: How to test Branching Strategy in local repository</a></h2>
+<p>If you don't want to test in github, gitlab, or azure devops, you can test in your local desktop.</p>
+<h3 id="step-1-create-a-new-local-bare-repository"><a class="toclink" href="../../2024/05/07/repository-strategy-how-to-test-branching-strategy-in-local-repository/#step-1-create-a-new-local-bare-repository"><strong>Step 1: Create a new local bare repository</strong></a></h3>
+<p>To create a new local bare repository, open a terminal window and run the following command:</p>
+<div class="language-pwsh highlight"><pre><span></span><code><span id="__span-8-1"><a href="#__codelineno-8-1" id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="n">mkdir</span> <span class="n">localrepo</span>
+</span><span id="__span-8-2"><a href="#__codelineno-8-2" id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="nb">cd </span><span class="n">localrepo</span>
+</span><span id="__span-8-3"><a href="#__codelineno-8-3" id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="n">git</span> <span class="n">init</span> <span class="p">-</span><span class="n">-bare</span> <span class="n">my-repo</span><span class="p">.</span><span class="n">git</span>
+</span></code></pre></div>
+<p>This command creates a new directory called <code>localrepo</code> and initializes a new bare repository called <code>my-repo.git</code> inside it.</p>
+<h3 id="step-2-create-a-local-repository"><a class="toclink" href="../../2024/05/07/repository-strategy-how-to-test-branching-strategy-in-local-repository/#step-2-create-a-local-repository"><strong>Step 2: Create a local repository</strong></a></h3>
+<p>To create a new local repository, open a terminal window and run the following command:</p>
+<div class="language-pwsh highlight"><pre><span></span><code><span id="__span-9-1"><a href="#__codelineno-9-1" id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="n">mkdir</span> <span class="n">my-repo</span>
+</span><span id="__span-9-2"><a href="#__codelineno-9-2" id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="nb">cd </span><span class="n">my-repo</span>
+</span><span id="__span-9-3"><a href="#__codelineno-9-3" id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="n">git</span> <span class="n">init</span>
+</span></code></pre></div>
+<p>This command creates a new directory called <code>my-repo</code> and initializes a new repository inside it.</p>
+<h3 id="step-3-add-the-remote-repository"><a class="toclink" href="../../2024/05/07/repository-strategy-how-to-test-branching-strategy-in-local-repository/#step-3-add-the-remote-repository"><strong>Step 3: Add the remote repository</strong></a></h3>
+<p>To add the remote repository to your local repository, run the following command:</p>
+<div class="language-pwsh highlight"><pre><span></span><code><span id="__span-10-1"><a href="#__codelineno-10-1" id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">origin</span> <span class="p">../</span><span class="n">my-repo</span><span class="p">.</span><span class="n">git</span>
+</span></code></pre></div>
+<p>In mi case, I have used absolute path, c:\users\myuser\localrepo\my-repo.git:</p>
+<div class="language-pwsh highlight"><pre><span></span><code><span id="__span-11-1"><a href="#__codelineno-11-1" id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">origin</span> <span class="n">c</span><span class="p">:\</span><span class="n">users</span><span class="p">\</span><span class="n">myuser</span><span class="p">\</span><span class="n">localrepo</span><span class="p">\</span><span class="n">my-repo</span><span class="p">.</span><span class="n">git</span>
+</span></code></pre></div>
+<p>This command adds the remote repository as the <code>origin</code> remote.</p>
+<h3 id="step-4-create-a-new-file-make-first-commit-and-push"><a class="toclink" href="../../2024/05/07/repository-strategy-how-to-test-branching-strategy-in-local-repository/#step-4-create-a-new-file-make-first-commit-and-push">*<em>Step 4: Create a new file, make first commit and push</em></a></h3>
+<p>To create a new file in your local repository, run the following command:</p>
+<div class="language-pwsh highlight"><pre><span></span><code><span id="__span-12-1"><a href="#__codelineno-12-1" id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="nb">echo </span><span class="s2">"Hello, World!"</span> <span class="p">&gt;</span> <span class="n">hello</span><span class="p">.</span><span class="n">txt</span>
+</span></code></pre></div>
+<p>This command creates a new file called <code>hello.txt</code> with the content <code>Hello, World!</code>.</p>
+<p>To make the first commit to your local repository, run the following command:</p>
+<div class="language-pwsh highlight"><pre><span></span><code><span id="__span-13-1"><a href="#__codelineno-13-1" id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="n">git</span> <span class="n">add</span> <span class="n">hello</span><span class="p">.</span><span class="n">txt</span>
+</span><span id="__span-13-2"><a href="#__codelineno-13-2" id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="n">git</span> <span class="n">commit</span> <span class="n">-m</span> <span class="s2">"Initial commit"</span>
+</span></code></pre></div>
+<p>This command stages the <code>hello.txt</code> file and commits it to the repository with the message <code>Initial commit</code>.</p>
+<p>To push the changes to the remote repository, run the following command:</p>
+<div class="language-pwsh highlight"><pre><span></span><code><span id="__span-14-1"><a href="#__codelineno-14-1" id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="n">git</span> <span class="n">push</span> <span class="n">-u</span> <span class="n">origin</span> <span class="n">master</span>
+</span></code></pre></div>
+<p>This command pushes the changes to the <code>master</code> branch of the remote repository.</p>
+<h3 id="step-5-create-a-new-branch-and-push-it-to-the-remote-repository"><a class="toclink" href="../../2024/05/07/repository-strategy-how-to-test-branching-strategy-in-local-repository/#step-5-create-a-new-branch-and-push-it-to-the-remote-repository"><strong>Step 5: Create a new branch and push it to the remote repository</strong></a></h3>
+<p>To create a new branch in your local repository, run the following command:</p>
+<div class="language-pwsh highlight"><pre><span></span><code><span id="__span-15-1"><a href="#__codelineno-15-1" id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="n">git</span> <span class="n">checkout</span> <span class="n">-b</span> <span class="n">feature-branch</span>
+</span></code></pre></div>
+<p>This command creates a new branch called <code>feature-branch</code> and switches to it.</p>
+<h3 id="conclusion"><a class="toclink" href="../../2024/05/07/repository-strategy-how-to-test-branching-strategy-in-local-repository/#conclusion">Conclusion</a></h3>
+<p>By following these steps, you can test your branching strategy in a local repository before pushing changes to a remote repository. This allows you to experiment with different branching strategies and workflows without affecting your production codebase.</p>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-05-06 00:00:00+00:00">May 6, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/m365/">M365</a></li>
+<li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="configure-your-teams-meetings-options-to-improve-your-collaboration-experience"><a class="toclink" href="../../2024/05/06/configure-your-teams-meetings-options-to-improve-your-collaboration-experience/">Configure your Teams meetings options to improve your collaboration experience</a></h2>
+<p>Microsoft Teams is a powerful collaboration tool that allows you to communicate and work with your team members from anywhere in the world. One of the key features of Teams is the ability to schedule and host meetings with your colleagues, clients, or partners.</p>
+<p>In this blog post, we will show you how to configure your Teams meetings options to improve your collaboration experience and make your meetings more productive.</p>
+<h3 id="what-are-teams-meetings-options"><a class="toclink" href="../../2024/05/06/configure-your-teams-meetings-options-to-improve-your-collaboration-experience/#what-are-teams-meetings-options">What are Teams meetings options?</a></h3>
+<p>Teams meetings options are settings that allow you to control various aspects of your meetings, such as who can bypass the lobby, who can present, and who can record the meeting. By configuring these options, you can ensure that your meetings run smoothly and securely.</p>
+<h3 id="how-to-configure-your-teams-meetings-options"><a class="toclink" href="../../2024/05/06/configure-your-teams-meetings-options-to-improve-your-collaboration-experience/#how-to-configure-your-teams-meetings-options">How to configure your Teams meetings options</a></h3>
+<p>To configure your Teams meetings options, follow these steps:</p>
+<ol>
+<li>Open the Teams app on your computer or mobile device.</li>
+<li>Click on the calendar icon in the left-hand menu to view your calendar.</li>
+<li>Click on the "Meetings" tab at the top of the screen to view your upcoming meetings.</li>
+<li>Click on the meeting you want to configure to open the meeting details.</li>
+<li>Click on the "Meeting options" link at the bottom of the meeting details window.</li>
+<li>Configure the meeting options according to your preferences. You can control who can bypass the lobby, who can present, who can record the meeting, and other settings.</li>
+</ol>
+<h3 id="key-settings-to-configure"><a class="toclink" href="../../2024/05/06/configure-your-teams-meetings-options-to-improve-your-collaboration-experience/#key-settings-to-configure">Key settings to configure</a></h3>
+<p>Here are some key settings that you may want to configure in your Teams meetings options:</p>
+<ul>
+<li>
+<p><strong>Who can bypass the lobby:</strong> By default, all participants are sent to the lobby when they join a meeting. You can configure this setting to allow participants to bypass the lobby and join the meeting directly.</p>
+</li>
+<li>
+<p><strong>Who can present:</strong> By default, only the meeting organizer can present in a meeting. You can configure this setting to allow other participants to present as well.</p>
+</li>
+<li>
+<p><strong>Who can record the meeting:</strong> By default, only the meeting organizer can record a meeting. You can configure this setting to allow other participants to record the meeting as well.</p>
+</li>
+<li>
+<p><strong>Automatically admit people:</strong> By default, participants need to be admitted to the meeting by the organizer or a presenter. You can configure this setting to automatically admit people to the meeting.</p>
+</li>
+<li>
+<p><strong>Allow attendees to unmute:</strong> By default, attendees are muted when they join a meeting. You can configure this setting to allow attendees to unmute themselves.</p>
+</li>
+</ul>
+<h3 id="conclusion"><a class="toclink" href="../../2024/05/06/configure-your-teams-meetings-options-to-improve-your-collaboration-experience/#conclusion">Conclusion</a></h3>
+<p>Configuring your Teams meetings options is a great way to improve your collaboration experience and make your meetings more productive. By configuring these settings, you can ensure that your meetings run smoothly and securely, allowing you to focus on the task at hand.</p>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-05-04 00:00:00+00:00">May 4, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/azure-services/">Azure Services</a>, 
+              <a class="md-meta__link" href="../../category/snowflake/">Snowflake</a></li>
+<li class="md-meta__item">
+            
+              5 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="reduce-your-attack-surface-in-snowflake-when-using-from-azure"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/">Reduce your attack surface in Snowflake when using from Azure</a></h2>
+<p>When it comes to data security, reducing your attack surface is a crucial step. This post will guide you on how to minimize your attack surface when using Snowflake with Azure or Power BI.</p>
+<h3 id="what-is-snowflake"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#what-is-snowflake">What is Snowflake?</a></h3>
+<p>Snowflake is a cloud-based data warehousing platform that allows you to store and analyze large amounts of data. It is known for its scalability, performance, and ease of use. Snowflake is popular among organizations that need to process large volumes of data quickly and efficiently.</p>
+<h3 id="what-is-an-attack-surface"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#what-is-an-attack-surface">What is an Attack Surface?</a></h3>
+<p>An attack surface refers to the number of possible ways an attacker can get into a system and potentially extract data. The larger the attack surface, the more opportunities there are for attackers. Therefore, reducing the attack surface is a key aspect of securing your systems.</p>
+<p>How to Reduce Your Attack Surface in Snowflake:</p>
+<ol>
+<li>
+<p>Use Azure Private Link
+Azure Private Link provides private connectivity from a virtual network to Snowflake, isolating your traffic from the public internet. It significantly reduces the attack surface by ensuring that traffic between Azure and Snowflake doesn't traverse over the public internet.</p>
+</li>
+<li>
+<p>Implement Network Policies
+Snowflake allows you to define network policies that restrict access based on IP addresses. By limiting access to trusted IP ranges, you can reduce the potential points of entry for an attacker.</p>
+</li>
+<li>
+<p>Enable Multi-Factor Authentication (MFA)
+MFA adds an extra layer of security by requiring users to provide at least two forms of identification before accessing the Snowflake account. This makes it harder for attackers to gain unauthorized access, even if they have your password.</p>
+</li>
+</ol>
+<p>In this blog post, we will show you how to reduce your attack surface when using Snowflake from Azure or Power BI by using Azure Private Link</p>
+<h3 id="default-snowflake-architecture"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#default-snowflake-architecture">Default Snowflake architecture</a></h3>
+<p>By default, Snowflake is accessible from the public internet. This means that anyone with the right credentials can access your Snowflake account from anywhere in the world, you can limit access to specific IP addresses, but this still exposes your Snowflake account to potential attackers. </p>
+<p>This is a security risk because it exposes your Snowflake account to potential attackers.</p>
+<h3 id="using-azure-private-link-with-snowflake"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#using-azure-private-link-with-snowflake">Using Azure Private Link with Snowflake</a></h3>
+<h4 id="simple-architecture-diagram-of-azure-private-link-with-snowflake"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#simple-architecture-diagram-of-azure-private-link-with-snowflake">Simple Architecture Diagram of Azure Private Link with Snowflake</a></h4>
+<p>The architecture of using Azure Private Link with Snowflake is as follows:</p>
+<pre class="mermaid"><code>    graph TD
+    A[Virtual Network] --&gt;|Private Endpoint| B[Snowflake]
+    B --&gt;|Private Link Service| C[Private Link Resource]
+    C --&gt;|Private Connection| D[Virtual Network]
+    D --&gt;|Subnet| E[Private Endpoint]    
+</code></pre>
+<h4 id="architecture-components"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#architecture-components">Architecture Components</a></h4>
+<h4 id="requirements"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#requirements">Requirements</a></h4>
+<p>Before you can use Azure Private Link with Snowflake, you need to have the following requirements in place:</p>
+<ul>
+<li>A Snowflake account with ACCOUNTADMIN privileges</li>
+<li>Business Critical or higher Snowflake edition</li>
+<li>An Azure subscription with a Resource Group  and privileges to create:<ul>
+<li>Virtual Network</li>
+<li>Subnet</li>
+<li>Private Endpoint</li>
+</ul>
+</li>
+</ul>
+<h4 id="step-by-step-guide"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#step-by-step-guide">Step-by-Step Guide</a></h4>
+<div class="admonition info">
+<p class="admonition-title">Note</p>
+<p>Replace the placeholders with your actual values, that is a orientation guide.</p>
+</div>
+<h5 id="step-1-retrieve-dedailts-of-your-snowflake-account"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#step-1-retrieve-dedailts-of-your-snowflake-account">Step 1: Retrieve Dedailts of your Snowflake Account</a></h5>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-18-1"><a href="#__codelineno-18-1" id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="n">USE</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">ACCOUNTADMIN</span><span class="p">;</span>
+</span><span id="__span-18-2"><a href="#__codelineno-18-2" id="__codelineno-18-2" name="__codelineno-18-2"></a><span class="k">select</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="k">SYSTEM</span><span class="err">$</span><span class="n">GET_PRIVATELINK_CONFIG</span><span class="p">();</span>
+</span></code></pre></div>
+<h5 id="step-2-create-a-virtual-network"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#step-2-create-a-virtual-network">Step 2: Create a Virtual Network</a></h5>
+<p>A virtual network is a private network that allows you to securely connect your resources in Azure. To create a virtual network with azcli, follow these steps:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a href="#__codelineno-19-1" id="__codelineno-19-1" name="__codelineno-19-1"></a>az<span class="w"> </span>network<span class="w"> </span>vnet<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-2"><a href="#__codelineno-19-2" id="__codelineno-19-2" name="__codelineno-19-2"></a><span class="w">  </span>--name<span class="w"> </span>myVnet<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-3"><a href="#__codelineno-19-3" id="__codelineno-19-3" name="__codelineno-19-3"></a><span class="w">  </span>--resource-group<span class="w"> </span>myResourceGroup<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-4"><a href="#__codelineno-19-4" id="__codelineno-19-4" name="__codelineno-19-4"></a><span class="w">  </span>--address-prefix
+</span><span id="__span-19-5"><a href="#__codelineno-19-5" id="__codelineno-19-5" name="__codelineno-19-5"></a><span class="w">  </span>--subnet-name<span class="w"> </span>mySubnet<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-6"><a href="#__codelineno-19-6" id="__codelineno-19-6" name="__codelineno-19-6"></a><span class="w">  </span>--subnet-prefix
+</span><span id="__span-19-7"><a href="#__codelineno-19-7" id="__codelineno-19-7" name="__codelineno-19-7"></a><span class="w">  </span>--enable-private-endpoint-network-policies<span class="w"> </span><span class="nb">true</span>
+</span></code></pre></div>
+<h5 id="step-3-create-a-private-endpoint"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#step-3-create-a-private-endpoint">Step 3: Create a Private Endpoint</a></h5>
+<p>The first step is to create a private endpoint in Azure. A private endpoint is a network interface that connects your virtual network to the Snowflake service. This allows you to access Snowflake using a private IP address, rather than a public one.</p>
+<p>To create a private endpoint with azcli, follow these steps:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a href="#__codelineno-20-1" id="__codelineno-20-1" name="__codelineno-20-1"></a>az<span class="w"> </span>network<span class="w"> </span>private-endpoint<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-2"><a href="#__codelineno-20-2" id="__codelineno-20-2" name="__codelineno-20-2"></a><span class="w">  </span>--name<span class="w"> </span>mySnowflakeEndpoint<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-3"><a href="#__codelineno-20-3" id="__codelineno-20-3" name="__codelineno-20-3"></a><span class="w">  </span>--resource-group<span class="w"> </span>myResourceGroup<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-4"><a href="#__codelineno-20-4" id="__codelineno-20-4" name="__codelineno-20-4"></a><span class="w">  </span>--vnet-name<span class="w"> </span>myVnet<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-5"><a href="#__codelineno-20-5" id="__codelineno-20-5" name="__codelineno-20-5"></a><span class="w">  </span>--subnet<span class="w"> </span>mySubnet<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-6"><a href="#__codelineno-20-6" id="__codelineno-20-6" name="__codelineno-20-6"></a><span class="w">  </span>--private-connection-resource-id<span class="w"> </span>/subscriptions/&lt;subscription-id&gt;/resourceGroups/&lt;resource-group&gt;/providers/Microsoft.Network/privateLinkServices/&lt;Snowflake-service-name&gt;<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-7"><a href="#__codelineno-20-7" id="__codelineno-20-7" name="__codelineno-20-7"></a><span class="w">  </span>--connection-name<span class="w"> </span>mySnowflakeConnection
+</span></code></pre></div>
+<p>Check the status of the private endpoint:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a href="#__codelineno-21-1" id="__codelineno-21-1" name="__codelineno-21-1"></a>az<span class="w"> </span>network<span class="w"> </span>private-endpoint<span class="w"> </span>show<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-2"><a href="#__codelineno-21-2" id="__codelineno-21-2" name="__codelineno-21-2"></a><span class="w">  </span>--name<span class="w"> </span>mySnowflakeEndpoint<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-3"><a href="#__codelineno-21-3" id="__codelineno-21-3" name="__codelineno-21-3"></a><span class="w">  </span>--resource-group<span class="w"> </span>myResourceGroup
+</span></code></pre></div>
+<h5 id="step-4-authorize-the-private-endpoint"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#step-4-authorize-the-private-endpoint">Step 4: Authorize the Private Endpoint</a></h5>
+<p>The next step is to authorize the private endpoint to access the Snowflake service. </p>
+<p>Retrieve the Resource ID of the private endpoint:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a href="#__codelineno-22-1" id="__codelineno-22-1" name="__codelineno-22-1"></a>az<span class="w"> </span>network<span class="w"> </span>private-endpoint<span class="w"> </span>show<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-22-2"><a href="#__codelineno-22-2" id="__codelineno-22-2" name="__codelineno-22-2"></a><span class="w">  </span>--name<span class="w"> </span>mySnowflakeEndpoint<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-22-3"><a href="#__codelineno-22-3" id="__codelineno-22-3" name="__codelineno-22-3"></a><span class="w">  </span>--resource-group<span class="w"> </span>myResourceGroup
+</span></code></pre></div>
+<p>Create a temporary access token that Snowflake can use to authorize the private endpoint:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a href="#__codelineno-23-1" id="__codelineno-23-1" name="__codelineno-23-1"></a>az<span class="w"> </span>account<span class="w"> </span>get-access-token<span class="w"> </span>--subscription<span class="w"> </span>&lt;subscription-id&gt;
+</span></code></pre></div>
+<p>Authorize the private endpoint in Snowflake:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-24-1"><a href="#__codelineno-24-1" id="__codelineno-24-1" name="__codelineno-24-1"></a><span class="n">USE</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">ACCOUNTADMIN</span><span class="p">;</span>
+</span><span id="__span-24-2"><a href="#__codelineno-24-2" id="__codelineno-24-2" name="__codelineno-24-2"></a><span class="k">select</span><span class="w"> </span><span class="k">SYSTEM</span><span class="err">$</span><span class="n">AUTHORIZE_PRIVATELINK</span><span class="p">(</span><span class="s1">'&lt;resource-id&gt;'</span><span class="p">,</span><span class="w"> </span><span class="s1">'&lt;access-token&gt;'</span><span class="p">);</span>
+</span></code></pre></div>
+<h4 id="step-5-block-public-access"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#step-5-block-public-access">Step 5: Block Public Access</a></h4>
+<p>To further reduce your attack surface, you can block public access to your Snowflake account. This ensures that all traffic to and from Snowflake goes through the private endpoint, reducing the risk of unauthorized access.</p>
+<p>To block public access to your Snowflake account, you need to use Network Policy, follow these steps:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-25-1"><a href="#__codelineno-25-1" id="__codelineno-25-1" name="__codelineno-25-1"></a><span class="n">USE</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">ACCOUNTADMIN</span><span class="p">;</span>
+</span><span id="__span-25-2"><a href="#__codelineno-25-2" id="__codelineno-25-2" name="__codelineno-25-2"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">NETWORK</span><span class="w"> </span><span class="k">RULE</span><span class="w"> </span><span class="n">allow_access_rule</span>
+</span><span id="__span-25-3"><a href="#__codelineno-25-3" id="__codelineno-25-3" name="__codelineno-25-3"></a><span class="w">  </span><span class="k">MODE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">INGRESS</span>
+</span><span id="__span-25-4"><a href="#__codelineno-25-4" id="__codelineno-25-4" name="__codelineno-25-4"></a><span class="w">  </span><span class="k">TYPE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IPV4</span>
+</span><span id="__span-25-5"><a href="#__codelineno-25-5" id="__codelineno-25-5" name="__codelineno-25-5"></a><span class="w">  </span><span class="n">VALUE_LIST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="s1">'192.168.1.99/24'</span><span class="p">);</span>
+</span><span id="__span-25-6"><a href="#__codelineno-25-6" id="__codelineno-25-6" name="__codelineno-25-6"></a>
+</span><span id="__span-25-7"><a href="#__codelineno-25-7" id="__codelineno-25-7" name="__codelineno-25-7"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">NETWORK</span><span class="w"> </span><span class="k">RULE</span><span class="w"> </span><span class="n">block_access_rule</span>
+</span><span id="__span-25-8"><a href="#__codelineno-25-8" id="__codelineno-25-8" name="__codelineno-25-8"></a><span class="w">  </span><span class="k">MODE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">INGRESS</span>
+</span><span id="__span-25-9"><a href="#__codelineno-25-9" id="__codelineno-25-9" name="__codelineno-25-9"></a><span class="w">  </span><span class="k">TYPE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IPV4</span>
+</span><span id="__span-25-10"><a href="#__codelineno-25-10" id="__codelineno-25-10" name="__codelineno-25-10"></a><span class="w">  </span><span class="n">VALUE_LIST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="s1">'0.0.0.0/0'</span><span class="p">);</span>
+</span><span id="__span-25-11"><a href="#__codelineno-25-11" id="__codelineno-25-11" name="__codelineno-25-11"></a>
+</span><span id="__span-25-12"><a href="#__codelineno-25-12" id="__codelineno-25-12" name="__codelineno-25-12"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">NETWORK</span><span class="w"> </span><span class="n">POLICY</span><span class="w"> </span><span class="n">public_network_policy</span>
+</span><span id="__span-25-13"><a href="#__codelineno-25-13" id="__codelineno-25-13" name="__codelineno-25-13"></a><span class="w">  </span><span class="n">ALLOWED_NETWORK_RULE_LIST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="s1">'allow_access_rule'</span><span class="p">)</span>
+</span><span id="__span-25-14"><a href="#__codelineno-25-14" id="__codelineno-25-14" name="__codelineno-25-14"></a><span class="w">  </span><span class="n">BLOCKED_NETWORK_RULE_LIST</span><span class="o">=</span><span class="p">(</span><span class="s1">'block_access_rule'</span><span class="p">);</span>
+</span></code></pre></div>
+<p>It's highly recommended to follow the best practices for network policies in Snowflake. You can find more information here:  https://docs.snowflake.com/en/user-guide/network-policies#best-practices</p>
+<h4 id="step-6-test-the-connection"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#step-6-test-the-connection">Step 6: Test the Connection</a></h4>
+<p>To test the connection between your virtual network and Snowflake, you can use the SnowSQL client. </p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a href="#__codelineno-26-1" id="__codelineno-26-1" name="__codelineno-26-1"></a>snowsql<span class="w"> </span>-a<span class="w"> </span>&lt;account_name&gt;<span class="w"> </span>-u<span class="w"> </span>&lt;username&gt;<span class="w"> </span>-r<span class="w"> </span>&lt;role&gt;<span class="w"> </span>-w<span class="w"> </span>&lt;warehouse&gt;<span class="w"> </span>-d<span class="w"> </span>&lt;database&gt;<span class="w"> </span>-s<span class="w"> </span>&lt;schema&gt;
+</span></code></pre></div>
+<h3 id="internal-stages-with-azure-blob-private-endpoints"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#internal-stages-with-azure-blob-private-endpoints">Internal Stages with Azure Blob Private Endpoints</a></h3>
+<p>If you are using Azure Blob Storage as an internal stage in Snowflake, you can also use Azure Private Link to secure the connection between Snowflake and Azure Blob Storage.</p>
+<p>It's recommended to use Azure Blob Storage with Private Endpoints to ensure that your data is secure and that you are reducing your attack surface, you can check the following documentation for more information: <a href="https://docs.snowflake.com/en/user-guide/private-internal-stages-azure">Azure Private Endpoints for Internal Stages</a> to learn how to configure Azure Blob Storage with Private Endpoints in Snowflake.</p>
+<h3 id="conclusion"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#conclusion">Conclusion</a></h3>
+<p>Reducing your attack surface is a critical aspect of securing your systems. By using Azure Private Link with Snowflake, you can significantly reduce the risk of unauthorized access and data breaches. Follow the steps outlined in this blog post to set up Azure Private Link with Snowflake and start securing your data today.</p>
+<h3 id="references"><a class="toclink" href="../../2024/05/04/reduce-your-attack-surface-in-snowflake-when-using-from-azure/#references">References</a></h3>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/azure/private-link/">Azure Private Link documentation</a></li>
+<li><a href="https://docs.snowflake.com/en/user-guide/intro-editions">Snowflake Editions</a></li>
+<li><a href="https://docs.snowflake.com/en/sql-reference/functions/system_get_privatelink">$GET_PRIVATELINK_CONFIG();</a></li>
+<li><a href="https://docs.snowflake.com/en/user-guide/network-policies">Snowflake Network Policies</a></li>
+<li><a href="https://docs.snowflake.com/en/user-guide/private-internal-stages-azure">Azure Private Endpoints for Internal Stages</a></li>
+</ul>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-05-03 00:00:00+00:00">May 3, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/devops/">DevOps</a></li>
+<li class="md-meta__item">
+            
+              3 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="nested-structures-with-optional-attributes-and-dynamic-blocks"><a class="toclink" href="../../2024/05/03/nested-structures-with-optional-attributes-and-dynamic-blocks/">Nested Structures with Optional Attributes and Dynamic Blocks</a></h2>
+<p>In this post, I will explain how to define nested structures with optional attributes and it's use dynamic blocks in Terraform.</p>
+<h3 id="nested-structures"><a class="toclink" href="../../2024/05/03/nested-structures-with-optional-attributes-and-dynamic-blocks/#nested-structures">Nested Structures</a></h3>
+<p>Terraform allows you to define nested structures to represent complex data types in your configuration. Nested structures are useful when you need to group related attributes together or define a data structure that contains multiple fields.</p>
+<p>For example, you might define a nested structure to represent a virtual machine with multiple attributes, such as size, image, and network configuration:</p>
+<div class="language-hcl highlight"><pre><span></span><code><span id="__span-4-1"><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="kr">variable</span><span class="w"> </span><span class="nv">"vm"</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-2"><a href="#__codelineno-4-2" id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="w">  </span><span class="na">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">object</span><span class="p">({</span>
+</span><span id="__span-4-3"><a href="#__codelineno-4-3" id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="w">    </span><span class="na">size</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-4-4"><a href="#__codelineno-4-4" id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="w">    </span><span class="na">image</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-4-5"><a href="#__codelineno-4-5" id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">    </span><span class="na">network</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="kt">object</span><span class="p">({</span>
+</span><span id="__span-4-6"><a href="#__codelineno-4-6" id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">      </span><span class="na">subnet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-4-7"><a href="#__codelineno-4-7" id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="w">      </span><span class="na">security_group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-4-8"><a href="#__codelineno-4-8" id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="w">    </span><span class="p">})</span>
+</span><span id="__span-4-9"><a href="#__codelineno-4-9" id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="w">  </span><span class="p">})</span>
+</span><span id="__span-4-10"><a href="#__codelineno-4-10" id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="p">}</span>
+</span><span id="__span-4-11"><a href="#__codelineno-4-11" id="__codelineno-4-11" name="__codelineno-4-11"></a>
+</span><span id="__span-4-12"><a href="#__codelineno-4-12" id="__codelineno-4-12" name="__codelineno-4-12"></a><span class="kr">resource</span><span class="w"> </span><span class="nc">"azurerm_virtual_machine"</span><span class="w"> </span><span class="nv">"example"</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-13"><a href="#__codelineno-4-13" id="__codelineno-4-13" name="__codelineno-4-13"></a><span class="w">  </span><span class="na">name</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"example-vm"</span>
+</span><span id="__span-4-14"><a href="#__codelineno-4-14" id="__codelineno-4-14" name="__codelineno-4-14"></a><span class="w">  </span><span class="na">size</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.size</span>
+</span><span id="__span-4-15"><a href="#__codelineno-4-15" id="__codelineno-4-15" name="__codelineno-4-15"></a><span class="w">  </span><span class="na">image</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.image</span>
+</span><span id="__span-4-16"><a href="#__codelineno-4-16" id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="w">  </span><span class="na">subnet</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.network.subnet</span>
+</span><span id="__span-4-17"><a href="#__codelineno-4-17" id="__codelineno-4-17" name="__codelineno-4-17"></a><span class="w">  </span><span class="na">security_group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.network.security_group</span>
+</span><span id="__span-4-18"><a href="#__codelineno-4-18" id="__codelineno-4-18" name="__codelineno-4-18"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>In this example, the <code>vm</code> variable defines a nested structure with three attributes: <code>size</code>, <code>image</code>, and <code>network</code>. The <code>network</code> attribute is itself a nested structure with two attributes: <code>subnet</code> and <code>security_group</code>.</p>
+<h3 id="optional-attributes"><a class="toclink" href="../../2024/05/03/nested-structures-with-optional-attributes-and-dynamic-blocks/#optional-attributes">Optional Attributes</a></h3>
+<p>If you have an attribute that is optional, you can define it as an optional attribute in your configuration. Optional attributes are useful when you want to provide a default value for an attribute but allow users to override it if needed.</p>
+<p>If optional doesn't works,  Terraform allows you to define your variables as <code>any</code> type, but it's not recommended because it can lead to errors and make your configuration less maintainable. It's better to define your variables with the correct type and use optional attributes when needed, but some cases it's necessary to use <code>any</code> and <code>null</code> values, you can minimize the risk of errors by providing a good description of the variable and its expected values.</p>
+<p>For example, you might define an optional attribute for the <code>security_group</code> in the <code>network</code> structure:</p>
+<div class="language-hcl highlight"><pre><span></span><code><span id="__span-5-1"><a href="#__codelineno-5-1" id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="kr">variable</span><span class="w"> </span><span class="nv">"vm"</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-2"><a href="#__codelineno-5-2" id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="w">  </span><span class="na">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="dl">DESCRIPTION</span>
+</span><span id="__span-5-3"><a href="#__codelineno-5-3" id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="sh">  Virtual machine configuration.</span>
+</span><span id="__span-5-4"><a href="#__codelineno-5-4" id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="sh">  The following attributes are required:</span>
+</span><span id="__span-5-5"><a href="#__codelineno-5-5" id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="sh">  - size: The size of the virtual machine.</span>
+</span><span id="__span-5-6"><a href="#__codelineno-5-6" id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="sh">  - image: The image for the virtual machine.</span>
+</span><span id="__span-5-7"><a href="#__codelineno-5-7" id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="sh">  - network: The network configuration for the virtual machine.</span>
+</span><span id="__span-5-8"><a href="#__codelineno-5-8" id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="sh">  The network configuration should have the following attributes:</span>
+</span><span id="__span-5-9"><a href="#__codelineno-5-9" id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="sh">  - subnet: The subnet for the virtual machine.</span>
+</span><span id="__span-5-10"><a href="#__codelineno-5-10" id="__codelineno-5-10" name="__codelineno-5-10"></a><span class="sh">  - security_group: The security group for the virtual machine.</span>
+</span><span id="__span-5-11"><a href="#__codelineno-5-11" id="__codelineno-5-11" name="__codelineno-5-11"></a><span class="dl">  DESCRIPTION</span>
+</span><span id="__span-5-12"><a href="#__codelineno-5-12" id="__codelineno-5-12" name="__codelineno-5-12"></a><span class="w">  </span><span class="na">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">any</span>
+</span><span id="__span-5-13"><a href="#__codelineno-5-13" id="__codelineno-5-13" name="__codelineno-5-13"></a><span class="w">  </span><span class="na">default</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">null</span>
+</span><span id="__span-5-14"><a href="#__codelineno-5-14" id="__codelineno-5-14" name="__codelineno-5-14"></a><span class="p">}</span>
+</span><span id="__span-5-15"><a href="#__codelineno-5-15" id="__codelineno-5-15" name="__codelineno-5-15"></a>
+</span><span id="__span-5-16"><a href="#__codelineno-5-16" id="__codelineno-5-16" name="__codelineno-5-16"></a><span class="kr">resource</span><span class="w"> </span><span class="nc">"azurerm_virtual_machine"</span><span class="w"> </span><span class="nv">"example"</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-17"><a href="#__codelineno-5-17" id="__codelineno-5-17" name="__codelineno-5-17"></a><span class="w">  </span><span class="na">name</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"example-vm"</span>
+</span><span id="__span-5-18"><a href="#__codelineno-5-18" id="__codelineno-5-18" name="__codelineno-5-18"></a><span class="w">  </span><span class="na">size</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.size</span>
+</span><span id="__span-5-19"><a href="#__codelineno-5-19" id="__codelineno-5-19" name="__codelineno-5-19"></a><span class="w">  </span><span class="na">image</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.image</span>
+</span><span id="__span-5-20"><a href="#__codelineno-5-20" id="__codelineno-5-20" name="__codelineno-5-20"></a><span class="w">  </span><span class="na">subnet</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.network.subnet</span>
+</span><span id="__span-5-21"><a href="#__codelineno-5-21" id="__codelineno-5-21" name="__codelineno-5-21"></a><span class="w">  </span><span class="na">security_group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.network.security_group</span>
+</span><span id="__span-5-22"><a href="#__codelineno-5-22" id="__codelineno-5-22" name="__codelineno-5-22"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-hcl highlight"><pre><span></span><code><span id="__span-6-1"><a href="#__codelineno-6-1" id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="kr">variable</span><span class="w"> </span><span class="nv">"vm"</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-2"><a href="#__codelineno-6-2" id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="w">  </span><span class="na">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">object</span><span class="p">({</span>
+</span><span id="__span-6-3"><a href="#__codelineno-6-3" id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="w">    </span><span class="na">size</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-6-4"><a href="#__codelineno-6-4" id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="w">    </span><span class="na">image</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-6-5"><a href="#__codelineno-6-5" id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="w">    </span><span class="na">network</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="kt">object</span><span class="p">({</span>
+</span><span id="__span-6-6"><a href="#__codelineno-6-6" id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="w">      </span><span class="na">subnet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-6-7"><a href="#__codelineno-6-7" id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="w">      </span><span class="na">security_group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">optional</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span>
+</span><span id="__span-6-8"><a href="#__codelineno-6-8" id="__codelineno-6-8" name="__codelineno-6-8"></a><span class="w">    </span><span class="p">})</span>
+</span><span id="__span-6-9"><a href="#__codelineno-6-9" id="__codelineno-6-9" name="__codelineno-6-9"></a><span class="w">  </span><span class="p">})</span>
+</span><span id="__span-6-10"><a href="#__codelineno-6-10" id="__codelineno-6-10" name="__codelineno-6-10"></a><span class="p">}</span>
+</span><span id="__span-6-11"><a href="#__codelineno-6-11" id="__codelineno-6-11" name="__codelineno-6-11"></a>
+</span><span id="__span-6-12"><a href="#__codelineno-6-12" id="__codelineno-6-12" name="__codelineno-6-12"></a>
+</span><span id="__span-6-13"><a href="#__codelineno-6-13" id="__codelineno-6-13" name="__codelineno-6-13"></a><span class="kr">resource</span><span class="w"> </span><span class="nc">"azurerm_virtual_machine"</span><span class="w"> </span><span class="nv">"example"</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-14"><a href="#__codelineno-6-14" id="__codelineno-6-14" name="__codelineno-6-14"></a><span class="w">  </span><span class="na">name</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"example-vm"</span>
+</span><span id="__span-6-15"><a href="#__codelineno-6-15" id="__codelineno-6-15" name="__codelineno-6-15"></a><span class="w">  </span><span class="na">size</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.size</span>
+</span><span id="__span-6-16"><a href="#__codelineno-6-16" id="__codelineno-6-16" name="__codelineno-6-16"></a><span class="w">  </span><span class="na">image</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.image</span>
+</span><span id="__span-6-17"><a href="#__codelineno-6-17" id="__codelineno-6-17" name="__codelineno-6-17"></a><span class="w">  </span><span class="na">subnet</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.network.subnet</span>
+</span><span id="__span-6-18"><a href="#__codelineno-6-18" id="__codelineno-6-18" name="__codelineno-6-18"></a><span class="w">  </span><span class="na">security_group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vm.network.security_group</span>
+</span><span id="__span-6-19"><a href="#__codelineno-6-19" id="__codelineno-6-19" name="__codelineno-6-19"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>In this example, the <code>security_group</code> attribute in the <code>network</code> structure is defined as an optional attribute with a default value of <code>null</code>. This allows users to provide a custom security group if needed, or use the default value if no value is provided.</p>
+<h3 id="dynamic-blocks"><a class="toclink" href="../../2024/05/03/nested-structures-with-optional-attributes-and-dynamic-blocks/#dynamic-blocks">Dynamic Blocks</a></h3>
+<p>Terraform allows you to use dynamic blocks to define multiple instances of a block within a resource or module. Dynamic blocks are useful when you need to create multiple instances of a block based on a list or map of values.</p>
+<p>For example, you might use a dynamic block to define multiple network interfaces for a virtual machine:</p>
+<div class="language-hcl highlight"><pre><span></span><code><span id="__span-7-1"><a href="#__codelineno-7-1" id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="kr">variable</span><span class="w"> </span><span class="nv">"network_interfaces"</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-2"><a href="#__codelineno-7-2" id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="w">  </span><span class="na">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="kt">object</span><span class="p">({</span>
+</span><span id="__span-7-3"><a href="#__codelineno-7-3" id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="w">    </span><span class="na">name</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-7-4"><a href="#__codelineno-7-4" id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="w">    </span><span class="na">subnet</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-7-5"><a href="#__codelineno-7-5" id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="w">    </span><span class="na">security_group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-7-6"><a href="#__codelineno-7-6" id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="w">  </span><span class="p">}))</span>
+</span><span id="__span-7-7"><a href="#__codelineno-7-7" id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="p">}</span>
+</span><span id="__span-7-8"><a href="#__codelineno-7-8" id="__codelineno-7-8" name="__codelineno-7-8"></a>
+</span><span id="__span-7-9"><a href="#__codelineno-7-9" id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="kr">resource</span><span class="w"> </span><span class="nc">"azurerm_virtual_machine"</span><span class="w"> </span><span class="nv">"example"</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-10"><a href="#__codelineno-7-10" id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="w">  </span><span class="na">name</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"example-vm"</span>
+</span><span id="__span-7-11"><a href="#__codelineno-7-11" id="__codelineno-7-11" name="__codelineno-7-11"></a><span class="w">  </span><span class="na">size</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"Standard_DS1_v2"</span>
+</span><span id="__span-7-12"><a href="#__codelineno-7-12" id="__codelineno-7-12" name="__codelineno-7-12"></a><span class="w">  </span><span class="na">image</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">"UbuntuServer"</span>
+</span><span id="__span-7-13"><a href="#__codelineno-7-13" id="__codelineno-7-13" name="__codelineno-7-13"></a>
+</span><span id="__span-7-14"><a href="#__codelineno-7-14" id="__codelineno-7-14" name="__codelineno-7-14"></a><span class="w">  </span><span class="err">dynamic</span><span class="w"> </span><span class="s2">"network_interface"</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-15"><a href="#__codelineno-7-15" id="__codelineno-7-15" name="__codelineno-7-15"></a><span class="w">    </span><span class="na">for_each</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">var.network_interfaces</span>
+</span><span id="__span-7-16"><a href="#__codelineno-7-16" id="__codelineno-7-16" name="__codelineno-7-16"></a><span class="w">    </span><span class="nb">content</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-17"><a href="#__codelineno-7-17" id="__codelineno-7-17" name="__codelineno-7-17"></a><span class="w">      </span><span class="na">name</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="nv">network_interface.value.name</span>
+</span><span id="__span-7-18"><a href="#__codelineno-7-18" id="__codelineno-7-18" name="__codelineno-7-18"></a><span class="w">      </span><span class="na">subnet</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="nv">network_interface.value.subnet</span>
+</span><span id="__span-7-19"><a href="#__codelineno-7-19" id="__codelineno-7-19" name="__codelineno-7-19"></a><span class="w">      </span><span class="na">security_group</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nv">network_interface.value.security_group</span>
+</span><span id="__span-7-20"><a href="#__codelineno-7-20" id="__codelineno-7-20" name="__codelineno-7-20"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-7-21"><a href="#__codelineno-7-21" id="__codelineno-7-21" name="__codelineno-7-21"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-7-22"><a href="#__codelineno-7-22" id="__codelineno-7-22" name="__codelineno-7-22"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>In this example, the <code>network_interfaces</code> variable defines a list of objects representing network interfaces with three attributes: <code>name</code>, <code>subnet</code>, and <code>security_group</code>. The dynamic block iterates over the list of network interfaces and creates a network interface block for each object in the list.</p>
+<h3 id="conclusion"><a class="toclink" href="../../2024/05/03/nested-structures-with-optional-attributes-and-dynamic-blocks/#conclusion">Conclusion</a></h3>
+<p>In this post, I explained how to define nested structures with optional attributes and use dynamic blocks in Terraform. Nested structures are useful for representing complex data types, while optional attributes allow you to provide default values for attributes that can be overridden by users. Dynamic blocks are useful for creating multiple instances of a block based on a list or map of values. By combining these features, you can create flexible and reusable configurations in Terraform.</p>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-05-02 00:00:00+00:00">May 2, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/azure-services/">Azure Services</a></li>
+<li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="azure-container-registry-artifact-cache"><a class="toclink" href="../../2024/05/02/azure-container-registry-artifact-cache/">Azure Container Registry: Artifact Cache</a></h2>
+<p>Azure Container Registry is a managed, private Docker registry service provided by Microsoft. It allows you to build, store, and manage container images and artifacts in a secure environment. </p>
+<h3 id="what-is-artifact-caching"><a class="toclink" href="../../2024/05/02/azure-container-registry-artifact-cache/#what-is-artifact-caching">What is Artifact Caching?</a></h3>
+<p>Artifact Cache is a feature in Azure Container Registry that allows users to cache container images in a private container registry. It is available in Basic, Standard, and Premium service tiers.</p>
+<h4 id="benefits-of-artifact-cache"><a class="toclink" href="../../2024/05/02/azure-container-registry-artifact-cache/#benefits-of-artifact-cache">Benefits of Artifact Cache</a></h4>
+<ul>
+<li><strong>Reliable pull operations</strong>: Faster pulls of container images are achievable by caching the container images in ACR.</li>
+<li><strong>Private networks</strong>: Cached registries are available on private networks.</li>
+<li><strong>Ensuring upstream content is delivered</strong>: Artifact Cache allows users to pull images from the local ACR instead of the upstream registry.</li>
+</ul>
+<h3 id="limitations"><a class="toclink" href="../../2024/05/02/azure-container-registry-artifact-cache/#limitations">Limitations</a></h3>
+<p>Cache will only occur after at least one image pull is complete on the available container image</p>
+<h3 id="how-to-use-artifact-cache-in-azure-container-registry-without-credential"><a class="toclink" href="../../2024/05/02/azure-container-registry-artifact-cache/#how-to-use-artifact-cache-in-azure-container-registry-without-credential">How to Use Artifact Cache in Azure Container Registry without credential?</a></h3>
+<p>Let's take a look at how you can implement artifact caching in Azure Container Registry.</p>
+<h4 id="step-1-create-a-cache-rule"><a class="toclink" href="../../2024/05/02/azure-container-registry-artifact-cache/#step-1-create-a-cache-rule">Step 1: Create a Cache Rule</a></h4>
+<p>The first step is to create a cache rule in your Azure Container Registry. This rule specifies the source image that should be cached and the target image that will be stored in the cache.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a href="#__codelineno-5-1" id="__codelineno-5-1" name="__codelineno-5-1"></a>az<span class="w"> </span>acr<span class="w"> </span>cache<span class="w"> </span>create<span class="w"> </span>-r<span class="w"> </span>MyRegistry<span class="w"> </span>-n<span class="w"> </span>MyRule<span class="w"> </span>-s<span class="w"> </span>docker.io/library/ubuntu<span class="w"> </span>-t<span class="w"> </span>ubuntu
+</span></code></pre></div>
+<p>Check the cache rule:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a href="#__codelineno-6-1" id="__codelineno-6-1" name="__codelineno-6-1"></a>az<span class="w"> </span>acr<span class="w"> </span>cache<span class="w"> </span>show<span class="w"> </span>-r<span class="w"> </span>MyRegistry<span class="w"> </span>-n<span class="w"> </span>MyRule
+</span></code></pre></div>
+<h4 id="step-2-pull-the-image"><a class="toclink" href="../../2024/05/02/azure-container-registry-artifact-cache/#step-2-pull-the-image">Step 2: Pull the Image</a></h4>
+<p>Next, you need to pull the image from the source registry to the cache. This will download the image and store it in the cache for future use.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a href="#__codelineno-7-1" id="__codelineno-7-1" name="__codelineno-7-1"></a>docker<span class="w"> </span>pull<span class="w"> </span>myregistry.azurecr.io/hello-world:latest
+</span></code></pre></div>
+<h4 id="step-3-clean-up-the-resources"><a class="toclink" href="../../2024/05/02/azure-container-registry-artifact-cache/#step-3-clean-up-the-resources">Step 3: Clean up the resources</a></h4>
+<p>Finally, you can clean up the resources by deleting the cache rule.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a href="#__codelineno-8-1" id="__codelineno-8-1" name="__codelineno-8-1"></a>az<span class="w"> </span>acr<span class="w"> </span>cache<span class="w"> </span>delete<span class="w"> </span>-r<span class="w"> </span>MyRegistry<span class="w"> </span>-n<span class="w"> </span>MyRule
+</span></code></pre></div>
+<p>If you need to check other rules, you can use the following command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a href="#__codelineno-9-1" id="__codelineno-9-1" name="__codelineno-9-1"></a>az<span class="w"> </span>acr<span class="w"> </span>cache<span class="w"> </span>list<span class="w"> </span>-r<span class="w"> </span>MyRegistry
+</span></code></pre></div>
+<h3 id="conclusion"><a class="toclink" href="../../2024/05/02/azure-container-registry-artifact-cache/#conclusion">Conclusion</a></h3>
+<p>Azure Container Registry's Artifact Cache feature provides a convenient way to cache container images in a private registry, improving pull performance and reducing network traffic. By following the steps outlined in this article, you can easily set up and use artifact caching in your Azure Container Registry.</p>
+<p>If you need to use the cache with authentication, you can use the following article: <a href="https://learn.microsoft.com/en-us/azure/container-registry/tutorial-enable-artifact-cache-auth-cli">Enable Artifact Cache with authentication</a>.</p>
+<p>For more detailed information, please visit the <a href="https://learn.microsoft.com/en-us/azure/container-registry/tutorial-artifact-cache">official tutorial</a> on the Microsoft Azure website.</p>
+<h3 id="references"><a class="toclink" href="../../2024/05/02/azure-container-registry-artifact-cache/#references">References</a></h3>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/azure/container-registry/">Azure Container Registry Documentation</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/container-registry/tutorial-artifact-cache">Azure Container Artifact Cache Overview</a></li>
+</ul>
+</div>
+</article>
+<article class="md-post md-post--excerpt">
+<header class="md-post__header">
+<nav class="md-post__authors md-typeset">
+<span class="md-author">
+<img alt="Rafael Fernández" src="https://avatars.githubusercontent.com/u/39990341">
+</span>
+</nav>
+<div class="md-post__meta md-meta">
+<ul class="md-meta__list">
+<li class="md-meta__item">
+<time datetime="2024-05-01 00:00:00+00:00">May 1, 2024</time></li>
+<li class="md-meta__item">
+            in
+            
+              <a class="md-meta__link" href="../../category/devops/">DevOps</a></li>
+<li class="md-meta__item">
+            
+              6 min read
+            
+          </li>
+</ul>
+</div>
+</header>
+<div class="md-post__content md-typeset">
+<h2 id="repository-strategy-branching-strategy"><a class="toclink" href="../../2024/05/01/repository-strategy-branching-strategy/">Repository Strategy: Branching Strategy</a></h2>
+<p>Once we have decided that we will use branches, it is time to define a strategy, so that all developers can work in a coordinated way.</p>
+<p>Some of the best known strategies are:</p>
+<ul>
+<li><strong>Gitflow</strong>: It is a branching model designed around the project release. It is a strict branching model that assigns very specific roles to different branches.</li>
+<li><strong>Feature Branch</strong>: It is a strategy where each feature is developed in a separate branch. This strategy is simple and easy to understand.</li>
+<li><strong>Trunk-Based Development</strong>: It is a strategy where all developers work on a single branch. This strategy is simple and easy to understand.</li>
+<li><strong>GitHub Flow</strong>: It is a strategy where all developers work on a single branch. This strategy is simple and easy to understand.</li>
+<li><strong>GitLab Flow</strong>: It is a strategy where all developers work on a single branch. This strategy is simple and easy to understand.</li>
+<li><strong>Microsoft Flow</strong>: It is a strategy where all developers work on a single branch. This strategy is simple and easy to understand.</li>
+</ul>
+<h3 id="gitflow"><a class="toclink" href="../../2024/05/01/repository-strategy-branching-strategy/#gitflow">Gitflow</a></h3>
+<p>Gitflow is a branching model designed around the project release. It is a strict branching model that assigns very specific roles to different branches.</p>
+<p>The Gitflow strategy is based on the following branches:</p>
+<ul>
+<li><strong>main</strong>: It is the main branch of the project. It contains the code that is in production.</li>
+<li><strong>develop</strong>: It is the branch where the code is integrated before being released to production.</li>
+</ul>
+<p>The Gitflow strategy is based on the following types of branches:</p>
+<ul>
+<li><strong>feature</strong>: It is the branch where the code for a new feature is developed.</li>
+<li><strong>release</strong>: It is the branch where the code is prepared for release.</li>
+<li><strong>hotfix</strong>: It is the branch where the code is developed to fix a bug in production.</li>
+</ul>
+<p>The Gitflow strategy is based on the following rules:</p>
+<ul>
+<li><strong>Feature branches are created from the develop branch</strong>.</li>
+<li><strong>Feature branches are merged into the develop branch</strong>.</li>
+<li><strong>Release branches are created from the develop branch</strong>.</li>
+<li><strong>Release branches are merged into the main and develop branches</strong>.</li>
+<li><strong>Hotfix branches are created from the main branch</strong>.</li>
+<li><strong>Hotfix branches are merged into the main and develop branches</strong>.</li>
+</ul>
+<p>The Gitflow strategy is based on the following workflow:</p>
+<ol>
+<li><strong>Developers create a feature branch from the develop branch</strong>.</li>
+<li><strong>Developers develop the code for the new feature in the feature branch</strong>.</li>
+<li><strong>Developers merge the feature branch into the develop branch</strong>.</li>
+<li><strong>Developers create a release branch from the develop branch</strong>.</li>
+<li><strong>Developers prepare the code for release in the release branch</strong>.</li>
+<li><strong>Developers merge the release branch into the main and develop branches</strong>.</li>
+<li><strong>Developers create a hotfix branch from the main branch</strong>.</li>
+<li><strong>Developers fix the bug in the hotfix branch</strong>.</li>
+<li><strong>Developers merge the hotfix branch into the main and develop branches</strong>.</li>
+</ol>
+<pre class="mermaid"><code>gitGraph:
+options
+{
+    "nodeSpacing": 150,
+    "nodeRadius": 10
+}
+end
+commit
+branch develop
+checkout develop
+commit
+commit
+branch feature_branch
+checkout feature_branch
+commit
+commit
+checkout develop
+merge feature_branch
+commit
+branch release_branch
+checkout release_branch
+commit
+commit
+checkout develop
+merge release_branch
+checkout main
+merge release_branch
+commit
+branch hotfix_branch
+checkout hotfix_branch
+commit
+commit
+checkout develop
+merge hotfix_branch
+checkout main
+merge hotfix_branch
+</code></pre>
+<p>The Gitflow strategy have the following advantages:</p>
+<ul>
+<li><strong>Isolation</strong>: Each feature is developed in a separate branch, isolating it from other features.</li>
+<li><strong>Collaboration</strong>: Developers can work on different features at the same time without affecting each other.</li>
+<li><strong>Stability</strong>: The main branch contains the code that is in production, ensuring that it is stable and reliable.</li>
+</ul>
+<p>The Gitflow strategy is based on the following disadvantages:</p>
+<ul>
+<li><strong>Complexity</strong>: The Gitflow strategy is complex and can be difficult to understand for new developers.</li>
+<li><strong>Overhead</strong>: The Gitflow strategy requires developers to create and manage multiple branches, which can be time-consuming.</li>
+</ul>
+<h3 id="feature-branch-workflow"><a class="toclink" href="../../2024/05/01/repository-strategy-branching-strategy/#feature-branch-workflow">Feature Branch Workflow</a></h3>
+<p>Feature Branch is a strategy where each feature is developed in a separate branch. This strategy is simple and easy to understand.</p>
+<p>The Feature Branch strategy is based on the following rules:</p>
+<ul>
+<li><strong>Developers create a feature branch from the main branch</strong>.</li>
+<li><strong>Developers develop the code for the new feature in the feature branch</strong>.</li>
+<li><strong>Developers merge the feature branch into the main branch</strong>.</li>
+</ul>
+<p>The Feature Branch strategy is based on the following workflow:</p>
+<ol>
+<li><strong>Developers create a feature branch from the main branch</strong>.</li>
+<li><strong>Developers develop the code for the new feature in the feature branch</strong>.</li>
+<li><strong>Developers merge the feature branch into the main branch</strong>.</li>
+</ol>
+<pre class="mermaid"><code>gitGraph:
+options
+{
+    "nodeSpacing": 150,
+    "nodeRadius": 10
+}
+end
+commit
+checkout main
+commit
+commit
+branch feature_branch
+checkout feature_branch
+commit
+commit
+checkout main
+merge feature_branch
+</code></pre>
+<p>The Feature Branch strategy is based on the following advantages:</p>
+<ul>
+<li><strong>Simplicity</strong>: The Feature Branch strategy is simple and easy to understand.</li>
+<li><strong>Flexibility</strong>: Developers can work on different features at the same time without affecting each other.</li>
+<li><strong>Visibility</strong>: Changes made in feature branches are visible to other developers, making it easier to review and merge changes.</li>
+</ul>
+<p>The Feature Branch strategy is based on the following disadvantages:</p>
+<ul>
+<li><strong>Conflicts</strong>: Multiple developers working on the same feature can lead to conflicts and merge issues.</li>
+<li><strong>Complexity</strong>: Managing multiple feature branches can be challenging, especially in large projects.</li>
+</ul>
+<h3 id="trunk-based-development"><a class="toclink" href="../../2024/05/01/repository-strategy-branching-strategy/#trunk-based-development">Trunk-Based Development</a></h3>
+<p>The Trunk-Based Development strategy is based on the following rules:</p>
+<ul>
+<li><strong>Developers work on a single branch</strong>.</li>
+<li><strong>Developers create feature flags to hide unfinished features</strong>.</li>
+<li><strong>Developers merge the code into the main branch when it is ready</strong>.</li>
+</ul>
+<p>The Trunk-Based Development strategy is based on the following workflow:</p>
+<ol>
+<li><strong>Developers work on a single branch</strong>.</li>
+<li><strong>Developers create feature flags to hide unfinished features</strong>.</li>
+<li><strong>Developers merge the code into the main branch when it is ready</strong>.</li>
+</ol>
+<pre class="mermaid"><code>gitGraph:
+options
+{
+    "nodeSpacing": 150,
+    "nodeRadius": 10
+}
+end
+commit
+checkout main
+commit
+commit tag:"v1.0.0"
+commit
+commit
+commit tag:"v2.0.0"
+</code></pre>
+<p>The Trunk-Based Development strategy is based on the following advantages:</p>
+<ul>
+<li><strong>Simplicity</strong>: The Trunk-Based Development strategy is simple and easy to understand.</li>
+<li><strong>Flexibility</strong>: Developers can work on different features at the same time without affecting each other.</li>
+<li><strong>Visibility</strong>: Changes made in the main branch are visible to other developers, making it easier to review and merge changes.</li>
+</ul>
+<p>The Trunk-Based Development strategy is based on the following disadvantages:</p>
+<ul>
+<li><strong>Conflicts</strong>: Multiple developers working on the same codebase can lead to conflicts and merge issues.</li>
+<li><strong>Complexity</strong>: Managing feature flags can be challenging, especially in large projects.</li>
+</ul>
+<h3 id="github-flow"><a class="toclink" href="../../2024/05/01/repository-strategy-branching-strategy/#github-flow">GitHub Flow</a></h3>
+<p>GitHub Flow is a strategy where all developers work on a single branch. This strategy is simple and easy to understand.</p>
+<p>The GitHub Flow strategy is based on the following rules:</p>
+<ul>
+<li><strong>Developers work on a single branch</strong>.</li>
+<li><strong>Developers create feature branches to work on new features</strong>.</li>
+<li><strong>Developers merge the feature branches into the main branch when they are ready</strong>.</li>
+</ul>
+<p>The GitHub Flow strategy is based on the following workflow:</p>
+<ol>
+<li><strong>Developers work on a single branch</strong>.</li>
+<li><strong>Developers create a feature branch from the main branch</strong>.</li>
+<li><strong>Developers develop the code for the new feature in the feature branch</strong>.</li>
+<li><strong>Developers merge the feature branch into the main branch</strong>.</li>
+</ol>
+<pre class="mermaid"><code>gitGraph:
+options
+{
+    "nodeSpacing": 150,
+    "nodeRadius": 10
+}
+end
+commit
+checkout main
+commit
+commit
+branch feature_branch
+checkout feature_branch
+commit
+commit
+checkout main
+merge feature_branch
+</code></pre>
+<h3 id="gitlab-flow"><a class="toclink" href="../../2024/05/01/repository-strategy-branching-strategy/#gitlab-flow">GitLab Flow</a></h3>
+<p>GitLab Flow is a strategy where all developers work on a single branch. This strategy is simple and easy to understand. GitLab Flow is often used with release branches.</p>
+<p>The GitLab Flow strategy is based on the following rules:</p>
+<ul>
+<li><strong>Developers work on a single branch</strong>.</li>
+<li><strong>Developers create feature branches to work on new features</strong>.</li>
+<li><strong>Developers merge the feature branches into the main branch when they are ready</strong>.</li>
+<li><strong>Developers create a pre-production branch to make bug fixes before merging changes back to the main branch</strong>.</li>
+<li><strong>Developers merge the pre-production branch into the main branch before going to production</strong>.</li>
+<li><strong>Developers can add as many pre-production branches as needed</strong>.</li>
+<li><strong>Developers can maintain different versions of the production branch</strong>.</li>
+</ul>
+<p>The GitLab Flow strategy is based on the following workflow:</p>
+<ol>
+<li><strong>Developers work on a single branch</strong>.</li>
+<li><strong>Developers create a feature branch from the main branch</strong>.</li>
+<li><strong>Developers develop the code for the new feature in the feature branch</strong>.</li>
+<li><strong>Developers merge the feature branch into the main branch</strong>.</li>
+<li><strong>Developers create a pre-production branch from the main branch</strong>.</li>
+<li><strong>Developers make bug fixes in the pre-production branch</strong>.</li>
+<li><strong>Developers merge the pre-production branch into the main branch</strong>.</li>
+<li><strong>Developers create a production branch from the main branch</strong>.</li>
+<li><strong>Developers merge the production branch into the main branch</strong>.</li>
+</ol>
+<pre class="mermaid"><code>gitGraph:
+options
+{
+    "nodeSpacing": 150,
+    "nodeRadius": 10
+}
+end
+commit
+checkout main
+commit
+commit
+branch feature_branch
+checkout feature_branch
+commit
+commit
+checkout main
+merge feature_branch
+commit
+branch pre-production
+checkout pre-production
+commit
+commit
+checkout main
+merge pre-production
+commit
+branch production
+checkout production
+commit
+commit
+checkout main
+merge production
+</code></pre>
+</div>
+</article>
+<nav class="md-pagination">
+<a class="md-pagination__link" href="../../">1</a> <span class="md-pagination__dots">..</span> <a class="md-pagination__link" href="../10/">10</a> <a class="md-pagination__link" href="../11/">11</a> <span class="md-pagination__current">12</span> <a class="md-pagination__link" href="../13/">13</a> <a class="md-pagination__link" href="../14/">14</a> <span class="md-pagination__dots">..</span> <a class="md-pagination__link" href="../17/">17</a>
+</nav>
+</div>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2023-now Rafael Fernández
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://www.linkedin.com/in/rafaelfernandezd/" rel="noopener" target="_blank" title="LinkedIn">
+<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"></path></svg>
+</a>
+<a class="md-social__link" href="https://github.com/rfernandezdo" rel="noopener" target="_blank" title="GitHub">
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="https://rfernandezdo.github.io/feed_rss_created.xml" rel="noopener" target="_blank" title="RSS feed">
+<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M64 32C28.7 32 0 60.7 0 96v320c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64zm32 104c0-13.3 10.7-24 24-24 137 0 248 111 248 248 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-110.5-89.5-200-200-200-13.3 0-24-10.7-24-24m0 96c0-13.3 10.7-24 24-24 83.9 0 152 68.1 152 152 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-57.4-46.6-104-104-104-13.3 0-24-10.7-24-24m0 120a32 32 0 1 1 64 0 32 32 0 1 1-64 0"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tabs", "navigation.tabs.sticky", "navigation.expand", "navigation.sections", "navigation.top", "navigation.tracking", "toc.integrate", "toc.nested", "toc.smoothscroll", "footer", "content.code.copy", "content.code.select", "content.code.annotate", "content.tooltips"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../javascripts/tablesort.js"></script>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.mermaidConfig = {default: {
+    startOnLoad: false
+}};</script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
