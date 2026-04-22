@@ -21,6 +21,8 @@ tags:
 
 VS Code no es solo un editor de código. Con las extensiones de GitHub Copilot y el soporte para agentes, instructions y skills, se convierte en una **plataforma de IA personalizable** donde puedes crear agentes especializados que actúan según tu dominio técnico, con tools propias (MCP servers) que ejecutan acciones específicas. Útil para automatizar flujos de trabajo, crear asistentes técnicos especializados, o integrar herramientas propias sin escribir extensiones tradicionales.
 
+En la práctica, este enfoque funciona **junto a GitHub Copilot Chat**: Copilot aporta el motor conversacional y de generación, y VS Code aporta el entorno, los agentes personalizados, las tools y el control de contexto.
+
 ## ¿Qué es el modelo de agentes en VS Code?
 
 VS Code permite definir **agentes** —programas de IA especializados— mediante archivos de configuración que actúan como **puntos de entrada** (entry points) o **subagentes** delegados por otros agentes. Cada agente tiene:
@@ -67,6 +69,18 @@ flowchart LR
     RESULT1 -->|síntesis| CHAT
     RESULT2 -->|síntesis| CHAT
 ```
+
+## Método práctico para montar tu stack de agentes
+
+Para evitar caos (y prompts gigantes), aplica un método incremental en capas:
+
+1. **Define reglas globales** en `copilot-instructions.md` (estilo, seguridad, límites)
+2. **Separa conocimiento reusable** en skills (`SKILL.md`), por dominio
+3. **Crea agentes por rol** (planner, implementer, reviewer), no por tecnología
+4. **Añade tools solo cuando haya fricción real** (MCP para acciones externas)
+5. **Itera con ciclos cortos**: prompt → resultado → ajuste de instrucciones/skill
+
+Esto mantiene el sistema simple, testeable y fácil de evolucionar en equipo.
 
 ## Instructions: directivas de comportamiento
 
@@ -316,6 +330,17 @@ Luego usa 'estimate-cost-terraform' para mostrar costos
 
 El agente ejecuta automáticamente las tools cuando es necesario.
 
+## Voice + text-to-speech en VS Code (con Copilot)
+
+VS Code incluye soporte de voz mediante la extensión **VS Code Speech** y se integra con el chat de Copilot:
+
+- **Dictado en editor**: `Voice: Start Dictation in Editor`
+- **Voice chat** con Copilot: `Chat: Start Voice Chat`
+- **Text-to-Speech (TTS) de respuestas** en chat, activando `accessibility.voice.autoSynthesize`
+- Ajuste de envío automático por pausa con `accessibility.voice.speechTimeout`
+
+En resumen: puedes hablarle a Copilot, recibir respuesta en texto y, si quieres, escuchar la respuesta en voz sin salir de VS Code.
+
 ## Buenas prácticas
 
 - **Granularidad**: un agente por especialidad (no un agente que hace todo)
@@ -340,11 +365,9 @@ El agente ejecuta automáticamente las tools cuando es necesario.
 
 ## Referencias
 
-- [GitHub Copilot Agents - Documentación oficial](https://github.com/features/copilot)
-- [Model Context Protocol (MCP) Spec](https://modelcontextprotocol.io/)
-- [VS Code Custom Instructions](https://code.visualstudio.com/docs/copilot/copilot-instructions)
-- [Agent Memory & Handoffs](https://docs.github.com/en/copilot/how-tos/use-copilot-agents)
----
-draft: false
-date: 2026-04-25
-authors:
+- [Chat en VS Code (GitHub Copilot)](https://code.visualstudio.com/docs/copilot/chat/copilot-chat)
+- [Custom agents en VS Code](https://code.visualstudio.com/docs/copilot/customization/custom-agents)
+- [Custom instructions en VS Code](https://code.visualstudio.com/docs/copilot/customization/custom-instructions)
+- [Agent Skills en VS Code](https://code.visualstudio.com/docs/copilot/customization/agent-skills)
+- [Voice support en VS Code (dictado, voice chat y TTS)](https://code.visualstudio.com/docs/configure/accessibility/voice)
+- [Model Context Protocol (MCP)](https://modelcontextprotocol.io/)
