@@ -19,7 +19,7 @@ tags:
 
 ## Resumen
 
-VS Code no es solo un editor de código. Con las extensiones de GitHub Copilot y el soporte para agentes, instructions y skills, se convierte en una **plataforma de IA personalizable** donde puedes crear agentes especializados que actúan según tu dominio técnico, con tools propias (MCP servers) que ejecutan acciones específicas. Útil para automatizar flujos de trabajo, crear asistentes técnicos especializados, o integrar herramientas propias sin escribir extensiones tradicionales.
+VS Code no es solo un editor de código. Con las extensiones de GitHub Copilot y el soporte para agentes, instructions y skills, se convierte en una **plataforma de IA personalizable** donde puedes crear agentes especializados que actúan según tu dominio técnico, con tools propias (scripts locales o MCP servers) que ejecutan acciones específicas. Útil para automatizar flujos de trabajo, crear asistentes técnicos especializados, o integrar herramientas propias sin escribir extensiones tradicionales.
 
 En la práctica, este enfoque funciona **junto a GitHub Copilot Chat**: Copilot aporta el motor conversacional y de generación, y VS Code aporta el entorno, los agentes personalizados, las tools y el control de contexto.
 
@@ -29,13 +29,14 @@ VS Code permite definir **agentes** —programas de IA especializados— mediant
 
 - **Instructions** (`.instructions.md`): Directivas de comportamiento y contexto
 - **Skills** (`.skill.md`): Módulos reutilizables de conocimiento dominio-específico
-- **Tools**: Funciones que el agente puede ejecutar (built-ins de VS Code o MCP servers)
+- **Tools**: Funciones que el agente puede ejecutar (built-ins de VS Code, scripts locales o MCP servers)
 - **Frontmatter YAML**: Metadatos de configuración (nombre, descripción, herramientas permitidas)
 
 **Diferencia clave:**
 
 - **Extensions**: requieren código TypeScript, compilación y empaquetado
-- **Agents + Tools (MCP)**: configuración declarativa + código backend independiente en Python/Node/Go
+- **Agents + Tools (scripts locales)**: agente con `execute` en tools → llama directamente a cualquier script del repo
+- **Agents + Tools (MCP)**: configuración declarativa + servidor backend independiente en Python/Node/Go
 
 ## Arquitectura: cómo trabajan juntos
 
@@ -77,7 +78,7 @@ Para evitar caos (y prompts gigantes), aplica un método incremental en capas:
 1. **Define reglas globales** en `copilot-instructions.md` (estilo, seguridad, límites)
 2. **Separa conocimiento reusable** en skills (`SKILL.md`), por dominio
 3. **Crea agentes por rol** (planner, implementer, reviewer), no por tecnología
-4. **Añade tools solo cuando haya fricción real** (MCP para acciones externas)
+4. **Añade tools solo cuando haya fricción real** (scripts locales primero; MCP server si necesitas protocolo estándar o server persistente)
 5. **Itera con ciclos cortos**: prompt → resultado → ajuste de instrucciones/skill
 
 Esto mantiene el sistema simple, testeable y fácil de evolucionar en equipo.
@@ -170,9 +171,53 @@ agents: []
 
 El coordinador lo invoca con: `runSubagent(agentName: "Azure Security Auditor", prompt: "...")`
 
-## Tools propias: MCP servers
+## Tools propias: scripts locales y MCP servers
 
-Un **MCP (Model Context Protocol) server** es un programa que expone funciones (tools) disponibles para agentes.
+Las tools de un agente no tienen por qué ser MCP servers. La opción más simple es habilitar `execute` en el frontmatter del agente y dejar que invoque scripts que ya tienes en el repo.
+
+### Opción 1: script local (sin MCP)
+
+Si el agente tiene `execute` entre sus tools, puede ejecutar cualquier script del workspace directamente:
+
+```yaml
+---
+name: Azure Auditor
+tools: ['read', 'search', 'execute']
+---
+```
+
+Ejemplo de script que el agente invoca:
+
+```bash
+# scripts/check_azure_costs.sh
+#!/usr/bin/env bash
+SUBSCRIPTION_ID="$1"
+DAYS="${2:-30}"
+az costmanagement query \
+  --type ActualCost \
+  --dataset-aggregation '{"totalCost": {"name": "Cost", "function": "Sum"}}' \
+  --timeframe Custom \
+  --time-period from="$(date -d "-${DAYS} days" +%Y-%m-%d)" to="$(date +%Y-%m-%d)"
+```
+
+El agente lo llama así en su razonamiento interno:
+
+```text
+Ejecuta: bash scripts/check_azure_costs.sh $SUBSCRIPTION_ID 30
+```
+
+Nada de servidores, nada de protocolo: solo un script en bash/Python/PowerShell que ya existe.
+
+**Cuándo usar scripts locales:**
+
+- Automatización simple (validar, consultar, transformar datos)
+- El script ya existe en el repo y no necesita ser un servicio
+- Entorno controlado (el agente corre en tu máquina)
+- Prototipado rápido antes de decidir si merece un MCP server
+
+### Opción 2: MCP server
+
+Un **MCP (Model Context Protocol) server** es un programa que expone funciones (tools) disponibles para agentes. Tiene más overhead que un script, pero también más capacidades.
 
 ### Ejemplo: MCP server Python simple
 
@@ -347,8 +392,9 @@ En resumen: puedes hablarle a Copilot, recibir respuesta en texto y, si quieres,
 - **Tools pequeñas y puras**: cada tool resuelve un problema específico
 - **Instructions claras**: especifica rol, restricciones y formato de salida esperado
 - **Versionado de skills**: documenta qué cambios entre versiones
+- **Scripts primero, MCP después**: implementa la lógica como script ejecutable antes de envolverla en un MCP server. Es más fácil de testear y depurar
 - **Testing de MCP servers**: prueba las tools localmente antes de registrar en mcp.json
-- **Logging**: los MCP servers deben escribir logs en stderr para debugging
+- **Logging**: los MCP servers deben escribir logs en stderr para debugging; los scripts a un archivo de log en `logs/`
 
 !!! note
     Los agentes se ejecutan en tu máquina local (VS Code). No hay datos que suban a servidores Microsoft/OpenAI sin tu consentimiento. Todo es privado.
